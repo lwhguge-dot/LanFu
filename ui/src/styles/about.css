@@ -153,10 +153,6 @@
 
 @media (prefers-reduced-motion: reduce) {
   .about-hero__clawd,
-  .about-hero__clawd .lobster-pet__svg,
-  .about-hero__clawd .lob-eye-open,
-  .about-hero__clawd .lob-eye-closed,
-  .about-hero__clawd .lob-claw--r,
   .about-hero__link {
     animation: none;
     transition: none;
@@ -166,6 +162,11 @@
 @media (max-width: 560px) {
   .about-hero__clawd {
     width: 128px;
+  }
+
+  .about-hero__clawd openclaw-mascot {
+    width: 118px;
+    height: 118px;
   }
 
   .about-hero__name {
