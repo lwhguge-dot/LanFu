@@ -2,6 +2,7 @@
 
 import { render } from "lit";
 import { beforeEach, describe, expect, it, vi } from "vitest";
+import "../../components/openclaw-mascot.ts";
 import { i18n } from "../../i18n/index.ts";
 import { renderAbout } from "./view.ts";
 
@@ -46,7 +47,7 @@ describe("renderAbout", () => {
     const hero = container.querySelector(".about-hero");
     expect(hero?.querySelector(".about-hero__name")?.textContent).toBe("LanFu");
     expect(hero?.querySelector(".about-hero__version")?.textContent).toBe("v2026.7.10");
-    expect(hero?.querySelector(".about-hero__clawd svg")).not.toBeNull();
+    expect(hero?.querySelector(".about-hero__clawd openclaw-mascot")).not.toBeNull();
 
     const clawd = hero?.querySelector<HTMLButtonElement>(".about-hero__clawd");
     expect(clawd?.getAttribute("aria-label")).toBe("Wave hello to Clawd");
@@ -63,10 +64,12 @@ describe("renderAbout", () => {
   it("marks the hero as waving only while a poke is active", () => {
     const container = document.createElement("div");
     render(renderAbout(createProps({ clawdWaving: true })), container);
-    expect(container.querySelector(".about-hero__clawd--wave")).not.toBeNull();
+    const teasing = container.querySelector<HTMLElement>(".about-hero__clawd openclaw-mascot");
+    expect((teasing as unknown as { tease: boolean }).tease).toBe(true);
 
     render(renderAbout(createProps({ clawdWaving: false })), container);
-    expect(container.querySelector(".about-hero__clawd--wave")).toBeNull();
+    const idle = container.querySelector<HTMLElement>(".about-hero__clawd openclaw-mascot");
+    expect((idle as unknown as { tease: boolean }).tease).toBe(false);
   });
 
   it("keeps version, commit, branch, and localized UTC build date in one facts grid", () => {

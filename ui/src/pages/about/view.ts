@@ -1,13 +1,7 @@
-import { expectDefined } from "@openclaw/normalization-core";
 import { html, nothing, type TemplateResult } from "lit";
 import type { ControlUiBuildInfo } from "../../build-info.ts";
 import { icons } from "../../components/icons.ts";
-import {
-  canonicalLobsterLook,
-  lobsterLookStyle,
-  renderLobsterSvg,
-} from "../../components/lobster-pet-look.ts";
-import { LOBSTER_PET_PALETTES } from "../../components/lobster-pet-palettes.ts";
+import "../../components/openclaw-mascot.ts";
 import { currentThemeBranding } from "../../components/neutral-mark.ts";
 import {
   renderSettingsPage,
@@ -127,13 +121,10 @@ function renderCommit(props: AboutProps) {
   `;
 }
 
-// The same canonical crimson Clawd as the chat welcome hero, rendered big.
-// The poke button replays the claw wave; ambient motion lives in about.css.
+// The LanFu bluebird hero, the same mascot component as the chat welcome hero.
+// The poke button flips it into a teasing beat; ambient idle motion and
+// blinking live in the mascot animator.
 function renderHero(props: AboutProps) {
-  const palette =
-    LOBSTER_PET_PALETTES.find((entry) => entry.id === "crimson") ??
-    expectDefined(LOBSTER_PET_PALETTES[0], "about lobster palette");
-  const look = canonicalLobsterLook(palette);
   return html`
     <section class="about-hero">
       ${
@@ -141,12 +132,15 @@ function renderHero(props: AboutProps) {
           ? html`<span class="about-hero__mark--neutral" aria-hidden="true">${icons.mark}</span>`
           : html`<button
               type="button"
-              class="about-hero__clawd ${props.clawdWaving ? "about-hero__clawd--wave" : ""}"
-              style=${lobsterLookStyle(look)}
+              class="about-hero__clawd"
               aria-label=${t("aboutPage.waveHello")}
               @click=${props.onPokeClawd}
             >
-              ${renderLobsterSvg(look)}
+              <openclaw-mascot
+                mood="idle"
+                .tease=${props.clawdWaving}
+                .size=${150}
+              ></openclaw-mascot>
             </button>`
       }
       <h2 class="about-hero__name">${t("aboutPage.productName")}</h2>

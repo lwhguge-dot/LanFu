@@ -11,8 +11,8 @@ import { SubscriptionsController } from "../../lit/subscriptions-controller.ts";
 import { renderAbout, type AboutCommitCopyState } from "./view.ts";
 
 const COPY_RESULT_VISIBLE_MS = 1800;
-// Mirrors the about-clawd-wave animation duration in about.css so the wave
-// class comes off right as the claw settles and the next poke can replay it.
+// How long the hero mascot stays in its teasing beat before the next poke
+// can replay it; the mascot animator owns the beat's own motion.
 const CLAWD_WAVE_MS = 1400;
 
 class AboutPage extends OpenClawLightDomElement {
