@@ -1,5 +1,7 @@
 /* oxlint-disable unicorn/no-array-fill-with-reference-type -- CanvasRenderingContext2D.fill is not Array.fill. */
-// Canvas-only rendering for the canonical 120x120 Clawd vector.
+// Canvas-only rendering for the canonical 120x120 LanFu bluebird vector.
+// Shape anatomy keeps the upstream pose channels intact: the "claw" paths are
+// wings (celebrating raises them), the "antenna" strokes are the head crest.
 import type { MascotPalette, MascotPose } from "./mascot-pose.ts";
 
 const ART_SIZE = 120;
@@ -7,6 +9,9 @@ const TAU = Math.PI * 2;
 const EYE = "#050810";
 const EYE_GLOW = "#00e5cc";
 const BLUSH = "#ff9eae";
+const BEAK = "#f2a833";
+const BEAK_LIGHT = "#ffd659";
+const BEAK_OUTLINE = "rgba(184, 115, 31, 0.7)";
 const HAT_AMBER = "#f2a833";
 const HAT_LIGHT = "#ffd659";
 const HAT_OUTLINE = "rgba(184, 115, 31, 0.7)";
@@ -29,62 +34,59 @@ function mascotPaths(): MascotPaths {
     return cachedPaths;
   }
 
+  // Vertical egg body with two small feet, sized so the upstream face anchors
+  // (eyes 45/75 @ y35, mouth ~y56, hat 45..75 @ y3..19) all land on the body.
   const body = new Path2D();
-  body.moveTo(60, 10);
-  body.bezierCurveTo(30, 10, 15, 35, 15, 55);
-  body.bezierCurveTo(15, 75, 30, 95, 45, 100);
-  body.lineTo(45, 110);
-  body.lineTo(55, 110);
-  body.lineTo(55, 100);
-  body.bezierCurveTo(55, 100, 60, 102, 65, 100);
-  body.lineTo(65, 110);
-  body.lineTo(75, 110);
-  body.lineTo(75, 100);
-  body.bezierCurveTo(90, 95, 105, 75, 105, 55);
-  body.bezierCurveTo(105, 35, 90, 10, 60, 10);
+  body.moveTo(60, 12);
+  body.bezierCurveTo(42, 12, 28, 28, 26, 48);
+  body.bezierCurveTo(24, 70, 30, 90, 42, 100);
+  body.lineTo(42, 110);
+  body.lineTo(52, 110);
+  body.lineTo(52, 100);
+  body.bezierCurveTo(52, 100, 56, 102, 60, 102);
+  body.bezierCurveTo(64, 102, 68, 100, 68, 100);
+  body.lineTo(68, 110);
+  body.lineTo(78, 110);
+  body.lineTo(78, 100);
+  body.bezierCurveTo(90, 90, 96, 70, 94, 48);
+  body.bezierCurveTo(92, 28, 78, 12, 60, 12);
   body.closePath();
 
+  // Wings, hinged at the shoulders (26,53)/(94,53): idle hangs flat along the
+  // body; the celebrating pose rotates them outward like flapping.
   const leftClaw = new Path2D();
-  leftClaw.moveTo(20, 45);
-  leftClaw.bezierCurveTo(5, 40, 0, 50, 5, 60);
-  leftClaw.bezierCurveTo(10, 70, 20, 65, 25, 55);
-  leftClaw.bezierCurveTo(28, 48, 25, 45, 20, 45);
+  leftClaw.moveTo(33, 46);
+  leftClaw.bezierCurveTo(22, 52, 16, 68, 21, 82);
+  leftClaw.bezierCurveTo(24, 88, 32, 88, 34, 80);
+  leftClaw.bezierCurveTo(37, 70, 38, 58, 33, 46);
   leftClaw.closePath();
 
   const rightClaw = new Path2D();
-  rightClaw.moveTo(100, 45);
-  rightClaw.bezierCurveTo(115, 40, 120, 50, 115, 60);
-  rightClaw.bezierCurveTo(110, 70, 100, 65, 95, 55);
-  rightClaw.bezierCurveTo(92, 48, 95, 45, 100, 45);
+  rightClaw.moveTo(87, 46);
+  rightClaw.bezierCurveTo(98, 52, 104, 68, 99, 82);
+  rightClaw.bezierCurveTo(96, 88, 88, 88, 86, 80);
+  rightClaw.bezierCurveTo(83, 70, 82, 58, 87, 46);
   rightClaw.closePath();
 
+  // Head crest feathers, sprung from the crown so antennaDroop reads as
+  // feathers sagging and antenna wiggle reads as crest bounce.
   const leftAntenna = new Path2D();
-  leftAntenna.moveTo(45, 15);
-  leftAntenna.quadraticCurveTo(35, 5, 30, 8);
+  leftAntenna.moveTo(50, 14);
+  leftAntenna.quadraticCurveTo(38, 4, 32, 9);
 
   const rightAntenna = new Path2D();
-  rightAntenna.moveTo(75, 15);
-  rightAntenna.quadraticCurveTo(85, 5, 90, 8);
+  rightAntenna.moveTo(70, 14);
+  rightAntenna.quadraticCurveTo(82, 4, 88, 9);
 
   cachedPaths = {
-    body: { path: body, bounds: { minX: 15, minY: 10, maxX: 105, maxY: 110 } },
+    body: { path: body, bounds: { minX: 24, minY: 12, maxX: 96, maxY: 110 } },
     leftClaw: {
       path: leftClaw,
-      bounds: {
-        minX: 3.125,
-        minY: 43.670_068_381_445_48,
-        maxX: 26.196_938_456_699_073,
-        maxY: 65.450_849_718_747_38,
-      },
+      bounds: { minX: 18, minY: 46, maxX: 38, maxY: 86 },
     },
     rightClaw: {
       path: rightClaw,
-      bounds: {
-        minX: 93.803_061_543_300_93,
-        minY: 43.670_068_381_445_48,
-        maxX: 116.875,
-        maxY: 65.450_849_718_747_38,
-      },
+      bounds: { minX: 82, minY: 46, maxX: 102, maxY: 86 },
     },
     leftAntenna,
     rightAntenna,
@@ -214,6 +216,23 @@ function drawEye(ctx: CanvasRenderingContext2D, center: Point, openness: number,
   ctx.restore();
 }
 
+function drawBeak(ctx: CanvasRenderingContext2D): void {
+  const beak = new Path2D();
+  beak.moveTo(60, 42);
+  beak.lineTo(66, 48);
+  beak.lineTo(60, 53);
+  beak.lineTo(54, 48);
+  beak.closePath();
+  const fill = ctx.createLinearGradient(56, 42, 64, 53);
+  fill.addColorStop(0, BEAK_LIGHT);
+  fill.addColorStop(1, BEAK);
+  ctx.fillStyle = fill;
+  ctx.fill(beak);
+  ctx.strokeStyle = BEAK_OUTLINE;
+  ctx.lineWidth = 0.8;
+  ctx.stroke(beak);
+}
+
 function drawMouth(ctx: CanvasRenderingContext2D, pose: MascotPose): void {
   ctx.fillStyle = EYE;
   ctx.strokeStyle = EYE;
@@ -221,13 +240,13 @@ function drawMouth(ctx: CanvasRenderingContext2D, pose: MascotPose): void {
   if (pose.mouthRound > 0.05) {
     const radiusX = 1 + 3.2 * pose.mouthRound;
     const radiusY = 1 + 4.2 * pose.mouthRound;
-    ctx.fill(ellipsePath({ x: 60, y: 51 }, radiusX, radiusY));
+    ctx.fill(ellipsePath({ x: 60, y: 58 }, radiusX, radiusY));
     return;
   }
   if (pose.mouthOpen > 0.05) {
     const grin = new Path2D();
-    grin.moveTo(52.5, 48.5);
-    grin.quadraticCurveTo(60, 48.5 + 14 * pose.mouthOpen, 67.5, 48.5);
+    grin.moveTo(53, 55.5);
+    grin.quadraticCurveTo(60, 55.5 + 12 * pose.mouthOpen, 67, 55.5);
     grin.closePath();
     ctx.fill(grin);
     return;
@@ -236,8 +255,8 @@ function drawMouth(ctx: CanvasRenderingContext2D, pose: MascotPose): void {
     return;
   }
   const curve = new Path2D();
-  curve.moveTo(52.5, 49);
-  curve.quadraticCurveTo(60, 49 + 8 * pose.mouthCurve, 67.5, 49);
+  curve.moveTo(53.5, 56);
+  curve.quadraticCurveTo(60, 56 + 7 * pose.mouthCurve, 66.5, 56);
   ctx.lineWidth = 2.2;
   ctx.stroke(curve);
 }
@@ -249,8 +268,8 @@ function drawBlush(ctx: CanvasRenderingContext2D, pose: MascotPose): void {
   ctx.save();
   ctx.globalAlpha *= pose.blush * 0.55;
   ctx.fillStyle = BLUSH;
-  ctx.fill(ellipsePath({ x: 37, y: 45 }, 4.5, 2.5));
-  ctx.fill(ellipsePath({ x: 83, y: 45 }, 4.5, 2.5));
+  ctx.fill(ellipsePath({ x: 38, y: 44 }, 4.5, 2.5));
+  ctx.fill(ellipsePath({ x: 82, y: 44 }, 4.5, 2.5));
   ctx.restore();
 }
 
@@ -442,11 +461,11 @@ export function drawMascot(
 
   ctx.fillStyle = gradient(ctx, paths.body, palette);
   ctx.fill(paths.body.path);
-  rotated(ctx, pose.leftClawDegrees, { x: 26, y: 53 }, () => {
+  rotated(ctx, pose.leftClawDegrees, { x: 33, y: 48 }, () => {
     ctx.fillStyle = gradient(ctx, paths.leftClaw, palette);
     ctx.fill(paths.leftClaw.path);
   });
-  rotated(ctx, pose.rightClawDegrees, { x: 94, y: 53 }, () => {
+  rotated(ctx, pose.rightClawDegrees, { x: 87, y: 48 }, () => {
     ctx.fillStyle = gradient(ctx, paths.rightClaw, palette);
     ctx.fill(paths.rightClaw.path);
   });
@@ -455,13 +474,14 @@ export function drawMascot(
   ctx.strokeStyle = palette.antenna;
   ctx.lineWidth = 2;
   ctx.lineCap = "round";
-  rotated(ctx, -pose.antennaDroop * 40, { x: 45, y: 15 }, () => {
-    rotated(ctx, wiggle, { x: 37.5, y: 11 }, () => ctx.stroke(paths.leftAntenna));
+  rotated(ctx, -pose.antennaDroop * 40, { x: 50, y: 14 }, () => {
+    rotated(ctx, wiggle, { x: 41, y: 9 }, () => ctx.stroke(paths.leftAntenna));
   });
-  rotated(ctx, pose.antennaDroop * 40, { x: 75, y: 15 }, () => {
-    rotated(ctx, wiggle, { x: 82.5, y: 11 }, () => ctx.stroke(paths.rightAntenna));
+  rotated(ctx, pose.antennaDroop * 40, { x: 70, y: 14 }, () => {
+    rotated(ctx, wiggle, { x: 79, y: 9 }, () => ctx.stroke(paths.rightAntenna));
   });
 
+  drawBeak(ctx);
   drawHardHat(ctx, pose.hardHat);
   drawBlush(ctx, pose);
   drawEye(ctx, { x: 45, y: 35 }, pose.leftEyeOpenness, pose);
