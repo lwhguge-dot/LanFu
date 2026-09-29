@@ -38,13 +38,13 @@ describe("renderAbout", () => {
     await i18n.setLocale("en");
   });
 
-  it("renders the hero with Clawd, identity, community links, and license", () => {
+  it("renders the hero with Clawd, identity, and license", () => {
     const onPokeClawd = vi.fn();
     const container = document.createElement("div");
     render(renderAbout(createProps({ onPokeClawd })), container);
 
     const hero = container.querySelector(".about-hero");
-    expect(hero?.querySelector(".about-hero__name")?.textContent).toBe("OpenClaw");
+    expect(hero?.querySelector(".about-hero__name")?.textContent).toBe("LanFu");
     expect(hero?.querySelector(".about-hero__version")?.textContent).toBe("v2026.7.10");
     expect(hero?.querySelector(".about-hero__clawd svg")).not.toBeNull();
 
@@ -53,20 +53,9 @@ describe("renderAbout", () => {
     clawd?.click();
     expect(onPokeClawd).toHaveBeenCalledOnce();
 
+    // LanFu ships without upstream community links.
     const links = Array.from(hero?.querySelectorAll<HTMLAnchorElement>(".about-hero__link") ?? []);
-    expect(links.map((link) => link.getAttribute("href"))).toEqual([
-      "https://openclaw.ai",
-      "https://docs.openclaw.ai",
-      "https://github.com/openclaw/openclaw",
-      "https://discord.gg/clawd",
-      "https://x.com/openclaw",
-      "https://docs.openclaw.ai/releases",
-    ]);
-    for (const link of links) {
-      expect(link.getAttribute("target")).toBe("_blank");
-      expect(link.getAttribute("rel")).toContain("noopener");
-      expect(link.getAttribute("rel")).toContain("noreferrer");
-    }
+    expect(links).toEqual([]);
 
     expect(container.querySelector(".about-footer")?.textContent).toContain("MIT License");
   });
