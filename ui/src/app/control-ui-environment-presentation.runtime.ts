@@ -100,7 +100,7 @@ function resolveFaviconPalette() {
           glyph: style.getPropertyValue("--primary-foreground").trim(),
         })
       : environmentColor
-        ? `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120"><path fill="${environmentColor}" d="M60 10C30 10 15 35 15 55c0 20 15 40 30 45v10h10v-10h10v10h10v-10c15-5 30-25 30-45 0-20-15-45-45-45Z"/></svg>`
+        ? `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120"><path fill="${environmentColor}" d="M60 12C42 12 28 28 26 48c-2 22 4 42 16 52v10h10v-10c0 0 8 2 16 0v10h10v-10c12-10 18-30 16-52C92 28 78 12 60 12Z"/></svg>`
         : null;
   const baseSvg = artwork ? `data:image/svg+xml,${encodeURIComponent(artwork)}` : null;
   const light = root.dataset.themeMode === "light";

@@ -90,11 +90,11 @@
   --inbox-attention-hover: color-mix(in srgb, var(--inbox-attention) 88%, black);
   --inbox-attention-foreground: #ffffff;
 
-  /* Lobster mascot icon (icons-tools.ts). Dark surfaces swallowed the shipped
-     #ff4d4d→#991b1b gradient, so dark mode lifts both stops; light mode
+  /* Mascot icon (icons-tools.ts). Dark surfaces swallow the shipped
+     #3b82f6→#1e40af gradient, so dark mode lifts both stops; light mode
      restores the original artwork below. */
-  --lobster-icon-body: #ff6d5a;
-  --lobster-icon-shade: #c2372b;
+  --lobster-icon-body: #4f8ef7;
+  --lobster-icon-shade: #2a5cd8;
   --lobster-icon-eye: #050810;
 
   /* Link text keeps the accent hue but cannot be --accent: chat paints user
@@ -578,9 +578,9 @@
   --primary: #bd4531;
   --primary-foreground: #ffffff;
 
-  /* Original lobster artwork reads well on light surfaces. */
-  --lobster-icon-body: #ff4d4d;
-  --lobster-icon-shade: #991b1b;
+  /* Bluebird mascot artwork reads well on light surfaces. */
+  --lobster-icon-body: #3b82f6;
+  --lobster-icon-shade: #1e40af;
   --lobster-icon-eye: #050810;
 
   --secondary: #f4f1ec;

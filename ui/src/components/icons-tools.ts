@@ -169,35 +169,24 @@ export const toolIcons = {
     d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"
   />`),
   // Theme tokens brighten the gradient in dark mode; var() needs style attributes.
+  // LanFu bluebird; shapes mirror ui/src/components/mascot-canvas.ts.
   lobster: html`
     <svg viewBox="0 0 120 120" fill="none">
       <defs>
         <linearGradient id="lob-g" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" style="stop-color: var(--lobster-icon-body, #ff4d4d)" />
-          <stop offset="100%" style="stop-color: var(--lobster-icon-shade, #991b1b)" />
+          <stop offset="0%" style="stop-color: var(--lobster-icon-body, #3b82f6)" />
+          <stop offset="100%" style="stop-color: var(--lobster-icon-shade, #1e40af)" />
         </linearGradient>
       </defs>
       <path
-        d="M60 10C30 10 15 35 15 55C15 75 30 95 45 100L45 110L55 110L55 100C55 100 60 102 65 100L65 110L75 110L75 100C90 95 105 75 105 55C105 35 90 10 60 10Z"
+        d="M60 12C42 12 28 28 26 48C24 70 30 90 42 100L42 110L52 110L52 100C52 100 56 102 60 102C64 102 68 100 68 100L68 110L78 110L78 100C90 90 96 70 94 48C92 28 78 12 60 12Z"
         fill="url(#lob-g)"
       />
-      <path d="M20 45C5 40 0 50 5 60C10 70 20 65 25 55C28 48 25 45 20 45Z" fill="url(#lob-g)" />
-      <path
-        d="M100 45C115 40 120 50 115 60C110 70 100 65 95 55C92 48 95 45 100 45Z"
-        fill="url(#lob-g)"
-      />
-      <path
-        d="M45 15Q35 5 30 8"
-        style="stroke: var(--lobster-icon-body, #ff4d4d)"
-        stroke-width="3"
-        stroke-linecap="round"
-      />
-      <path
-        d="M75 15Q85 5 90 8"
-        style="stroke: var(--lobster-icon-body, #ff4d4d)"
-        stroke-width="3"
-        stroke-linecap="round"
-      />
+      <path d="M33 46C22 52 16 68 21 82C24 88 32 88 34 80C37 70 38 58 33 46Z" fill="url(#lob-g)" />
+      <path d="M87 46C98 52 104 68 99 82C96 88 88 88 86 80C83 70 82 58 87 46Z" fill="url(#lob-g)" />
+      <path d="M50 14Q38 4 32 9" style="stroke: #93c5fd" stroke-width="3" stroke-linecap="round" />
+      <path d="M70 14Q82 4 88 9" style="stroke: #93c5fd" stroke-width="3" stroke-linecap="round" />
+      <path d="M60 42L66 48L60 53L54 48Z" fill="#f2a833" />
       <circle cx="45" cy="35" r="6" style="fill: var(--lobster-icon-eye, #050810)" />
       <circle cx="75" cy="35" r="6" style="fill: var(--lobster-icon-eye, #050810)" />
       <circle cx="46" cy="34" r="2.5" fill="#00e5cc" />
