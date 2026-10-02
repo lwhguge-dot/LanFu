@@ -1,6 +1,5 @@
 // Root `nodes` command registration: wires node status, pairing, invoke, media, and plugin extensions.
 import type { Command } from "commander";
-import { formatDocsLink } from "../../../packages/terminal-core/src/links.js";
 import { theme } from "../../../packages/terminal-core/src/theme.js";
 import { resolveCliArgvInvocation } from "../argv-invocation.js";
 import { formatHelpExamples } from "../help-format.js";
@@ -33,7 +32,7 @@ export async function registerNodesCli(program: Command, argv: readonly string[]
             "Invoke a node command directly.",
           ],
           ["openclaw nodes camera snap --node <id>", "Capture a photo from a node camera."],
-        ])}\n\n${theme.muted("Docs:")} ${formatDocsLink("/cli/nodes", "docs.openclaw.ai/cli/nodes")}\n`,
+        ])}\n\n\n`,
     );
 
   registerNodesStatusCommands(nodes);

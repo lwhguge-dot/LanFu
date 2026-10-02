@@ -267,7 +267,7 @@ export async function appendStatusAllDiagnosis(params: {
       const gatewayPidCount = countGatewayListenerPids(params.portUsage);
       if (gatewayPidCount > 1) {
         lines.push(
-          `  ${muted(`${gatewayPidCount} OpenClaw gateway processes appear to be listening on port ${params.port}; stop stale gateway processes before trusting channel health.`)}`,
+          `  ${muted(`${gatewayPidCount} LanFu gateway processes appear to be listening on port ${params.port}; stop stale gateway processes before trusting channel health.`)}`,
         );
       }
       for (const line of formatPortDiagnostics(params.portUsage)) {
@@ -498,6 +498,5 @@ export async function appendStatusAllDiagnosis(params: {
 
   lines.push("");
   lines.push(muted("Pasteable debug report. Auth tokens redacted."));
-  lines.push("Troubleshooting: https://docs.openclaw.ai/troubleshooting");
   lines.push("");
 }

@@ -1135,7 +1135,7 @@ async function runModelsAuthLoginFlow(
   }
   if (useProviderPicker) {
     await prompter.note(
-      `Provider "${requestedProviderId}" uses its own CLI login. Select a provider with an LanFu auth flow.`,
+      `Provider "${requestedProviderId}" uses its own CLI login. Select a provider with a LanFu auth flow.`,
       "Provider auth",
     );
   } else if (requestedProviderId && !requestedProvider) {

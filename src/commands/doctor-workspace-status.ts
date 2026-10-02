@@ -358,7 +358,7 @@ function notePluginVersionReadiness(readiness: PluginVersionRestartReadiness | u
       : []),
     `${drift.drifts.length} active official plugin${
       drift.drifts.length === 1 ? "" : "s"
-    } not on post-restart OpenClaw ${drift.gatewayVersion}`,
+    } not on post-restart LanFu ${drift.gatewayVersion}`,
     ...drift.drifts.map((entry) => {
       const sourceLabel = entry.source === "clawhub" ? "clawhub" : "npm";
       const expectedVersion =

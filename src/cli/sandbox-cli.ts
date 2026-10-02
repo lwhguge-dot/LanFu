@@ -1,6 +1,5 @@
 // Commander registration for sandbox container list, recreate, and explain commands.
 import type { Command } from "commander";
-import { formatDocsLink } from "../../packages/terminal-core/src/links.js";
 import { theme } from "../../packages/terminal-core/src/theme.js";
 import { defaultRuntime } from "../runtime.js";
 import { runCommandWithRuntime } from "./cli-utils.js";
@@ -51,11 +50,7 @@ export function registerSandboxCli(program: Command) {
       "after",
       () => `\n${theme.heading("Examples:")}\n${formatHelpExamples(SANDBOX_EXAMPLES.main)}\n`,
     )
-    .addHelpText(
-      "after",
-      () =>
-        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/sandbox", "docs.openclaw.ai/cli/sandbox")}\n`,
-    )
+    .addHelpText("after", () => `\n\n`)
     .action(() => {
       sandbox.help({ error: true });
     });

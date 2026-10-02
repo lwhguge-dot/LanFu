@@ -17,7 +17,6 @@ import { resolveConfigFieldMeta } from "../../components/config-form.search.ts";
 import { analyzeConfigSchema, renderNode } from "../../components/config-form.ts";
 import { renderModelPicker } from "../../components/model-picker.ts";
 import {
-  renderLearnMoreLink,
   renderSettingsEmpty,
   renderSettingsGroup,
   renderSettingsLoadingSkeleton,
@@ -418,7 +417,6 @@ class SearchPage extends OpenClawLightDomElement {
           >${t("pluginsPage.detailSettings")}</a
         >`,
       })}
-      ${provider.docsUrl ? renderSettingsRow({ title: t("searchPage.docs"), control: renderLearnMoreLink(provider.docsUrl) }) : nothing}
     `;
   }
 

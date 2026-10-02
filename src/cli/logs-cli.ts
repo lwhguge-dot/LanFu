@@ -16,7 +16,6 @@ import {
   GATEWAY_CLIENT_NAMES,
 } from "../../packages/gateway-protocol/src/client-info.js";
 import { readConnectPairingRequiredMessage } from "../../packages/gateway-protocol/src/connect-error-details.js";
-import { formatDocsLink } from "../../packages/terminal-core/src/links.js";
 import { clearActiveProgressLine } from "../../packages/terminal-core/src/progress-line.js";
 import { createSafeStreamWriter } from "../../packages/terminal-core/src/stream-writer.js";
 import { colorize, isRich, theme } from "../../packages/terminal-core/src/theme.js";
@@ -522,11 +521,7 @@ export function registerLogsCli(program: Command) {
     .option("--no-color", "Disable ANSI colors")
     .option("--local-time", "Display timestamps in local timezone (default)", false)
     .option("--utc", "Display timestamps in UTC", false)
-    .addHelpText(
-      "after",
-      () =>
-        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/logs", "docs.openclaw.ai/cli/logs")}\n`,
-    );
+    .addHelpText("after", () => `\n\n`);
 
   addGatewayClientOptions(logs);
 

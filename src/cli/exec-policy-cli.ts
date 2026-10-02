@@ -1,6 +1,5 @@
 // CLI for showing and applying exec policy presets across config and approvals.
 import type { Command } from "commander";
-import { formatDocsLink } from "../../packages/terminal-core/src/links.js";
 import { sanitizeTerminalText } from "../../packages/terminal-core/src/safe-text.js";
 import { getTerminalTableWidth, renderTable } from "../../packages/terminal-core/src/table.js";
 import { isRich, theme } from "../../packages/terminal-core/src/theme.js";
@@ -434,11 +433,7 @@ export function registerExecPolicyCli(program: Command) {
   const execPolicy = program
     .command("exec-policy")
     .description("Show or synchronize requested exec policy with host approvals")
-    .addHelpText(
-      "after",
-      () =>
-        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/approvals", "docs.openclaw.ai/cli/approvals")}\n`,
-    );
+    .addHelpText("after", () => `\n\n`);
 
   execPolicy
     .command("show")

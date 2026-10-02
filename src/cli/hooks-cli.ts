@@ -5,7 +5,6 @@ import {
   GATEWAY_CLIENT_NAMES,
 } from "../../packages/gateway-protocol/src/client-info.js";
 import { decorativePrefix } from "../../packages/terminal-core/src/decorative-emoji.js";
-import { formatDocsLink } from "../../packages/terminal-core/src/links.js";
 import { theme } from "../../packages/terminal-core/src/theme.js";
 import {
   resolveAgentWorkspaceDir,
@@ -258,11 +257,7 @@ export function registerHooksCli(program: Command): void {
     .description("Manage internal agent hooks")
     .option("--agent <id>", "Agent id to inspect")
     .option("--json", "Output as JSON", false)
-    .addHelpText(
-      "after",
-      () =>
-        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/hooks", "docs.openclaw.ai/cli/hooks")}\n`,
-    );
+    .addHelpText("after", () => `\n\n`);
   const hasJsonOutput = (opts: { json?: boolean } | undefined): boolean =>
     Boolean(opts?.json || hooks.opts<{ json?: boolean }>().json);
   hooks.hook("preAction", (_thisCommand, actionCommand) => {

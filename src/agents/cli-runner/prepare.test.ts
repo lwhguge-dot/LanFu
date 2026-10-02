@@ -2565,7 +2565,9 @@ describe("prepareCliRunContext", () => {
     const context = await fixture.prepare({});
 
     expect(context.params.prompt).toBe("latest ask");
-    expect(context.systemPrompt).toContain("You are a personal assistant running inside LanFu.");
+    expect(context.systemPrompt).toContain(
+      "You are 小蓝 (XiaoLan), a personal assistant running inside LanFu. When you speak Chinese, call yourself 小蓝.",
+    );
     expect(context.systemPrompt).toContain("Current model identity: test-cli/test-model.");
     expect(context.systemPrompt).not.toContain("hook exploded");
     expect(hookRunner.runBeforePromptBuild).toHaveBeenCalledOnce();

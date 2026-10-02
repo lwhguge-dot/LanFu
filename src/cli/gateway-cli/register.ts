@@ -2,7 +2,6 @@
 import { formatByteSize } from "@openclaw/normalization-core";
 import { parseStrictPositiveInteger } from "@openclaw/normalization-core/number-coercion";
 import type { Command } from "commander";
-import { formatDocsLink } from "../../../packages/terminal-core/src/links.js";
 import { colorize, isRich, theme } from "../../../packages/terminal-core/src/theme.js";
 import type { HealthSummary } from "../../commands/health.js";
 import { formatErrorMessage } from "../../infra/errors.js";
@@ -455,7 +454,7 @@ export function registerGatewayCli(program: Command, deps: GatewayCliDependencie
             ["openclaw gateway discover", "Find local and wide-area gateway beacons."],
             ["openclaw gateway stability", "Show recent stability diagnostics."],
             ["openclaw gateway call health", "Call a gateway RPC method directly."],
-          ])}\n\n${theme.muted("Docs:")} ${formatDocsLink("/cli/gateway", "docs.openclaw.ai/cli/gateway")}\n`,
+          ])}\n\n\n`,
       ),
   );
 

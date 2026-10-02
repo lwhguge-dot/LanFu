@@ -143,6 +143,7 @@ export function normalizeFallbackFailureReason(
     case "package-swap":
       return "global-install-failed";
     case "openclaw doctor":
+    case "lanfu doctor":
       return "doctor-failed";
     case "post-install-verify":
       return "runtime-verification-failed";

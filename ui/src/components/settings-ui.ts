@@ -8,7 +8,6 @@ import "@awesome.me/webawesome/dist/components/switch/switch.js";
 import { html, nothing, type TemplateResult } from "lit";
 import { live } from "lit/directives/live.js";
 import { t } from "../i18n/index.ts";
-import { buildExternalLinkRel, EXTERNAL_LINK_TARGET } from "../lib/external-link.ts";
 import { icons } from "./icons.ts";
 import "./tooltip.ts";
 
@@ -79,10 +78,9 @@ export function renderSettingsPage(
   return html`<div class=${className}>${children}</div>`;
 }
 
-export function renderDocsLink(url: string, label: unknown): TemplateResult {
-  return html`<a href=${url} target=${EXTERNAL_LINK_TARGET} rel=${buildExternalLinkRel()}
-    >${label}</a
-  >`;
+// LanFu intranet build: upstream public docs links render as nothing.
+export function renderDocsLink(_url: string, _label: unknown): TemplateResult {
+  return html``;
 }
 
 export function renderSettingsHelpTrigger(props: SettingsHelpTriggerProps): TemplateResult {

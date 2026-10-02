@@ -112,7 +112,7 @@ export function resolveSystemAgentRescuePolicy(
       yolo,
       sandboxActive,
       reason: "not-owner",
-      message: "LanFu rescue only accepts commands from an LanFu owner.",
+      message: "LanFu rescue only accepts commands from a LanFu owner.",
     };
   }
   if (ownerDmOnly && !input.isDirectMessage) {

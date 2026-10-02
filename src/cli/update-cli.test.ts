@@ -2416,7 +2416,7 @@ describe("update-cli", () => {
     if (yes) {
       expect(installCompletion).not.toHaveBeenCalled();
     } else {
-      expect(installCompletion).toHaveBeenCalledWith("zsh", false, "openclaw");
+      expect(installCompletion).toHaveBeenCalledWith("zsh", false, "lanfu");
     }
   });
 
@@ -8060,7 +8060,7 @@ describe("update-cli", () => {
     const rollback = await retained.rollback(assertCurrent);
     expect(rollback.exitCode).toBe(0);
     await retained.complete({ activationVerified: false }, assertCurrent);
-    const doctorStep = result.steps.find((step) => step.name === "openclaw doctor");
+    const doctorStep = result.steps.find((step) => step.name === "lanfu doctor");
     expect(doctorStep?.exitCode).toBe(1);
     expect(doctorStep?.advisory).toBeUndefined();
     await expect(fs.readFile(path.join(pkgRoot, "package.json"), "utf8")).resolves.toContain(
@@ -8212,7 +8212,7 @@ describe("update-cli", () => {
       expect(updateNpmInstalledPlugins).not.toHaveBeenCalled();
       expect(defaultRuntime.exit).not.toHaveBeenCalledWith(1);
       const jsonOutput = lastWriteJsonCall() as UpdateRunResult | undefined;
-      const doctorStep = jsonOutput?.steps.find((step) => step.name === "openclaw doctor");
+      const doctorStep = jsonOutput?.steps.find((step) => step.name === "lanfu doctor");
       expect(jsonOutput?.status).toBe("ok");
       expect(doctorStep?.exitCode).toBe(exitCode);
       // Keep the established advisory shape; complete ledger warnings travel on the step.
@@ -8276,7 +8276,7 @@ describe("update-cli", () => {
     expect(spawn).not.toHaveBeenCalled();
     expect(defaultRuntime.exit).not.toHaveBeenCalled();
     const jsonOutput = lastWriteJsonCall() as UpdateRunResult | undefined;
-    const doctorStep = jsonOutput?.steps.find((step) => step.name === "openclaw doctor");
+    const doctorStep = jsonOutput?.steps.find((step) => step.name === "lanfu doctor");
     expect(doctorStep?.exitCode).toBe(124);
     expect(doctorStep?.advisory).toBeUndefined();
     expect(doctorStep?.termination).toBe("timeout");
@@ -8662,7 +8662,7 @@ describe("update-cli", () => {
     expect(freshRestartCalls()).toEqual([]);
     expect(lastWriteJsonCall()).toMatchObject({
       status: "error",
-      reason: "openclaw doctor",
+      reason: "lanfu doctor",
       steps: expect.arrayContaining([
         expect.objectContaining({
           exitCode: 1,
@@ -10905,20 +10905,13 @@ describe("update-cli", () => {
     const localAppData = createCaseDir("openclaw-localappdata");
     const portableGitMingw = path.join(
       localAppData,
-      "OpenClaw",
+      "LanFu",
       "deps",
       "portable-git",
       "mingw64",
       "bin",
     );
-    const portableGitUsr = path.join(
-      localAppData,
-      "OpenClaw",
-      "deps",
-      "portable-git",
-      "usr",
-      "bin",
-    );
+    const portableGitUsr = path.join(localAppData, "LanFu", "deps", "portable-git", "usr", "bin");
     await fs.mkdir(portableGitMingw, { recursive: true });
     await fs.mkdir(portableGitUsr, { recursive: true });
     mockFileBackedPathExists();

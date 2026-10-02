@@ -1,6 +1,5 @@
 // Top-level cron CLI registration and subcommand wiring.
 import type { Command } from "commander";
-import { formatDocsLink } from "../../../packages/terminal-core/src/links.js";
 import { theme } from "../../../packages/terminal-core/src/theme.js";
 import { inheritOptionFromParent } from "../command-options.js";
 import { addGatewayClientOptions } from "../gateway-rpc.js";
@@ -34,7 +33,7 @@ export function registerCronCli(program: Command) {
     .addHelpText(
       "after",
       () =>
-        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/cron", "docs.openclaw.ai/cli/cron")}\n${theme.muted("Upgrade tip:")} run \`openclaw doctor --fix\` to normalize legacy automation storage.\n`,
+        `\n\n${theme.muted("Upgrade tip:")} run \`openclaw doctor --fix\` to normalize legacy automation storage.\n`,
     );
 
   addGatewayClientOptions(cron);

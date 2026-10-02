@@ -31,7 +31,7 @@ describe("realtime voice session policy", () => {
       consultToolsAllow: undefined,
       consultPolicy: "always",
       wakeNamePolicy: "automatic",
-      wakeNames: ["openclaw", "molty"],
+      wakeNames: ["lanfu", "molty"],
       autoRespondToAudio: false,
     });
   });

@@ -161,7 +161,7 @@ describe("ports helpers", () => {
     expect(runtime.exit).toHaveBeenCalledWith(1);
   });
 
-  it("prints an LanFu-specific hint when port details look like another LanFu instance", async () => {
+  it("prints a LanFu-specific hint when port details look like another LanFu instance", async () => {
     const runtime = {
       error: vi.fn(),
       log: vi.fn(),

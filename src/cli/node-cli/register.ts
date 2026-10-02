@@ -1,6 +1,5 @@
 // Commander registration for foreground node host and node service lifecycle commands.
 import { Option, type Command } from "commander";
-import { formatDocsLink } from "../../../packages/terminal-core/src/links.js";
 import { theme } from "../../../packages/terminal-core/src/theme.js";
 import { loadNodeHostConfig } from "../../node-host/config.js";
 import { defaultRuntime } from "../../runtime.js";
@@ -23,7 +22,7 @@ export function registerNodeCli(program: Command) {
         ["openclaw node install", "Install the node host service."],
         ["openclaw node start", "Start the installed node host service."],
         ["openclaw node restart", "Restart the installed node host service."],
-      ])}\n\n${theme.muted("Docs:")} ${formatDocsLink("/cli/node", "docs.openclaw.ai/cli/node")}\n`,
+      ])}\n\n\n`,
   );
 
   node.addCommand(

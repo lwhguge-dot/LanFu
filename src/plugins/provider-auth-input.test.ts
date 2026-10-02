@@ -286,7 +286,7 @@ describe("validateApiKeyInput", () => {
     "openclaw onboard --non-interactive --auth-choice=zai-coding-global --zai-api-key $ZAI_API_KEY",
   ])("rejects pasted LanFu onboarding command %p", (value) => {
     expect(validateApiKeyInput(value)).toBe(
-      "Paste the API key value, not an LanFu onboarding command.",
+      "Paste the API key value, not a LanFu onboarding command.",
     );
   });
 });

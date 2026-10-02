@@ -1,5 +1,4 @@
 // Optional channel setup helpers describe setup steps that plugins may expose to users.
-import { formatDocsLink } from "../../packages/terminal-core/src/links.js";
 import type { ChannelSetupWizard } from "../channels/plugins/setup-wizard-types.js";
 import type { ChannelSetupAdapter } from "../channels/plugins/types.adapters.js";
 import { DEFAULT_ACCOUNT_ID } from "../routing/session-key.js";
@@ -19,7 +18,7 @@ function buildOptionalChannelSetupMessage(params: OptionalChannelSetupParams): s
   const installTarget = params.npmSpec ?? `the ${params.label} plugin`;
   const message = [`${params.label} setup requires ${installTarget} to be installed.`];
   if (params.docsPath) {
-    message.push(`Docs: ${formatDocsLink(params.docsPath, params.docsPath.replace(/^\/+/u, ""))}`);
+    message.push(``);
   }
   return message.join(" ");
 }

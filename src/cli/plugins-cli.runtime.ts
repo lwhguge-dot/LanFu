@@ -1,7 +1,6 @@
 // Runtime implementations for `openclaw plugins` subcommands. Heavy plugin modules stay
 // lazy-loaded so the base CLI can start without activating the plugin registry.
 import type { PluginsRefreshResult } from "../../packages/gateway-protocol/src/schema/plugins.js";
-import { formatDocsLink } from "../../packages/terminal-core/src/links.js";
 import { sanitizeTerminalText } from "../../packages/terminal-core/src/safe-text.js";
 import { theme } from "../../packages/terminal-core/src/theme.js";
 import { resolveConfiguredRuntimePluginInstallCandidate } from "../commands/doctor/shared/configured-runtime-plugin-installs.js";
@@ -559,9 +558,7 @@ export async function runPluginsDoctorCommand(opts: PluginDoctorOptions = {}): P
           : healthyMessage;
         lines.push("", summary);
       }
-      const docs = formatDocsLink("/plugin", "docs.openclaw.ai/plugin");
       lines.push("");
-      lines.push(`${theme.muted("Docs:")} ${docs}`);
       return lines.join("\n");
     },
   );

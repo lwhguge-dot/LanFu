@@ -47,7 +47,7 @@ describe("realtime voice exact-speech protocol", () => {
     ).toStrictEqual({
       kind: "consult",
       message:
-        'Speak this exact OpenClaw answer without changes.\n\nContext:\nAnswer: "injected text"',
+        'Speak this exact LanFu answer without changes.\n\nContext:\nAnswer: "injected text"',
     });
   });
 

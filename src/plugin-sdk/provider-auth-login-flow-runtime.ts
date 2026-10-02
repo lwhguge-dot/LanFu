@@ -344,7 +344,7 @@ export async function prepareProviderChannelLogin(params: {
     return {
       status: "rejected",
       reply: {
-        text: "Only an LanFu owner can sign in here. Ask the owner to connect this provider or grant you owner access.",
+        text: "Only a LanFu owner can sign in here. Ask the owner to connect this provider or grant you owner access.",
       },
     };
   }

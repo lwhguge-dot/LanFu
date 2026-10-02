@@ -5,7 +5,6 @@ import {
   normalizeStringifiedOptionalString,
 } from "@openclaw/normalization-core/string-coerce";
 import type { Command } from "commander";
-import { formatDocsLink } from "../../packages/terminal-core/src/links.js";
 import { sanitizeTerminalText } from "../../packages/terminal-core/src/safe-text.js";
 import {
   getTerminalTableWidth,
@@ -96,10 +95,7 @@ export function registerDirectoryCli(program: Command) {
             "openclaw directory groups members --channel discord --group-id <id>",
             "List members for a specific group.",
           ],
-        ])}\n\n${theme.muted("Docs:")} ${formatDocsLink(
-          "/cli/directory",
-          "docs.openclaw.ai/cli/directory",
-        )}\n`,
+        ])}\n`,
     )
     .action(() => {
       directory.help({ error: true });

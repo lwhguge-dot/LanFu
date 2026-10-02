@@ -191,12 +191,12 @@ export function expectInterruptedDoctorPackageRollback(runs: UpdateRunRecord[]):
       },
       steps: expect.arrayContaining([
         expect.objectContaining({
-          step: "openclaw doctor",
+          step: "lanfu doctor",
           status: "failed",
           detail: expect.stringContaining("interrupted lifecycle"),
           failureFacts: expect.arrayContaining([
             expect.objectContaining({
-              check: "openclaw doctor",
+              check: "lanfu doctor",
               code: "Error",
               message: "interrupted lifecycle",
             }),

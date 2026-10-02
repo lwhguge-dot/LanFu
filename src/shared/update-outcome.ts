@@ -30,7 +30,7 @@ export function createRuntimeUpdateRecoverySteps(params: {
     return [
       {
         kind: "deployment",
-        instruction: `Pull or build an LanFu image with version ${targetVersion} and Node ${nodeVersion}, then recreate or redeploy the container with the same state/config mounts. In-container package changes are not durable.`,
+        instruction: `Pull or build a LanFu image with version ${targetVersion} and Node ${nodeVersion}, then recreate or redeploy the container with the same state/config mounts. In-container package changes are not durable.`,
       },
     ];
   }

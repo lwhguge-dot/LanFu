@@ -4,7 +4,6 @@ import {
   normalizeStringifiedOptionalString,
 } from "@openclaw/normalization-core/string-coerce";
 import type { Command } from "commander";
-import { formatDocsLink } from "../../packages/terminal-core/src/links.js";
 import { getTerminalTableWidth, renderTable } from "../../packages/terminal-core/src/table.js";
 import { theme } from "../../packages/terminal-core/src/theme.js";
 import { normalizeChannelId } from "../channels/plugins/index.js";
@@ -78,11 +77,7 @@ export function registerPairingCli(program: Command) {
   const pairing = program
     .command("pairing")
     .description("Secure DM pairing (approve inbound requests)")
-    .addHelpText(
-      "after",
-      () =>
-        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/pairing", "docs.openclaw.ai/cli/pairing")}\n`,
-    );
+    .addHelpText("after", () => `\n\n`);
 
   pairing
     .command("list")

@@ -52,7 +52,7 @@ export const MODEL_FIELD_HELP: Record<string, string> = {
   "models.providers.*.localService.readyTimeoutMs":
     "Maximum milliseconds to wait for the local model server readiness probe after starting the process.",
   "models.providers.*.localService.idleStopMs":
-    "Milliseconds to keep an LanFu-started local model server alive after the last request finishes. Set 0 to keep it alive until LanFu exits.",
+    "Milliseconds to keep a LanFu-started local model server alive after the last request finishes. Set 0 to keep it alive until LanFu exits.",
   "models.providers.*.request":
     "Optional request overrides for model-provider requests, including extra headers, auth overrides, proxy routing, TLS client settings, and optional allowPrivateNetwork for trusted self-hosted endpoints. Use these only when your upstream or enterprise network path requires transport customization.",
   "models.providers.*.request.headers":

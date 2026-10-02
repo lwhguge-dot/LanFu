@@ -1,6 +1,5 @@
 // Message command registration: core send/read/manage actions plus channel-specific admin helpers.
 import type { Command } from "commander";
-import { formatDocsLink } from "../../../packages/terminal-core/src/links.js";
 import { theme } from "../../../packages/terminal-core/src/theme.js";
 import { formatHelpExamples } from "../help-format.js";
 import type { ProgramContext } from "./context.js";
@@ -49,7 +48,7 @@ ${formatHelpExamples([
   ],
 ])}
 
-${theme.muted("Docs:")} ${formatDocsLink("/cli/message", "docs.openclaw.ai/cli/message")}`,
+`,
     );
 
   const helpers = createMessageCliHelpers(ctx.messageChannelOptions);

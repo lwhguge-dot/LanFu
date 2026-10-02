@@ -1,7 +1,5 @@
 // Commander registration for ACP bridge and interactive ACP client commands.
 import type { Command } from "commander";
-import { formatDocsLink } from "../../packages/terminal-core/src/links.js";
-import { theme } from "../../packages/terminal-core/src/theme.js";
 import { normalizeAcpProvenanceMode } from "../acp/types.js";
 import { formatErrorMessage } from "../infra/errors.js";
 import { defaultRuntime } from "../runtime.js";
@@ -24,10 +22,7 @@ export function registerAcpCli(program: Command) {
     .option("--no-prefix-cwd", "Do not prefix prompts with the working directory")
     .option("--provenance <mode>", "ACP provenance mode: off, meta, or meta+receipt")
     .option("-v, --verbose", "Verbose logging to stderr", false)
-    .addHelpText(
-      "after",
-      () => `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/acp", "docs.openclaw.ai/cli/acp")}\n`,
-    )
+    .addHelpText("after", () => `\n\n`)
     .action(async (opts) => {
       try {
         const { gatewayToken, gatewayPassword } = resolveGatewayAuthOptions(opts);

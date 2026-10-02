@@ -7,7 +7,6 @@ import {
   CF_ACCESS_CLIENT_SECRET_HEADER,
   type CloudflareAccessCredentials,
 } from "../../packages/gateway-client/src/cloudflare-access.js";
-import { formatDocsLink } from "../../packages/terminal-core/src/links.js";
 import { theme } from "../../packages/terminal-core/src/theme.js";
 import { getRuntimeConfig, mutateConfigFileWithRetry } from "../config/config.js";
 import { isLoopbackHost } from "../gateway/net.js";
@@ -279,7 +278,7 @@ async function runConnectCommand(
 
 export function registerConnectCli(program: Command): void {
   addNodeCommandOptions(
-    program.command("connect").description("Connect this machine to an LanFu Gateway as a node"),
+    program.command("connect").description("Connect this machine to a LanFu Gateway as a node"),
   )
     .argument("[target]", "oc-pair URL, setup code, or HTTPS Gateway join URL")
     .option("--service", "Install and run the node host as an OS service", false)
@@ -304,7 +303,7 @@ export function registerConnectCli(program: Command): void {
             "openclaw connect https://gateway.example/j/<code> --service --session-host",
             "Install a worker-session host service.",
           ],
-        ])}\n\n${theme.muted("Docs:")} ${formatDocsLink("/cli/connect", "docs.openclaw.ai/cli/connect")}\n`,
+        ])}\n\n\n`,
     )
     .action(async (target: string | undefined, opts: ConnectCommandOptions) => {
       try {

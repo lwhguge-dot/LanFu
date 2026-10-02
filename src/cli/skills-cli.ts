@@ -7,7 +7,6 @@ import {
   GATEWAY_CLIENT_NAMES,
 } from "../../packages/gateway-protocol/src/client-info.js";
 import type { SkillsCuratorCompatibleStatusResult } from "../../packages/gateway-protocol/src/schema/agents-models-skills.js";
-import { formatDocsLink } from "../../packages/terminal-core/src/links.js";
 import { theme } from "../../packages/terminal-core/src/theme.js";
 import {
   resolveConfiguredAgentId,
@@ -529,11 +528,7 @@ export function registerSkillsCli(program: Command) {
     .description("List and inspect available skills")
     .option("--agent <id>", "Target agent workspace (defaults to cwd-inferred, then default agent)")
     .option("--json", "Output as JSON", false)
-    .addHelpText(
-      "after",
-      () =>
-        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/skills", "docs.openclaw.ai/cli/skills")}\n`,
-    );
+    .addHelpText("after", () => `\n\n`);
   const hasJsonOutput = (opts?: { json?: boolean }): boolean =>
     Boolean(opts?.json || skills.opts<{ json?: boolean }>().json);
   setCommandJsonMode(skills, "output", ({ argv, command }) => isSkillsMachineOutput(argv, command));

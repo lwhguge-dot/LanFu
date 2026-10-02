@@ -193,7 +193,7 @@ ${theme.heading("Notes:")}
   - Downgrades require confirmation (can break configuration)
   - Skips update if the working directory has uncommitted changes
 
-${theme.muted("Docs:")} ${formatDocsLink("/cli/update", "docs.openclaw.ai/cli/update")}`;
+`;
     })
     .action(async (opts: CommanderUpdateOptions) => {
       try {
@@ -277,10 +277,7 @@ ${theme.muted("Docs:")} ${formatDocsLink("/cli/update", "docs.openclaw.ai/cli/up
     .description("Interactive update wizard")
     .option("--accept-capabilities", "Accept widened plugin capabilities", false)
     .option("--timeout <seconds>", "Timeout for each update step in seconds (default: 1800)")
-    .addHelpText(
-      "after",
-      `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/update", "docs.openclaw.ai/cli/update")}\n`,
-    )
+    .addHelpText("after", `\n\n`)
     .action(
       createUpdateLeafAction(async (opts, command) => {
         const { updateWizardCommand } = await import("./update-cli/wizard.js");

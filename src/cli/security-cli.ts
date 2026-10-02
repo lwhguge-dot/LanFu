@@ -4,7 +4,6 @@ import {
   normalizeOptionalString,
 } from "@openclaw/normalization-core/string-coerce";
 import type { Command } from "commander";
-import { formatDocsLink } from "../../packages/terminal-core/src/links.js";
 import { isRich, theme } from "../../packages/terminal-core/src/theme.js";
 import { getRuntimeConfig } from "../config/config.js";
 import type { GatewayAuthMode } from "../config/types.gateway.js";
@@ -97,7 +96,7 @@ export function registerSecurityCli(program: Command) {
           ],
           ["openclaw security audit --fix", "Apply safe remediations and file-permission fixes."],
           ["openclaw security audit --json", "Output machine-readable JSON."],
-        ])}\n\n${theme.muted("Docs:")} ${formatDocsLink("/cli/security", "docs.openclaw.ai/cli/security")}\n`,
+        ])}\n\n\n`,
     );
 
   security

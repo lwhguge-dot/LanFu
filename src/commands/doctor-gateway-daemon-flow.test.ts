@@ -321,7 +321,7 @@ describe("maybeRepairGatewayDaemon", () => {
   });
 
   it.each([
-    { environment: "container without an LanFu service", detected: true },
+    { environment: "container without a LanFu service", detected: true },
     { environment: "Kubernetes pod without container markers", kubernetes: true },
     { environment: "globally external supervisor", external: true },
   ])(

@@ -1,8 +1,6 @@
 // Shell completion generation, cache writing, and install command registration.
 import fs from "node:fs/promises";
 import { Command, Option } from "commander";
-import { formatDocsLink } from "../../packages/terminal-core/src/links.js";
-import { theme } from "../../packages/terminal-core/src/theme.js";
 import { isInvalidConfigError } from "../config/io.invalid-config.js";
 import { routeLogsToStderr } from "../logging/console.js";
 import { formatConsoleDiagnosticLine } from "../logging/json-console-line.js";
@@ -100,11 +98,7 @@ export function registerCompletionCli(program: Command) {
   program
     .command("completion")
     .description("Generate shell completion script")
-    .addHelpText(
-      "after",
-      () =>
-        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/completion", "docs.openclaw.ai/cli/completion")}\n`,
-    )
+    .addHelpText("after", () => `\n\n`)
     .addOption(
       new Option(
         "-s, --shell <shell>",

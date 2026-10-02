@@ -1,6 +1,5 @@
 // Backup command registration for local state archive creation and verification.
 import type { Command } from "commander";
-import { formatDocsLink } from "../../../packages/terminal-core/src/links.js";
 import { theme } from "../../../packages/terminal-core/src/theme.js";
 import { defaultRuntime } from "../../runtime.js";
 import { runCommandWithRuntime } from "../cli-utils.js";
@@ -13,11 +12,7 @@ export function registerBackupCommand(program: Command) {
   const backup = program
     .command("backup")
     .description("Create, verify, and restore backup archives and SQLite snapshots")
-    .addHelpText(
-      "after",
-      () =>
-        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/backup", "docs.openclaw.ai/cli/backup")}\n`,
-    );
+    .addHelpText("after", () => `\n\n`);
 
   backup
     .command("create")
@@ -278,7 +273,7 @@ function registerBackupSqliteCommands(backup: Command): void {
 
   sqlite
     .command("create")
-    .description("Create a compact, verified snapshot of an LanFu SQLite database")
+    .description("Create a compact, verified snapshot of a LanFu SQLite database")
     .option("--global", "Snapshot the shared LanFu state database", false)
     .option("--agent <id>", "Snapshot one per-agent LanFu database")
     .requiredOption("--repository <path>", "Snapshot repository directory")

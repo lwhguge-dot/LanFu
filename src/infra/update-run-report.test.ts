@@ -362,15 +362,15 @@ describe("update run report", () => {
     ].map((record) => renderUpdateRunReport(record).markdown);
     expect(reports).toMatchInlineSnapshot(`
       [
-        "✅ OpenClaw updated to 2026.9.2 (from 2026.9.1).
+        "✅ LanFu updated to 2026.9.2 (from 2026.9.1).
       Phases: staging (300ms)",
-        "⚠️ OpenClaw update failed: restart-unhealthy. The gateway is running 2026.9.1.
+        "⚠️ LanFu update failed: restart-unhealthy. The gateway is running 2026.9.1.
       Phases: staging (300ms)
       Verification: service running.
       Run openclaw triage to diagnose and repair the failed update.",
-        "ℹ️ OpenClaw update skipped: dry-run.
+        "ℹ️ LanFu update skipped: dry-run.
       Phases: staging (300ms)",
-        "↩️ OpenClaw update rolled back to 2026.9.1: build-failed.
+        "↩️ LanFu update rolled back to 2026.9.1: build-failed.
       Phases: staging (300ms)",
       ]
     `);

@@ -1513,7 +1513,7 @@ describe("modelsAuthLoginCommand", () => {
     await expect(
       modelsAuthLoginCommand({ provider: "openai", force: true }, runtime),
     ).rejects.toThrow(
-      'Could not clear cached profiles for "openai" before re-login: auth store is busy; close other OpenClaw commands using this state directory and retry',
+      'Could not clear cached profiles for "openai" before re-login: auth store is busy; close other LanFu commands using this state directory and retry',
     );
 
     expect(runtime.error).not.toHaveBeenCalled();
@@ -1587,7 +1587,7 @@ describe("modelsAuthLoginCommand", () => {
     await modelsAuthLoginCommand({ provider: "claude-cli" }, runtime);
 
     expect(prompter.note).toHaveBeenCalledWith(
-      'Provider "claude-cli" uses its own CLI login. Select a provider with an OpenClaw auth flow.',
+      'Provider "claude-cli" uses its own CLI login. Select a provider with a LanFu auth flow.',
       "Provider auth",
     );
     expect(prompter.select).toHaveBeenCalledWith(

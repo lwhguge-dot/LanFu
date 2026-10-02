@@ -1670,7 +1670,7 @@ describe("maybeScanExtraGatewayServices", () => {
     expect(mocks.findExtraGatewayServices).toHaveBeenCalledWith(process.env, { deep: true });
   });
 
-  it("skips structured host-service discovery in containers without an LanFu service", async () => {
+  it("skips structured host-service discovery in containers without a LanFu service", async () => {
     mocks.isContainerEnvironment.mockReturnValue(true);
 
     await expect(detectExtraGatewayServiceIssues({ deep: true })).resolves.toEqual([]);

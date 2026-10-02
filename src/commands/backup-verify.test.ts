@@ -911,7 +911,7 @@ describe("backupVerifyCommand", () => {
       async (archivePath) => {
         const runtime = createTestRuntime();
         await expect(backupVerifyCommand(runtime, { archive: archivePath })).rejects.toThrow(
-          /case-mangled canonical SQLite path.*State\/LanFu\.SQLITE/u,
+          /case-mangled canonical SQLite path.*State\/OpenClaw\.SQLITE/u,
         );
       },
     );

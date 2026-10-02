@@ -1,7 +1,5 @@
 // Secrets CLI for reload, audit, configure, and apply workflows.
 import type { Command } from "commander";
-import { formatDocsLink } from "../../packages/terminal-core/src/links.js";
-import { theme } from "../../packages/terminal-core/src/theme.js";
 import { danger } from "../globals.js";
 import { formatErrorMessage, hasErrnoCode } from "../infra/errors.js";
 import { defaultRuntime } from "../runtime.js";
@@ -115,11 +113,7 @@ export function registerSecretsCli(program: Command): void {
   const secrets = program
     .command("secrets")
     .description("Secrets runtime controls")
-    .addHelpText(
-      "after",
-      () =>
-        `\n${theme.muted("Docs:")} ${formatDocsLink("/gateway/security", "docs.openclaw.ai/gateway/security")}\n`,
-    );
+    .addHelpText("after", () => `\n\n`);
 
   registerSecretStoreCli(secrets);
 

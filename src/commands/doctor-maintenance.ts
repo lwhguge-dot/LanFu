@@ -405,7 +405,7 @@ export async function beginDoctorMaintenance(params: {
       throw error;
     }
     const refusal = new Error(
-      `Doctor could not enter maintenance. ${String(error)}${parentMustStopGateway || hasGatewayServiceStopUnsafeError(error) ? "" : ` Stop the Gateway service and other OpenClaw processes using this state, then run ${formatCliCommand("openclaw doctor --fix", env)} from an independent shell.`}`,
+      `Doctor could not enter maintenance. ${String(error)}${parentMustStopGateway || hasGatewayServiceStopUnsafeError(error) ? "" : ` Stop the Gateway service and other LanFu processes using this state, then run ${formatCliCommand("openclaw doctor --fix", env)} from an independent shell.`}`,
       { cause: error },
     );
     const recovery = inspectingActivation

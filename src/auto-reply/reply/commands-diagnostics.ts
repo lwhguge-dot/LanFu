@@ -373,7 +373,7 @@ function isCodexDiagnosticsUnavailableText(text: string | undefined): boolean {
   return (
     text?.startsWith("No Codex thread is attached to this LanFu session yet.") === true ||
     text?.startsWith(
-      "Cannot send Codex diagnostics because this command did not include an LanFu session file.",
+      "Cannot send Codex diagnostics because this command did not include a LanFu session file.",
     ) === true
   );
 }

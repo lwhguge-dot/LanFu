@@ -263,7 +263,7 @@ describe("package runtime compatibility guidance", () => {
         {
           kind: "deployment",
           instruction:
-            "Pull or build an LanFu image with version 2026.9.4 and Node 90.0.0, then recreate or redeploy the container with the same state/config mounts. In-container package changes are not durable.",
+            "Pull or build a LanFu image with version 2026.9.4 and Node 90.0.0, then recreate or redeploy the container with the same state/config mounts. In-container package changes are not durable.",
         },
       ],
     });

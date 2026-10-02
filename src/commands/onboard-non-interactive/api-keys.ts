@@ -101,7 +101,7 @@ export async function resolveNonInteractiveApiKey(params: {
       return envVarName ? { key, source, envVarName } : { key, source };
     }
     const envHint = source === "env" ? ` Check ${envVarName ?? params.envVar}.` : "";
-    return reject(`Paste the API key value, not an LanFu onboarding command.${envHint}`);
+    return reject(`Paste the API key value, not a LanFu onboarding command.${envHint}`);
   };
 
   const useSecretRefMode = params.secretInputMode === "ref"; // pragma: allowlist secret

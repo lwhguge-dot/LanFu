@@ -103,7 +103,7 @@ const subCliCommandDescriptors = [
   },
   {
     name: "connect",
-    description: "Connect this machine to an LanFu Gateway as a node",
+    description: "Connect this machine to a LanFu Gateway as a node",
     hasSubcommands: false,
   },
   {

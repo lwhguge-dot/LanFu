@@ -104,7 +104,7 @@ export function resolveUpdateResultNextAction(params: {
     // Record deployment-specific advice here so CLI output and later reports agree.
     // Keep the recovery constraints: an image change must not roll back migrated state.
     const deployment = containerPackageFailure
-      ? `Detected ${foreignDestination ? "a foreign npm destination" : "package update permission failure"} inside a container. Pull or build an LanFu image with the target version, then recreate or redeploy the container with the same state/config mounts. In-container package changes are not durable.`
+      ? `Detected ${foreignDestination ? "a foreign npm destination" : "package update permission failure"} inside a container. Pull or build a LanFu image with the target version, then recreate or redeploy the container with the same state/config mounts. In-container package changes are not durable.`
       : "";
     return [
       detail,

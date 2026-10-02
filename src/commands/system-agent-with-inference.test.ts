@@ -252,7 +252,7 @@ describe("runSystemAgentWithInference", () => {
     await runSystemAgentWithInference({ json: true, yes: true }, currentRuntime);
 
     expect(currentRuntime.log).toHaveBeenCalledWith(
-      expect.stringContaining('"error": "OpenClaw --yes requires --message'),
+      expect.stringContaining('"error": "LanFu --yes requires --message'),
     );
     expect(currentRuntime.error).not.toHaveBeenCalled();
     expect(exitMocks.requestExitAfterOneShotOutput).toHaveBeenCalledWith(currentRuntime, 1);

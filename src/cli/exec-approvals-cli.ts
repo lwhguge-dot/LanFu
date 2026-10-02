@@ -17,7 +17,6 @@ import {
   type ApprovalSnapshot,
 } from "../../packages/gateway-protocol/src/index.js";
 import { sanitizeForLog } from "../../packages/terminal-core/src/ansi.js";
-import { formatDocsLink } from "../../packages/terminal-core/src/links.js";
 import {
   getTerminalTableWidth,
   renderTerminalSafeTable,
@@ -1217,11 +1216,7 @@ export function registerExecApprovalsCli(program: Command) {
     .command("approvals")
     .alias("exec-approvals")
     .description("Manage approval policy and pending requests")
-    .addHelpText(
-      "after",
-      () =>
-        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/approvals", "docs.openclaw.ai/cli/approvals")}\n`,
-    );
+    .addHelpText("after", () => `\n\n`);
 
   const pendingCmd = approvals
     .command("pending")
@@ -1417,7 +1412,7 @@ export function registerExecApprovalsCli(program: Command) {
         )}\n${formatExample(
           'openclaw approvals allowlist remove "~/Projects/**/bin/rg"',
           "Remove an allowlist pattern.",
-        )}\n\n${theme.muted("Docs:")} ${formatDocsLink("/cli/approvals", "docs.openclaw.ai/cli/approvals")}\n`,
+        )}\n\n\n`,
     );
 
   registerAllowlistMutationCommand({

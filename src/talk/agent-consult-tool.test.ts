@@ -118,7 +118,7 @@ describe("realtime voice agent consult tool", () => {
         "Delegate substantive requests, actions, tool work, current facts, memory, workspace context, and user-specific context with openclaw_agent_consult.",
         "Do not block, refuse, or downscope at the voice layer. Delegate to LanFu and treat its result as authoritative.",
         "Answer directly only for greetings, acknowledgements, brief latency tests, or filler while waiting.",
-        'While waiting for OpenClaw data or tool results, use at most one short natural backchannel such as "yeah", "mm-hmm", "got it", or "one sec"; vary it and do not treat it as the final answer.',
+        'While waiting for LanFu data or tool results, use at most one short natural backchannel such as "yeah", "mm-hmm", "got it", or "one sec"; vary it and do not treat it as the final answer.',
         "When LanFu sends an internal exact answer to speak, do not call tools. Say only that answer.",
         [
           "Consult behavior:",
@@ -150,7 +150,7 @@ describe("realtime voice agent consult tool", () => {
     ).toBe(
       [
         "Voice base.",
-        'While waiting for OpenClaw data or tool results, use at most one short natural backchannel such as "yeah", "mm-hmm", "got it", or "one sec"; vary it and do not treat it as the final answer.',
+        'While waiting for LanFu data or tool results, use at most one short natural backchannel such as "yeah", "mm-hmm", "got it", or "one sec"; vary it and do not treat it as the final answer.',
       ].join("\n\n"),
     );
   });

@@ -1,8 +1,6 @@
 // Commander registration for onboard setup flags and lazy onboard runtime execution.
 import { readStringValue } from "@openclaw/normalization-core/string-coerce";
 import { Option, type Command } from "commander";
-import { formatDocsLink } from "../../../packages/terminal-core/src/links.js";
-import { theme } from "../../../packages/terminal-core/src/theme.js";
 import { formatAuthChoiceChoicesForCli } from "../../commands/auth-choice-options.js";
 import type { GatewayDaemonRuntime } from "../../commands/daemon-runtime.js";
 import type {
@@ -290,11 +288,7 @@ export function registerOnboardCommand(program: Command): void {
   const command = program
     .command("onboard")
     .description("Guided setup for auth, models, Gateway, workspace, channels, and skills")
-    .addHelpText(
-      "after",
-      () =>
-        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/onboard", "docs.openclaw.ai/cli/onboard")}\n`,
-    )
+    .addHelpText("after", () => `\n\n`)
     .option(
       "--workspace <dir>",
       "Workspace proposal for guided setup; persisted by classic/non-interactive setup",

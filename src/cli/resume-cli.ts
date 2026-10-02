@@ -1,7 +1,5 @@
 // Registers the recent-session resume verb while keeping its TUI runtime lazy.
 import type { Command } from "commander";
-import { formatDocsLink } from "../../packages/terminal-core/src/links.js";
-import { theme } from "../../packages/terminal-core/src/theme.js";
 import { formatErrorMessage } from "../infra/errors.js";
 import { defaultRuntime } from "../runtime.js";
 import { addTuiOptions } from "./tui-cli-options.js";
@@ -22,11 +20,7 @@ export function registerResumeCli(program: Command) {
     .argument("[query]", "Session key, display name, or label")
     .option("--handoff <payload>", "Opaque session handoff copied from the Control UI");
   addTuiOptions(command)
-    .addHelpText(
-      "after",
-      () =>
-        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/resume", "docs.openclaw.ai/cli/resume")}\n`,
-    )
+    .addHelpText("after", () => `\n\n`)
     .action(async (query: string | undefined, opts: ResumeCliOptions) => {
       try {
         const { runResumeCommand } = await import("./resume-cli.runtime.js");

@@ -360,8 +360,11 @@ export function isExpectedCodexStatusCommandText(text: string): boolean {
   const normalized = text.toLowerCase();
   const mentionsOpenClawStatus =
     normalized.includes("openclaw is running on") ||
+    normalized.includes("lanfu is running on") ||
     /openclaw\s+\S+\s+is running on/u.test(normalized) ||
+    /lanfu\s+\S+\s+is running on/u.test(normalized) ||
     normalized.includes("openclaw status:") ||
+    normalized.includes("lanfu status:") ||
     normalized.includes("status: running on") ||
     normalized.includes("session status: running on");
   const mentionsHarnessSession =

@@ -1,6 +1,5 @@
 // Commander registration for channel discovery, setup, status, auth, and diagnostics commands.
 import { Option, type Command } from "commander";
-import { formatDocsLink } from "../../packages/terminal-core/src/links.js";
 import { theme } from "../../packages/terminal-core/src/theme.js";
 import { parseAccountSelector } from "../commands/channels/account-selector.js";
 import { danger } from "../globals.js";
@@ -184,10 +183,7 @@ export async function registerChannelsCli(
             "Add or update a channel account non-interactively.",
           ],
           ["openclaw channels login --channel whatsapp", "Link a WhatsApp Web account."],
-        ])}\n\n${theme.muted("Docs:")} ${formatDocsLink(
-          "/cli/channels",
-          "docs.openclaw.ai/cli/channels",
-        )}\n`,
+        ])}\n`,
     );
 
   channels

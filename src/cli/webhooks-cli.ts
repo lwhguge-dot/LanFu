@@ -2,8 +2,6 @@ import { parseStrictPositiveInteger } from "@openclaw/normalization-core/number-
 // Webhook CLI registrations, currently Gmail Pub/Sub setup and service runner commands.
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
 import type { Command } from "commander";
-import { formatDocsLink } from "../../packages/terminal-core/src/links.js";
-import { theme } from "../../packages/terminal-core/src/theme.js";
 import { danger } from "../globals.js";
 import {
   type GmailRunOptions,
@@ -30,11 +28,7 @@ export function registerWebhooksCli(program: Command) {
   const webhooks = program
     .command("webhooks")
     .description("Webhook helpers and integrations")
-    .addHelpText(
-      "after",
-      () =>
-        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/webhooks", "docs.openclaw.ai/cli/webhooks")}\n`,
-    );
+    .addHelpText("after", () => `\n\n`);
 
   const gmail = webhooks.command("gmail").description("Gmail Pub/Sub hooks (via gogcli)");
 

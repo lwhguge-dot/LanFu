@@ -54,7 +54,7 @@ export function resolveTargetAcpAgentId(params: {
       return {
         ok: false,
         error:
-          `agentId "${requested}" is an LanFu config agent, not an ACP harness. ` +
+          `agentId "${requested}" is a LanFu config agent, not an ACP harness. ` +
           'Use runtime="subagent" or omit runtime for LanFu config agents. ' +
           'Use runtime="acp" only with external ACP harness ids such as codex, claude, droid, gemini, or opencode, or configure agents.entries.*.runtime.type="acp" with runtime.acp.agent.',
       };

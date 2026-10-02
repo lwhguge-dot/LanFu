@@ -1,6 +1,4 @@
 import type { Command } from "commander";
-import { formatDocsLink } from "../../packages/terminal-core/src/links.js";
-import { theme } from "../../packages/terminal-core/src/theme.js";
 import { isRedactedSecretValue } from "../config/redact-sentinel.js";
 import { ENV_SECRET_REF_ID_RE } from "../config/types.secrets.js";
 import { danger } from "../globals.js";
@@ -165,11 +163,7 @@ export function registerSecretStoreCli(secrets: Command): void {
   const store = secrets
     .command("store")
     .description("Manage the team-scoped SQLite secret and environment store")
-    .addHelpText(
-      "after",
-      () =>
-        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/secrets", "docs.openclaw.ai/cli/secrets")}\n`,
-    );
+    .addHelpText("after", () => `\n\n`);
 
   store
     .command("list")

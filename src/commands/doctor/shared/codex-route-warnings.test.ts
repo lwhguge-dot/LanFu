@@ -161,7 +161,7 @@ function disabledCodexPluginWarning(...routes: string[]): string {
   return [
     "- Codex runtime is selected, but the Codex plugin is disabled.",
     ...routes,
-    "- Enable plugins.entries.codex and plugin loading, and remove `codex` from plugins.deny; or set the affected OpenAI models to an LanFu runtime policy.",
+    "- Enable plugins.entries.codex and plugin loading, and remove `codex` from plugins.deny; or set the affected OpenAI models to a LanFu runtime policy.",
   ].join("\n");
 }
 

@@ -1888,7 +1888,7 @@ describe("installPluginFromClawHub", () => {
     const failure = expectInstallFailure(result);
     expect(failure.code).toBe(CLAWHUB_INSTALL_ERROR_CODE.INCOMPATIBLE_PLUGIN_API);
     expect(failure.error).toBe(
-      'Plugin "demo" requires plugin API *, but this OpenClaw runtime exposes invalid.',
+      'Plugin "demo" requires plugin API *, but this LanFu runtime exposes invalid.',
     );
     expect(downloadClawHubPackageArchiveMock).not.toHaveBeenCalled();
     expect(installPluginFromArchiveMock).not.toHaveBeenCalled();
@@ -2668,7 +2668,7 @@ describe("installPluginFromClawHub", () => {
         ok: false,
         code: CLAWHUB_INSTALL_ERROR_CODE.INCOMPATIBLE_PLUGIN_API,
         error:
-          'Plugin "demo" requires plugin API >=2026.3.22, but this OpenClaw runtime exposes 2026.3.21.',
+          'Plugin "demo" requires plugin API >=2026.3.22, but this LanFu runtime exposes 2026.3.21.',
       },
     },
     {

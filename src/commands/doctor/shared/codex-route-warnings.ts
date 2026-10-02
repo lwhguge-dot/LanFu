@@ -118,8 +118,8 @@ function formatDisabledCodexPluginWarning(params: {
   repairBlocked: boolean;
 }): string {
   const fixHint = params.repairBlocked
-    ? "- Enable plugins.entries.codex and plugin loading, and remove `codex` from plugins.deny; or set the affected OpenAI models to an LanFu runtime policy."
-    : "- Run `openclaw doctor --fix`: it enables plugins.entries.codex, or set the affected OpenAI models to an LanFu runtime policy.";
+    ? "- Enable plugins.entries.codex and plugin loading, and remove `codex` from plugins.deny; or set the affected OpenAI models to a LanFu runtime policy."
+    : "- Run `openclaw doctor --fix`: it enables plugins.entries.codex, or set the affected OpenAI models to a LanFu runtime policy.";
   return [
     "- Codex runtime is selected, but the Codex plugin is disabled.",
     ...params.hits.map(

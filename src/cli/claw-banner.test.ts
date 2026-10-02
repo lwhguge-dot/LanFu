@@ -52,7 +52,7 @@ describe("printClawBanner", () => {
     const output = stripAnsi(String(log.mock.calls[0]?.[0]));
     const rows = output.split("\n").filter((row) => row.length > 0);
     expect(rows.map((row) => row.slice(0, 20).trimEnd())).toEqual(EXPECTED_MASCOT);
-    expect(output).toContain("█▀▀▀█ █▀▀▀█ █▀▀▀▀ █▄  █");
+    expect(output).toContain("█     █▀▀▀█ █▄  █ █▀▀▀▀ █   █");
   });
 
   it("stays static under CI even on a rich TTY", async () => {
