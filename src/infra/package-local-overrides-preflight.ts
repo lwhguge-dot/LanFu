@@ -146,7 +146,7 @@ export function localOverrideInspectionConflict(
       reason: "target-inspection-failed" as const,
     })),
     warnings: [
-      "Local OpenClaw changes were preserved but not reapplied because the updated package could not be safely inspected.",
+      "Local LanFu changes were preserved but not reapplied because the updated package could not be safely inspected.",
     ],
   };
 }

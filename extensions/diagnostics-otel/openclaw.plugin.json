@@ -1,8 +1,10 @@
 {
   "id": "diagnostics-otel",
-  "categories": ["infrastructure"],
+  "categories": [
+    "infrastructure"
+  ],
   "name": "Diagnostics OpenTelemetry",
-  "description": "OpenClaw diagnostics OpenTelemetry exporter for metrics, traces, and logs.",
+  "description": "LanFu diagnostics OpenTelemetry exporter for metrics, traces, and logs.",
   "activation": {
     "onStartup": true
   },

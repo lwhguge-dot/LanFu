@@ -1,8 +1,10 @@
 {
   "id": "brave",
-  "categories": ["web"],
+  "categories": [
+    "web"
+  ],
   "name": "Brave",
-  "description": "OpenClaw Brave Search provider plugin for web search.",
+  "description": "LanFu Brave Search provider plugin for web search.",
   "activation": {
     "onStartup": false
   },
@@ -10,7 +12,9 @@
     "providers": [
       {
         "id": "brave",
-        "envVars": ["BRAVE_API_KEY"]
+        "envVars": [
+          "BRAVE_API_KEY"
+        ]
       }
     ]
   },
@@ -31,14 +35,18 @@
     }
   },
   "contracts": {
-    "webSearchProviders": ["brave"]
+    "webSearchProviders": [
+      "brave"
+    ]
   },
   "configGroups": [
     {
       "id": "web-search",
       "title": "Web search",
       "order": 10,
-      "properties": ["webSearch"]
+      "properties": [
+        "webSearch"
+      ]
     }
   ],
   "configSchema": {
@@ -50,14 +58,23 @@
         "additionalProperties": false,
         "properties": {
           "apiKey": {
-            "type": ["string", "object"]
+            "type": [
+              "string",
+              "object"
+            ]
           },
           "mode": {
             "type": "string",
-            "enum": ["web", "llm-context"]
+            "enum": [
+              "web",
+              "llm-context"
+            ]
           },
           "baseUrl": {
-            "type": ["string", "object"]
+            "type": [
+              "string",
+              "object"
+            ]
           }
         }
       }

@@ -657,7 +657,7 @@ export async function inspectWindowsGatewayFirewall(
       applies: true,
       severity: "warning",
       code: "windows_firewall_inspection_failed",
-      message: "OpenClaw could not quickly inspect Windows Firewall LAN Gateway policy.",
+      message: "LanFu could not quickly inspect Windows Firewall LAN Gateway policy.",
       details: [
         "Run `openclaw gateway status --deep` again, or verify the advertised LAN URL from another device.",
       ],
@@ -669,7 +669,7 @@ export async function inspectWindowsGatewayFirewall(
       applies: true,
       severity: "warning",
       code: "windows_firewall_inspection_failed",
-      message: "OpenClaw could not parse Windows Firewall LAN Gateway policy.",
+      message: "LanFu could not parse Windows Firewall LAN Gateway policy.",
       details: [
         "Run `openclaw gateway status --deep` again, or verify the advertised LAN URL from another device.",
       ],
@@ -690,7 +690,7 @@ export async function inspectWindowsGatewayFirewall(
       applies: true,
       severity: "warning",
       code: "windows_firewall_inspection_failed",
-      message: "OpenClaw could not parse Windows Firewall LAN Gateway policy.",
+      message: "LanFu could not parse Windows Firewall LAN Gateway policy.",
       details: [
         "Run `openclaw gateway status --deep` again, or verify the advertised LAN URL from another device.",
       ],
@@ -707,7 +707,7 @@ export async function inspectWindowsGatewayFirewall(
         applies: true,
         severity: "warning",
         code: "windows_firewall_inspection_failed",
-        message: "OpenClaw could not parse Windows Firewall LAN Gateway policy.",
+        message: "LanFu could not parse Windows Firewall LAN Gateway policy.",
         details: [
           "Run `openclaw gateway status --deep` again, or verify the advertised LAN URL from another device.",
         ],

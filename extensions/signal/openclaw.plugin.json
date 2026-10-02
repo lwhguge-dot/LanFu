@@ -1,17 +1,23 @@
 {
   "id": "signal",
-  "categories": ["channels"],
+  "categories": [
+    "channels"
+  ],
   "name": "Signal",
-  "description": "OpenClaw Signal channel plugin.",
+  "description": "LanFu Signal channel plugin.",
   "doctorContract": {
     "configRepair": true
   },
   "activation": {
     "onStartup": false
   },
-  "channels": ["signal"],
+  "channels": [
+    "signal"
+  ],
   "channelAccountKeyPolicies": {
-    "signal": { "canonicalAliasesRequireOwnField": "account" }
+    "signal": {
+      "canonicalAliasesRequireOwnField": "account"
+    }
   },
   "configSchema": {
     "type": "object",

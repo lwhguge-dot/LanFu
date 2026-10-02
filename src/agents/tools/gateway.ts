@@ -370,7 +370,7 @@ async function resolveApprovalRequesterDeviceIdentityForGatewayTool(params: {
       throw new Error(
         [
           "approved node gateway calls require a stable device identity.",
-          "Fix the OpenClaw state directory permissions and retry the approval.",
+          "Fix the LanFu state directory permissions and retry the approval.",
         ].join(" "),
         { cause: error },
       );
@@ -378,7 +378,7 @@ async function resolveApprovalRequesterDeviceIdentityForGatewayTool(params: {
     throw new Error(
       [
         "remote approval gateway calls require a stable device identity.",
-        "Fix the OpenClaw state directory permissions or use the local approval-runtime gateway.",
+        "Fix the LanFu state directory permissions or use the local approval-runtime gateway.",
       ].join(" "),
       { cause: error },
     );

@@ -1,15 +1,19 @@
 {
   "id": "nextcloud-talk",
-  "categories": ["channels"],
+  "categories": [
+    "channels"
+  ],
   "doctorContract": {
     "configRepair": true
   },
   "name": "Nextcloud Talk",
-  "description": "OpenClaw Nextcloud Talk channel plugin for conversations.",
+  "description": "LanFu Nextcloud Talk channel plugin for conversations.",
   "activation": {
     "onStartup": false
   },
-  "channels": ["nextcloud-talk"],
+  "channels": [
+    "nextcloud-talk"
+  ],
   "configSchema": {
     "type": "object",
     "additionalProperties": false,

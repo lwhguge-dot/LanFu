@@ -1,16 +1,30 @@
 {
   "id": "memory-core",
-  "categories": ["memory"],
+  "categories": [
+    "memory"
+  ],
   "doctorContract": {
     "stateMigrations": [
-      { "id": "memory-core-host-events-jsonl-to-sqlite", "doctorOnly": true },
-      { "id": "memory-core-dreams-json-to-sqlite" },
-      { "id": "memory-core-legacy-sidecar-index-to-agent-sqlite" },
-      { "id": "memory-core-qmd-workspace-retired", "doctorOnly": true },
-      { "id": "memory-core-qmd-file-locks-to-sqlite-leases" }
+      {
+        "id": "memory-core-host-events-jsonl-to-sqlite",
+        "doctorOnly": true
+      },
+      {
+        "id": "memory-core-dreams-json-to-sqlite"
+      },
+      {
+        "id": "memory-core-legacy-sidecar-index-to-agent-sqlite"
+      },
+      {
+        "id": "memory-core-qmd-workspace-retired",
+        "doctorOnly": true
+      },
+      {
+        "id": "memory-core-qmd-file-locks-to-sqlite-leases"
+      }
     ]
   },
-  "name": "OpenClaw Memory",
+  "name": "LanFu Memory",
   "cliCommands": [
     {
       "name": "memory",
@@ -23,11 +37,18 @@
   },
   "kind": "memory",
   "contracts": {
-    "tools": ["intent", "memory_get", "memory_search"]
+    "tools": [
+      "intent",
+      "memory_get",
+      "memory_search"
+    ]
   },
   "toolMetadata": {
     "intent": {
-      "profiles": ["coding", "messaging"]
+      "profiles": [
+        "coding",
+        "messaging"
+      ]
     },
     "memory_get": {
       "replaySafe": true
@@ -65,13 +86,17 @@
       "id": "memory-policy",
       "title": "Memory policy",
       "order": 10,
-      "properties": ["memoryPolicy"]
+      "properties": [
+        "memoryPolicy"
+      ]
     },
     {
       "id": "dreaming",
       "title": "Dreaming",
       "order": 20,
-      "properties": ["dreaming"]
+      "properties": [
+        "dreaming"
+      ]
     }
   ],
   "configSchema": {
@@ -88,15 +113,26 @@
             "properties": {
               "hookExternalContentSources": {
                 "type": "array",
-                "items": { "type": "string" }
+                "items": {
+                  "type": "string"
+                }
               },
               "channels": {
                 "type": "array",
-                "items": { "type": "string" }
+                "items": {
+                  "type": "string"
+                }
               },
               "chatTypes": {
                 "type": "array",
-                "items": { "type": "string", "enum": ["direct", "group", "channel"] }
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "direct",
+                    "group",
+                    "channel"
+                  ]
+                }
               }
             }
           }
@@ -128,7 +164,11 @@
             "properties": {
               "mode": {
                 "type": "string",
-                "enum": ["inline", "separate", "both"]
+                "enum": [
+                  "inline",
+                  "separate",
+                  "both"
+                ]
               },
               "separateReports": {
                 "type": "boolean"
@@ -229,7 +269,7 @@
                     "type": "number",
                     "minimum": 0,
                     "maximum": 1,
-                    "description": "Maximum fraction of prior MEMORY.md entries a consolidation rewrite may remove before OpenClaw rejects it and uses append-only fallback."
+                    "description": "Maximum fraction of prior MEMORY.md entries a consolidation rewrite may remove before LanFu rejects it and uses append-only fallback."
                   },
                   "execution": {
                     "type": "object",

@@ -36,12 +36,12 @@ export function printDaemonStatusVersions(
     if (status.cli?.version && status.cli.version !== gatewayVersion) {
       defaultRuntime.error(
         warnText(
-          `Warning: this OpenClaw command is version ${status.cli.version}, but the running Gateway is version ${gatewayVersion}.`,
+          `Warning: this LanFu command is version ${status.cli.version}, but the running Gateway is version ${gatewayVersion}.`,
         ),
       );
       defaultRuntime.error(
         warnText(
-          "Check `openclaw --version`, `which openclaw`, and `openclaw gateway status --deep`; if this mismatch is unexpected, update PATH so `openclaw` points to the version you want, or reinstall the Gateway service from that same OpenClaw install.",
+          "Check `openclaw --version`, `which openclaw`, and `openclaw gateway status --deep`; if this mismatch is unexpected, update PATH so `openclaw` points to the version you want, or reinstall the Gateway service from that same LanFu install.",
         ),
       );
     }
@@ -62,7 +62,7 @@ export function printDaemonStatusVersions(
     ) {
       defaultRuntime.error(
         warnText(
-          `Warning: this OpenClaw command is version ${status.cli.version}, but the installed Gateway service is version ${serviceInstallVersion}.`,
+          `Warning: this LanFu command is version ${status.cli.version}, but the installed Gateway service is version ${serviceInstallVersion}.`,
         ),
       );
       const guidance = resolveDaemonServiceInstallGuidance(status.service.targetRole);

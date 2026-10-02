@@ -80,10 +80,8 @@ describe("createApplicationConfigCapability", () => {
     const listener = vi.fn();
     const unsubscribe = config.subscribe(listener);
 
-    expect(config.current.communityInvite).toBe(false);
-    await expect(config.refresh()).resolves.toMatchObject({ communityInvite: true });
-    await expect(config.refresh()).resolves.toMatchObject({ communityInvite: false });
-    expect(listener).toHaveBeenLastCalledWith(expect.objectContaining({ communityInvite: false }));
+    // LanFu: the communityInvite flag was removed with the invite card.
+    expect("communityInvite" in config.current).toBe(false);
     unsubscribe();
   });
 

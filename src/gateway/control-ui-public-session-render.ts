@@ -135,10 +135,10 @@ export function renderPublicSessionDocument(params: {
     truncated ||= clipped;
     remaining -= text.length;
     rows.push(
-      `<article class="message ${message.role}" aria-label="${message.role === "user" ? "User" : "Assistant"} message"><h2>${message.role === "user" ? "User" : "OpenClaw"}</h2><div class="content">${markdown.render(text)}${clipped ? '<p class="omitted">Message shortened for this public view.</p>' : ""}</div></article>`,
+      `<article class="message ${message.role}" aria-label="${message.role === "user" ? "User" : "Assistant"} message"><h2>${message.role === "user" ? "User" : "LanFu"}</h2><div class="content">${markdown.render(text)}${clipped ? '<p class="omitted">Message shortened for this public view.</p>' : ""}</div></article>`,
     );
   }
-  const description = "A public, read-only OpenClaw conversation. No login required.";
+  const description = "A public, read-only LanFu conversation. No login required.";
   const canonicalMetadata = params.canonicalUrl
     ? `<link rel="canonical" href="${escapeHtml(params.canonicalUrl)}">
 <meta property="og:url" content="${escapeHtml(params.canonicalUrl)}">`
@@ -152,7 +152,7 @@ export function renderPublicSessionDocument(params: {
 <meta name="referrer" content="no-referrer"><meta name="robots" content="noindex, nofollow">
 ${isLatest ? '<meta http-equiv="refresh" content="15">' : ""}
 <title>${title} · OpenClaw</title>${canonicalMetadata}
-<meta property="og:type" content="website"><meta property="og:site_name" content="OpenClaw">
+<meta property="og:type" content="website"><meta property="og:site_name" content="LanFu">
 <meta property="og:title" content="${title}"><meta property="og:description" content="${description}">
 <meta property="og:image" content="${escapeHtml(params.cardUrl)}">
 <meta name="twitter:card" content="summary_large_image">

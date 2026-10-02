@@ -63,7 +63,7 @@ it.each(["profile", "device-local"] as const)(
     });
     await updatePickers(container);
     expect(container.textContent).toContain(
-      `${missingTheme} is unavailable. Using Claw until the theme becomes available again.`,
+      `${missingTheme} is unavailable. Using LanFu until the theme becomes available again.`,
     );
     const claw = container.querySelector<HTMLButtonElement>('[data-theme-id="claw"]');
     expect(claw?.getAttribute("aria-pressed")).toBe("true");
@@ -75,7 +75,7 @@ it.each(["profile", "device-local"] as const)(
         .querySelector(`#settings-font-${slot}`)
         ?.closest("openclaw-select-picker");
       expect(picker?.querySelector('[role="option"][data-value="theme"]')?.textContent).toContain(
-        "Claw · Instrument Sans",
+        "LanFu · Instrument Sans",
       );
     }
     expect(props.theme).toBe(missingTheme);

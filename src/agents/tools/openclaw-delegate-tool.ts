@@ -10,7 +10,7 @@ import { callInProcessGatewayTool } from "./in-process-gateway.js";
 
 const OpenClawDelegateSchema = Type.Object({
   message: Type.String({ description: "What system must do." }),
-  sessionId: Type.Optional(Type.String({ description: "Continue prior OpenClaw talk." })),
+  sessionId: Type.Optional(Type.String({ description: "Continue prior LanFu talk." })),
 });
 
 const OpenClawDelegateOutputSchema = Type.Object(
@@ -77,7 +77,7 @@ export function createOpenClawDelegateToolsForRun(
   const turnSourceThreadId = options.currentThreadTs ?? options.agentThreadId;
   const tool: AnyAgentTool = {
     name: "openclaw",
-    label: "OpenClaw",
+    label: "LanFu",
     // Keep human approval in one model tool call; a yielded cell can outlive its turn.
     catalogMode: "direct-only",
     description:

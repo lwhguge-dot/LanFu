@@ -727,7 +727,7 @@ describe("runSetupWizard", () => {
 
     expect(prompter.text).toHaveBeenCalledWith(
       expect.objectContaining({
-        message: "What should we call your first agent?",
+        message: "你的助手叫什么名字？直接回车即默认助手「小蓝」（标识需为英文，如 main）",
         initialValue: "main",
       }),
     );
@@ -865,7 +865,7 @@ describe("runSetupWizard", () => {
     expect(plain).not.toHaveBeenCalled();
     expect(select).toHaveBeenCalledOnce();
     expect(select).toHaveBeenCalledWith(
-      expect.objectContaining({ message: "Help make OpenClaw better?", initialValue: false }),
+      expect.objectContaining({ message: "Help make LanFu better?", initialValue: false }),
     );
     expect(ensureAuthProfileStore).not.toHaveBeenCalled();
     expect(setupChannels).not.toHaveBeenCalled();
@@ -1337,7 +1337,7 @@ describe("runSetupWizard", () => {
 
     expect(persistedWizardConfigs().at(-1)?.telemetry).toBeUndefined();
     expect(prompter.select).not.toHaveBeenCalledWith(
-      expect.objectContaining({ message: "Help make OpenClaw better?" }),
+      expect.objectContaining({ message: "Help make LanFu better?" }),
     );
   });
 
@@ -1416,7 +1416,7 @@ describe("runSetupWizard", () => {
     {
       label: "freshness rejection",
       error: new SetupMigrationFreshnessError(
-        "Migration import during onboarding requires a fresh OpenClaw setup.\nExisting setup:\n- state agents/ exists",
+        "Migration import during onboarding requires a fresh LanFu setup.\nExisting setup:\n- state agents/ exists",
       ),
       detail: "state agents/ exists",
     },
@@ -1607,7 +1607,7 @@ describe("runSetupWizard", () => {
         expect(finalizeSetupWizard).toHaveBeenCalledOnce();
       }
       const namePrompt = expect.objectContaining({
-        message: "What should we call your first agent?",
+        message: "你的助手叫什么名字？直接回车即默认助手「小蓝」（标识需为英文，如 main）",
       });
       if (!authored && !requestedName) {
         expect(prompter.text).toHaveBeenCalledWith(namePrompt);
@@ -1766,7 +1766,7 @@ describe("runSetupWizard", () => {
     );
     expect(prompter.select).toHaveBeenCalledOnce();
     expect(prompter.select).toHaveBeenCalledWith(
-      expect.objectContaining({ message: "Help make OpenClaw better?", initialValue: false }),
+      expect.objectContaining({ message: "Help make LanFu better?", initialValue: false }),
     );
   });
 

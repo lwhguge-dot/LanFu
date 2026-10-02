@@ -27,7 +27,7 @@ async function stageWorkerDeployArtifact(params: {
     expectedRealPath = await fs.realpath(sourcePath);
   } catch (error) {
     throw new Error(
-      `OpenClaw worker deploy artifact is missing; build the running package at ${params.sourceRoot}`,
+      `LanFu worker deploy artifact is missing; build the running package at ${params.sourceRoot}`,
       { cause: error },
     );
   }
@@ -74,7 +74,7 @@ export async function collectWorkerBundleManifest(
 ): Promise<WorkerBundleManifestEntry[]> {
   const source = await root(sourceRoot, { maxBytes: Infinity }).catch((error: unknown) => {
     throw new Error(
-      `OpenClaw worker deploy artifact is missing; build the running package at ${sourceRoot}`,
+      `LanFu worker deploy artifact is missing; build the running package at ${sourceRoot}`,
       { cause: error },
     );
   });

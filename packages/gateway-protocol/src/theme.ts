@@ -114,7 +114,7 @@ export const BUILTIN_THEMES: readonly ThemeDescriptor[] = (
   [
     {
       id: "claw",
-      name: "Claw",
+      name: "LanFu",
       description:
         "Signature coral red and teal on charcoal or pale surfaces, with Instrument Sans throughout. A balanced everyday workspace.",
     },

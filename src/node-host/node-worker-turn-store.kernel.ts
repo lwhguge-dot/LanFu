@@ -46,7 +46,7 @@ function ensureTurnSchema(database: DatabaseSync): void {
   database.exec(
     extractSqliteTableSchema(OPENCLAW_STATE_SCHEMA_SQL, "node_worker_turns", {
       endMarker: "\n  WHERE state = 'running';",
-      errorMessage: "OpenClaw node worker turn schema marker is missing.",
+      errorMessage: "LanFu node worker turn schema marker is missing.",
     }),
   );
 }

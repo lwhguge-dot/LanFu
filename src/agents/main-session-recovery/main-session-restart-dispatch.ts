@@ -54,7 +54,7 @@ import {
 const log = createSubsystemLogger("main-session-restart-recovery");
 const RESTART_RECOVERY_RESUME_MESSAGE = formatSystemTurnPrompt(
   "Your previous turn was interrupted by a gateway restart while " +
-    "OpenClaw was waiting on tool/model work. The restart did not cancel the user's task. " +
+    "LanFu was waiting on tool/model work. The restart did not cancel the user's task. " +
     "Continue from the existing transcript: check the current state, recover interrupted work, " +
     "and finish the task without asking the user to repeat the request. Interrupted subagents " +
     "are not automatically relaunched. Inspect their saved results and current status; " +

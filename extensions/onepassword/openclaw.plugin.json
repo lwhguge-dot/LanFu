@@ -1,6 +1,8 @@
 {
   "id": "onepassword",
-  "categories": ["security"],
+  "categories": [
+    "security"
+  ],
   "name": "1Password",
   "description": "1Password SecretRef resolver and curated agent broker with approval policy and SQLite audit history.",
   "cliCommands": [
@@ -12,8 +14,12 @@
   ],
   "activation": {
     "onStartup": false,
-    "onCommands": ["onepassword"],
-    "onConfigPaths": ["plugins.entries.onepassword.config"]
+    "onCommands": [
+      "onepassword"
+    ],
+    "onConfigPaths": [
+      "plugins.entries.onepassword.config"
+    ]
   },
   "commandAliases": [
     {
@@ -22,16 +28,20 @@
     }
   ],
   "contracts": {
-    "tools": ["onepassword"]
+    "tools": [
+      "onepassword"
+    ]
   },
   "secretProviderIntegrations": {
     "onepassword": {
       "providerAlias": "onepassword",
       "displayName": "1Password",
-      "description": "Resolve OpenClaw exec SecretRefs from 1Password using the op CLI.",
+      "description": "Resolve LanFu exec SecretRefs from 1Password using the op CLI.",
       "source": "exec",
       "command": "${node}",
-      "args": ["./onepassword-secret-ref-resolver.js"],
+      "args": [
+        "./onepassword-secret-ref-resolver.js"
+      ],
       "timeoutMs": 90000,
       "noOutputTimeoutMs": 90000,
       "maxOutputBytes": 16777216,
@@ -59,25 +69,36 @@
       "id": "1password-connection",
       "title": "1Password connection",
       "order": 10,
-      "properties": ["vault", "opBin", "opTimeoutMs"]
+      "properties": [
+        "vault",
+        "opBin",
+        "opTimeoutMs"
+      ]
     },
     {
       "id": "registered-items",
       "title": "Registered items",
       "order": 20,
-      "properties": ["items"]
+      "properties": [
+        "items"
+      ]
     },
     {
       "id": "access-policy",
       "title": "Access policy",
       "order": 30,
-      "properties": ["defaultPolicy", "grantTtlHours"]
+      "properties": [
+        "defaultPolicy",
+        "grantTtlHours"
+      ]
     },
     {
       "id": "credential-caching",
       "title": "Credential caching",
       "order": 40,
-      "properties": ["cacheTtlSeconds"]
+      "properties": [
+        "cacheTtlSeconds"
+      ]
     }
   ],
   "configSchema": {
@@ -85,12 +106,28 @@
     "additionalProperties": false,
     "allOf": [
       {
-        "if": { "required": ["vault"] },
-        "then": { "required": ["items"] }
+        "if": {
+          "required": [
+            "vault"
+          ]
+        },
+        "then": {
+          "required": [
+            "items"
+          ]
+        }
       },
       {
-        "if": { "required": ["items"] },
-        "then": { "required": ["vault"] }
+        "if": {
+          "required": [
+            "items"
+          ]
+        },
+        "then": {
+          "required": [
+            "vault"
+          ]
+        }
       }
     ],
     "properties": {
@@ -105,7 +142,11 @@
       },
       "defaultPolicy": {
         "type": "string",
-        "enum": ["auto", "approve", "deny"],
+        "enum": [
+          "auto",
+          "approve",
+          "deny"
+        ],
         "default": "approve"
       },
       "cacheTtlSeconds": {
@@ -133,7 +174,9 @@
         "additionalProperties": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["item"],
+          "required": [
+            "item"
+          ],
           "properties": {
             "item": {
               "type": "string",
@@ -153,7 +196,11 @@
             },
             "policy": {
               "type": "string",
-              "enum": ["auto", "approve", "deny"]
+              "enum": [
+                "auto",
+                "approve",
+                "deny"
+              ]
             },
             "description": {
               "type": "string",

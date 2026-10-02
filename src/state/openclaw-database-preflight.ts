@@ -181,7 +181,7 @@ function inspectCurrentStateStartupSchema(
     .get() as { schema_version?: unknown } | undefined;
   if (metadata?.schema_version !== foundVersion) {
     throw new Error(
-      `OpenClaw state database ${databasePath} metadata schema version ${typeof metadata?.schema_version === "number" ? metadata.schema_version : "invalid"} does not match ${foundVersion}.`,
+      `LanFu state database ${databasePath} metadata schema version ${typeof metadata?.schema_version === "number" ? metadata.schema_version : "invalid"} does not match ${foundVersion}.`,
     );
   }
   // Both policies inspect the same private or immutable snapshot; later opens read fresh facts.
@@ -258,9 +258,7 @@ export async function preflightOpenClawStateDatabasePath(
     assertSqliteIntegrity(database, resolvedPath);
     foundVersion = readSqliteUserVersion(database);
     if (!Number.isSafeInteger(foundVersion) || foundVersion < 0) {
-      throw new Error(
-        `OpenClaw state database ${resolvedPath} has invalid schema version metadata.`,
-      );
+      throw new Error(`LanFu state database ${resolvedPath} has invalid schema version metadata.`);
     }
     contentVersion =
       foundVersion > OPENCLAW_STATE_SCHEMA_VERSION
@@ -418,7 +416,7 @@ export async function preflightOpenClawDatabaseSchemas(
           );
           if (blockingIssues.length > 0) {
             throw new Error(
-              `OpenClaw state database ${statePath} requires repair: ${blockingIssues.map((issue) => issue.message).join("; ")}; run openclaw doctor --fix.`,
+              `LanFu state database ${statePath} requires repair: ${blockingIssues.map((issue) => issue.message).join("; ")}; run openclaw doctor --fix.`,
             );
           }
         } else {

@@ -292,14 +292,14 @@ export function registerTaskEventSubscriptionTests(
     emitAgentEvent({
       runId: secondary.runId!,
       stream: "assistant",
-      data: { text: "OpenClaw runtime context (internal): Keep internal details private." },
+      data: { text: "LanFu runtime context (internal): Keep internal details private." },
     });
     await vi.advanceTimersByTimeAsync(1_000);
     const sanitizedActivity = readTaskUpserts(broadcast).find(
       ({ task }) => task.id === secondary.taskId,
     );
     expect(sanitizedActivity?.task).not.toHaveProperty("lastActivity");
-    expect(JSON.stringify(sanitizedActivity)).not.toContain("OpenClaw runtime context");
+    expect(JSON.stringify(sanitizedActivity)).not.toContain("LanFu runtime context");
 
     broadcast.mockClear();
     emitAgentEvent({

@@ -614,7 +614,7 @@ describe("session_status tool", () => {
     const result = await tool.execute("call1", {});
     const details = result.details as { ok?: boolean; statusText?: string };
     expect(details.ok).toBe(true);
-    expect(details.statusText).toContain("OpenClaw");
+    expect(details.statusText).toContain("LanFu");
     expect(details.statusText).toContain("🧠 Model:");
     expect(details.statusText).not.toContain("OAuth/token status");
     expect(tool.outputSchema).toBeDefined();
@@ -992,7 +992,7 @@ describe("session_status tool", () => {
     const details = result.details as { ok?: boolean; sessionKey?: string; statusText?: string };
     expect(details.ok).toBe(true);
     expect(details.sessionKey).toBe("agent:admin:main");
-    expect(details.statusText).toContain("OpenClaw");
+    expect(details.statusText).toContain("LanFu");
   });
 
   it("uses runSessionKey thinking level for implicit no-arg status lookups (#82669)", async () => {
@@ -1077,7 +1077,7 @@ describe("session_status tool", () => {
     const details = result.details as { ok?: boolean; sessionKey?: string; statusText?: string };
     expect(details.ok).toBe(true);
     expect(details.sessionKey).toBe("agent:main:main");
-    expect(details.statusText).toContain("OpenClaw");
+    expect(details.statusText).toContain("LanFu");
   });
 
   it("reports origin, active, and persisted delivery route metadata for semantic current", async () => {
@@ -1407,7 +1407,7 @@ describe("session_status tool", () => {
     const details = result.details as { ok?: boolean; sessionKey?: string; statusText?: string };
     expect(details.ok).toBe(true);
     expect(details.sessionKey).toBe("agent:main:scope:scopy:direct:scopy");
-    expect(details.statusText).toContain("OpenClaw");
+    expect(details.statusText).toContain("LanFu");
     expect(details.statusText).toContain("🧠 Model:");
   });
 
@@ -1424,7 +1424,7 @@ describe("session_status tool", () => {
     const details = result.details as { ok?: boolean; sessionKey?: string; statusText?: string };
     expect(details.ok).toBe(true);
     expect(details.sessionKey).toBe("agent:main:telegram:group:-5096326138");
-    expect(details.statusText).toContain("OpenClaw");
+    expect(details.statusText).toContain("LanFu");
     expect(details.statusText).toContain("🧠 Model:");
     expect(
       callGatewayMock.mock.calls.some(([arg]) => {
@@ -1443,7 +1443,7 @@ describe("session_status tool", () => {
     const details = result.details as { ok?: boolean; sessionKey?: string; statusText?: string };
     expect(details.ok).toBe(true);
     expect(details.sessionKey).toBe("agent:main:scope:scopy:direct:scopy");
-    expect(details.statusText).toContain("OpenClaw");
+    expect(details.statusText).toContain("LanFu");
     expect(details.statusText).toContain("🧠 Model:");
   });
 

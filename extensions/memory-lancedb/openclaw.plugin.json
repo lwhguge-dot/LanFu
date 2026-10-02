@@ -1,14 +1,21 @@
 {
   "id": "memory-lancedb",
-  "categories": ["memory"],
+  "categories": [
+    "memory"
+  ],
   "doctorContract": {
     "stateMigrations": [
-      { "id": "memory-lancedb-agent-scope" },
-      { "id": "memory-lancedb-legacy-envelope-rows", "doctorOnly": true }
+      {
+        "id": "memory-lancedb-agent-scope"
+      },
+      {
+        "id": "memory-lancedb-legacy-envelope-rows",
+        "doctorOnly": true
+      }
     ]
   },
   "name": "Memory LanceDB",
-  "description": "OpenClaw LanceDB-backed long-term memory plugin with auto-recall, auto-capture, and vector search.",
+  "description": "LanFu LanceDB-backed long-term memory plugin with auto-recall, auto-capture, and vector search.",
   "cliCommands": [
     {
       "name": "ltm",
@@ -16,19 +23,36 @@
       "hasSubcommands": true
     }
   ],
-  "catalog": { "featured": true, "order": 70 },
-  "commandAliases": [{ "name": "ltm" }],
+  "catalog": {
+    "featured": true,
+    "order": 70
+  },
+  "commandAliases": [
+    {
+      "name": "ltm"
+    }
+  ],
   "activation": {
     "onStartup": false,
-    "onCommands": ["ltm"]
+    "onCommands": [
+      "ltm"
+    ]
   },
   "kind": "memory",
   "contracts": {
-    "tools": ["memory_forget", "memory_recall", "memory_store"]
+    "tools": [
+      "memory_forget",
+      "memory_recall",
+      "memory_store"
+    ]
   },
   "toolMetadata": {
-    "memory_forget": { "sideEffecting": true },
-    "memory_store": { "sideEffecting": true }
+    "memory_forget": {
+      "sideEffecting": true
+    },
+    "memory_store": {
+      "sideEffecting": true
+    }
   },
   "uiHints": {
     "embedding.apiKey": {
@@ -104,31 +128,45 @@
       "id": "embeddings",
       "title": "Embeddings",
       "order": 10,
-      "properties": ["embedding"]
+      "properties": [
+        "embedding"
+      ]
     },
     {
       "id": "storage",
       "title": "Storage",
       "order": 20,
-      "properties": ["dbPath", "storageOptions"]
+      "properties": [
+        "dbPath",
+        "storageOptions"
+      ]
     },
     {
       "id": "memory-capture",
       "title": "Memory capture",
       "order": 30,
-      "properties": ["autoCapture", "captureMaxChars", "customTriggers"]
+      "properties": [
+        "autoCapture",
+        "captureMaxChars",
+        "customTriggers"
+      ]
     },
     {
       "id": "memory-recall",
       "title": "Memory recall",
       "order": 40,
-      "properties": ["autoRecall", "recallMaxChars"]
+      "properties": [
+        "autoRecall",
+        "recallMaxChars"
+      ]
     },
     {
       "id": "dreaming",
       "title": "Dreaming",
       "order": 50,
-      "properties": ["dreaming"]
+      "properties": [
+        "dreaming"
+      ]
     }
   ],
   "configSchema": {
@@ -139,7 +177,6 @@
         "type": "object",
         "minProperties": 1,
         "additionalProperties": false,
-        "minProperties": 1,
         "properties": {
           "apiKey": {
             "type": "string"

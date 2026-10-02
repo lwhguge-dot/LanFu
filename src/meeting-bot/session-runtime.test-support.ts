@@ -107,7 +107,7 @@ export function createTestRuntime(params: {
         state: "active",
         createdAt,
         updatedAt: createdAt,
-        participantIdentity: "OpenClaw",
+        participantIdentity: "LanFu",
         realtime: { enabled: false, toolPolicy: "none" },
         notes: [],
       };

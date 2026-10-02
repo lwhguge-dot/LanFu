@@ -475,7 +475,7 @@ async function claimTailscaleRouteOwned(
     }
   }
   if (adopted) {
-    info("Tailscale route adopted from a previous OpenClaw release");
+    info("Tailscale route adopted from a previous LanFu release");
   }
   return {
     ...claim,

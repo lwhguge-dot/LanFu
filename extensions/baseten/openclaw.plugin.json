@@ -1,8 +1,10 @@
 {
   "id": "baseten",
-  "categories": ["models"],
+  "categories": [
+    "models"
+  ],
   "name": "Baseten",
-  "description": "OpenClaw Baseten provider plugin.",
+  "description": "LanFu Baseten provider plugin.",
   "activation": {
     "onStartup": false
   },
@@ -48,8 +50,20 @@
             "compat": {
               "codeMode": "capable",
               "supportsReasoningEffort": true,
-              "supportedReasoningEfforts": ["none", "minimal", "low", "medium", "high", "xhigh", "max"],
-              "reasoningEffortMap": { "off": "none", "none": "none", "adaptive": "max" }
+              "supportedReasoningEfforts": [
+                "none",
+                "minimal",
+                "low",
+                "medium",
+                "high",
+                "xhigh",
+                "max"
+              ],
+              "reasoningEffortMap": {
+                "off": "none",
+                "none": "none",
+                "adaptive": "max"
+              }
             }
           },
           {
@@ -86,7 +100,11 @@
             "compat": {
               "codeMode": "capable",
               "supportsReasoningEffort": true,
-              "supportedReasoningEfforts": ["none", "high", "max"],
+              "supportedReasoningEfforts": [
+                "none",
+                "high",
+                "max"
+              ],
               "reasoningEffortMap": {
                 "off": "none",
                 "none": "none",
@@ -115,7 +133,11 @@
             },
             "compat": {
               "supportsReasoningEffort": true,
-              "supportedReasoningEfforts": ["none", "high", "max"],
+              "supportedReasoningEfforts": [
+                "none",
+                "high",
+                "max"
+              ],
               "reasoningEffortMap": {
                 "off": "none",
                 "none": "none",
@@ -145,8 +167,20 @@
             },
             "compat": {
               "supportsReasoningEffort": true,
-              "supportedReasoningEfforts": ["none", "minimal", "low", "medium", "high", "xhigh", "max"],
-              "reasoningEffortMap": { "off": "none", "none": "none", "adaptive": "max" }
+              "supportedReasoningEfforts": [
+                "none",
+                "minimal",
+                "low",
+                "medium",
+                "high",
+                "xhigh",
+                "max"
+              ],
+              "reasoningEffortMap": {
+                "off": "none",
+                "none": "none",
+                "adaptive": "max"
+              }
             }
           },
           {
@@ -216,8 +250,20 @@
             },
             "compat": {
               "supportsReasoningEffort": true,
-              "supportedReasoningEfforts": ["none", "minimal", "low", "medium", "high", "xhigh", "max"],
-              "reasoningEffortMap": { "off": "none", "none": "none", "adaptive": "max" }
+              "supportedReasoningEfforts": [
+                "none",
+                "minimal",
+                "low",
+                "medium",
+                "high",
+                "xhigh",
+                "max"
+              ],
+              "reasoningEffortMap": {
+                "off": "none",
+                "none": "none",
+                "adaptive": "max"
+              }
             }
           }
         ]

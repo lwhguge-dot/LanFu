@@ -148,7 +148,7 @@ async function runColdMutation(
         );
         if (!completed || completed.cleanupIncomplete) {
           throw new Error(
-            "Cold transcript worker cleanup is incomplete; restart OpenClaw before another maintenance operation",
+            "Cold transcript worker cleanup is incomplete; restart LanFu before another maintenance operation",
           );
         }
         if (plan.kind === "cold-restore" && completed.result.restored && claim.isCurrent()) {

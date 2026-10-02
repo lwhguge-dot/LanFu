@@ -44,7 +44,7 @@ export function registerLaunchdAncestryTests({
 }) {
   describe("launchd process ancestry guards", () => {
     it.each(["install", "uninstall"] as const)(
-      "allows external %s with stale OpenClaw service markers",
+      "allows external %s with stale LanFu service markers",
       async (action) => {
         const env = createDefaultLaunchdEnv();
         getSelfAndAncestorPidsSync.mockReturnValue(new Set([...launchdCallerPids, 1]));

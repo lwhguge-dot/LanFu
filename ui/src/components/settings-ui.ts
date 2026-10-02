@@ -103,14 +103,10 @@ export function renderSettingsHelpTrigger(props: SettingsHelpTriggerProps): Temp
   `;
 }
 
-export function renderLearnMoreLink(url: string): TemplateResult {
-  return html`<a
-    class="learn-more-link"
-    href=${url}
-    target=${EXTERNAL_LINK_TARGET}
-    rel=${buildExternalLinkRel()}
-    >${t("common.learnMore")}</a
-  >`;
+// LanFu is an intranet build: the upstream public docs are not reachable for
+// employees, so learn-more affordances to docs.openclaw.ai render as nothing.
+export function renderLearnMoreLink(_url: string): TemplateResult {
+  return html``;
 }
 
 export function renderSettingsPageHeader(props: SettingsPageHeaderProps): TemplateResult {

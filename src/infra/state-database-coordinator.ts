@@ -91,7 +91,7 @@ export function resolveStateLifecycleRuntimeDirectory(): string {
     return captured.directory;
   }
   return process.platform === "win32"
-    ? path.join(os.homedir(), "AppData", "Local", "OpenClaw", "locks")
+    ? path.join(os.homedir(), "AppData", "Local", "LanFu", "locks")
     : "/tmp";
 }
 

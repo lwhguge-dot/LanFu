@@ -143,7 +143,7 @@ function redactPersistedDetailString(
   const redactedPrefix =
     boundaryIndex >= 0
       ? redactedScan.slice(0, boundaryIndex)
-      : "[OpenClaw persisted detail redacted: boundary marker removed]";
+      : "[LanFu persisted detail redacted: boundary marker removed]";
   const safePrefixChars = Math.max(
     0,
     maxChars - Math.min(maxChars, MAX_PERSISTED_DETAIL_BOUNDARY_OVERLAP_CHARS),
@@ -152,9 +152,9 @@ function redactPersistedDetailString(
   const persistedPrefix =
     PARTIAL_STRUCTURED_SECRET_VALUE_RE.test(initialPersistedPrefix) ||
     PARTIAL_PRIVATE_KEY_BLOCK_RE.test(initialPersistedPrefix)
-      ? "[OpenClaw persisted detail redacted: partial secret span omitted]"
+      ? "[LanFu persisted detail redacted: partial secret span omitted]"
       : initialPersistedPrefix;
-  const boundaryNotice = "[OpenClaw persisted detail redacted: boundary overlap omitted]";
+  const boundaryNotice = "[LanFu persisted detail redacted: boundary overlap omitted]";
   return `${persistedPrefix}${persistedPrefix ? "\n" : ""}${boundaryNotice}\n\n[OpenClaw persisted detail truncated: ${Math.max(
     0,
     value.length - maxChars,
@@ -198,7 +198,7 @@ function redactPersistedDetailValue(
     return value;
   }
   if (depth >= 8) {
-    return "[OpenClaw persisted detail redacted: max depth exceeded]";
+    return "[LanFu persisted detail redacted: max depth exceeded]";
   }
   if (Array.isArray(value)) {
     let changed = false;

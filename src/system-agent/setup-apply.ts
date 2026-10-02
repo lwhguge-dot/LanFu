@@ -203,7 +203,7 @@ export async function applySystemAgentSetup(
       : resolveSystemAgentOnboardingTarget(config);
 
   if (hasExpectedConfigHash && resolveConfigSnapshotHash(snapshot) !== expectedConfigHash) {
-    throw new Error("OpenClaw config changed while AI access was being tested. Try setup again.");
+    throw new Error("LanFu config changed while AI access was being tested. Try setup again.");
   }
 
   let guardModules =
@@ -265,8 +265,8 @@ export async function applySystemAgentSetup(
     ) {
       throw new Error(
         phase === "before"
-          ? "The default-agent inference route changed before setup could start, so no workspace or Gateway settings were changed. Retry setup from the current OpenClaw session."
-          : "The default-agent inference route changed after the config write, so no further setup effects were applied. Retry setup from the current OpenClaw session.",
+          ? "The default-agent inference route changed before setup could start, so no workspace or Gateway settings were changed. Retry setup from the current LanFu session."
+          : "The default-agent inference route changed after the config write, so no further setup effects were applied. Retry setup from the current LanFu session.",
       );
     }
     return currentRoute;
@@ -287,14 +287,14 @@ export async function applySystemAgentSetup(
     });
     if (!created.createdAgent || !created.configHash) {
       throw new Error(
-        "OpenClaw did not create the approved first agent because the roster changed. Retry setup.",
+        "LanFu did not create the approved first agent because the roster changed. Retry setup.",
       );
     }
     snapshot = await readSetupConfigFileSnapshot();
     snapshotConfig = requireValidSystemAgentSetupSnapshot(snapshot);
     assertCommitPreconditions?.(snapshotConfig.sourceConfig);
     if ((resolveConfigSnapshotHash(snapshot) ?? null) !== created.configHash) {
-      throw new Error("OpenClaw config changed after first-agent creation. Retry setup.");
+      throw new Error("LanFu config changed after first-agent creation. Retry setup.");
     }
     const createdRoster = listAgentEntries(snapshotConfig.sourceConfig);
     const expectedAgentIds = created.createdAgentIds ?? [created.agentId];
@@ -302,7 +302,7 @@ export async function applySystemAgentSetup(
       createdRoster.length !== expectedAgentIds.length ||
       createdRoster.some((entry) => !expectedAgentIds.includes(normalizeAgentId(entry.id)))
     ) {
-      throw new Error("OpenClaw first-agent ownership changed during setup. Retry setup.");
+      throw new Error("LanFu first-agent ownership changed during setup. Retry setup.");
     }
     coordinatorId = params.firstAgent?.team ? created.agentId : undefined;
     const rebasedRoute = await assertVerifiedRoute(snapshot, verifiedRoute, "before", true);
@@ -392,9 +392,7 @@ export async function applySystemAgentSetup(
         (hasExpectedConfigHash || startedWithoutAuthoredRoster) &&
         context.previousHash !== expectedWriteHash
       ) {
-        throw new Error(
-          "OpenClaw config changed while AI access was being tested. Try setup again.",
-        );
+        throw new Error("LanFu config changed while AI access was being tested. Try setup again.");
       }
       await assertVerifiedRoute(context.snapshot);
       assertExpectedTarget(currentSnapshot.runtimeConfig);
@@ -419,7 +417,7 @@ export async function applySystemAgentSetup(
           !sameSetupConfiguredRoute(expectedSourceRoute.route, verifiedRoute.route, false))
       ) {
         throw new Error(
-          "The setup candidate no longer preserves the exact verified inference route, so it was not saved. Retry setup from the current OpenClaw session.",
+          "The setup candidate no longer preserves the exact verified inference route, so it was not saved. Retry setup from the current LanFu session.",
         );
       }
       // This is the auth/config operation's linearization point. Never hold
@@ -449,7 +447,7 @@ export async function applySystemAgentSetup(
   const setupResult = committed.result;
   const settings = setupResult?.settings;
   if (!settings) {
-    throw new Error("OpenClaw setup committed without resolved Gateway settings.");
+    throw new Error("LanFu setup committed without resolved Gateway settings.");
   }
   const onboardingTarget = resolveSetupTarget(nextConfig);
   const effectiveWorkspace = onboardingTarget.workspaceDir;
@@ -465,7 +463,7 @@ export async function applySystemAgentSetup(
       const issue = expectedRuntime.issues[0];
       const detail = issue ? ` (${issue.path ? `${issue.path}: ` : ""}${issue.message})` : "";
       throw new Error(
-        `OpenClaw could not validate the setup route after its config write${detail}. No further setup effects were applied. Retry setup from the current OpenClaw session.`,
+        `LanFu could not validate the setup route after its config write${detail}. No further setup effects were applied. Retry setup from the current LanFu session.`,
       );
     }
     const expectedPersistedRoute = await projectInferenceRoute(
@@ -477,7 +475,7 @@ export async function applySystemAgentSetup(
     // metadata change that would make the committed config run differently.
     if (!sameSetupConfiguredRoute(expectedPersistedRoute.route, verifiedRoute.route, false)) {
       throw new Error(
-        "The materialized inference route no longer matches the exact verified route, so no further setup effects were applied. Retry setup from the current OpenClaw session.",
+        "The materialized inference route no longer matches the exact verified route, so no further setup effects were applied. Retry setup from the current LanFu session.",
       );
     }
   }
@@ -536,7 +534,7 @@ export async function applySystemAgentSetup(
     },
     (error) =>
       lines.push(
-        `OpenClaw exec approval: ${formatErrorMessage(error)}; local model harnesses may ask again.`,
+        `LanFu exec approval: ${formatErrorMessage(error)}; local model harnesses may ask again.`,
       ),
   );
 

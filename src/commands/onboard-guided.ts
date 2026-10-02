@@ -566,7 +566,7 @@ async function runGuidedOnboardingFlow(
             })
           : await readConfigFileSnapshot();
       if (!appliedSnapshot.valid) {
-        throw new Error("Setup wrote an invalid OpenClaw config.");
+        throw new Error("Setup wrote an invalid LanFu config.");
       }
       persistedConfig = appliedSnapshot.sourceConfig ?? appliedSnapshot.config;
       applyProgress.stop(t("wizard.guided.setupDone"));
@@ -686,7 +686,7 @@ async function runGuidedOnboardingFlow(
     }
   }
   if (setupOnly) {
-    await prompter.outro("Continuing with the OpenClaw setup assistant.");
+    await prompter.outro("Continuing with the LanFu setup assistant.");
     return { workspace: hatchWorkspace, next: "chat" };
   }
   await prompter.note(t("wizard.guided.findMeLater"), t("wizard.guided.welcomeTitle"));

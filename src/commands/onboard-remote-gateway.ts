@@ -432,7 +432,7 @@ export async function runRemoteGatewayInferenceOnboarding(
         import("../wizard/clack-prompter.js").then(({ createClackPrompter }) =>
           createClackPrompter(),
         ));
-      await prompter.intro("OpenClaw");
+      await prompter.intro("LanFu");
       // One-shot RPCs have different connections. Preserve a signed device
       // owner across chat replies even when loopback shared auth needs no device.
       const deviceIdentity = resolveDeviceIdentityForGatewayCall();
@@ -447,9 +447,9 @@ export async function runRemoteGatewayInferenceOnboarding(
       let agentDraft: SystemAgentChatResult["agentDraft"];
       try {
         for (;;) {
-          await prompter.note(reply.reply, "OpenClaw");
+          await prompter.note(reply.reply, "LanFu");
           if (reply.action === "exit") {
-            await prompter.outro("OpenClaw setup finished.");
+            await prompter.outro("LanFu setup finished.");
             return;
           }
           if (reply.action === "open-agent") {
@@ -458,7 +458,7 @@ export async function runRemoteGatewayInferenceOnboarding(
             break;
           }
           const message = await prompter.text({
-            message: "Reply to OpenClaw",
+            message: "Reply to LanFu",
             ...(reply.sensitive ? { sensitive: true } : {}),
             validate: (value) => (value.trim() ? undefined : "Required"),
           });
@@ -471,7 +471,7 @@ export async function runRemoteGatewayInferenceOnboarding(
         }
       } catch (error) {
         if (error instanceof WizardCancelledError) {
-          await prompter.outro("OpenClaw setup paused.");
+          await prompter.outro("LanFu setup paused.");
           return;
         }
         throw error;

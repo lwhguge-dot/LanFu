@@ -295,7 +295,7 @@ async function promptWebToolsConfig(
         [
           "Codex-capable models can use native Codex web search instead of a separate provider.",
           "Other models need a separate web search provider.",
-          "If you do not choose one, OpenClaw can select a provider from available credentials; otherwise other models may not have web search.",
+          "If you do not choose one, LanFu can select a provider from available credentials; otherwise other models may not have web search.",
           ...(describeCodexNativeWebSearch(nextConfig)
             ? [describeCodexNativeWebSearch(nextConfig)!]
             : []),
@@ -441,7 +441,7 @@ export async function runConfigureWizard(
   runtime: RuntimeEnv = defaultRuntime,
 ) {
   try {
-    intro(opts.command === "update" ? "OpenClaw update wizard" : "OpenClaw configure");
+    intro(opts.command === "update" ? "LanFu update wizard" : "LanFu configure");
     const prompter = createClackPrompter();
 
     const prepared = await readConfigFileSnapshotForWrite();

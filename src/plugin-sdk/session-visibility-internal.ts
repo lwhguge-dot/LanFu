@@ -288,12 +288,12 @@ export function classifyLookupFailure(error: unknown): LookupFailureKind {
 
 export function lookupFailedDenialSuffix(kind: LookupFailureKind): string {
   if (kind === "transient") {
-    return "spawned-session ownership lookup failed (transient); retry once, then ask the operator to inspect OpenClaw logs.";
+    return "spawned-session ownership lookup failed (transient); retry once, then ask the operator to inspect LanFu logs.";
   }
   if (kind === "credentials") {
     return "spawned-session ownership lookup failed; ask the operator to check gateway configuration and credentials.";
   }
-  return "spawned-session ownership lookup failed; ask the operator to inspect OpenClaw logs.";
+  return "spawned-session ownership lookup failed; ask the operator to inspect LanFu logs.";
 }
 
 export function lookupFailedDenialMessage(
@@ -311,10 +311,10 @@ export function lookupFailedOperationMessage(
   const label = action === "list" ? "Session list" : `Session ${action}`;
   const guidance =
     kind === "transient"
-      ? "retry once, then ask the operator to inspect OpenClaw logs"
+      ? "retry once, then ask the operator to inspect LanFu logs"
       : kind === "credentials"
         ? "ask the operator to check gateway configuration and credentials"
-        : "ask the operator to inspect OpenClaw logs";
+        : "ask the operator to inspect LanFu logs";
   return `${label} failed because session lookup failed${kind === "transient" ? " (transient)" : ""}; ${guidance}.`;
 }
 

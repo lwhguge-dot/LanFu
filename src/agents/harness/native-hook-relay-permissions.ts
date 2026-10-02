@@ -185,7 +185,7 @@ async function resolveNativeHookRelayPreToolUseApproval(
       handled: true,
       outcome: "denied",
       reason:
-        "OpenClaw tool policy rewrote Codex app-server approval params; refusing original request.",
+        "LanFu tool policy rewrote Codex app-server approval params; refusing original request.",
     };
   }
   return { handled: true, outcome: "approved-once" };

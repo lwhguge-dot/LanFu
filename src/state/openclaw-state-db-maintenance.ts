@@ -196,7 +196,7 @@ export function assertOpenClawStateDatabaseOwner(
   if (metadata?.role !== "global") {
     const role = typeof metadata?.role === "string" ? metadata.role : "missing";
     throw new Error(
-      `OpenClaw state database ${options.pathname} has schema role ${role}; expected global.`,
+      `LanFu state database ${options.pathname} has schema role ${role}; expected global.`,
     );
   }
 }
@@ -210,7 +210,7 @@ export function assertOpenClawStateDatabaseForMaintenance(
   const userVersion = assertSupportedStateSchemaVersion(database, options.pathname);
   if (readStateSchemaContentVersion(database) !== OPENCLAW_STATE_SCHEMA_VERSION) {
     throw new Error(
-      `OpenClaw state database ${options.pathname} uses schema version ${userVersion}; run openclaw doctor --fix before compacting it.`,
+      `LanFu state database ${options.pathname} uses schema version ${userVersion}; run openclaw doctor --fix before compacting it.`,
     );
   }
 
@@ -222,7 +222,7 @@ export function assertOpenClawStateDatabaseForMaintenance(
     const schemaVersion =
       typeof metadata?.schema_version === "number" ? metadata.schema_version : "invalid";
     throw new Error(
-      `OpenClaw state database ${options.pathname} metadata schema version ${schemaVersion} does not match ${userVersion}; run openclaw doctor --fix before compacting it.`,
+      `LanFu state database ${options.pathname} metadata schema version ${schemaVersion} does not match ${userVersion}; run openclaw doctor --fix before compacting it.`,
     );
   }
   assertSqliteSchemaContains(
@@ -241,7 +241,7 @@ function assertOpenClawStateDatabaseVersionForMigration(
   const userVersion = readSqliteUserVersion(database);
   if (readStateSchemaMigrationVersion(database) !== options.version) {
     throw new Error(
-      `OpenClaw state database ${options.pathname} uses schema version ${userVersion}; expected ${options.version} before migrating it.`,
+      `LanFu state database ${options.pathname} uses schema version ${userVersion}; expected ${options.version} before migrating it.`,
     );
   }
   assertOpenClawStateDatabaseOwner(database, options);
@@ -252,7 +252,7 @@ function assertOpenClawStateDatabaseVersionForMigration(
     const schemaVersion =
       typeof metadata?.schema_version === "number" ? metadata.schema_version : "invalid";
     throw new Error(
-      `OpenClaw state database ${options.pathname} metadata schema version ${schemaVersion} does not match ${userVersion}; repair the ownership metadata before migrating it.`,
+      `LanFu state database ${options.pathname} metadata schema version ${schemaVersion} does not match ${userVersion}; repair the ownership metadata before migrating it.`,
     );
   }
   assertSqliteSchemaTablesPresent(database, options.pathname, OPENCLAW_STATE_SCHEMA_SQL, {
@@ -360,7 +360,7 @@ function migratePreparedWorkerOwnership(db: DatabaseSync, previousVersion: numbe
   const start = OPENCLAW_STATE_SCHEMA_SQL.indexOf(marker);
   const end = OPENCLAW_STATE_SCHEMA_SQL.indexOf("\n) STRICT;", start);
   if (start < 0 || end < start) {
-    throw new Error("OpenClaw worker environment schema marker is missing.");
+    throw new Error("LanFu worker environment schema marker is missing.");
   }
   const columns = splitSqlList(OPENCLAW_STATE_SCHEMA_SQL.slice(start + marker.length, end))
     .map((column) => column.trim())

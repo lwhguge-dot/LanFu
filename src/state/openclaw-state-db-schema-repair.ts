@@ -95,7 +95,7 @@ export function migrateWorkerPlacementExecutionModeSchema(
     currentColumns.length !== canonicalColumns.length ||
     currentColumns.some((column) => !expected.has(column))
   ) {
-    throw new Error("OpenClaw v7 worker placement columns are not canonical");
+    throw new Error("LanFu v7 worker placement columns are not canonical");
   }
   const unexpectedObjects = db
     .prepare(
@@ -111,11 +111,11 @@ export function migrateWorkerPlacementExecutionModeSchema(
     )
     .all();
   if (unexpectedObjects.length > 0) {
-    throw new Error("OpenClaw v7 worker placement schema has unsupported attached objects");
+    throw new Error("LanFu v7 worker placement schema has unsupported attached objects");
   }
   const migrationTable = "worker_session_placements_migration_v8";
   if (tableExists(db, migrationTable)) {
-    throw new Error(`OpenClaw worker placement migration table already exists: ${migrationTable}`);
+    throw new Error(`LanFu worker placement migration table already exists: ${migrationTable}`);
   }
   const migrationSchema = placementSchema.replace(
     "CREATE TABLE IF NOT EXISTS worker_session_placements",
@@ -182,7 +182,7 @@ export function migrateAgentDatabaseRelativePaths(
     const agentId = row.agent_id;
     const registeredPath = row.path;
     if (typeof agentId !== "string" || typeof registeredPath !== "string") {
-      throw new Error("OpenClaw v8 agent database registry paths are not canonical");
+      throw new Error("LanFu v8 agent database registry paths are not canonical");
     }
     if (!path.isAbsolute(registeredPath)) {
       continue;
@@ -334,7 +334,7 @@ export function assertCanonicalStateSchemaShape(db: DatabaseSync, pathname: stri
       );
     }
     throw new Error(
-      `OpenClaw state database ${pathname} has a noncanonical agent database registry schema that cannot be repaired automatically; restore the canonical agent_databases shape before retrying.`,
+      `LanFu state database ${pathname} has a noncanonical agent database registry schema that cannot be repaired automatically; restore the canonical agent_databases shape before retrying.`,
     );
   }
   if (!hasCanonicalAuditEventsSchema(db)) {
@@ -342,7 +342,7 @@ export function assertCanonicalStateSchemaShape(db: DatabaseSync, pathname: stri
       throw new OpenClawStateDatabaseSchemaMigrationRequiredError("audit-events-v2", pathname);
     }
     throw new Error(
-      `OpenClaw state database ${pathname} has a noncanonical audit event schema that cannot be repaired automatically; restore the canonical audit_events shape before retrying.`,
+      `LanFu state database ${pathname} has a noncanonical audit event schema that cannot be repaired automatically; restore the canonical audit_events shape before retrying.`,
     );
   }
 }

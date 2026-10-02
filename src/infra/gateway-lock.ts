@@ -435,7 +435,7 @@ export async function acquireGatewayLock(
         }
         if (!waited && deadlineMs > startedAt && role === "gateway") {
           log.warn(
-            `waiting for gateway-lifecycle ownership held by another OpenClaw process, up to ${Math.ceil((deadlineMs - startedAt) / 1000)} s`,
+            `waiting for gateway-lifecycle ownership held by another LanFu process, up to ${Math.ceil((deadlineMs - startedAt) / 1000)} s`,
           );
         }
         waited = true;
@@ -743,7 +743,7 @@ async function acquireLockFile(
   const ownerPid = lastPayload?.pid ? ` (pid ${lastPayload.pid})` : "";
   const owner =
     lastPayload?.role === "agent-embedded"
-      ? `another embedded OpenClaw state writer is active${ownerPid}`
+      ? `another embedded LanFu state writer is active${ownerPid}`
       : lastPayload?.role && lastPayload.role !== "gateway"
         ? `state directory is locked by ${lastPayload.role}${ownerPid}`
         : `gateway already running${ownerPid}`;

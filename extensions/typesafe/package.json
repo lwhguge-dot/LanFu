@@ -1,7 +1,7 @@
 {
   "name": "@openclaw/typesafe",
   "version": "2026.9.6",
-  "description": "OpenClaw TypeSafe typed decisions and optional evaluation tool",
+  "description": "LanFu TypeSafe typed decisions and optional evaluation tool",
   "repository": {
     "type": "git",
     "url": "https://github.com/openclaw/openclaw"

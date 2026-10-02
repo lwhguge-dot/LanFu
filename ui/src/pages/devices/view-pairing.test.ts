@@ -39,9 +39,6 @@ describe("device pairing dialog", () => {
       "Device capabilities plus complete Gateway controls, including settings and upgrades.",
     );
     expect(container.textContent).toContain("Connect a computer as a command and capability host.");
-    expect(container.querySelector<HTMLAnchorElement>(".device-pair-setup__footer a")?.href).toBe(
-      href,
-    );
   });
 
   it("renders the node one-paste command and quiet expiry countdown", () => {

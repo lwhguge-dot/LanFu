@@ -319,7 +319,7 @@ export function createOpenClawStateDatabaseAsyncLifecycle() {
   const assertOpen = (record: IdentityRecord) => {
     if (isSealed(record)) {
       throw new StateDatabaseReadAdmissionInvalidatedError(
-        "OpenClaw state database read admission is closed",
+        "LanFu state database read admission is closed",
       );
     }
   };
@@ -475,7 +475,7 @@ export function createOpenClawStateDatabaseAsyncLifecycle() {
           assertOpen(record);
           if (records.get(record.identity.key) !== record || record.generation !== generation) {
             throw new StateDatabaseReadAdmissionInvalidatedError(
-              "OpenClaw state database read admission changed",
+              "LanFu state database read admission changed",
             );
           }
         },
@@ -557,7 +557,7 @@ export function createOpenClawStateDatabaseAsyncLifecycle() {
           if (errors.length > 1) {
             throw createSqliteLifecycleAggregateError(
               errors,
-              "OpenClaw state resource drainage failed",
+              "LanFu state resource drainage failed",
               errors[0],
             );
           }

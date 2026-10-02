@@ -127,7 +127,7 @@ export function ensureCronRunReceiptSchema(database: DatabaseSync): void {
   const start = OPENCLAW_STATE_SCHEMA_SQL.indexOf(CRON_RUN_RECEIPT_SCHEMA_START);
   const endMarker = OPENCLAW_STATE_SCHEMA_SQL.indexOf(CRON_RUN_RECEIPT_SCHEMA_END, start);
   if (start < 0 || endMarker < start) {
-    throw new Error("OpenClaw cron run receipt schema marker is missing.");
+    throw new Error("LanFu cron run receipt schema marker is missing.");
   }
   // sqlite-allow-raw -- Canonical feature-local additive DDL only.
   database.exec(

@@ -127,10 +127,10 @@ export class SystemAgentChatEngine {
         beforePersistentApply,
       );
       if (reply && terminalStatus && !reply.applied) {
-        reply.text = `OpenClaw change ${terminalStatus}. No change. Retry the request if it is still needed.`;
+        reply.text = `LanFu change ${terminalStatus}. No change. Retry the request if it is still needed.`;
       }
       if (reply && decision === "allow-once" && !reply.applied) {
-        reply.text += " Check the current settings and OpenClaw status before retrying.";
+        reply.text += " Check the current settings and LanFu status before retrying.";
       }
       if (reply?.text) {
         this.history.push({ role: "assistant", text: reply.text });

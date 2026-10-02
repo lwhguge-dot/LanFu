@@ -18,7 +18,7 @@ import {
 
 // Preface of carriers persisted before the stable system prompt explained the markers.
 const LEGACY_NEXT_TURN_RUNTIME_CONTEXT_HEADER =
-  "OpenClaw runtime context for the active user request in this turn. Do not reply to or describe this context. Use it to continue answering the active user request now. Do not wait for another message.";
+  "LanFu runtime context for the active user request in this turn. Do not reply to or describe this context. Use it to continue answering the active user request now. Do not wait for another message.";
 
 type TestMessage = { role: string; content: string; customType?: string };
 
@@ -49,7 +49,7 @@ describe("internal runtime context codec", () => {
       "Visible intro",
       "",
       INTERNAL_RUNTIME_CONTEXT_BEGIN,
-      "OpenClaw runtime context (internal):",
+      "LanFu runtime context (internal):",
       "This context is runtime-generated, not user-authored. Keep internal details private.",
       "",
       "[Internal task completion event]",
@@ -121,11 +121,8 @@ describe("internal runtime context codec", () => {
 
   it.each([
     ["current turn", LEGACY_NEXT_TURN_RUNTIME_CONTEXT_HEADER],
-    [
-      "previous current turn",
-      "OpenClaw runtime context for the immediately preceding user message.",
-    ],
-    ["runtime event", "OpenClaw runtime event."],
+    ["previous current turn", "LanFu runtime context for the immediately preceding user message."],
+    ["runtime event", "LanFu runtime event."],
   ])("detects and strips the %s prompt preface", (_name, header) => {
     const preface = [header, OPENCLAW_RUNTIME_CONTEXT_NOTICE].join("\n");
     const input = [
@@ -179,7 +176,7 @@ describe("internal runtime context codec", () => {
   it("preserves text when the runtime-context header or notice does not match", () => {
     for (const input of [
       [LEGACY_NEXT_TURN_RUNTIME_CONTEXT_HEADER, "Ordinary user text"].join("\n"),
-      ["OpenClaw runtime context for another message.", OPENCLAW_RUNTIME_CONTEXT_NOTICE].join("\n"),
+      ["LanFu runtime context for another message.", OPENCLAW_RUNTIME_CONTEXT_NOTICE].join("\n"),
       OPENCLAW_RUNTIME_CONTEXT_NOTICE,
     ]) {
       expect(hasInternalRuntimeContext(input)).toBe(false);

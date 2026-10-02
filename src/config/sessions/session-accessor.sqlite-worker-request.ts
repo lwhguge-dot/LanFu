@@ -214,7 +214,7 @@ export function runSqliteMutationWorkerRequest<Result>(params: {
         if (admission || message.admissionId !== admissionId + 1) {
           fail(
             new Error(
-              "SQLite reclamation Worker requested invalid write admission; cleanup is uncertain, restart OpenClaw before deleting the owning agent",
+              "SQLite reclamation Worker requested invalid write admission; cleanup is uncertain, restart LanFu before deleting the owning agent",
             ),
           );
           return;
@@ -266,7 +266,7 @@ export function runSqliteMutationWorkerRequest<Result>(params: {
                 fail(
                   new AggregateError(
                     [workerError, dispatchError],
-                    "SQLite reclamation admission failed and Worker cleanup is uncertain; restart OpenClaw before deleting the owning agent",
+                    "SQLite reclamation admission failed and Worker cleanup is uncertain; restart LanFu before deleting the owning agent",
                   ),
                 );
               }
@@ -278,7 +278,7 @@ export function runSqliteMutationWorkerRequest<Result>(params: {
         if (!admission || message.admissionId !== admission.id) {
           fail(
             new Error(
-              "SQLite reclamation Worker released invalid write admission; cleanup is uncertain, restart OpenClaw before deleting the owning agent",
+              "SQLite reclamation Worker released invalid write admission; cleanup is uncertain, restart LanFu before deleting the owning agent",
             ),
           );
           return;

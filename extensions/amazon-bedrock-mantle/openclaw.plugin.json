@@ -1,8 +1,10 @@
 {
   "id": "amazon-bedrock-mantle",
-  "categories": ["models"],
+  "categories": [
+    "models"
+  ],
   "name": "Amazon Bedrock Mantle",
-  "description": "OpenClaw Amazon Bedrock Mantle provider plugin for OpenAI-compatible model routing.",
+  "description": "LanFu Amazon Bedrock Mantle provider plugin for OpenAI-compatible model routing.",
   "activation": {
     "onStartup": false
   },
@@ -12,7 +14,9 @@
       "id": "model-discovery",
       "title": "Model discovery",
       "order": 10,
-      "properties": ["discovery"]
+      "properties": [
+        "discovery"
+      ]
     }
   ],
   "configSchema": {
@@ -41,7 +45,9 @@
       "help": "When false, OpenClaw keeps the Amazon Bedrock Mantle plugin available but skips implicit startup discovery. Leave unset for default auto-detect behavior."
     }
   },
-  "providers": ["amazon-bedrock-mantle"],
+  "providers": [
+    "amazon-bedrock-mantle"
+  ],
   "modelCatalog": {
     "discovery": {
       "amazon-bedrock-mantle": "refreshable"

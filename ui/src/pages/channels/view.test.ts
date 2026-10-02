@@ -68,7 +68,7 @@ function createChannelPlugin(overrides: Partial<PluginCatalogItem> = {}): Plugin
   return {
     id: "slack",
     name: "Slack",
-    description: "OpenClaw Slack channel plugin for channels, DMs, commands, and app events.",
+    description: "LanFu Slack channel plugin for channels, DMs, commands, and app events.",
     origin: "bundled",
     installed: true,
     enabled: false,
@@ -104,7 +104,7 @@ describe("channels plugin presentation metadata", () => {
     const row = container.querySelector(".channels-item");
     expect(row?.querySelector(".settings-row__title")?.textContent).toBe("Slack");
     expect(row?.querySelector(".settings-row__desc")?.textContent).toBe(
-      "OpenClaw Slack channel plugin for channels, DMs, commands, and app events.",
+      "LanFu Slack channel plugin for channels, DMs, commands, and app events.",
     );
     expect(row?.querySelector("img")?.getAttribute("src")).toBe("blob:slack-plugin-icon");
     const detailIcon = container.querySelector(
@@ -639,10 +639,6 @@ describe("channel detail", () => {
       }),
       container,
     );
-
-    const docs = container.querySelector<HTMLAnchorElement>(".channels-detail__header-actions a");
-    expect(docs?.href).toBe("https://docs.openclaw.ai/channels/telegram");
-    expect(docs?.textContent?.trim()).toBe("Docs");
   });
 
   it.each([

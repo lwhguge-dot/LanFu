@@ -194,7 +194,7 @@ function mockCommunityClawHubPackageDetail() {
 function mockClawHubSecurity(
   trust: Record<string, unknown>,
   releaseVersion = "2026.3.22",
-  overview = "The plugin can modify local OpenClaw state.",
+  overview = "The plugin can modify local LanFu state.",
 ) {
   fetchClawHubPackageSecurityMock.mockResolvedValueOnce({
     package: { name: "demo", displayName: "Demo", family: "code-plugin" },
@@ -791,7 +791,7 @@ describe("installPluginFromClawHub", () => {
     const failure = expectInstallFailure(result);
     expect(failure.code).toBe(CLAWHUB_INSTALL_ERROR_CODE.CLAWHUB_DOWNLOAD_BLOCKED);
     expect(failure.warning).toContain("Blocked");
-    expect(failure.warning).toContain("The plugin can modify local OpenClaw state.");
+    expect(failure.warning).toContain("The plugin can modify local LanFu state.");
     expect(downloadClawHubPackageArchiveMock).not.toHaveBeenCalled();
     expect(installPluginFromArchiveMock).not.toHaveBeenCalled();
   });

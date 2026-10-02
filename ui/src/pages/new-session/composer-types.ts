@@ -10,7 +10,6 @@ import type { NewSessionComposerTextareaController } from "./composer-controller
 import type { NewSessionVisibility } from "./create-params.ts";
 
 export type NewSessionComposerOptions = {
-  renderCritters: (floorEnabled: boolean) => TemplateResult | typeof nothing;
   attachmentLimits?: { maxBytes: number; maxImageBytes: number };
   attachmentReads?: ChatAttachmentReadLifecycle;
   attachments: ChatAttachment[];

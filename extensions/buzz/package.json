@@ -1,7 +1,7 @@
 {
   "name": "@openclaw/buzz",
   "version": "2026.9.6",
-  "description": "Connect OpenClaw agents to Buzz rooms",
+  "description": "Connect LanFu agents to Buzz rooms",
   "repository": {
     "type": "git",
     "url": "https://github.com/openclaw/openclaw"

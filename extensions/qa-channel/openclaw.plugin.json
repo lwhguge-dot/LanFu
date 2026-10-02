@@ -1,12 +1,16 @@
 {
   "id": "qa-channel",
-  "categories": ["developer-tools"],
+  "categories": [
+    "developer-tools"
+  ],
   "name": "QA Channel",
-  "description": "OpenClaw QA synthetic channel plugin.",
+  "description": "LanFu QA synthetic channel plugin.",
   "activation": {
     "onStartup": false
   },
-  "channels": ["qa-channel"],
+  "channels": [
+    "qa-channel"
+  ],
   "configSchema": {
     "type": "object",
     "additionalProperties": false,

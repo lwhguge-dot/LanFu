@@ -35,7 +35,7 @@ export class UpdateSchemaRefusalError extends Error {
         ? ""
         : ` Deferral failed: ${formatErrorMessage(options.cause).slice(0, 600)}.`;
     super(
-      `Doctor refused update-time schema repair driven by OpenClaw ${updaterVersion}: this updater reopens the ledger with old code after migration, and version publication could not be deferred safely. ` +
+      `Doctor refused update-time schema repair driven by LanFu ${updaterVersion}: this updater reopens the ledger with old code after migration, and version publication could not be deferred safely. ` +
         databases
           .map(
             (database) =>

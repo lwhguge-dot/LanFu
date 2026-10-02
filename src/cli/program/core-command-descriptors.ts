@@ -12,7 +12,7 @@ type CoreCliCommandDescriptor = NamedCommandDescriptor;
 export const CORE_CLI_COMMAND_DESCRIPTORS = [
   {
     name: "setup",
-    description: "Chat with OpenClaw; onboard when setup is incomplete",
+    description: "Chat with LanFu; onboard when setup is incomplete",
     hasSubcommands: false,
   },
   {
@@ -40,7 +40,7 @@ export const CORE_CLI_COMMAND_DESCRIPTORS = [
   },
   {
     name: "claws",
-    description: "Inspect and add experimental OpenClaw Claws",
+    description: "Inspect and add experimental LanFu Claws",
     hasSubcommands: true,
     parentDefaultHelp: true,
   },
@@ -94,7 +94,7 @@ export const CORE_CLI_COMMAND_DESCRIPTORS = [
   },
   {
     name: "mcp",
-    description: "Manage OpenClaw mcp.servers config and channel bridge",
+    description: "Manage LanFu mcp.servers config and channel bridge",
     hasSubcommands: true,
     parentDefaultHelp: true,
   },

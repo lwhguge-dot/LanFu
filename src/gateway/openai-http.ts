@@ -977,7 +977,7 @@ export async function handleOpenAiHttpRequest(
         });
         return true;
       }
-      const content = resolveAssistantResultText(result) || "No response from OpenClaw.";
+      const content = resolveAssistantResultText(result) || "No response from LanFu.";
 
       sendJson(res, 200, {
         id: runId,
@@ -1058,7 +1058,7 @@ export async function handleOpenAiHttpRequest(
         pending: pendingAssistantText,
         resultText: finalResultText,
         streamedText: streamedAssistantText.text,
-        fallbackText: finalToolCalls ? "" : "No response from OpenClaw.",
+        fallbackText: finalToolCalls ? "" : "No response from LanFu.",
       });
       if (!text.startsWith(streamedAssistantText.text)) {
         finishStreamWithError({

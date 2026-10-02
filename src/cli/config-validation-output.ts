@@ -10,7 +10,7 @@ export function writeInvalidConfigCliJson(
   snapshot: Pick<ConfigFileSnapshot, "path" | "issues">,
 ): void {
   writeRuntimeJson(runtime, {
-    ...formatCliJsonFailure(`OpenClaw config is invalid: ${shortenHomePath(snapshot.path)}`),
+    ...formatCliJsonFailure(`LanFu config is invalid: ${shortenHomePath(snapshot.path)}`),
     issues: normalizeConfigIssues(snapshot.issues),
   });
 }

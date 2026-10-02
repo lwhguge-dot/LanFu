@@ -17,7 +17,7 @@ export function keepStartupMigrationLeaseAlive(lease: StartupMigrationLease, int
       failure =
         error instanceof Error
           ? error
-          : new Error("OpenClaw startup migration lease heartbeat failed.");
+          : new Error("LanFu startup migration lease heartbeat failed.");
     }
   }, intervalMs);
   timer.unref?.();

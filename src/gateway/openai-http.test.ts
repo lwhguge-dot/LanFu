@@ -1900,7 +1900,7 @@ describe("OpenAI-compatible HTTP API (e2e)", () => {
         const json = await postSyncUserMessage("hi");
         const choice0 = (json.choices as Array<Record<string, unknown>>)[0] ?? {};
         const msg = (choice0.message as Record<string, unknown> | undefined) ?? {};
-        expect(msg.content).toBe("No response from OpenClaw.");
+        expect(msg.content).toBe("No response from LanFu.");
       }
 
       {
@@ -3160,7 +3160,7 @@ describe("OpenAI-compatible HTTP API (e2e)", () => {
 
       for (const { payloads, expected } of [
         { payloads: [{ text: "hello" }], expected: "hello" },
-        { payloads: [{ text: "" }, {}], expected: "No response from OpenClaw." },
+        { payloads: [{ text: "" }, {}], expected: "No response from LanFu." },
         {
           payloads: [{ text: "First." }, {}, { text: "" }, { text: "Second." }],
           expected: "First.\n\nSecond.",

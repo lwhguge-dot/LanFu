@@ -58,7 +58,7 @@ function createCaptureRuntime(): { runtime: RuntimeEnv; read: () => string } {
       log: push,
       error: push,
       exit: (code) => {
-        throw new Error(`OpenClaw operation exited with code ${code}`);
+        throw new Error(`LanFu operation exited with code ${code}`);
       },
     },
     read: () => lines.join("\n").trim(),
@@ -235,25 +235,25 @@ function formatPersistentPlan(operation: SystemAgentOperation): string {
 function formatUnsupportedRemoteOperation(operation: SystemAgentOperation): string | null {
   if (operation.kind === "open-tui") {
     return [
-      "OpenClaw rescue cannot open the local TUI from a message channel.",
+      "LanFu rescue cannot open the local TUI from a message channel.",
       "Use local `openclaw` for agent handoff, or ask for status, doctor, config, gateway, agents, or models.",
     ].join(" ");
   }
   if (operation.kind === "channel-setup") {
     return [
-      "OpenClaw rescue cannot host the interactive channel setup from a message channel.",
+      "LanFu rescue cannot host the interactive channel setup from a message channel.",
       "Run `openclaw setup` locally and say `connect " + operation.channel + "` instead.",
     ].join(" ");
   }
   if (operation.kind === "doctor-fix") {
     return [
-      "OpenClaw rescue cannot run doctor repairs from a message channel because they can change the inference route powering this session.",
-      "On the machine running OpenClaw, with OpenClaw stopped, run `openclaw doctor --fix`.",
+      "LanFu rescue cannot run doctor repairs from a message channel because they can change the inference route powering this session.",
+      "On the machine running LanFu, with LanFu stopped, run `openclaw doctor --fix`.",
     ].join(" ");
   }
   if (operation.kind === "plugin-install") {
     return [
-      "OpenClaw rescue cannot install plugins from a message channel by default because plugin install downloads executable code.",
+      "LanFu rescue cannot install plugins from a message channel by default because plugin install downloads executable code.",
       "Use local `openclaw setup` or `openclaw plugins install` instead.",
     ].join(" ");
   }
@@ -288,7 +288,7 @@ export async function runSystemAgentRescueMessage(
     // capability, and a failed execution cannot leave a replayable write.
     const operation = parsePendingOperation(pendingStore.consume(pendingKey));
     if (!operation) {
-      return "No pending OpenClaw rescue change is waiting for approval.";
+      return "No pending LanFu rescue change is waiting for approval.";
     }
     const unsupported = formatUnsupportedRemoteOperation(operation);
     if (unsupported) {
@@ -300,14 +300,14 @@ export async function runSystemAgentRescueMessage(
       auditDetails: buildAuditDetails(input),
       deps: input.deps,
     });
-    return capture.read() || "OpenClaw rescue change applied.";
+    return capture.read() || "LanFu rescue change applied.";
   }
 
   if (approvalIntent === "decline") {
     const pending = parsePendingOperation(pendingStore.consume(pendingKey));
     return pending
-      ? "Dropped the pending OpenClaw rescue change."
-      : "No pending OpenClaw rescue change is waiting for approval.";
+      ? "Dropped the pending LanFu rescue change."
+      : "No pending LanFu rescue change is waiting for approval.";
   }
 
   // Any fresh command revokes the previous capability for this exact route.
@@ -329,7 +329,7 @@ export async function runSystemAgentRescueMessage(
         ? undefined
         : resolveExpiresAtMsFromDurationMs(policy.pendingTtlMinutes * 60_000, { nowMs });
     if (nowMs === undefined || expiresAtMs === undefined) {
-      return "OpenClaw rescue could not create a pending approval because the expiry clock is invalid.";
+      return "LanFu rescue could not create a pending approval because the expiry clock is invalid.";
     }
     const ttlMs = expiresAtMs - nowMs;
     pendingStore.register(
@@ -349,5 +349,5 @@ export async function runSystemAgentRescueMessage(
     auditDetails: buildAuditDetails(input),
     deps: input.deps,
   });
-  return capture.read() || "OpenClaw listened, clicked a claw, and found nothing to change.";
+  return capture.read() || "LanFu listened, clicked a claw, and found nothing to change.";
 }

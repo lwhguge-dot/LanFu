@@ -1,12 +1,16 @@
 {
   "id": "sms",
-  "categories": ["channels"],
+  "categories": [
+    "channels"
+  ],
   "name": "SMS",
-  "description": "Twilio SMS/MMS channel plugin for OpenClaw messages.",
+  "description": "Twilio SMS/MMS channel plugin for LanFu messages.",
   "activation": {
     "onStartup": false
   },
-  "channels": ["sms"],
+  "channels": [
+    "sms"
+  ],
   "configSchema": {
     "type": "object",
     "additionalProperties": false,

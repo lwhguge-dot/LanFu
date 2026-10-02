@@ -53,12 +53,12 @@ export function formatChannelApprovalResolvedLabel(
 export function buildSystemAgentApprovalResolvedText(view: SystemAgentResolvedView): string {
   const outcome = interpretApprovalTerminalOutcome(view, "denial");
   return outcome === "cancelled"
-    ? "⚠️ OpenClaw change was cancelled because its run ended. No change was made. Retry."
+    ? "⚠️ LanFu change was cancelled because its run ended. No change was made. Retry."
     : outcome === "deny"
-      ? "❌ OpenClaw change denied. No change was made."
+      ? "❌ LanFu change denied. No change was made."
       : outcome === "applied"
-        ? `✅ OpenClaw change approved and applied: ${view.operationSummary}`
+        ? `✅ LanFu change approved and applied: ${view.operationSummary}`
         : outcome === "not-applied"
-          ? "⚠️ OpenClaw change approved, but completion could not be confirmed. Check the current settings before retrying."
-          : `✅ OpenClaw change approved. Applying: ${view.operationSummary}`;
+          ? "⚠️ LanFu change approved, but completion could not be confirmed. Check the current settings before retrying."
+          : `✅ LanFu change approved. Applying: ${view.operationSummary}`;
 }

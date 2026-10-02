@@ -344,7 +344,7 @@ export async function executeSystemAgentOperation(
                 ? "openclaw configure --section web"
                 : "openclaw configure --section gateway";
       runtime.log(
-        `This session cannot host an interactive wizard. Run \`${command}\` on the machine running OpenClaw.`,
+        `This session cannot host an interactive wizard. Run \`${command}\` on the machine running LanFu.`,
       );
       return { applied: false };
     }
@@ -388,8 +388,8 @@ export async function executeSystemAgentOperation(
     case "plugin-uninstall": {
       if (await isPluginBackingDefaultInferenceRoute(operation.pluginId)) {
         const message = [
-          `Uninstalling ${operation.pluginId} could remove the provider behind OpenClaw's own active inference route.`,
-          `Removing it has to happen with OpenClaw stopped: run \`openclaw plugins uninstall ${operation.pluginId}\` on the machine running it.`,
+          `Uninstalling ${operation.pluginId} could remove the provider behind LanFu's own active inference route.`,
+          `Removing it has to happen with LanFu stopped: run \`openclaw plugins uninstall ${operation.pluginId}\` on the machine running it.`,
         ].join("\n");
         runtime.log(message);
         return { applied: false, message };
@@ -416,7 +416,7 @@ export async function executeSystemAgentOperation(
           // command's asynchronous preparation starts.
           if (await isPluginBackingDefaultInferenceRoute(operation.pluginId)) {
             throw new Error(
-              `Uninstall aborted: ${operation.pluginId} now backs the active inference route. Removing it has to happen with OpenClaw stopped: run \`openclaw plugins uninstall ${operation.pluginId}\` on the machine running it.`,
+              `Uninstall aborted: ${operation.pluginId} now backs the active inference route. Removing it has to happen with LanFu stopped: run \`openclaw plugins uninstall ${operation.pluginId}\` on the machine running it.`,
             );
           }
           await ctx.commit(() =>
@@ -447,7 +447,7 @@ export async function executeSystemAgentOperation(
       }
       if (operation.model?.trim()) {
         throw new Error(
-          "OpenClaw cannot save an explicit per-agent model until that new route can be live-tested. Retry without `model`; the new agent inherits the verified default, then use `set_default_model` with agentId to live-test and save its own model.",
+          "LanFu cannot save an explicit per-agent model until that new route can be live-tested. Retry without `model`; the new agent inherits the verified default, then use `set_default_model` with agentId to live-test and save its own model.",
         );
       }
       return await applyPersistentOperation({
@@ -553,7 +553,7 @@ export async function executeSystemAgentOperation(
     }
     case "doctor-fix":
       runtime.log(
-        "Doctor repairs can change the inference route that powers this session, so they run with OpenClaw stopped: `openclaw doctor --fix` on the machine running it.",
+        "Doctor repairs can change the inference route that powers this session, so they run with LanFu stopped: `openclaw doctor --fix` on the machine running it.",
       );
       return { applied: false };
     case "status": {

@@ -1,5 +1,5 @@
-// Whimsical long-wait status word ("Clawing…") for the chat working row.
-// Silent for the first stretch of a run, then rotates through crab-themed
+// Whimsical long-wait status word ("Nesting…") for the chat working row.
+// Silent for the first stretch of a run, then rotates through bluebird-themed
 // gerunds so long quiet runs feel alive without claiming progress data the
 // UI does not have. Decorative only — the row keeps its sr-only "Working…".
 import { html, nothing } from "lit";
@@ -10,25 +10,16 @@ import { OpenClawLightDomContentsElement } from "../lit/openclaw-element.ts";
 import { PollController } from "../lit/poll-controller.ts";
 
 const PHRASE_KEYS = [
-  "shelling",
-  "scuttling",
-  "clawing",
-  "pinching",
-  "molting",
-  "bubbling",
-  "tiding",
-  "reefing",
-  "cracking",
-  "sifting",
-  "brining",
-  "nautiling",
-  "krilling",
-  "barnacling",
-  "lobstering",
-  "tidepooling",
-  "pearling",
-  "snapping",
-  "surfacing",
+  "nesting",
+  "preening",
+  "soaring",
+  "gliding",
+  "foraging",
+  "chirping",
+  "perching",
+  "migrating",
+  "wingstretching",
+  "dawnchorusing",
 ] as const;
 
 /** Quiet grace period before the first phrase appears. Mirrored as literals

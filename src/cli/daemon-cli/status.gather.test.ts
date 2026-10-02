@@ -1546,7 +1546,7 @@ describe("gatherDaemonStatus", () => {
         expect(output).toContain(`schema ${OPENCLAW_STATE_SCHEMA_VERSION + 1}`);
         expect(output).toContain(`this build supports ${OPENCLAW_STATE_SCHEMA_VERSION}`);
         expect(output).toContain("writer build 2026.9.4");
-        expect(output).toContain(`Refused by OpenClaw ${VERSION}`);
+        expect(output).toContain(`Refused by LanFu ${VERSION}`);
         expect(output).toContain("pre-upgrade backup");
         expect(exit).toHaveBeenCalledWith(1);
         expect(createConfigIOCalls).not.toHaveBeenCalled();

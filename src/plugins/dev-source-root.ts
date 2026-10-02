@@ -55,7 +55,7 @@ export function resolveBundledPluginSourceRoot(
 }
 
 export function formatSourceBundledPluginNotice(pluginId: string): string {
-  return `Kept bundled plugin "${pluginId}" from the OpenClaw source build; the registry artifact has no matching host SDK build identity. Matching version strings do not establish SDK compatibility.`;
+  return `Kept bundled plugin "${pluginId}" from the LanFu source build; the registry artifact has no matching host SDK build identity. Matching version strings do not establish SDK compatibility.`;
 }
 
 /** Prioritizes already-bundled candidates; the selector itself never grants provenance. */

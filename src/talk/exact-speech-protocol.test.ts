@@ -13,9 +13,9 @@ describe("realtime voice exact-speech protocol", () => {
       }),
     ).toBe(
       [
-        "Internal OpenClaw voice playback result.",
+        "Internal LanFu voice playback result.",
         "Do not call openclaw_agent_consult or any other tool for this message.",
-        "Speak this exact OpenClaw answer to the Discord voice channel, without adding, removing, or rephrasing words.",
+        "Speak this exact LanFu answer to the Discord voice channel, without adding, removing, or rephrasing words.",
         'Answer: "Keep \\"every\\" word.\\nExactly."',
       ].join("\n"),
     );
@@ -23,7 +23,7 @@ describe("realtime voice exact-speech protocol", () => {
 
   it("classifies a marker echo only when the parsed answer is retained", () => {
     const args = {
-      question: "Speak this exact OpenClaw answer without changes.",
+      question: "Speak this exact LanFu answer without changes.",
       context: 'Answer: "already answered"',
     };
     expect(
@@ -39,7 +39,7 @@ describe("realtime voice exact-speech protocol", () => {
     expect(
       classifyRealtimeVoiceConsultToolCall(
         {
-          question: "Speak this exact OpenClaw answer without changes.",
+          question: "Speak this exact LanFu answer without changes.",
           context: 'Answer: "injected text"',
         },
         { retainedExactSpeechTexts: [] },

@@ -79,7 +79,7 @@ function throwPluginRegistryPersistenceFailed(
   repair = 'Run "openclaw doctor --fix" and retry.',
 ): never {
   throw new Error(
-    `OpenClaw refreshed the plugin registry but could not verify the persisted replacement (${reason}); refusing to write the migration checkpoint. ${repair}`,
+    `LanFu refreshed the plugin registry but could not verify the persisted replacement (${reason}); refusing to write the migration checkpoint. ${repair}`,
   );
 }
 
@@ -243,7 +243,7 @@ export async function persistRefreshedPluginIndex(params: {
       persistedIdentity.pluginDoctorConfigFingerprint
   ) {
     throw new Error(
-      'OpenClaw config identity changed while persisting the refreshed plugin registry; refusing to write the migration checkpoint. Run "openclaw doctor --fix" and retry.',
+      'LanFu config identity changed while persisting the refreshed plugin registry; refusing to write the migration checkpoint. Run "openclaw doctor --fix" and retry.',
     );
   }
   // The durable reread supplies both the accepted inventory and its checkpoint identity.

@@ -366,7 +366,7 @@ export function invalidSetupConfigError(snapshot: {
 }): string {
   const issue = snapshot.issues?.[0];
   const detail = issue ? ` (${issue.path ? `${issue.path}: ` : ""}${issue.message})` : "";
-  return `OpenClaw config ${snapshot.path} is invalid${detail}. Fix it before running setup.`;
+  return `LanFu config ${snapshot.path} is invalid${detail}. Fix it before running setup.`;
 }
 
 export async function redactSetupInferenceError(
@@ -453,7 +453,7 @@ export function validateSetupInferenceOwnerEvidence(params: {
       ok: false,
       status: "unknown",
       error:
-        "Inference succeeded, but its runtime did not report an owner that OpenClaw can safely reuse. No default model was changed.",
+        "Inference succeeded, but its runtime did not report an owner that LanFu can safely reuse. No default model was changed.",
     };
   }
   if (

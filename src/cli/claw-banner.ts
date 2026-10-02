@@ -93,8 +93,8 @@ function staticBannerLines(): string[] {
 }
 
 function plainTitleLine(): string {
-  const icon = decorativeEmoji("🦞");
-  return supportsDecorativeEmoji() && icon ? `${icon} OPENCLAW ${icon}` : "OPENCLAW";
+  const icon = decorativeEmoji("🐦");
+  return supportsDecorativeEmoji() && icon ? `${icon} LANFU ${icon}` : "LANFU";
 }
 
 const defaultSleep = (ms: number) =>

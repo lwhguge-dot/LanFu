@@ -2,7 +2,7 @@
   "name": "@openclaw/qa-channel",
   "version": "2026.9.6",
   "private": true,
-  "description": "OpenClaw QA synthetic channel plugin",
+  "description": "LanFu QA synthetic channel plugin",
   "type": "module",
   "exports": {
     ".": "./index.ts",

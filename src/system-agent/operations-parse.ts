@@ -314,7 +314,7 @@ export function parseSystemAgentOperation(input: string): SystemAgentOperation {
       return { kind: "open-tui" };
     case "quit":
     case "exit":
-      return { kind: "none", message: "OpenClaw retracts into shell. Bye." };
+      return { kind: "none", message: "LanFu retracts into shell. Bye." };
     default:
       break;
   }
@@ -581,7 +581,7 @@ export function describeSystemAgentPersistentOperation(operation: SystemAgentOpe
     case "model-setup":
       return "configure a model provider and default model";
     case "doctor-fix":
-      return "run openclaw doctor --fix on the machine running OpenClaw, with OpenClaw stopped";
+      return "run openclaw doctor --fix on the machine running LanFu, with LanFu stopped";
     case "plugin-install":
       return `install plugin ${operation.spec}`;
     case "plugin-activate-artifact":
@@ -626,7 +626,7 @@ export const SYSTEM_AGENT_OPERATOR_APPROVAL_HANDOFF =
   "The host applies the requesting session's permission policy to this exact proposal and returns the final outcome. Do not request conversational approval or claim the change was applied before that outcome.";
 
 export const SYSTEM_AGENT_OPERATOR_NAVIGATION_HANDOFF =
-  "Channel, model, and setup flows need a human operator in the OpenClaw app; they cannot run from a delegated agent request. Open `openclaw dashboard` or run `openclaw setup` on the Gateway host.";
+  "Channel, model, and setup flows need a human operator in the LanFu app; they cannot run from a delegated agent request. Open `openclaw dashboard` or run `openclaw setup` on the Gateway host.";
 
 /** Format the standard approval plan text for a persistent operation. */
 export function formatSystemAgentPersistentPlan(
@@ -654,5 +654,5 @@ function formatSetupPlanDescription(
   operation: Extract<SystemAgentOperation, { kind: "setup" }>,
 ): string {
   const workspace = shortenHomePath(resolveUserPath(operation.workspace ?? process.cwd()));
-  return `bootstrap OpenClaw setup for workspace ${workspace}`;
+  return `bootstrap LanFu setup for workspace ${workspace}`;
 }

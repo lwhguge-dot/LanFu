@@ -368,10 +368,10 @@
         <h1 id="openclaw-mount-fallback-title">Control UI did not start</h1>
         <p id="openclaw-mount-fallback-summary">
           The browser loaded the static page, but the app bundle did not start. The gateway may be
-          restarting, or this page may reference assets from a different OpenClaw version.
+          restarting, or this page may reference assets from a different LanFu version.
         </p>
         <ul>
-          <li>If startup fails, OpenClaw will retry the current app bundle automatically.</li>
+          <li>If startup fails, LanFu will retry the current app bundle automatically.</li>
           <li>If this persists, reload or try a clean browser profile.</li>
           <li>
             See
@@ -461,7 +461,7 @@
             return;
           }
           setSummary(
-            "The gateway is not reachable yet. OpenClaw will keep retrying while it restarts.",
+            "The gateway is not reachable yet. LanFu will keep retrying while it restarts.",
           );
           scheduleRecovery();
         }
@@ -534,7 +534,7 @@
           setSummary(
             documentLoaded
               ? failureSummary
-              : "The browser is still loading the app. OpenClaw will keep waiting without interrupting the download.",
+              : "The browser is still loading the app. LanFu will keep waiting without interrupting the download.",
           );
           if (documentLoaded) retryCurrentDocument();
           fallback.hidden = false;

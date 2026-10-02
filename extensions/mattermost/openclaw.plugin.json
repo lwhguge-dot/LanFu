@@ -1,15 +1,19 @@
 {
   "id": "mattermost",
-  "categories": ["channels"],
+  "categories": [
+    "channels"
+  ],
   "name": "Mattermost",
-  "description": "OpenClaw Mattermost channel plugin.",
+  "description": "LanFu Mattermost channel plugin.",
   "doctorContract": {
     "configRepair": true
   },
   "activation": {
     "onStartup": false
   },
-  "channels": ["mattermost"],
+  "channels": [
+    "mattermost"
+  ],
   "configSchema": {
     "type": "object",
     "additionalProperties": false,

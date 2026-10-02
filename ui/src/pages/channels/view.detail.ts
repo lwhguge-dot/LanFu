@@ -10,7 +10,6 @@ import "../../components/modal-dialog.ts";
 import { resolveChannelAccounts } from "../../lib/channels/index.ts";
 import { formatUiExternalText } from "../../lib/format-error.ts";
 import { formatRelativeTimestamp } from "../../lib/format.ts";
-import { channelDocsUrl } from "./hub-meta.ts";
 import { renderChannelConfigSection } from "./view.config.ts";
 import { renderNostrCard } from "./view.nostr.ts";
 import { renderChannelPairingDetail } from "./view.pairing.ts";
@@ -242,14 +241,6 @@ export function renderChannelDetail(params: {
             pluginIconUrl: params.pluginIconUrl,
           })}
           <div class="channels-detail__header-actions">
-            <a
-              class="btn btn--sm"
-              href=${channelDocsUrl(params.channelId)}
-              target="_blank"
-              rel="noreferrer"
-            >
-              ${t("common.docs")}
-            </a>
             <button
               type="button"
               class="btn btn--sm"

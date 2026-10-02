@@ -336,7 +336,7 @@ export async function rejectUnsafeExecControlShellCommand(command: string): Prom
   if (unsafeKind === "channel-login") {
     throw new Error(
       [
-        "exec cannot run interactive OpenClaw channel login commands.",
+        "exec cannot run interactive LanFu channel login commands.",
         "Run `openclaw channels login` in a terminal on the gateway host, or use the channel-specific login agent tool when available (for WhatsApp: `whatsapp_login`).",
       ].join(" "),
     );
@@ -354,8 +354,8 @@ export async function rejectUnsafeExecLiveStateSqliteShellCommand(
   }
   throw new Error(
     [
-      "external sqlite3 cannot open databases under the active OpenClaw state directory.",
-      "Use OpenClaw commands for live state, or inspect a private backup copy outside `OPENCLAW_STATE_DIR`.",
+      "external sqlite3 cannot open databases under the active LanFu state directory.",
+      "Use LanFu commands for live state, or inspect a private backup copy outside `OPENCLAW_STATE_DIR`.",
     ].join(" "),
   );
 }

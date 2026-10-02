@@ -135,7 +135,7 @@ export async function buildOnboardingWelcome(params: {
   }
   if (!setupModel) {
     throw new Error(
-      "OpenClaw onboarding requires working inference first. Run `openclaw onboard` on the machine running OpenClaw to configure and verify a default model.",
+      "LanFu onboarding requires working inference first. Run `openclaw onboard` on the machine running LanFu to configure and verify a default model.",
     );
   }
 
@@ -153,8 +153,8 @@ export async function buildOnboardingWelcome(params: {
   });
   const welcome = [
     overview.defaultModel
-      ? "## Hi, I'm OpenClaw — let's hatch your agent."
-      : "## Hi, I'm OpenClaw — let's get you set up.",
+      ? "## Hi, I'm LanFu — let's hatch your agent."
+      : "## Hi, I'm LanFu — let's get you set up.",
     "",
     "No menus here: tell me what you want and I'll do the configuring. I looked around this machine:",
     "",

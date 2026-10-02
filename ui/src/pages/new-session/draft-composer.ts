@@ -2,11 +2,6 @@ import { html, nothing, type TemplateResult } from "lit";
 import type { GatewayAgentRow } from "../../api/types.ts";
 import type { ApplicationContext } from "../../app/context.ts";
 import type { ImageLightboxItem } from "../../components/image-lightbox.types.ts";
-import {
-  lobsterPetSeed,
-  resolveLobsterPetMode,
-  resolveLobsterRunOutcome,
-} from "../../components/lobster-pet-contract.ts";
 import { t } from "../../i18n/index.ts";
 import { registerNewSessionSetupEnglish } from "../../i18n/locales/en-new-session-setup.ts";
 import type { HumanMention } from "../../lib/chat/chat-types.ts";
@@ -110,7 +105,6 @@ export function renderNewSessionDraftComposer(options: {
   const commandClient = options.nativeTerminal
     ? null
     : (options.context?.gateway.snapshot.client ?? null);
-  const gateway = options.context?.gateway;
   const mentionDirectory = resolveNewSessionMentionDirectory(options);
   options.textareaController.syncSkillCommandOwner(
     commandClient,
@@ -118,19 +112,6 @@ export function renderNewSessionDraftComposer(options: {
     options.draftOwnerKey,
   );
   return renderNewSessionComposer({
-    renderCritters: (floorEnabled) => html`<openclaw-lobster-pet
-      .seed=${lobsterPetSeed(`${options.textareaController.critterVisit}:${options.draftOwnerKey}`)}
-      .mode=${resolveLobsterPetMode(!gateway?.snapshot.offlineStable, options.context?.sessions.state.result?.sessions)}
-      .runOutcome=${resolveLobsterRunOutcome(options.context?.sessions.state.result?.sessions)}
-      .visitsEnabled=${options.context?.theme.settings.lobsterPetVisits !== false}
-      .residentEnabled=${options.context?.theme.branding.mascot !== "none"}
-      .critters=${options.context?.theme.branding.critters}
-      .critterArtwork=${options.context?.theme.branding.artwork?.critters}
-      .soundsEnabled=${options.context?.theme.settings.lobsterPetSounds === true}
-      .gatewayVersion=${options.context?.config.current.serverVersion ?? gateway?.snapshot.hello?.server?.version ?? null}
-      .onVisitsDisabled=${() => options.context?.theme.refresh()}
-      .floorEnabled=${floorEnabled}
-    ></openclaw-lobster-pet>`,
     attachmentLimits: options.context?.gateway.snapshot.hello?.policy?.attachments,
     attachments: options.attachmentDraft.attachments,
     canSubmit: options.canSubmit,

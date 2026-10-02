@@ -338,10 +338,10 @@ vi.mock("../config/config.js", () => {
       if (process.env.OPENCLAW_NIX_MODE === "1") {
         throw new Error(
           [
-            "Config is managed by Nix (`OPENCLAW_NIX_MODE=1`), so OpenClaw treats openclaw.json as immutable.",
+            "Config is managed by Nix (`OPENCLAW_NIX_MODE=1`), so LanFu treats openclaw.json as immutable.",
             "Do not run setup, onboarding, openclaw update, plugin install/update/uninstall/enable, doctor repair/token-generation, or config set against this file.",
             "Agent-first Nix setup: https://github.com/openclaw/nix-openclaw#quick-start",
-            "OpenClaw Nix overview: https://docs.openclaw.ai/install/nix",
+            "LanFu Nix overview: https://docs.openclaw.ai/install/nix",
           ].join("\n"),
         );
       }
@@ -5925,7 +5925,7 @@ describe("update-cli", () => {
   it("does not clean handoffs before rejecting an unknown package owner", async () => {
     mockPackageInstallStatus(createCaseDir("openclaw-unknown-owner"));
     const refusal =
-      "Update refused: package manager owner is unknown; no changes were made. Run this OpenClaw install through its active npm, pnpm, or Bun global shim, or reinstall it with that package manager, then retry.";
+      "Update refused: package manager owner is unknown; no changes were made. Run this LanFu install through its active npm, pnpm, or Bun global shim, or reinstall it with that package manager, then retry.";
     resolveGlobalManager.mockRejectedValueOnce(new Error(refusal));
 
     await expect(updateCommand({ yes: true, restart: false })).rejects.toEqual(new ExitError(1));
@@ -6177,7 +6177,7 @@ describe("update-cli", () => {
         await updateStatusCommand({ json: false });
       },
       assert: () => {
-        expect(getLogOutput()).toContain("OpenClaw update status");
+        expect(getLogOutput()).toContain("LanFu update status");
         expect(checkUpdateStatus).toHaveBeenCalledWith(
           expect.objectContaining({ useDetachedDevUpstream: false }),
         );
@@ -7207,7 +7207,7 @@ describe("update-cli", () => {
 
   const packageUpdateInGatewayMessage = [
     "Package updates cannot run from inside the gateway service process.",
-    "That path replaces the active OpenClaw dist tree while the live gateway may still lazy-load old chunks.",
+    "That path replaces the active LanFu dist tree while the live gateway may still lazy-load old chunks.",
     "Run `openclaw update` from a terminal outside the gateway service.",
   ].join("\n");
 
@@ -9053,7 +9053,7 @@ describe("update-cli", () => {
     {
       platform: "win32" as const,
       envKey: "OPENCLAW_WINDOWS_TASK_NAME",
-      value: "OpenClaw Gateway",
+      value: "LanFu Gateway",
     },
   ])(
     "does not reuse a conflicting $envKey selector from the managed service on $platform",
@@ -10704,7 +10704,7 @@ describe("update-cli", () => {
       [serviceEntrypoint, "config", "validate", "--json"],
       expect.objectContaining({ env: { OPENCLAW_UPDATE_IN_PROGRESS: "0" } }),
     );
-    expect(getLogOutput()).toContain("OpenClaw update failed: post-update-plugins.");
+    expect(getLogOutput()).toContain("LanFu update failed: post-update-plugins.");
     expect(getErrorOutput()).not.toContain("Update failed during plugin post-update sync.");
   });
 
@@ -12615,7 +12615,7 @@ describe("update-cli", () => {
     await expect(updateCommand({ channel: "dev" })).rejects.toEqual(new ExitError(1));
 
     const logs = getLogOutput();
-    expect(logs).toContain(`OpenClaw update ${status === "error" ? "failed" : "skipped"}: dirty.`);
+    expect(logs).toContain(`LanFu update ${status === "error" ? "failed" : "skipped"}: dirty.`);
     expect(logs).toContain(
       "Local changes prevented this update before installation. Your checkout was preserved.",
     );
@@ -13349,7 +13349,7 @@ describe("update-cli", () => {
 
         const successIndex = vi
           .mocked(defaultRuntime.log)
-          .mock.calls.findIndex((call) => String(call[0]).includes("OpenClaw updated"));
+          .mock.calls.findIndex((call) => String(call[0]).includes("LanFu updated"));
         expect(successIndex).toBeGreaterThanOrEqual(0);
         expect(
           vi.mocked(defaultRuntime.log).mock.invocationCallOrder[successIndex],

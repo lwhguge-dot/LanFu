@@ -355,7 +355,7 @@ const CORE_TOOL_DEFINITIONS: CoreToolDefinition[] = [
   },
   {
     id: "gateway",
-    description: "Update OpenClaw; read Gateway config/schema when permitted",
+    description: "Update LanFu; read Gateway config/schema when permitted",
     sectionId: "automation",
     profiles: ["minimal", "coding", "messaging"],
     includeInOpenClawGroup: true,
@@ -369,7 +369,7 @@ const CORE_TOOL_DEFINITIONS: CoreToolDefinition[] = [
   },
   {
     id: "openclaw",
-    description: "Delegate OpenClaw setup and repair",
+    description: "Delegate LanFu setup and repair",
     sectionId: "automation",
     profiles: [],
     includeInOpenClawGroup: true,

@@ -176,8 +176,7 @@ it.each([
       ),
     ).toHaveLength(emailRows);
     const docsLink = page.querySelector<HTMLAnchorElement>(".page-subtitle a");
-    expect(docsLink?.textContent?.trim()).toBe("Learn more");
-    expect(docsLink?.href).toBe("https://docs.openclaw.ai/concepts/user-model");
+    expect(docsLink).toBeNull(); // LanFu: upstream docs links removed
     expect(page.querySelector(".profile-stats")).toBeNull();
     expect(page.querySelector(".profile-heatmap")).toBeNull();
     const usageRow = page.querySelector<HTMLButtonElement>(".settings-row--nav");
@@ -296,9 +295,6 @@ it("offers identity connection setup without profile RPCs or secret inputs for u
   const identity = page.querySelector("#settings-profile-identity");
   expect(identity?.textContent).toContain("This connection has no personal profile");
   expect(identity?.textContent).toContain("Cloudflare Access, Tailscale Serve, or a trusted proxy");
-  expect(
-    page.querySelector('a[href="https://docs.openclaw.ai/concepts/user-model"]'),
-  ).not.toBeNull();
   expect(page.querySelector(".identity-name-control")).toBeNull();
   expect(page.querySelector('input[type="file"]')).toBeNull();
   expect(page.querySelector(".profile-refresh")).toBeNull();

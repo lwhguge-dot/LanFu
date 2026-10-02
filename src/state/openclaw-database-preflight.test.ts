@@ -39,7 +39,7 @@ afterEach(() => {
   closeOpenClawStateDatabaseForTest();
 });
 
-describe("OpenClaw database schema preflight", () => {
+describe("LanFu database schema preflight", () => {
   function createReleasedStateDatabase() {
     const stateDir = tempDirs.make("openclaw-startup-database-admission-");
     const env = { OPENCLAW_STATE_DIR: stateDir };

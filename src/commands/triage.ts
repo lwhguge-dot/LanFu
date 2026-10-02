@@ -348,7 +348,7 @@ export async function triageCommand(
     canStartAgent &&
     (options.recovery !== undefined || automatic?.failure.kind === "update");
   const agentLabel = runEmbedded
-    ? "the embedded OpenClaw agent using your configured model"
+    ? "the embedded LanFu agent using your configured model"
     : handoff?.agent;
   if (needsConfirmation) {
     runtime.log(`Agent: ${agentLabel}. This will use your own account/tokens.`);
@@ -622,7 +622,7 @@ export async function triageCommand(
     return;
   }
   if (!installRoot) {
-    throw new Error("Cannot locate the OpenClaw installation; use a suggested handoff command.");
+    throw new Error("Cannot locate the LanFu installation; use a suggested handoff command.");
   }
   const failedResult =
     updateFailure && "result" in updateFailure ? updateFailure.result : undefined;

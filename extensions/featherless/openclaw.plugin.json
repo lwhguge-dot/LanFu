@@ -1,13 +1,17 @@
 {
   "id": "featherless",
-  "categories": ["models"],
+  "categories": [
+    "models"
+  ],
   "name": "Featherless AI",
-  "description": "OpenClaw Featherless AI provider plugin.",
+  "description": "LanFu Featherless AI provider plugin.",
   "activation": {
     "onStartup": false
   },
   "enabledByDefault": true,
-  "providers": ["featherless"],
+  "providers": [
+    "featherless"
+  ],
   "providerRequest": {
     "providers": {
       "featherless": {
@@ -19,7 +23,9 @@
     "providers": [
       {
         "id": "featherless",
-        "envVars": ["FEATHERLESS_API_KEY"]
+        "envVars": [
+          "FEATHERLESS_API_KEY"
+        ]
       }
     ]
   },
@@ -50,7 +56,9 @@
             "id": "Qwen/Qwen3-32B",
             "name": "Qwen3 32B",
             "reasoning": true,
-            "input": ["text"],
+            "input": [
+              "text"
+            ],
             "contextWindow": 32768,
             "maxTokens": 4096,
             "cost": {

@@ -131,7 +131,7 @@ export async function buildClawProject(
       if (!profileSnapshot) {
         throw new ClawProjectError(
           "project_invalid",
-          "Validated OpenClaw profile is missing its source snapshot.",
+          "Validated LanFu profile is missing its source snapshot.",
         );
       }
       const profile = await readSelectedProjectFile(project.root, profileSnapshot.sourcePath);

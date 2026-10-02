@@ -80,7 +80,7 @@ function createVariantDeclarations(params: {
     declarations.push(declaration);
     return true;
   };
-  const prefix = `__OpenClaw_${callableName}_`;
+  const prefix = `__LanFu_${callableName}_`;
   const inputName = `${prefix}Input`;
   // Input keeps its original independent allowance and appears only once.
   if (!append(`type ${inputName} = ${input};`, input.length)) {

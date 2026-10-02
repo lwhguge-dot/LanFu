@@ -116,7 +116,7 @@ describe.each(["npm", "clawhub"] as const)("doctor registered %s plugin host lin
 
       expect(fs.lstatSync(staleHostDir).isSymbolicLink()).toBe(true);
       expect(fs.realpathSync(staleHostDir)).toBe(fs.realpathSync(process.cwd()));
-      expect(vi.mocked(note).mock.calls.join("\n")).toContain("OpenClaw host peer link");
+      expect(vi.mocked(note).mock.calls.join("\n")).toContain("LanFu host peer link");
     },
   );
 

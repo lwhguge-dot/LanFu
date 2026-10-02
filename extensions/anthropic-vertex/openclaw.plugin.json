@@ -1,16 +1,24 @@
 {
   "id": "anthropic-vertex",
-  "categories": ["models"],
+  "categories": [
+    "models"
+  ],
   "name": "Anthropic Vertex",
-  "description": "OpenClaw Anthropic Vertex provider plugin for Claude models on Google Vertex AI.",
+  "description": "LanFu Anthropic Vertex provider plugin for Claude models on Google Vertex AI.",
   "activation": {
     "onStartup": false
   },
   "enabledByDefault": true,
-  "providers": ["anthropic-vertex"],
+  "providers": [
+    "anthropic-vertex"
+  ],
   "providerCatalogEntry": "./provider-discovery.ts",
-  "syntheticAuthRefs": ["anthropic-vertex"],
-  "nonSecretAuthMarkers": ["gcp-vertex-credentials"],
+  "syntheticAuthRefs": [
+    "anthropic-vertex"
+  ],
+  "nonSecretAuthMarkers": [
+    "gcp-vertex-credentials"
+  ],
   "configSchema": {
     "type": "object",
     "additionalProperties": false,

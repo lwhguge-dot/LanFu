@@ -26,7 +26,7 @@ export type RuntimeContextFragment = {
 };
 
 const LEGACY_INTERNAL_CONTEXT_HEADER =
-  ["OpenClaw runtime context (internal):", OPENCLAW_RUNTIME_CONTEXT_NOTICE, ""].join("\n") + "\n";
+  ["LanFu runtime context (internal):", OPENCLAW_RUNTIME_CONTEXT_NOTICE, ""].join("\n") + "\n";
 
 const LEGACY_INTERNAL_EVENT_MARKER = "[Internal task completion event]";
 const LEGACY_INTERNAL_EVENT_SEPARATOR = "\n\n---\n\n";
@@ -211,9 +211,9 @@ function stripLegacyInternalRuntimeContext(text: string): string {
 
 // Prefaces of carriers persisted before the system prompt explained the markers; kept for stripping.
 const RUNTIME_CONTEXT_PROMPT_HEADERS: readonly string[] = [
-  "OpenClaw runtime context for the active user request in this turn. Do not reply to or describe this context. Use it to continue answering the active user request now. Do not wait for another message.",
-  "OpenClaw runtime context for the immediately preceding user message.",
-  "OpenClaw runtime event.",
+  "LanFu runtime context for the active user request in this turn. Do not reply to or describe this context. Use it to continue answering the active user request now. Do not wait for another message.",
+  "LanFu runtime context for the immediately preceding user message.",
+  "LanFu runtime event.",
 ];
 
 const RUNTIME_CONTEXT_NOTICE_PATTERN = new RegExp(

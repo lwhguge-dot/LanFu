@@ -179,7 +179,7 @@ export function renderAgentOverview(params: {
                   type="text"
                   maxlength="8"
                   .value=${identityEmoji}
-                  placeholder="🦞"
+                  placeholder="🐦"
                   ?disabled=${identityBusy}
                   @input=${(e: Event) =>
                     params.onIdentityFieldChange("emoji", (e.target as HTMLInputElement).value)}

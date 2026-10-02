@@ -418,9 +418,7 @@ export async function ensureControlUiAssetsBuilt(
         : health.kind === "incomplete"
           ? `Incomplete Control UI assets${location} (missing ${health.missingAsset})`
           : `Missing Control UI assets${location}`;
-    return controlUiAssetsFailure(
-      `${hint}. Reinstall OpenClaw to restore bundled Control UI assets.`,
-    );
+    return controlUiAssetsFailure(`${hint}. Reinstall LanFu to restore bundled Control UI assets.`);
   }
 
   const uiScript = path.join(repoRoot, "scripts", "ui.js");

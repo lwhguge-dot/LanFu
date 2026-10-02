@@ -1670,7 +1670,7 @@ describe("maybeScanExtraGatewayServices", () => {
     expect(mocks.findExtraGatewayServices).toHaveBeenCalledWith(process.env, { deep: true });
   });
 
-  it("skips structured host-service discovery in containers without an OpenClaw service", async () => {
+  it("skips structured host-service discovery in containers without an LanFu service", async () => {
     mocks.isContainerEnvironment.mockReturnValue(true);
 
     await expect(detectExtraGatewayServiceIssues({ deep: true })).resolves.toEqual([]);
@@ -1782,7 +1782,7 @@ describe("maybeScanExtraGatewayServices", () => {
     });
     expectNoteContaining("clawdbot-gateway.service", "Legacy gateway removed");
     expect(runtime.log).not.toHaveBeenCalledWith(
-      expect.stringContaining("Installing OpenClaw gateway next."),
+      expect.stringContaining("Installing LanFu gateway next."),
     );
   });
 
@@ -1803,7 +1803,7 @@ describe("maybeScanExtraGatewayServices", () => {
       expectNoteContaining(LEGACY_MAC_LABEL, "Legacy gateway removed");
       expectNoNoteContaining(LEGACY_MAC_LABEL, "Legacy gateway cleanup skipped");
       expect(runtime.log).not.toHaveBeenCalledWith(
-        expect.stringContaining("Installing OpenClaw gateway next."),
+        expect.stringContaining("Installing LanFu gateway next."),
       );
     },
   );
@@ -1831,7 +1831,7 @@ describe("maybeScanExtraGatewayServices", () => {
     );
     expectNoNoteContaining(LEGACY_MAC_LABEL, "Legacy gateway removed");
     expect(runtime.log).not.toHaveBeenCalledWith(
-      "Legacy gateway services removed. Installing OpenClaw gateway next.",
+      "Legacy gateway services removed. Installing LanFu gateway next.",
     );
   });
 
@@ -1989,7 +1989,7 @@ describe("maybeScanExtraGatewayServices", () => {
     );
     expectNoNoteContaining(LEGACY_MAC_LABEL, "Legacy gateway removed");
     expect(runtime.log).not.toHaveBeenCalledWith(
-      "Legacy gateway services removed. Installing OpenClaw gateway next.",
+      "Legacy gateway services removed. Installing LanFu gateway next.",
     );
   });
 
@@ -2015,7 +2015,7 @@ describe("maybeScanExtraGatewayServices", () => {
       );
       expect(mocks.uninstallLegacySystemdUnits).not.toHaveBeenCalled();
       expect(runtime.log).not.toHaveBeenCalledWith(
-        "Legacy gateway services removed. Installing OpenClaw gateway next.",
+        "Legacy gateway services removed. Installing LanFu gateway next.",
       );
     });
   });

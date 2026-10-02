@@ -54,7 +54,7 @@ export function formatManagedServiceUpdateCommand(
 
 export function buildManagedServiceHandoffUnavailableMessage(command: string): string {
   return [
-    "OpenClaw updates cannot safely run inside the live gateway process without a managed-service handoff.",
+    "LanFu updates cannot safely run inside the live gateway process without a managed-service handoff.",
     `Stop the foreground Gateway, run \`${command}\` from a shell, then launch the Gateway again. For a managed deployment, use its host's stop, update, and restart workflow.`,
   ].join("\n");
 }

@@ -1,11 +1,13 @@
 {
   "id": "slack",
-  "categories": ["channels"],
+  "categories": [
+    "channels"
+  ],
   "doctorContract": {
     "configRepair": true
   },
   "name": "Slack",
-  "description": "OpenClaw Slack channel plugin for channels, DMs, commands, and app events.",
+  "description": "LanFu Slack channel plugin for channels, DMs, commands, and app events.",
   "skills": [
     "./skills"
   ],

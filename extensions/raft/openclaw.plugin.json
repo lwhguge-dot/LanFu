@@ -1,8 +1,10 @@
 {
   "id": "raft",
-  "categories": ["channels"],
+  "categories": [
+    "channels"
+  ],
   "name": "Raft",
-  "description": "OpenClaw Raft channel plugin for secure CLI wake bridges.",
+  "description": "LanFu Raft channel plugin for secure CLI wake bridges.",
   "activation": {
     "onStartup": false
   },

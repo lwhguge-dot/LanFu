@@ -14,12 +14,7 @@ import {
   type JsonSchema,
 } from "./config-form.shared.ts";
 import { splitConfigSchemaByTier } from "./config-form.tiers.ts";
-import {
-  renderLearnMoreLink,
-  renderSettingsEmpty,
-  renderSettingsHelpTrigger,
-  renderSettingsPage,
-} from "./settings-ui.ts";
+import { renderSettingsEmpty, renderSettingsPage } from "./settings-ui.ts";
 
 type ConfigFormProps = {
   schema: JsonSchema | null;
@@ -223,9 +218,6 @@ export function renderConfigForm(props: ConfigFormProps) {
     nodeValue: unknown;
     path: Array<string | number>;
   }) => {
-    const sectionHint = hintForPath(params.path.slice(0, 1), props.uiHints);
-    const docsUrl = props.showSectionDocs === false ? undefined : sectionHint?.docsUrl;
-    const docsTriggerId = `settings-section-help-${params.id}`;
     const revealAdvanced =
       props.showAdvanced === true ||
       props.forceAdvancedSection === params.path[0] ||
@@ -253,36 +245,8 @@ export function renderConfigForm(props: ConfigFormProps) {
         <div class="settings-section__header">
           <h2 class="settings-section__heading">${params.label}</h2>
           ${
-            props.sectionActions || docsUrl
-              ? html`<div class="settings-section__actions">
-                  ${props.sectionActions ?? nothing}
-                  ${
-                    docsUrl
-                      ? html`
-                          <span class="settings-section__docs">
-                            ${renderSettingsHelpTrigger({
-                              id: docsTriggerId,
-                              label: t("configForm.sectionHelp", { section: params.label }),
-                              tooltip: t("configForm.sectionHelp", { section: params.label }),
-                              icon: "question",
-                              popoverId: `settings-section-help-popover-${params.id}`,
-                            })}
-                            <wa-popover
-                              id=${`settings-section-help-popover-${params.id}`}
-                              class="settings-section__help-popover"
-                              for=${docsTriggerId}
-                              placement="bottom-end"
-                            >
-                              <div class="settings-section__help-panel">
-                                ${params.description ? html`<p>${params.description}</p>` : nothing}
-                                ${renderLearnMoreLink(docsUrl)}
-                              </div>
-                            </wa-popover>
-                          </span>
-                        `
-                      : nothing
-                  }
-                </div>`
+            props.sectionActions
+              ? html`<div class="settings-section__actions">${props.sectionActions}</div>`
               : nothing
           }
         </div>

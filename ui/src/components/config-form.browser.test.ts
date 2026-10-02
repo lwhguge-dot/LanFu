@@ -802,36 +802,6 @@ describe("config form renderer", () => {
     expect(descriptions.some((description) => description?.includes("nested-default"))).toBe(false);
   });
 
-  it("renders section help when the top-level hint has a docs URL", () => {
-    const container = document.createElement("div");
-    renderAnalyzedFormFixture(container, rootAnalysis, {
-      uiHints: { gateway: { docsUrl: "https://docs.openclaw.ai/gateway/configuration" } },
-      value: {},
-      activeSection: "gateway",
-      onPatch: vi.fn(),
-    });
-
-    const button = expectElement(
-      container.querySelector<HTMLButtonElement>(".settings-section__help-button"),
-      "section help button",
-    );
-    expect(button.getAttribute("aria-label")).toBe("Help for Gateway");
-    expect(button.querySelector("svg")).not.toBeNull();
-    const tooltip = expectElement(button.closest("openclaw-tooltip"), "section help tooltip");
-    expect((tooltip as HTMLElement & { content: string }).content).toBe("Help for Gateway");
-    const link = expectElement(
-      container.querySelector<HTMLAnchorElement>(".settings-section__help-popover a"),
-      "section guide link",
-    );
-    expect(link.textContent?.trim()).toBe("Learn more");
-    expect(link.classList.contains("learn-more-link")).toBe(true);
-    const popover = expectElement(link.closest("wa-popover"), "section help popover");
-    expect(button.getAttribute("aria-controls")).toBe(popover.id);
-    expect(link.getAttribute("href")).toBe("https://docs.openclaw.ai/gateway/configuration");
-    expect(link.getAttribute("target")).toBe("_blank");
-    expect(link.getAttribute("rel")).toBe("noopener noreferrer");
-  });
-
   it("omits section help when the top-level hint has no docs URL", () => {
     const container = document.createElement("div");
     renderAnalyzedFormFixture(container, rootAnalysis, {

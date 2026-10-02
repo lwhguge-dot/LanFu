@@ -312,11 +312,7 @@ export function visibleSettingsNavigationGroups(
 // Settings subpages render with settings chrome but stay out of the sidebar.
 // Subpages with a visible owner keep that owner selected so users retain
 // location context while completing the nested flow.
-const SETTINGS_SUBPAGE_ROUTES: readonly NavigationRouteId[] = [
-  "ai-agents",
-  "model-setup",
-  "lobsterdex",
-];
+const SETTINGS_SUBPAGE_ROUTES: readonly NavigationRouteId[] = ["ai-agents", "model-setup"];
 export const SETTINGS_SEARCHABLE_SUBPAGE_ROUTES: readonly NavigationRouteId[] = ["ai-agents"];
 const SETTINGS_SUBPAGE_OWNER_ROUTES: Partial<
   Readonly<Record<NavigationRouteId, NavigationRouteId>>
@@ -370,7 +366,6 @@ const NAVIGATION_PRESENTATION: Record<NavigationRouteId, NavigationPresentation>
   profile: navigationPresentation("circleUser", "profile"),
   communications: navigationPresentation("send", "communications"),
   appearance: navigationPresentation("palette", "appearance"),
-  lobsterdex: navigationPresentation("bug", "lobsterdex"),
   automation: navigationPresentation("terminal", "automation"),
   mcp: navigationPresentation("wrench", "mcp"),
   memory: navigationPresentation("book", "memory"),
@@ -472,9 +467,7 @@ export function formatDocumentTitle(options: {
   attentionCount?: number;
   gatewayDisconnected?: boolean;
 }): string {
-  const base = options.context.endsWith("LanFu")
-    ? options.context
-    : `${options.context} — LanFu`;
+  const base = options.context.endsWith("LanFu") ? options.context : `${options.context} — LanFu`;
   if (options.gatewayDisconnected) {
     return `(${t("connection.disconnectedTitle")}) ${base}`;
   }

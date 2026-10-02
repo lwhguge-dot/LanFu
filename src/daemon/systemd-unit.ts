@@ -169,7 +169,7 @@ export function buildSystemdUnit({
   const execStart = programArguments
     .map((argument) => systemdEscapeArg(argument.replaceAll("%", "%%")))
     .join(" ");
-  const descriptionValue = description?.trim() || "OpenClaw Gateway";
+  const descriptionValue = description?.trim() || "LanFu Gateway";
   assertNoSystemdLineBreaks(descriptionValue, "Systemd Description");
   const descriptionLine = `Description=${descriptionValue}`;
   if (workingDirectory) {

@@ -72,7 +72,7 @@ function createCaptureRuntime(): CaptureRuntime {
     log: (...args) => lines.push(args.join(" ")),
     error: (...args) => lines.push(args.join(" ")),
     exit: (code) => {
-      throw new Error(`OpenClaw operation exited with code ${String(code)}`);
+      throw new Error(`LanFu operation exited with code ${String(code)}`);
     },
     read: () => lines.join("\n").trim(),
   };
@@ -107,7 +107,7 @@ export function redactSensitiveCommandText(text: string): string {
 function formatPendingOperationForAssistant(operation: SystemAgentOperation): string {
   const description = describeSystemAgentPersistentOperation(operation);
   return operation.kind === "setup"
-    ? `${description}. Exact setup JSON: ${JSON.stringify(operation)}. Keep the verified model unless the user explicitly asks to leave OpenClaw and reconfigure inference.`
+    ? `${description}. Exact setup JSON: ${JSON.stringify(operation)}. Keep the verified model unless the user explicitly asks to leave LanFu and reconfigure inference.`
     : description;
 }
 
@@ -202,7 +202,7 @@ export class ChatTurnRouter {
       };
     }
     if (/^(quit|exit)$/i.test(trimmed)) {
-      return { text: "OpenClaw retracts into shell. Bye.", action: "exit" };
+      return { text: "LanFu retracts into shell. Bye.", action: "exit" };
     }
     if (this.awaitingSetupChannel) {
       if (/^(cancel|abort|stop)$/i.test(trimmed)) {
@@ -223,7 +223,7 @@ export class ChatTurnRouter {
       });
     }
     if (this.options.operatorApprovalOnly && this.getPendingOperatorProposal()) {
-      return { text: "Approval pending. Human must decide in OpenClaw UI.", action: "none" };
+      return { text: "Approval pending. Human must decide in LanFu UI.", action: "none" };
     }
     const typed = parseSystemAgentOperation(text);
     if (isInvalidConfigSetOperation(typed)) {
@@ -296,7 +296,7 @@ export class ChatTurnRouter {
     beforePersistentApply?: PersistentApplyGuard,
   ): Promise<SystemAgentChatReply> {
     if (!isPersistentSystemAgentOperation(operation)) {
-      throw new Error("OpenClaw host received a non-persistent approved operation.");
+      throw new Error("LanFu host received a non-persistent approved operation.");
     }
     const capture = createCaptureRuntime();
     const result = await this.executeOperation(operation, capture, true, beforePersistentApply);
@@ -457,13 +457,13 @@ export class ChatTurnRouter {
       this.clearPendingProposals();
       if (this.options.surface === "gateway") {
         return {
-          text: "Open Settings to change your model or connect a channel. To change providers from a shell, run `openclaw onboard` on the machine running OpenClaw.",
+          text: "Open Settings to change your model or connect a channel. To change providers from a shell, run `openclaw onboard` on the machine running LanFu.",
           action: "none",
         };
       }
       if (!["channels", "search", "gateway"].includes(recordedOperation.target)) {
         return {
-          text: "Setup can replace the inference route powering this session. Exit OpenClaw and run `openclaw onboard`; it saves only a route that passes a live test. Then start OpenClaw again.",
+          text: "Setup can replace the inference route powering this session. Exit LanFu and run `openclaw onboard`; it saves only a route that passes a live test. Then start LanFu again.",
           action: "none",
         };
       }
@@ -605,7 +605,7 @@ export class ChatTurnRouter {
   private agentHandoffReturnHint(): string {
     // Only the TUI uses /openclaw for navigation; web chat runs rescue in place.
     return this.options.surface === "gateway"
-      ? "You can return through Settings → Ask OpenClaw."
+      ? "You can return through Settings → Ask LanFu."
       : "Use /openclaw to come back.";
   }
 
@@ -630,8 +630,8 @@ export class ChatTurnRouter {
   private armFollowUp(operation: SystemAgentOperation | undefined): string | null {
     return operation?.kind === "model-setup"
       ? [
-          "No usable inference route is configured, so OpenClaw cannot continue.",
-          "Run `openclaw onboard` on the machine running OpenClaw; it saves only a route that passes a live test.",
+          "No usable inference route is configured, so LanFu cannot continue.",
+          "Run `openclaw onboard` on the machine running LanFu; it saves only a route that passes a live test.",
         ].join("\n")
       : null;
   }

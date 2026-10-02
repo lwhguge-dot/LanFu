@@ -196,7 +196,7 @@ type PrivateCliBackendPreparedExecution = CliBackendPreparedExecution & {
 
 function unsupportedIsolatedCompletionError(backendId: string): Error & { code: "unsupported" } {
   const error = new Error(
-    `CLI backend "${backendId}" does not support isolated completion; OpenClaw did not start the run.`,
+    `CLI backend "${backendId}" does not support isolated completion; LanFu did not start the run.`,
   ) as Error & { code: "unsupported" };
   error.name = "IsolatedCompletionUnsupportedError";
   error.code = "unsupported";
@@ -481,7 +481,7 @@ function buildCliAuthProfileResolutionError(params: {
   });
   const reason = describeCliAuthProfileResolutionFailure(params.profileId, params.failure);
   return new CliAuthProfilePreparationError({
-    message: `CLI backend "${params.backendId}" ${reason}. Re-authenticate with: ${loginCommand}. OpenClaw did not start the run.`,
+    message: `CLI backend "${params.backendId}" ${reason}. Re-authenticate with: ${loginCommand}. LanFu did not start the run.`,
     profileId: params.profileId,
     provider: params.provider,
     agentDir: params.agentDir,
@@ -771,7 +771,7 @@ async function prepareCliRunContextWithinReadFence(
     // Cron persists this verbatim and failure alerts truncate at 200 characters,
     // so keep the upgrade recovery and fail-closed outcome compact.
     throw new Error(
-      `CLI backend "${backendResolved.id}" cannot enforce this run's tool cap. Upgrade its plugin and retry; if current, ask its maintainer to add exact-cap support. OpenClaw did not start the run.`,
+      `CLI backend "${backendResolved.id}" cannot enforce this run's tool cap. Upgrade its plugin and retry; if current, ask its maintainer to add exact-cap support. LanFu did not start the run.`,
     );
   }
   const sideQuestionDisablesNativeTools =
@@ -1223,7 +1223,7 @@ async function prepareCliRunContextWithinReadFence(
       await prepareDeps.ensureMcpLoopbackServer();
     } catch (error) {
       throw new Error(
-        `Bundled MCP is enabled, but the OpenClaw MCP loopback server failed to start: ${String(error)}`,
+        `Bundled MCP is enabled, but the LanFu MCP loopback server failed to start: ${String(error)}`,
         { cause: error },
       );
     }
@@ -1231,7 +1231,7 @@ async function prepareCliRunContextWithinReadFence(
   }
   if (bundleMcpEnabled && !mcpLoopbackRuntime) {
     throw new Error(
-      "Bundled MCP is enabled, but the OpenClaw MCP loopback server did not publish a runtime after startup.",
+      "Bundled MCP is enabled, but the LanFu MCP loopback server did not publish a runtime after startup.",
     );
   }
   const mcpDeliveryCaptureEnabled = bundleMcpEnabled && Boolean(mcpLoopbackRuntime);
@@ -1309,7 +1309,7 @@ async function prepareCliRunContextWithinReadFence(
       (backendResolved.nativeToolMode === "selectable" && !canEnforceExactToolAvailability))
   ) {
     throw new Error(
-      `CLI backend "${backendResolved.id}" cannot enforce before_prompt_build tool restrictions. Use a backend with exact tool availability or remove the hook restriction. OpenClaw did not start the run.`,
+      `CLI backend "${backendResolved.id}" cannot enforce before_prompt_build tool restrictions. Use a backend with exact tool availability or remove the hook restriction. LanFu did not start the run.`,
     );
   }
   if (

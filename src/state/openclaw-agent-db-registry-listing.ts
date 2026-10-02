@@ -194,7 +194,7 @@ export function readRegisteredAgentDatabases(
   const finish = (entries: OpenClawRegisteredAgentDatabase[] | undefined) => {
     if (entries === undefined) {
       if (hasUnavailableMissingSqlitePath(pathname)) {
-        throw new Error(`OpenClaw state database ${pathname} is unavailable.`);
+        throw new Error(`LanFu state database ${pathname} is unavailable.`);
       }
       return [];
     }

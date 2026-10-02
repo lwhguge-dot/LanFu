@@ -6,7 +6,7 @@ import { openDoctorStateSchemaReadAdmission } from "../state/openclaw-state-db-d
 
 function createDoctorAgentLeaseRefusal(env: NodeJS.ProcessEnv, cause?: unknown): UpdateDoctorError {
   const message =
-    "Doctor could not enter maintenance. An agent database is in use. Stop other OpenClaw processes using this state, then retry the update.";
+    "Doctor could not enter maintenance. An agent database is in use. Stop other LanFu processes using this state, then retry the update.";
   return new UpdateDoctorError(
     message,
     [

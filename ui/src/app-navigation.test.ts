@@ -42,7 +42,6 @@ const ALL_ROUTES: RouteId[] = Array.from(
     "memory-import",
     "ai-agents",
     "model-setup",
-    "lobsterdex",
     ...visibleSettingsNavigationGroups(true).flatMap((group) => group.routes),
   ]),
 );
@@ -57,7 +56,6 @@ const SETTINGS_ROUTE_PATHS = [
     alias: "/communications",
   },
   { routeId: "appearance", path: "/settings/appearance", alias: "/appearance" },
-  { routeId: "lobsterdex", path: "/settings/lobsterdex", alias: "/lobsterdex" },
   { routeId: "automation", path: "/settings/automation", alias: "/automation" },
   { routeId: "mcp", path: "/settings/mcp", alias: "/mcp" },
   {
@@ -121,7 +119,6 @@ describe("navigationIconForRoute", () => {
       profile: "circleUser",
       communications: "send",
       appearance: "palette",
-      lobsterdex: "bug",
       automation: "terminal",
       mcp: "wrench",
       memory: "book",
@@ -170,23 +167,21 @@ describe("settingsSearchTextMatches", () => {
 
 describe("formatDocumentTitle", () => {
   it("does not duplicate a context ending in the brand", () => {
-    expect(formatDocumentTitle({ context: "Ask OpenClaw" })).toBe("Ask OpenClaw");
-    expect(formatDocumentTitle({ context: "OpenClaw" })).toBe("OpenClaw");
+    expect(formatDocumentTitle({ context: "Ask LanFu" })).toBe("Ask LanFu");
+    expect(formatDocumentTitle({ context: "LanFu" })).toBe("LanFu");
   });
 
   it("names the disconnected gateway without implying internet loss", () => {
     expect(formatDocumentTitle({ context: "Usage", gatewayDisconnected: true })).toBe(
-      "(Disconnected) Usage — OpenClaw",
+      "(Disconnected) Usage — LanFu",
     );
   });
 
   it("shows attention separately from the disconnected state", () => {
-    expect(formatDocumentTitle({ context: "Usage", attentionCount: 3 })).toBe(
-      "(3) Usage — OpenClaw",
-    );
+    expect(formatDocumentTitle({ context: "Usage", attentionCount: 3 })).toBe("(3) Usage — LanFu");
     expect(
       formatDocumentTitle({ context: "Usage", attentionCount: 3, gatewayDisconnected: true }),
-    ).toBe("(Disconnected) Usage — OpenClaw");
+    ).toBe("(Disconnected) Usage — LanFu");
   });
 });
 
@@ -206,7 +201,7 @@ describe("titleForRoute", () => {
       Object.fromEntries(ALL_ROUTES.map((routeId) => [routeId, titleForRoute(routeId)])),
     ).toEqual({
       chat: "Chat",
-      custodian: "OpenClaw",
+      custodian: "LanFu",
       activity: "Activity",
       meetings: "Meetings",
       apps: "Apps",
@@ -234,7 +229,6 @@ describe("titleForRoute", () => {
       profile: "Profile",
       communications: "Communications",
       appearance: "Appearance",
-      lobsterdex: "Lobsterdex",
       automation: "Automation",
       mcp: "MCP",
       memory: "Memory",
@@ -284,8 +278,8 @@ describe("subtitleForRoute", () => {
       agents: "Workspaces, tools, identities.",
       skills: "Manage your agent skills",
       "skill-settings": "Manage your agent skills",
-      plugins: "Extend your Claw with tools",
-      "plugin-settings": "Extend your Claw with tools",
+      plugins: "Extend your LanFu with tools",
+      "plugin-settings": "Extend your LanFu with tools",
       "skill-workshop":
         "The skills your agent uses now, suggestions waiting for review, and past decisions.",
       devices: "Paired devices, pairing approvals, and exec bindings.",
@@ -293,7 +287,6 @@ describe("subtitleForRoute", () => {
       profile: "Your display name, avatar, and identity on this gateway.",
       communications: "Messages, text-to-speech, and meeting capture settings.",
       appearance: "Theme and UI settings.",
-      lobsterdex: "Every lobster palette that has visited this browser.",
       automation: "Commands, hooks, automations, and plugins.",
       mcp: "MCP servers, auth, tools, and diagnostics.",
       memory: "Memory engine, search, and dreaming.",

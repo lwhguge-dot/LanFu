@@ -1,15 +1,19 @@
 {
   "id": "irc",
-  "categories": ["channels"],
+  "categories": [
+    "channels"
+  ],
   "name": "IRC",
-  "description": "OpenClaw IRC channel plugin.",
+  "description": "LanFu IRC channel plugin.",
   "doctorContract": {
     "configRepair": true
   },
   "activation": {
     "onStartup": false
   },
-  "channels": ["irc"],
+  "channels": [
+    "irc"
+  ],
   "configSchema": {
     "type": "object",
     "additionalProperties": false,

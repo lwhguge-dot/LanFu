@@ -288,7 +288,7 @@ export async function applyPersistentOperation(params: {
     // The mutation already committed. Keep success truthful while making the
     // missing audit record visible to every CLI/chat capture surface.
     runtime.error(
-      `${outcome.summary}, but OpenClaw could not record its audit entry: ${formatErrorMessage(error)}`,
+      `${outcome.summary}, but LanFu could not record its audit entry: ${formatErrorMessage(error)}`,
     );
   }
   runtime.log(`[openclaw] done: ${auditOperation}`);
@@ -341,14 +341,14 @@ async function verifyCurrentSetupInference(
   const before = await readConfigFileSnapshot();
   if (!before.exists || !before.valid) {
     throw new Error(
-      "OpenClaw setup requires a valid configured inference route. Run `openclaw onboard` on the machine running OpenClaw, then retry.",
+      "LanFu setup requires a valid configured inference route. Run `openclaw onboard` on the machine running LanFu, then retry.",
     );
   }
   const beforeConfig = before.runtimeConfig ?? before.config;
   const beforeRoute = await projectDefaultInferenceRoute(beforeConfig);
   if (!beforeRoute.route) {
     throw new Error(
-      "OpenClaw setup requires working inference first. Run `openclaw onboard` on the machine running OpenClaw, then retry.",
+      "LanFu setup requires working inference first. Run `openclaw onboard` on the machine running LanFu, then retry.",
     );
   }
   const verifyInferenceConfig =
@@ -357,7 +357,7 @@ async function verifyCurrentSetupInference(
   const verification = await verifyInferenceConfig({ config: beforeConfig, runtime });
   if (!verification.ok) {
     throw new Error(
-      `OpenClaw setup requires working inference first. The configured route failed a live check: ${verification.error} Run \`openclaw onboard\` on the machine running OpenClaw, then retry.`,
+      `LanFu setup requires working inference first. The configured route failed a live check: ${verification.error} Run \`openclaw onboard\` on the machine running LanFu, then retry.`,
     );
   }
 
@@ -394,13 +394,13 @@ export async function executeSetup(
   const modelRole = overview.defaultModel ? "default" : "setup";
   if (!setupModel) {
     throw new Error(
-      "OpenClaw setup requires working inference first. Run `openclaw onboard` on the machine running OpenClaw to configure and verify a default model, then start OpenClaw again.",
+      "LanFu setup requires working inference first. Run `openclaw onboard` on the machine running LanFu to configure and verify a default model, then start LanFu again.",
     );
   }
   const requestedModel = operation.model?.trim();
   if (requestedModel && requestedModel !== setupModel) {
     throw new Error(
-      `OpenClaw setup will preserve the verified ${modelRole} model ${setupModel}. Staging, live-testing, and saving a different inference route is \`openclaw onboard\` on the machine running OpenClaw.`,
+      `LanFu setup will preserve the verified ${modelRole} model ${setupModel}. Staging, live-testing, and saving a different inference route is \`openclaw onboard\` on the machine running LanFu.`,
     );
   }
   if (!opts.approved) {
@@ -414,7 +414,7 @@ export async function executeSetup(
   const verified = await verifyCurrentSetupInference(runtime, opts.deps);
   if (requestedModel && requestedModel !== verified.modelRef) {
     throw new Error(
-      `The verified default model is now ${verified.modelRef}, not ${requestedModel}. Review the current route, or run \`openclaw onboard\` on the machine running OpenClaw, before retrying setup.`,
+      `The verified default model is now ${verified.modelRef}, not ${requestedModel}. Review the current route, or run \`openclaw onboard\` on the machine running LanFu, before retrying setup.`,
     );
   }
   return await applyPersistentOperation({

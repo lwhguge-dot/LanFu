@@ -1,15 +1,21 @@
 {
   "id": "facetime",
   "name": "FaceTime",
-  "description": "Experimental FaceTime realtime voice carrier for OpenClaw agents",
-  "categories": ["voice"],
+  "description": "Experimental FaceTime realtime voice carrier for LanFu agents",
+  "categories": [
+    "voice"
+  ],
   "enabledByDefault": false,
   "activation": {
     "onStartup": true
   },
-  "skills": ["./skills"],
+  "skills": [
+    "./skills"
+  ],
   "contracts": {
-    "tools": ["facetime_call"]
+    "tools": [
+      "facetime_call"
+    ]
   },
   "doctorContract": {
     "configRepair": true
@@ -18,26 +24,47 @@
     "type": "object",
     "additionalProperties": false,
     "properties": {
-      "enabled": { "type": "boolean", "default": true },
+      "enabled": {
+        "type": "boolean",
+        "default": true
+      },
       "ownerHandles": {
         "type": "array",
-        "items": { "type": "string" },
+        "items": {
+          "type": "string"
+        },
         "default": []
       },
       "realtime": {
         "type": "object",
         "additionalProperties": false,
         "properties": {
-          "provider": { "type": "string" },
-          "model": { "type": "string" },
-          "voice": { "type": "string" },
-          "sessionKey": { "type": "string", "default": "main" },
+          "provider": {
+            "type": "string"
+          },
+          "model": {
+            "type": "string"
+          },
+          "voice": {
+            "type": "string"
+          },
+          "sessionKey": {
+            "type": "string",
+            "default": "main"
+          },
           "toolPolicy": {
             "type": "string",
-            "enum": ["safe-read-only", "owner", "none"],
+            "enum": [
+              "safe-read-only",
+              "owner",
+              "none"
+            ],
             "default": "owner"
           },
-          "instructions": { "type": "string", "maxLength": 4000 },
+          "instructions": {
+            "type": "string",
+            "maxLength": 4000
+          },
           "providers": {
             "type": "object",
             "additionalProperties": {
@@ -50,20 +77,42 @@
     }
   },
   "uiHints": {
-    "enabled": { "label": "Enable FaceTime Voice" },
+    "enabled": {
+      "label": "Enable FaceTime Voice"
+    },
     "ownerHandles": {
       "label": "Owner FaceTime Handles",
       "help": "Only these handles may place or receive bridged calls. Every listed handle receives authenticated owner privileges."
     },
-    "realtime.provider": { "label": "Realtime Provider", "advanced": true },
-    "realtime.model": { "label": "Realtime Model", "advanced": true },
-    "realtime.voice": { "label": "Realtime Voice", "advanced": true },
-    "realtime.sessionKey": { "label": "Agent Session Key", "advanced": true },
-    "realtime.toolPolicy": { "label": "Tool Policy", "advanced": true }
+    "realtime.provider": {
+      "label": "Realtime Provider",
+      "advanced": true
+    },
+    "realtime.model": {
+      "label": "Realtime Model",
+      "advanced": true
+    },
+    "realtime.voice": {
+      "label": "Realtime Voice",
+      "advanced": true
+    },
+    "realtime.sessionKey": {
+      "label": "Agent Session Key",
+      "advanced": true
+    },
+    "realtime.toolPolicy": {
+      "label": "Tool Policy",
+      "advanced": true
+    }
   },
   "configContracts": {
     "secretInputs": {
-      "paths": [{ "path": "realtime.providers.*.apiKey", "expected": "string" }]
+      "paths": [
+        {
+          "path": "realtime.providers.*.apiKey",
+          "expected": "string"
+        }
+      ]
     }
   }
 }

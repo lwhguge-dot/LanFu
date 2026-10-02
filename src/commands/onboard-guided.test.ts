@@ -344,7 +344,7 @@ describe("runGuidedOnboarding", () => {
 
     expect(prompter.text).toHaveBeenCalledWith(
       expect.objectContaining({
-        message: "What should we call your first agent?",
+        message: "你的助手叫什么名字？直接回车即默认助手「小蓝」（标识需为英文，如 main）",
         initialValue: "main",
       }),
     );
@@ -462,7 +462,7 @@ describe("runGuidedOnboarding", () => {
 
     expect(deps.runBrowserHandoff).not.toHaveBeenCalled();
     expect(deps.launchHatchTui).not.toHaveBeenCalled();
-    expect(prompter.outro).toHaveBeenCalledWith("OpenClaw is ready.");
+    expect(prompter.outro).toHaveBeenCalledWith("LanFu is ready.");
   });
 
   it("never attempts browser handoff for remote chat onboarding", async () => {
@@ -505,7 +505,7 @@ describe("runGuidedOnboarding", () => {
 
   it("persists explicit feature-stat consent with the guided onboarding acknowledgement", async () => {
     const select = vi.fn(async ({ message }: { message: string }) =>
-      message === "Help make OpenClaw better?" ? true : "full",
+      message === "Help make LanFu better?" ? true : "full",
     ) as unknown as WizardPrompter["select"];
     const prompter = createWizardPrompter({ select });
 
@@ -521,7 +521,7 @@ describe("runGuidedOnboarding", () => {
     });
   });
 
-  it("uses the configured workspace only as inference and OpenClaw context", async () => {
+  it("uses the configured workspace only as inference and LanFu context", async () => {
     readConfigFileSnapshot.mockResolvedValueOnce({
       exists: true,
       valid: true,
@@ -971,7 +971,7 @@ describe("runGuidedOnboarding", () => {
     );
   });
 
-  it("keeps OpenClaw unavailable until a manual key passes", async () => {
+  it("keeps LanFu unavailable until a manual key passes", async () => {
     promptAuthChoiceGrouped.mockResolvedValue("openai-api-key");
     const text = vi.fn().mockResolvedValueOnce("bad-key").mockResolvedValueOnce("good-key");
     const prompter = createWizardPrompter({

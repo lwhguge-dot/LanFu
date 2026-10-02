@@ -362,7 +362,7 @@ export function renderConfigValidationIssueLines(
   return shouldWarnOnTouchedVersion(VERSION, touchedVersion)
     ? [
         ...lines,
-        `Config was last written by OpenClaw ${touchedVersion}, but you are running ${VERSION} — upgrade or re-run setup.`,
+        `Config was last written by LanFu ${touchedVersion}, but you are running ${VERSION} — upgrade or re-run setup.`,
       ]
     : lines;
 }

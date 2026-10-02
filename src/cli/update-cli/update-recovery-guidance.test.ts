@@ -25,7 +25,7 @@ const redeploy = "recreate or redeploy the container";
 const permissionDetail =
   "Package update cannot write /usr/lib/node_modules (EACCES; owner UID 0 (root), GID 0). Run the package update as the directory's owning account, keeping the Gateway's existing state/configuration.";
 const foreignDetail =
-  "Selected npm destination /other is occupied by an unclaimed OpenClaw installation; launcher /other/bin/openclaw. Switch the runtime back and retry through the original absolute launcher.";
+  "Selected npm destination /other is occupied by an unclaimed LanFu installation; launcher /other/bin/openclaw. Switch the runtime back and retry through the original absolute launcher.";
 function failure(overrides: Partial<UpdateRunResult> = {}): UpdateRunResult {
   const failedStep = {
     name: "package-stage",
@@ -266,7 +266,7 @@ describe("update recovery reporting", () => {
       if (reason === "global-install-foreign-destination") {
         expect(action).toBe(
           container
-            ? `${foreignDetail} Detected a foreign npm destination inside a container. Pull or build an OpenClaw image with the target version, then recreate or redeploy the container with the same state/config mounts. In-container package changes are not durable.`
+            ? `${foreignDetail} Detected a foreign npm destination inside a container. Pull or build an LanFu image with the target version, then recreate or redeploy the container with the same state/config mounts. In-container package changes are not durable.`
             : foreignDetail,
         );
       }
@@ -275,7 +275,7 @@ describe("update recovery reporting", () => {
       }
       if (container) {
         expect(action).toContain("inside a container");
-        expect(action).toContain("Pull or build an OpenClaw image");
+        expect(action).toContain("Pull or build an LanFu image");
         expect(action).toContain(redeploy);
         expect(action).toContain("same state/config mounts");
         expect(action).not.toMatch(/sudo|npm config set prefix/);

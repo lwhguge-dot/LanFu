@@ -137,7 +137,7 @@ function assertStartupMigrationLeaseOwnedInTransaction(params: {
   );
   if (!activeLease) {
     throw new Error(
-      "OpenClaw startup migration lease was lost before startup migrations completed; retry so migrations can run under a fresh lease.",
+      "LanFu startup migration lease was lost before startup migrations completed; retry so migrations can run under a fresh lease.",
     );
   }
 }
@@ -358,7 +358,7 @@ function acquireStartupMigrationLeaseFromDatabase(
     if (existing) {
       const ownerHint = existingOwner ? ` (held by pid ${existingOwner.pid})` : "";
       throw new StartupMigrationLeaseConflictError(
-        `OpenClaw startup migrations are already running for this state directory; retry after the other OpenClaw process finishes or after ${new Date(existing.expiresAt ?? expiresAt).toISOString()}.${ownerHint}`,
+        `LanFu startup migrations are already running for this state directory; retry after the other LanFu process finishes or after ${new Date(existing.expiresAt ?? expiresAt).toISOString()}.${ownerHint}`,
         existingOwner?.host === hostname(),
       );
     }
@@ -407,7 +407,7 @@ function acquireStartupMigrationLeaseFromDatabase(
         );
         if (result.numAffectedRows !== 1n) {
           throw new Error(
-            "OpenClaw startup migration lease was lost before startup migrations completed; retry so migrations can run under a fresh lease.",
+            "LanFu startup migration lease was lost before startup migrations completed; retry so migrations can run under a fresh lease.",
           );
         }
       });

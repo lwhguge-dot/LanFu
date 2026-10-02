@@ -1,12 +1,16 @@
 {
   "id": "twitch",
-  "categories": ["channels"],
+  "categories": [
+    "channels"
+  ],
   "name": "Twitch",
-  "description": "OpenClaw Twitch channel plugin for chat and moderation workflows.",
+  "description": "LanFu Twitch channel plugin for chat and moderation workflows.",
   "activation": {
     "onStartup": false
   },
-  "channels": ["twitch"],
+  "channels": [
+    "twitch"
+  ],
   "configSchema": {
     "type": "object",
     "additionalProperties": false,

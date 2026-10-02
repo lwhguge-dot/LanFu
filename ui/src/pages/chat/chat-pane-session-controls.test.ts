@@ -419,10 +419,7 @@ describe("chat pane composer controls", () => {
     const docsLink = container.querySelector<HTMLAnchorElement>(
       ".chat-controls__permission-learn-more",
     );
-    expect(docsLink?.textContent?.trim()).toBe("Learn more");
-    expect(docsLink?.href).toBe("https://docs.openclaw.ai/gateway/permission-modes");
-    expect(docsLink?.target).toBe("_blank");
-    expect(docsLink?.rel.split(/\s+/).toSorted()).toEqual(["noopener", "noreferrer"]);
+    expect(docsLink).toBeNull(); // LanFu: upstream docs links removed
   });
 
   it("patches a rootless session, clears to default, and locks full access", async () => {

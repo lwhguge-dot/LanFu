@@ -146,7 +146,7 @@ describe("update repair ledger recovery", () => {
     async ({ legacy, target }) => {
       const run = createUpdateRun({ trigger: "cli", before: { version: "2026.9.2" } });
       const detail =
-        "Update refused: package manager owner is unknown; no changes were made. Run this OpenClaw install through its active npm, pnpm, or Bun global shim, or reinstall it with that package manager, then retry.";
+        "Update refused: package manager owner is unknown; no changes were made. Run this LanFu install through its active npm, pnpm, or Bun global shim, or reinstall it with that package manager, then retry.";
       recordUpdateRunStep(run.runId, { step: "driver:adopted", status: "completed" });
       if (legacy) {
         recordUpdateRunStep(run.runId, { step: "requested", status: "failed", detail });
@@ -368,7 +368,7 @@ describe("update repair ledger recovery", () => {
       expect(mocks.runtime.exit).not.toHaveBeenCalledWith(1);
       const repaired = getUpdateRun(run.runId)!;
       expect(buildStatusUpdateRows(null)).toEqual([
-        { Item: "Update run", Value: "ℹ️ OpenClaw abandoned update reconciled." },
+        { Item: "Update run", Value: "ℹ️ LanFu abandoned update reconciled." },
       ]);
       expect(renderUpdateRunReport(repaired).markdown).not.toContain("openclaw triage");
       expect(
@@ -379,7 +379,7 @@ describe("update repair ledger recovery", () => {
             muted: (message) => `muted: ${message}`,
           },
         ),
-      ).toBe("muted: ℹ️ OpenClaw abandoned update reconciled.");
+      ).toBe("muted: ℹ️ LanFu abandoned update reconciled.");
       expect(getUpdateRun(run.runId)).toEqual(repaired);
     },
   );
@@ -432,7 +432,7 @@ describe("update repair ledger recovery", () => {
         expect.objectContaining({ message: expect.stringContaining("already reconciled") }),
       );
       expect(buildStatusUpdateRows(null)).toEqual([
-        { Item: "Update run", Value: "ℹ️ OpenClaw abandoned update reconciled." },
+        { Item: "Update run", Value: "ℹ️ LanFu abandoned update reconciled." },
       ]);
     },
   );

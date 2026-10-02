@@ -1,12 +1,16 @@
 {
   "id": "bonjour",
-  "categories": ["infrastructure"],
+  "categories": [
+    "infrastructure"
+  ],
   "activation": {
     "onStartup": true
   },
-  "enabledByDefaultOnPlatforms": ["darwin"],
+  "enabledByDefaultOnPlatforms": [
+    "darwin"
+  ],
   "name": "Bonjour Gateway Discovery",
-  "description": "Advertise the local OpenClaw gateway over Bonjour/mDNS.",
+  "description": "Advertise the local LanFu gateway over Bonjour/mDNS.",
   "configSchema": {
     "type": "object",
     "additionalProperties": false,

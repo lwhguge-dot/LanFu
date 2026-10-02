@@ -166,7 +166,7 @@ export async function withConfigWriteLock<T>(
         throw error;
       }
       throw new Error(
-        `OpenClaw cannot write to the config directory ${configDir}. Fix its ownership or permissions, then try again. Underlying error: ${formatErrorMessage(error)}`,
+        `LanFu cannot write to the config directory ${configDir}. Fix its ownership or permissions, then try again. Underlying error: ${formatErrorMessage(error)}`,
         { cause: error },
       );
     });

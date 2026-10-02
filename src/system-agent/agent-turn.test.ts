@@ -349,7 +349,7 @@ describe("runSystemAgentTurn", () => {
     expect(runEmbeddedAgent).toHaveBeenCalledOnce();
   });
 
-  it("uses the default agent CLI route while keeping OpenClaw session identity", async () => {
+  it("uses the default agent CLI route while keeping LanFu session identity", async () => {
     const stateDir = useTempStateDir();
     const agentDir = path.join(stateDir, "ops-agent");
     const config = {
@@ -417,12 +417,12 @@ describe("runSystemAgentTurn", () => {
       openClaw: ["openclaw"],
     });
     expect(call.toolsAllow).toBeUndefined();
-    expect(expectDefined(call.systemAgentTool, "missing CLI OpenClaw tool").proposalRef).toBe(
+    expect(expectDefined(call.systemAgentTool, "missing CLI LanFu tool").proposalRef).toBe(
       session.proposalRef,
     );
   });
 
-  it("rejects an always-on CLI backend before launching OpenClaw", async () => {
+  it("rejects an always-on CLI backend before launching LanFu", async () => {
     useTempStateDir();
     cliBackendsTesting.setDepsForTest({
       resolveRuntimeCliBackends: () => [
@@ -471,7 +471,7 @@ describe("runSystemAgentTurn", () => {
     expect((failure as SystemAgentInferenceUnavailableError).failures).toEqual([
       expect.objectContaining({
         message: expect.stringContaining(
-          "CLI backend google-gemini-cli cannot enforce OpenClaw's exact tool availability",
+          "CLI backend google-gemini-cli cannot enforce LanFu's exact tool availability",
         ),
       }),
     ]);
@@ -938,7 +938,7 @@ describe("runSystemAgentTurn", () => {
       params: { temperature: 0.2 },
       tools: { allow: ["read"], deny: ["exec"] },
     });
-    expect(expectDefined(call.systemAgentTool, "missing embedded OpenClaw tool").proposalRef).toBe(
+    expect(expectDefined(call.systemAgentTool, "missing embedded LanFu tool").proposalRef).toBe(
       session.proposalRef,
     );
   });
@@ -991,7 +991,7 @@ describe("runSystemAgentTurn", () => {
     );
     expect(reply?.text).toContain("requesting session's permission policy");
     expect(reply?.text).toContain("returns the final outcome");
-    expect(reply?.text).not.toContain("OpenClaw operator UI");
+    expect(reply?.text).not.toContain("LanFu operator UI");
     expect(reply?.text).not.toContain("ask the user to reply yes");
     // Staging still registers the exact proposal for host authorization.
     expect(session.proposalRef.current).toBeDefined();

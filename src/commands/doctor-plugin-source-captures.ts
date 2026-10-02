@@ -75,7 +75,7 @@ export async function noteLegacyPluginSourceCaptures(
         }
         if (census.pids.length > 0) {
           throw new Error(
-            `Other OpenClaw processes are still running (PIDs: ${census.pids.join(", ")}).`,
+            `Other LanFu processes are still running (PIDs: ${census.pids.join(", ")}).`,
           );
         }
         maintenance.assertAdmission();

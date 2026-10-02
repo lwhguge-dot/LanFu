@@ -45,18 +45,20 @@ function formatHelpHint(argv: string[] | undefined, options?: { commandPath?: st
 }
 
 function formatDocsHint(): string {
-  return `${theme.muted("Docs:")} ${formatDocsLink("/cli", "docs.openclaw.ai/cli")}`;
+  // LanFu intranet build: the upstream public docs link is not reachable.
+  return "";
 }
 
 function formatCliMachineOutput(humanOutput: string): string {
-  const docs = `Docs: ${formatDocsLink("/cli", "docs.openclaw.ai/cli", { force: false })}`;
-  return stripAnsi(humanOutput).replace(/^Docs:.*$/mu, docs);
+  return stripAnsi(humanOutput)
+    .replace(/^Docs:.*$/mu, "")
+    .replace(/\n+$/u, "\n");
 }
 
 function formatUnknownCommandMessage(command: string, commandPath: readonly string[]): string {
   return commandPath.length > 0
-    ? `OpenClaw ${commandPath.join(" ")} has no command ${quote(command)}.`
-    : `OpenClaw does not know the command ${quote(command)}.`;
+    ? `LanFu ${commandPath.join(" ")} has no command ${quote(command)}.`
+    : `LanFu does not know the command ${quote(command)}.`;
 }
 
 function formatCliUnknownCommandOutput(
@@ -120,7 +122,7 @@ function formatOrdinaryCliParseErrorMessage(message: string): string {
   const unknownOption = message.match(/^unknown option ['"`](.+?)['"`]/i);
   if (unknownOption) {
     const option = unknownOption[1] ?? "";
-    return `OpenClaw does not recognize option ${quote(option)}.`;
+    return `LanFu does not recognize option ${quote(option)}.`;
   }
 
   const missingArgument = message.match(/^missing required argument ['"`](.+?)['"`]/i);
@@ -139,7 +141,7 @@ function formatOrdinaryCliParseErrorMessage(message: string): string {
     return "Too many arguments for this command.";
   }
 
-  return `OpenClaw could not parse this command: ${message}`;
+  return `LanFu could not parse this command: ${message}`;
 }
 
 /** Convert Commander parse errors into OpenClaw-specific help and docs guidance. */

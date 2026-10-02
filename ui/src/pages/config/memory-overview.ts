@@ -1,11 +1,7 @@
 import { html, nothing } from "lit";
 import type { DoctorMemoryStatusPayload } from "../../../../src/gateway/server-methods/doctor.ts";
-import { lobsterPetSeed } from "../../components/lobster-pet-contract.ts";
-import {
-  createLobsterPetLook,
-  lobsterLookStyle,
-  renderLobsterSvg,
-} from "../../components/lobster-pet-look.ts";
+import "../../components/openclaw-mascot.ts";
+import type { MascotMood } from "../../components/mascot-pose.ts";
 import {
   renderSettingsNavRow,
   renderSettingsRow,
@@ -65,7 +61,6 @@ function renderHero(props: MemoryOverviewProps) {
   const error =
     props.status.kind === "error" ||
     (!noSearchRuntime && readyPayload !== null && hasEmbeddingError(readyPayload));
-  const look = createLobsterPetLook(lobsterPetSeed(props.agentId ?? "memory"));
   const headline = off
     ? t("memoryPage.overview.hero.hibernating")
     : props.status.kind === "loading" || props.status.kind === "idle"
@@ -95,18 +90,19 @@ function renderHero(props: MemoryOverviewProps) {
                 mode: searchMode(readyPayload),
               })
         : t("memoryPage.overview.hero.loadingDescription");
-  const pose = off
-    ? { sleeping: true }
+  // Mascot mood mirrors the old pet poses: sleeping, grumpy, reading, awake.
+  const mood: MascotMood = off
+    ? "sleepy"
     : error
-      ? { grumpy: true, standalone: true }
+      ? "sad"
       : readyPayload && !noSearchRuntime
-        ? { reading: true, standalone: true }
-        : { standalone: true };
+        ? "thinking"
+        : "idle";
 
   return html`
     <section class="memory-overview__hero ${off ? "memory-overview__hero--sleeping" : ""}">
-      <div class="memory-overview__lobster" style=${lobsterLookStyle(look)}>
-        ${renderLobsterSvg(look, pose)}
+      <div class="memory-overview__lobster">
+        <openclaw-mascot mood=${mood} .size=${96}></openclaw-mascot>
       </div>
       <div class="memory-overview__hero-copy">
         <h2>${headline}</h2>
@@ -184,16 +180,6 @@ function renderSchedule(dreaming: DreamingStatus) {
           }),
         }),
       )}
-      ${renderSettingsRow({
-        title: t("memoryPage.overview.schedule.learnMore"),
-        control: html`<a
-          class="memory-page__link"
-          href="https://docs.openclaw.ai/concepts/dreaming"
-          target="_blank"
-          rel="noreferrer noopener"
-          >${t("memoryPage.overview.schedule.openDocs")}</a
-        >`,
-      })}
     `,
   );
 }

@@ -7,7 +7,7 @@ export const StateDatabaseCoordinatorContentionError = resolveGlobalSingleton(
   () =>
     class CoordinatorContentionError extends SqliteCoordinatorError {
       constructor(readonly family: CoordinatorFamily) {
-        super(`another OpenClaw process owns ${family}`);
+        super(`another LanFu process owns ${family}`);
         this.name = "StateDatabaseCoordinatorContentionError";
       }
     },
@@ -22,7 +22,7 @@ export const StateSchemaMutationConflictError = resolveGlobalSingleton(
     class SchemaMutationConflictError extends SqliteCoordinatorError {
       constructor(databasePath: string, cause: unknown) {
         super(
-          `OpenClaw refused shared state schema mutation at ${databasePath} because another Gateway owns that state directory. Stop that Gateway or perform the update through its managed restart path, then retry.`,
+          `LanFu refused shared state schema mutation at ${databasePath} because another Gateway owns that state directory. Stop that Gateway or perform the update through its managed restart path, then retry.`,
           cause,
         );
         this.name = "StateSchemaMutationConflictError";

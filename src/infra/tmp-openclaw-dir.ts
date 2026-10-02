@@ -72,7 +72,7 @@ export function resolvePreferredOpenClawTmpDir(
     preferredDir: options.preferredDir ?? DEFAULT_POSIX_TMP_ROOT,
     fallbackPrefix: "openclaw",
     warningPrefix: "[openclaw]",
-    unsafeFallbackLabel: "OpenClaw temp dir",
+    unsafeFallbackLabel: "LanFu temp dir",
     skipPreferredOnWindows: true,
   });
 }

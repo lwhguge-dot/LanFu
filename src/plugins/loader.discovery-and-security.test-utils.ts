@@ -1140,10 +1140,10 @@ describe("loadOpenClawPlugins", () => {
       const untrackedWarning = warnings.find(
         (msg) =>
           msg.includes("warn-untracked-remediation") &&
-          msg.includes("OpenClaw can't verify where this plugin came from"),
+          msg.includes("LanFu can't verify where this plugin came from"),
       );
       expect(untrackedWarning).toBeDefined();
-      expect(untrackedWarning).toContain("OpenClaw can't verify where this plugin came from");
+      expect(untrackedWarning).toContain("LanFu can't verify where this plugin came from");
       expect(untrackedWarning).toContain("openclaw plugins inspect warn-untracked-remediation");
       expect(untrackedWarning).toContain(
         "plugins.allow lets it load, but does not make it trusted",
@@ -1155,9 +1155,9 @@ describe("loadOpenClawPlugins", () => {
       const diagnostic = registry.diagnostics.find(
         (entry) =>
           entry.pluginId === "warn-untracked-remediation" &&
-          entry.message.includes("OpenClaw can't verify where this plugin came from"),
+          entry.message.includes("LanFu can't verify where this plugin came from"),
       );
-      expect(diagnostic?.message).toContain("OpenClaw can't verify where this plugin came from");
+      expect(diagnostic?.message).toContain("LanFu can't verify where this plugin came from");
       expect(diagnostic?.message).toContain("openclaw plugins inspect warn-untracked-remediation");
       expect(diagnostic?.message).toContain(
         "plugins.allow lets it load, but does not make it trusted",
@@ -1621,7 +1621,7 @@ describe("loadOpenClawPlugins", () => {
         warnings.filter(
           (message) =>
             message.includes("trusted-plugin") &&
-            message.includes("OpenClaw can't verify where this plugin came from"),
+            message.includes("LanFu can't verify where this plugin came from"),
         ),
       ).toEqual([]);
     });
@@ -1767,7 +1767,7 @@ describe("loadOpenClawPlugins", () => {
         registry,
         level: "warn",
         pluginId: "rogue",
-        message: "OpenClaw can't verify where this plugin came from",
+        message: "LanFu can't verify where this plugin came from",
       });
     });
   });

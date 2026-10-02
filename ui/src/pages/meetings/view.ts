@@ -285,12 +285,6 @@ function renderLibrary(props: TranscriptsViewProps) {
               ${t(TRANSCRIPT_FILTER_KEYS.some((key) => new URLSearchParams(props.search).has(key)) ? "meetings.noResults" : "meetings.emptyTitle")}
             </h2>
             <p>${t("transcripts.emptyHint")}</p>
-            <a
-              href="https://docs.openclaw.ai/cli/transcripts"
-              target="_blank"
-              rel="noopener noreferrer"
-              >${t("meetings.docs")}</a
-            >
           </div>`
     }
     <nav class="transcripts-actions" aria-label=${t("transcripts.pagination")}>

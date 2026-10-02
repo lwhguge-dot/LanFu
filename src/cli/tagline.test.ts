@@ -2,7 +2,7 @@
 import { describe, expect, it } from "vitest";
 import { pickTagline } from "./tagline.js";
 
-const EXPECTED_DEFAULT_TAGLINE = "All your chats, one OpenClaw.";
+const EXPECTED_DEFAULT_TAGLINE = "All your chats, one LanFu.";
 
 describe("pickTagline", () => {
   it("returns empty string when mode is off", () => {
@@ -19,7 +19,7 @@ describe("pickTagline", () => {
       env: { OPENCLAW_TAGLINE_INDEX: "0" } as NodeJS.ProcessEnv,
     });
     expect(value).toBe(
-      "Your terminal just grew claws\u2014type something and let the bot pinch the busywork.",
+      "Welcome to the command line: where dreams compile and confidence segfaults.",
     );
     expect(value).not.toBe(EXPECTED_DEFAULT_TAGLINE);
   });
@@ -31,7 +31,7 @@ describe("pickTagline", () => {
         env: { OPENCLAW_TAGLINE_INDEX: "1abc" } as NodeJS.ProcessEnv,
         random: () => 0,
       }),
-    ).toBe("Your terminal just grew claws\u2014type something and let the bot pinch the busywork.");
+    ).toBe("Welcome to the command line: where dreams compile and confidence segfaults.");
   });
 });
 

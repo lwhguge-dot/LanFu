@@ -1,8 +1,10 @@
 {
   "id": "pixverse",
-  "categories": ["media"],
+  "categories": [
+    "media"
+  ],
   "name": "PixVerse",
-  "description": "OpenClaw PixVerse video generation provider plugin.",
+  "description": "LanFu PixVerse video generation provider plugin.",
   "activation": {
     "onStartup": false
   },
@@ -11,8 +13,12 @@
     "providers": [
       {
         "id": "pixverse",
-        "authMethods": ["api-key"],
-        "envVars": ["PIXVERSE_API_KEY"]
+        "authMethods": [
+          "api-key"
+        ],
+        "envVars": [
+          "PIXVERSE_API_KEY"
+        ]
       }
     ]
   },
@@ -26,7 +32,9 @@
       "groupId": "pixverse",
       "groupLabel": "PixVerse",
       "groupHint": "Video generation",
-      "onboardingScopes": ["image-generation"],
+      "onboardingScopes": [
+        "image-generation"
+      ],
       "optionKey": "pixverseApiKey",
       "cliFlag": "--pixverse-api-key",
       "cliOption": "--pixverse-api-key <key>",
@@ -34,7 +42,9 @@
     }
   ],
   "contracts": {
-    "videoGenerationProviders": ["pixverse"]
+    "videoGenerationProviders": [
+      "pixverse"
+    ]
   },
   "configSchema": {
     "type": "object",

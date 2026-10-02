@@ -221,7 +221,7 @@ function closeOpenClawStateDatabaseHandle(
         retire: () => {
           throwSqliteLifecycleErrors(
             closeOpenClawStateDatabaseHandle(database, options),
-            `OpenClaw state database cleanup failed for ${database.path}.`,
+            `LanFu state database cleanup failed for ${database.path}.`,
           );
           owner.cleanupComplete = true;
           borrowers.delete(database.db);
@@ -327,7 +327,7 @@ function getCachedOpenClawStateDatabase(pathname: string): OpenClawStateDatabase
   }
   const database = cachedDatabases.get(path.resolve(pathname));
   if (database && borrowers.get(database.db)?.retiring) {
-    throw new Error(`OpenClaw state database native borrower cleanup is pending: ${pathname}`);
+    throw new Error(`LanFu state database native borrower cleanup is pending: ${pathname}`);
   }
   if (database) {
     touchStateDatabase(database);
@@ -351,7 +351,7 @@ function closeStaleCachedOpenClawStateDatabase(database: OpenClawStateDatabase):
   notifyOpenClawStateDatabaseClosed(database);
   throwSqliteLifecycleErrors(
     errors,
-    `Stale OpenClaw state database cleanup failed for ${database.path}.`,
+    `Stale LanFu state database cleanup failed for ${database.path}.`,
   );
 }
 
@@ -413,7 +413,7 @@ function assertOpenClawStateDatabaseOpenAllowed(pathname: string): void {
       (database.path === resolvedPath ||
         (identity !== undefined && databaseIdentities.get(database.db)?.key === identity.key))
     ) {
-      throw new Error(`OpenClaw state database native borrower cleanup is pending: ${pathname}`);
+      throw new Error(`LanFu state database native borrower cleanup is pending: ${pathname}`);
     }
   }
 }
@@ -472,7 +472,7 @@ function retireOpenClawStateDatabaseHandle(
       }
       throwSqliteLifecycleErrors(
         errors,
-        `OpenClaw state database cleanup failed for ${database.path}.`,
+        `LanFu state database cleanup failed for ${database.path}.`,
       );
     });
   } catch (error) {
@@ -518,7 +518,7 @@ function retireOpenClawStateDatabaseHandles(
       errors.push(error);
     }
   }
-  throwSqliteLifecycleErrors(errors, "OpenClaw state database cleanup failed.");
+  throwSqliteLifecycleErrors(errors, "LanFu state database cleanup failed.");
   return found;
 }
 

@@ -223,7 +223,7 @@ describe("setup inference plugin ownership", () => {
     },
   );
 
-  it("does not load plugins for a direct custom provider using the built-in OpenClaw harness", async () => {
+  it("does not load plugins for a direct custom provider using the built-in LanFu harness", async () => {
     const config: OpenClawConfig = {
       agents: {
         entries: { main: { default: true, agentDir: "/tmp/openclaw-agent" } },

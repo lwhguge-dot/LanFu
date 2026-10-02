@@ -1,11 +1,13 @@
 {
   "id": "google-meet",
-  "categories": ["voice"],
+  "categories": [
+    "voice"
+  ],
   "doctorContract": {
     "configRepair": true
   },
   "name": "Google Meet",
-  "description": "OpenClaw Google Meet participant plugin for joining calls through Chrome or Twilio transports.",
+  "description": "LanFu Google Meet participant plugin for joining calls through Chrome or Twilio transports.",
   "cliCommands": [
     {
       "name": "googlemeet",
@@ -14,15 +16,27 @@
     }
   ],
   "enabledByDefault": true,
-  "commandAliases": [{ "name": "googlemeet" }],
+  "commandAliases": [
+    {
+      "name": "googlemeet"
+    }
+  ],
   "activation": {
     "onStartup": true,
-    "onCommands": ["googlemeet"],
-    "onCapabilities": ["tool"]
+    "onCommands": [
+      "googlemeet"
+    ],
+    "onCapabilities": [
+      "tool"
+    ]
   },
   "contracts": {
-    "tools": ["google_meet"],
-    "transcriptSourceProviders": ["google-meet"]
+    "tools": [
+      "google_meet"
+    ],
+    "transcriptSourceProviders": [
+      "google-meet"
+    ]
   },
   "uiHints": {
     "defaults.meeting": {
@@ -231,31 +245,48 @@
       "id": "meeting-defaults",
       "title": "Meeting defaults",
       "order": 10,
-      "properties": ["enabled", "defaults", "preview", "defaultTransport", "defaultMode"]
+      "properties": [
+        "enabled",
+        "defaults",
+        "preview",
+        "defaultTransport",
+        "defaultMode"
+      ]
     },
     {
       "id": "browser-transport",
       "title": "Browser transport",
       "order": 20,
-      "properties": ["chrome", "chromeNode"]
+      "properties": [
+        "chrome",
+        "chromeNode"
+      ]
     },
     {
       "id": "phone-transport",
       "title": "Phone transport",
       "order": 30,
-      "properties": ["twilio", "voiceCall"]
+      "properties": [
+        "twilio",
+        "voiceCall"
+      ]
     },
     {
       "id": "realtime-voice",
       "title": "Realtime voice",
       "order": 40,
-      "properties": ["realtime"]
+      "properties": [
+        "realtime"
+      ]
     },
     {
       "id": "google-account",
       "title": "Google account",
       "order": 50,
-      "properties": ["oauth", "auth"]
+      "properties": [
+        "oauth",
+        "auth"
+      ]
     }
   ],
   "configSchema": {
@@ -285,12 +316,20 @@
       },
       "defaultTransport": {
         "type": "string",
-        "enum": ["chrome", "chrome-node", "twilio"],
+        "enum": [
+          "chrome",
+          "chrome-node",
+          "twilio"
+        ],
         "default": "chrome"
       },
       "defaultMode": {
         "type": "string",
-        "enum": ["agent", "bidi", "transcribe"],
+        "enum": [
+          "agent",
+          "bidi",
+          "transcribe"
+        ],
         "default": "agent"
       },
       "chrome": {
@@ -299,7 +338,11 @@
         "properties": {
           "audioBackend": {
             "type": "string",
-            "enum": ["auto", "blackhole-2ch", "pipewire-pulse"],
+            "enum": [
+              "auto",
+              "blackhole-2ch",
+              "pipewire-pulse"
+            ],
             "default": "auto"
           },
           "launch": {
@@ -331,7 +374,10 @@
           },
           "audioFormat": {
             "type": "string",
-            "enum": ["pcm16-24khz", "g711-ulaw-8khz"],
+            "enum": [
+              "pcm16-24khz",
+              "g711-ulaw-8khz"
+            ],
             "default": "pcm16-24khz"
           },
           "audioBufferBytes": {
@@ -443,7 +489,10 @@
         "properties": {
           "strategy": {
             "type": "string",
-            "enum": ["agent", "bidi"],
+            "enum": [
+              "agent",
+              "bidi"
+            ],
             "default": "agent"
           },
           "provider": {
@@ -470,11 +519,15 @@
           },
           "agentId": {
             "type": "string",
-            "description": "OpenClaw agent id used by openclaw_agent_consult. Defaults to \"main\"."
+            "description": "LanFu agent id used by openclaw_agent_consult. Defaults to \"main\"."
           },
           "toolPolicy": {
             "type": "string",
-            "enum": ["safe-read-only", "owner", "none"],
+            "enum": [
+              "safe-read-only",
+              "owner",
+              "none"
+            ],
             "default": "safe-read-only"
           },
           "providers": {
@@ -513,7 +566,9 @@
         "properties": {
           "provider": {
             "type": "string",
-            "enum": ["google-oauth"]
+            "enum": [
+              "google-oauth"
+            ]
           },
           "clientId": {
             "type": "string"
@@ -529,9 +584,16 @@
     }
   },
   "configContracts": {
-    "compatibilityMigrationPaths": ["plugins.entries.google-meet.config.realtime.provider"],
+    "compatibilityMigrationPaths": [
+      "plugins.entries.google-meet.config.realtime.provider"
+    ],
     "secretInputs": {
-      "paths": [{ "path": "realtime.providers.*.apiKey", "expected": "string" }]
+      "paths": [
+        {
+          "path": "realtime.providers.*.apiKey",
+          "expected": "string"
+        }
+      ]
     }
   }
 }

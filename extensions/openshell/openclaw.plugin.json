@@ -1,29 +1,47 @@
 {
   "id": "openshell",
-  "categories": ["security"],
+  "categories": [
+    "security"
+  ],
   "activation": {
     "onStartup": true
   },
   "name": "OpenShell Sandbox",
-  "description": "OpenClaw sandbox backend for the NVIDIA OpenShell CLI with mirrored local workspaces and SSH command execution.",
+  "description": "LanFu sandbox backend for the NVIDIA OpenShell CLI with mirrored local workspaces and SSH command execution.",
   "configGroups": [
     {
       "id": "openshell-connection",
       "title": "OpenShell connection",
       "order": 10,
-      "properties": ["command", "gateway", "gatewayEndpoint", "workspace", "timeoutSeconds"]
+      "properties": [
+        "command",
+        "gateway",
+        "gatewayEndpoint",
+        "workspace",
+        "timeoutSeconds"
+      ]
     },
     {
       "id": "sandbox-creation",
       "title": "Sandbox creation",
       "order": 20,
-      "properties": ["from", "policy", "providers", "gpu", "autoProviders"]
+      "properties": [
+        "from",
+        "policy",
+        "providers",
+        "gpu",
+        "autoProviders"
+      ]
     },
     {
       "id": "workspace-files",
       "title": "Workspace files",
       "order": 30,
-      "properties": ["mode", "remoteWorkspaceDir", "remoteAgentWorkspaceDir"]
+      "properties": [
+        "mode",
+        "remoteWorkspaceDir",
+        "remoteAgentWorkspaceDir"
+      ]
     }
   ],
   "configSchema": {
@@ -32,7 +50,10 @@
     "properties": {
       "mode": {
         "type": "string",
-        "enum": ["mirror", "remote"]
+        "enum": [
+          "mirror",
+          "remote"
+        ]
       },
       "command": {
         "type": "string",

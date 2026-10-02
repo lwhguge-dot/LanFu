@@ -50,7 +50,7 @@ describe("renderAbout", () => {
     expect(hero?.querySelector(".about-hero__clawd openclaw-mascot")).not.toBeNull();
 
     const clawd = hero?.querySelector<HTMLButtonElement>(".about-hero__clawd");
-    expect(clawd?.getAttribute("aria-label")).toBe("Wave hello to Clawd");
+    expect(clawd?.getAttribute("aria-label")).toBe("Wave hello to LanFu");
     clawd?.click();
     expect(onPokeClawd).toHaveBeenCalledOnce();
 

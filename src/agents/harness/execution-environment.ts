@@ -102,7 +102,7 @@ function resolveAgentHarnessExecutionRestriction(
     return {
       reason: "tool-policy",
       message:
-        label + " uses its own tools and cannot enforce this chat's OpenClaw tool restrictions.",
+        label + " uses its own tools and cannot enforce this chat's LanFu tool restrictions.",
     };
   }
   return undefined;

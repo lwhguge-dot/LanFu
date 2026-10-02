@@ -200,8 +200,8 @@ function removeLegacyGatewayVersionMetadata(content: string): string {
     return content;
   }
   const replacement = description[1]
-    ? `Description=OpenClaw Gateway (${description[1]})`
-    : "Description=OpenClaw Gateway";
+    ? `Description=LanFu Gateway (${description[1]})`
+    : "Description=LanFu Gateway";
   const refreshed =
     content.slice(0, description.index) +
     replacement +

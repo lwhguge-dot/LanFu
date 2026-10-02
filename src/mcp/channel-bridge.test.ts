@@ -56,7 +56,7 @@ function makeBridge(verbose = false): BridgeInternals {
   }) as unknown as BridgeInternals;
 }
 
-describe("OpenClawChannelBridge — Claude permission authorization", () => {
+describe("LanFuChannelBridge — Claude permission authorization", () => {
   test.each([
     { name: "non-owner", senderIsOwner: false, role: "user" },
     { name: "missing owner metadata", senderIsOwner: undefined, role: "user" },
@@ -158,7 +158,7 @@ describe("OpenClawChannelBridge — Claude permission authorization", () => {
   });
 });
 
-describe("OpenClawChannelBridge — pendingClaudePermissions / pendingApprovals memory bounds", () => {
+describe("LanFuChannelBridge — pendingClaudePermissions / pendingApprovals memory bounds", () => {
   beforeEach(() => {
     vi.useFakeTimers();
     vi.setSystemTime(0);

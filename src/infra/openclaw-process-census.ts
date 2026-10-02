@@ -39,7 +39,7 @@ export function inspectOtherOpenClawProcesses(): { pids: number[] } | { error: s
   try {
     if (process.platform === "linux" && isContainerEnvironment()) {
       throw new Error(
-        "Host process visibility cannot be established from this container. Run Doctor on the host after stopping OpenClaw containers that share its temporary directory.",
+        "Host process visibility cannot be established from this container. Run Doctor on the host after stopping LanFu containers that share its temporary directory.",
       );
     }
     const processes = [
@@ -48,7 +48,7 @@ export function inspectOtherOpenClawProcesses(): { pids: number[] } | { error: s
     const byPid = new Map(processes.map((entry) => [entry.pid, entry]));
     const current = byPid.get(process.pid);
     if (!current?.command || processes.some((entry) => !entry.command)) {
-      throw new Error("OpenClaw process census is incomplete.");
+      throw new Error("LanFu process census is incomplete.");
     }
     const launchers = new Set<number>();
     const ancestors = new Set<number>([process.pid]);
@@ -56,7 +56,7 @@ export function inspectOtherOpenClawProcesses(): { pids: number[] } | { error: s
     while (parentPid > 0) {
       const parent = byPid.get(parentPid);
       if (!parent?.command || ancestors.has(parentPid)) {
-        throw new Error("OpenClaw process ancestry is incomplete.");
+        throw new Error("LanFu process ancestry is incomplete.");
       }
       ancestors.add(parentPid);
       if ("argv" in parent.command && isDoctorLauncher(parent.command.argv)) {
@@ -77,6 +77,6 @@ export function inspectOtherOpenClawProcesses(): { pids: number[] } | { error: s
       .map(({ pid }) => pid);
     return { pids };
   } catch (error) {
-    return { error: `Could not inspect OpenClaw processes: ${String(error)}` };
+    return { error: `Could not inspect LanFu processes: ${String(error)}` };
   }
 }

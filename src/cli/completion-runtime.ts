@@ -156,7 +156,7 @@ export function formatCompletionReloadCommand(shell: CompletionShell, scriptPath
 }
 
 function isCompletionProfileHeader(line: string): boolean {
-  return line.trim() === "# OpenClaw Completion";
+  return line.trim() === "# LanFu Completion";
 }
 
 function isCompletionProfileLine(line: string, binName: string, cachePath: string): boolean {
@@ -412,7 +412,7 @@ function updateCompletionProfile(
     return { next, changed: next !== content, hadExisting };
   }
   const trimmed = filtered.join("\n").trimEnd();
-  const block = `# OpenClaw Completion\n${formatCompletionSourceLine(shell, cachePath)}`;
+  const block = `# LanFu Completion\n${formatCompletionSourceLine(shell, cachePath)}`;
   const next = trimmed ? `${trimmed}\n\n${block}\n` : `${block}\n`;
   return { next, changed: next !== content, hadExisting };
 }

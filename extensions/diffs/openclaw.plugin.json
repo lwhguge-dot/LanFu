@@ -1,21 +1,30 @@
 {
   "id": "diffs",
-  "categories": ["developer-tools"],
+  "categories": [
+    "developer-tools"
+  ],
   "activation": {
     "onStartup": true
   },
   "name": "Diffs",
-  "description": "OpenClaw read-only diff viewer plugin and file renderer for agents.",
-  "catalog": { "featured": true, "order": 40 },
+  "description": "LanFu read-only diff viewer plugin and file renderer for agents.",
+  "catalog": {
+    "featured": true,
+    "order": 40
+  },
   "contracts": {
-    "tools": ["diffs"]
+    "tools": [
+      "diffs"
+    ]
   },
   "toolMetadata": {
     "diffs": {
       "optional": true
     }
   },
-  "skills": ["./skills"],
+  "skills": [
+    "./skills"
+  ],
   "uiHints": {
     "viewerBaseUrl": {
       "label": "Viewer Base URL",
@@ -93,13 +102,18 @@
       "id": "diff-rendering",
       "title": "Diff rendering",
       "order": 10,
-      "properties": ["defaults"]
+      "properties": [
+        "defaults"
+      ]
     },
     {
       "id": "viewer-access",
       "title": "Viewer access",
       "order": 20,
-      "properties": ["viewerBaseUrl", "security"]
+      "properties": [
+        "viewerBaseUrl",
+        "security"
+      ]
     }
   ],
   "configSchema": {
@@ -136,7 +150,10 @@
           },
           "layout": {
             "type": "string",
-            "enum": ["unified", "split"],
+            "enum": [
+              "unified",
+              "split"
+            ],
             "default": "unified"
           },
           "showLineNumbers": {
@@ -145,7 +162,11 @@
           },
           "diffIndicators": {
             "type": "string",
-            "enum": ["bars", "classic", "none"],
+            "enum": [
+              "bars",
+              "classic",
+              "none"
+            ],
             "default": "bars"
           },
           "wordWrap": {
@@ -158,21 +179,34 @@
           },
           "theme": {
             "type": "string",
-            "enum": ["light", "dark"],
+            "enum": [
+              "light",
+              "dark"
+            ],
             "default": "dark"
           },
           "fileFormat": {
             "type": "string",
-            "enum": ["png", "pdf"]
+            "enum": [
+              "png",
+              "pdf"
+            ]
           },
           "format": {
             "type": "string",
             "description": "Deprecated alias for fileFormat.",
-            "enum": ["png", "pdf"]
+            "enum": [
+              "png",
+              "pdf"
+            ]
           },
           "fileQuality": {
             "type": "string",
-            "enum": ["standard", "hq", "print"]
+            "enum": [
+              "standard",
+              "hq",
+              "print"
+            ]
           },
           "fileScale": {
             "type": "number",
@@ -187,12 +221,19 @@
           "imageFormat": {
             "type": "string",
             "description": "Deprecated alias for fileFormat.",
-            "enum": ["png", "pdf"]
+            "enum": [
+              "png",
+              "pdf"
+            ]
           },
           "imageQuality": {
             "type": "string",
             "description": "Deprecated alias for fileQuality.",
-            "enum": ["standard", "hq", "print"]
+            "enum": [
+              "standard",
+              "hq",
+              "print"
+            ]
           },
           "imageScale": {
             "type": "number",
@@ -208,7 +249,12 @@
           },
           "mode": {
             "type": "string",
-            "enum": ["view", "image", "file", "both"],
+            "enum": [
+              "view",
+              "image",
+              "file",
+              "both"
+            ],
             "default": "both"
           },
           "ttlSeconds": {

@@ -201,7 +201,7 @@ suite.define(() => {
       ).trim();
       expect(timestamp).toBeTruthy();
       const accessibleFooter = await footer.ariaSnapshot();
-      expect(accessibleFooter).toContain("OpenClaw");
+      expect(accessibleFooter).toContain("LanFu");
       expect(accessibleFooter).toContain(timestamp);
       expect(
         await footer.evaluate((element) => element.getBoundingClientRect().height),

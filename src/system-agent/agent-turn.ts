@@ -211,7 +211,7 @@ function resolveSystemAgentCliToolAvailability(
     return { native: [], openClaw: [SYSTEM_AGENT_TOOL_NAME] };
   }
   const backendId = backend?.id ?? "unknown";
-  throw new Error(`CLI backend ${backendId} cannot enforce OpenClaw's exact tool availability`);
+  throw new Error(`CLI backend ${backendId} cannot enforce LanFu's exact tool availability`);
 }
 
 /**

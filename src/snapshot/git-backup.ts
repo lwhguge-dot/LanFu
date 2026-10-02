@@ -143,9 +143,7 @@ export async function initializeGitBackupRepository(params: {
     isPathInside(canonicalStateDir, canonicalRepositoryPath) ||
     isPathInside(canonicalRepositoryPath, canonicalStateDir)
   ) {
-    throw new Error(
-      `Git backup repository must be outside the OpenClaw state directory: ${stateDir}`,
-    );
+    throw new Error(`Git backup repository must be outside the LanFu state directory: ${stateDir}`);
   }
   try {
     await ensurePrivateSnapshotRepositoryRoot(repositoryPath);
@@ -211,7 +209,7 @@ async function isBackupOwnedScope(scopePath: string): Promise<boolean> {
 async function assertBackupOwnedScope(scopePath: string): Promise<void> {
   if (!(await isBackupOwnedScope(scopePath))) {
     throw new Error(
-      `Refusing to replace non-backup-owned path ${scopePath}; the repository must be dedicated to OpenClaw backups.`,
+      `Refusing to replace non-backup-owned path ${scopePath}; the repository must be dedicated to LanFu backups.`,
     );
   }
 }
@@ -265,7 +263,7 @@ async function commitGitBackup(params: {
   const identityArgs =
     email.code === 0 && email.stdout.trim()
       ? []
-      : ["-c", "user.name=OpenClaw", "-c", "user.email=backup@openclaw.local"];
+      : ["-c", "user.name=LanFu", "-c", "user.email=backup@openclaw.local"];
   await requireGit(
     params.repositoryPath,
     [...identityArgs, "commit", "-m", params.message, "--", ...params.scopes],

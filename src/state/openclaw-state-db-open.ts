@@ -163,7 +163,7 @@ export function openUnpublishedStateDatabase(params: {
     if (errors.length > 0) {
       throw createSqliteLifecycleAggregateError(
         [error, ...errors],
-        `OpenClaw state database acquisition and cleanup failed for ${params.pathname}.`,
+        `LanFu state database acquisition and cleanup failed for ${params.pathname}.`,
         error,
       );
     }

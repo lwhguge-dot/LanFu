@@ -1,8 +1,10 @@
 {
   "id": "longcat",
-  "categories": ["models"],
+  "categories": [
+    "models"
+  ],
   "name": "LongCat",
-  "description": "OpenClaw LongCat provider plugin.",
+  "description": "LanFu LongCat provider plugin.",
   "doctorContract": {
     "configRepair": true
   },
@@ -10,7 +12,9 @@
     "onStartup": false
   },
   "enabledByDefault": true,
-  "providers": ["longcat"],
+  "providers": [
+    "longcat"
+  ],
   "providerRequest": {
     "providers": {
       "longcat": {
@@ -31,7 +35,9 @@
             "id": "LongCat-2.0",
             "name": "LongCat 2.0",
             "reasoning": true,
-            "input": ["text"],
+            "input": [
+              "text"
+            ],
             "contextWindow": 1048576,
             "maxTokens": 131072,
             "cost": {
@@ -62,7 +68,9 @@
     "providers": [
       {
         "id": "longcat",
-        "envVars": ["LONGCAT_API_KEY"]
+        "envVars": [
+          "LONGCAT_API_KEY"
+        ]
       }
     ]
   },

@@ -69,3 +69,15 @@
 .viewer-avatar > .identity-avatar--agent {
   display: inline-grid;
 }
+
+/* Sprite layout contract shared with theme flair critters (hat sprites and
+   friends): fills the host box, paints past the viewBox edge, and mirrors
+   with --lob-face like the original pet scene did. */
+.lobster-pet__svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  transform: scaleX(var(--lob-face, 1));
+  transform-origin: 50% 100%;
+}

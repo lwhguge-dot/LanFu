@@ -1,13 +1,17 @@
 {
   "id": "cohere",
-  "categories": ["models"],
+  "categories": [
+    "models"
+  ],
   "name": "Cohere",
-  "description": "OpenClaw Cohere provider plugin.",
+  "description": "LanFu Cohere provider plugin.",
   "activation": {
     "onStartup": false
   },
   "enabledByDefault": true,
-  "providers": ["cohere"],
+  "providers": [
+    "cohere"
+  ],
   "modelCatalog": {
     "modelsDev": {
       "cohere": "cohere"
@@ -22,7 +26,10 @@
             "id": "command-a-plus-05-2026",
             "name": "Command A+",
             "reasoning": true,
-            "input": ["text", "image"],
+            "input": [
+              "text",
+              "image"
+            ],
             "contextWindow": 128000,
             "maxTokens": 64000,
             "cost": {
@@ -35,7 +42,10 @@
               "supportsStore": false,
               "supportsUsageInStreaming": false,
               "supportsReasoningEffort": true,
-              "supportedReasoningEfforts": ["none", "high"],
+              "supportedReasoningEfforts": [
+                "none",
+                "high"
+              ],
               "reasoningEffortMap": {
                 "off": "none",
                 "none": "none",
@@ -55,7 +65,9 @@
             "name": "Command A",
             "status": "deprecated",
             "replacedBy": "command-a-plus-05-2026",
-            "input": ["text"],
+            "input": [
+              "text"
+            ],
             "contextWindow": 256000,
             "maxTokens": 8000,
             "cost": {
@@ -76,7 +88,9 @@
             "status": "deprecated",
             "replacedBy": "command-a-plus-05-2026",
             "reasoning": true,
-            "input": ["text"],
+            "input": [
+              "text"
+            ],
             "contextWindow": 256000,
             "maxTokens": 32000,
             "cost": {
@@ -89,7 +103,10 @@
               "supportsStore": false,
               "supportsUsageInStreaming": false,
               "supportsReasoningEffort": true,
-              "supportedReasoningEfforts": ["none", "high"],
+              "supportedReasoningEfforts": [
+                "none",
+                "high"
+              ],
               "reasoningEffortMap": {
                 "off": "none",
                 "none": "none",
@@ -110,7 +127,10 @@
             "status": "deprecated",
             "replacedBy": "command-a-plus-05-2026",
             "reasoning": false,
-            "input": ["text", "image"],
+            "input": [
+              "text",
+              "image"
+            ],
             "contextWindow": 128000,
             "maxTokens": 8000,
             "cost": {
@@ -130,7 +150,10 @@
             "id": "north-mini-code-1-0",
             "name": "North Mini Code 1.0",
             "reasoning": true,
-            "input": ["text", "image"],
+            "input": [
+              "text",
+              "image"
+            ],
             "contextWindow": 256000,
             "maxTokens": 64000,
             "cost": {
@@ -143,7 +166,10 @@
               "supportsStore": false,
               "supportsUsageInStreaming": false,
               "supportsReasoningEffort": true,
-              "supportedReasoningEfforts": ["none", "high"],
+              "supportedReasoningEfforts": [
+                "none",
+                "high"
+              ],
               "reasoningEffortMap": {
                 "off": "none",
                 "none": "none",
@@ -169,7 +195,9 @@
     "providers": [
       {
         "id": "cohere",
-        "envVars": ["COHERE_API_KEY"]
+        "envVars": [
+          "COHERE_API_KEY"
+        ]
       }
     ]
   },

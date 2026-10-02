@@ -1,8 +1,10 @@
 {
   "id": "diagnostics-prometheus",
-  "categories": ["infrastructure"],
+  "categories": [
+    "infrastructure"
+  ],
   "name": "Diagnostics Prometheus",
-  "description": "OpenClaw diagnostics Prometheus exporter for runtime metrics.",
+  "description": "LanFu diagnostics Prometheus exporter for runtime metrics.",
   "activation": {
     "onStartup": true
   },

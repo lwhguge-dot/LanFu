@@ -365,7 +365,7 @@ describe("runtime-guard", () => {
         "Detected SQLite: unavailable.",
         "PATH searched: /usr/bin",
         "Install Bun: https://bun.com/docs/installation",
-        "Upgrade Bun or run OpenClaw with a supported Node release.",
+        "Upgrade Bun or run LanFu with a supported Node release.",
       ].join("\n"),
     );
   });

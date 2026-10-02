@@ -93,7 +93,7 @@ export function captureOpenClawAgentDatabaseExecution(
   if (existing) {
     if (existing.agentId !== agentId) {
       throw new Error(
-        `OpenClaw agent database ${pathname} is already open for agent ${existing.agentId}; requested agent ${agentId}.`,
+        `LanFu agent database ${pathname} is already open for agent ${existing.agentId}; requested agent ${agentId}.`,
       );
     }
     if (existing.sharedDatabaseKey !== context.admission.identity.key) {

@@ -83,7 +83,7 @@ export function normalizeBootstrapReceipt(value: {
     bundleHash,
     openclawVersion: requireWorkerEnvironmentString(
       value.openclawVersion,
-      "bootstrap OpenClaw version",
+      "bootstrap LanFu version",
     ),
     protocolFeatures: normalizeSortedUniqueTrimmedStringList(value.protocolFeatures),
     ...(value.installKind ? { installKind: value.installKind } : {}),

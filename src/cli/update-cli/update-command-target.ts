@@ -106,7 +106,7 @@ function formatManagedServicePackageUpdatePlan(params: {
       },
       {
         level: "warn",
-        message: `Shell OpenClaw root differs from the managed gateway service root: ${rootRedirect.previousRoot}`,
+        message: `Shell LanFu root differs from the managed gateway service root: ${rootRedirect.previousRoot}`,
       },
       {
         level: "muted",
