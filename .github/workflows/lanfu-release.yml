@@ -104,9 +104,10 @@ jobs:
           # leaves dist half extracted; 7-Zip handles long paths.
           $sevenZip = Join-Path ${env:ProgramFiles} '7-Zip\7z.exe'
           if (-not (Test-Path $sevenZip)) { $sevenZip = '7z' }
-          & $sevenZip x dist.tar.gz -y -o. | Out-Null
-          & $sevenZip x dist.tar -y -o. | Out-Null
-          Remove-Item dist.tar, dist.tar.gz -Force
+          # PowerShell splits an unquoted -o. into the switch -o.
+          & $sevenZip x dist.tar.gz "-o." -y | Out-Null
+          & $sevenZip x dist.tar "-o." -y | Out-Null
+          Remove-Item dist.tar, dist.tar.gz -Force -ErrorAction SilentlyContinue
           if (-not (Test-Path 'dist\index.js')) { throw 'dist extraction failed' }
           Write-Output 'extracted dist'
       - name: Switch the workspace to a flat dependency layout
