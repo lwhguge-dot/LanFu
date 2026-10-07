@@ -74,7 +74,7 @@ jobs:
       # dist holds tens of thousands of files; upload-artifact v4 runs out of
       # heap while hashing them, so ship one archive instead.
       - name: Archive dist
-        run: tar -czf dist.tar.gz dist
+        run: tar -czf dist.tar.gz dist packages/ai/dist
       - uses: actions/upload-artifact@v4
         with:
           name: lanfu-dist
@@ -98,7 +98,17 @@ jobs:
         with:
           name: lanfu-dist
       - name: Extract dist
-        run: tar -xzf dist.tar.gz
+        shell: pwsh
+        run: |
+          # bsdtar silently truncates paths beyond MAX_PATH on Windows, which
+          # leaves dist half extracted; 7-Zip handles long paths.
+          $sevenZip = Join-Path ${env:ProgramFiles} '7-Zip\7z.exe'
+          if (-not (Test-Path $sevenZip)) { $sevenZip = '7z' }
+          & $sevenZip x dist.tar.gz -y -o. | Out-Null
+          & $sevenZip x dist.tar -y -o. | Out-Null
+          Remove-Item dist.tar, dist.tar.gz -Force
+          if (-not (Test-Path 'dist\index.js')) { throw 'dist extraction failed' }
+          Write-Output 'extracted dist'
       - name: Switch the workspace to a flat dependency layout
         shell: pwsh
         run: |
@@ -116,7 +126,10 @@ jobs:
         run: |
           $app = "release\app"
           New-Item -ItemType Directory -Force -Path $app | Out-Null
-          Copy-Item dist -Destination $app -Recurse
+          # robocopy copes with deep trees where Copy-Item hits MAX_PATH.
+          robocopy dist (Join-Path $app 'dist') /E /NFL /NDL /NJH /NJS /NP | Out-Null
+          if ($LASTEXITCODE -ge 8) { throw "robocopy dist failed with exit code $LASTEXITCODE" }
+          $global:LASTEXITCODE = 0
           Copy-Item node_modules -Destination $app -Recurse
           foreach ($f in @("package.json","openclaw.mjs","cli-root-options.mjs","LICENSE","THIRD_PARTY_NOTICES.md")) {
             if (Test-Path $f) { Copy-Item $f -Destination $app }
