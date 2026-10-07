@@ -1,14 +1,16 @@
 # LanFu release pipeline.
 #
-# Produces the Windows installer (and the Linux package) from a clean checkout.
-# The dependency tree is materialised FLAT (nodeLinker=hoisted) on purpose:
-# Inno Setup cannot preserve pnpm's symlinked layout, and pnpm's peer-encoded
-# .pnpm directory names exceed MAX_PATH on Windows. See
-# docs/lanfu/windows-packaging.md for the failures this avoids.
+# Cut a release by pushing a tag:  git tag lanfu-v0.1.0 && git push github lanfu-v0.1.0
+# Manual runs: Actions -> LanFu Release -> Run workflow (explicit version).
+#
+# Layout note: the shipped dependency tree is FLAT (nodeLinker=hoisted). Inno Setup
+# cannot preserve pnpm's symlinked layout, and the peer-encoded .pnpm directory names
+# exceed MAX_PATH on Windows. The packaging jobs therefore start from a clean checkout
+# and never have to convert an existing isolated tree in place. See
+# docs/lanfu/windows-packaging.md.
 name: LanFu Release
 
 on:
-  # Cut a release by pushing a tag: git tag lanfu-v0.1.0 && git push github lanfu-v0.1.0
   push:
     tags:
       - "lanfu-v*"
@@ -28,7 +30,6 @@ permissions:
   contents: write
 
 concurrency:
-  # concurrency does not accept the env context; github.ref is always available.
   group: lanfu-release-${{ github.ref }}
   cancel-in-progress: false
 
@@ -54,9 +55,31 @@ jobs:
           echo "resolved version: $version"
           echo "version=$version" >> "$GITHUB_OUTPUT"
 
+  # Build dist once with the repository's own isolated layout, then hand it to the
+  # packaging jobs so they can use a flat production-only dependency tree.
+  build:
+    name: Build dist
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_RUNTIME_VERSION }}
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Build dist and Control UI
+        run: pnpm build
+      - uses: actions/upload-artifact@v4
+        with:
+          name: lanfu-dist
+          path: dist
+          retention-days: 3
+
   windows-exe:
-    needs: resolve
     name: Windows installer
+    needs: [resolve, build]
     runs-on: windows-latest
     timeout-minutes: 90
     steps:
@@ -66,26 +89,21 @@ jobs:
         with:
           node-version: ${{ env.NODE_RUNTIME_VERSION }}
           cache: pnpm
-      # Build with the repository's own (isolated) layout.
-      - name: Install workspace dependencies
-        run: pnpm install --frozen-lockfile
-      - name: Build dist and Control UI
-        run: pnpm build
-      # Re-install production dependencies in a flat layout for shipping.
+      - name: Download dist
+        uses: actions/download-artifact@v4
+        with:
+          name: lanfu-dist
+          path: dist
       - name: Switch the workspace to a flat dependency layout
         shell: pwsh
         run: |
-          # Inno Setup cannot preserve pnpm's symlinked layout and the peer-encoded
-          # .pnpm names exceed MAX_PATH. Rewriting the workspace key is what actually
-          # takes effect; the --config.nodeLinker CLI flag is not reliable.
           $ws = Get-Content pnpm-workspace.yaml -Raw
           if ($ws -notmatch 'nodeLinker: isolated') { throw 'unexpected nodeLinker value' }
           $ws = $ws.Replace('nodeLinker: isolated', 'nodeLinker: hoisted')
           # --prod drops dev-only patches, which pnpm otherwise rejects.
           if ($ws -notmatch 'allowUnusedPatches') { $ws = $ws + "`nallowUnusedPatches: true`n" }
           Set-Content pnpm-workspace.yaml -Value $ws -NoNewline
-          # pnpm refuses to change the modules layout while node_modules exists.
-          Remove-Item -Recurse -Force node_modules -ErrorAction SilentlyContinue
+          Write-Output "workspace switched to hoisted"
       - name: Install flat production dependencies
         run: pnpm install --prod --frozen-lockfile --ignore-scripts
       - name: Stage the application tree
@@ -95,22 +113,19 @@ jobs:
           New-Item -ItemType Directory -Force -Path $app | Out-Null
           Copy-Item dist -Destination $app -Recurse
           Copy-Item node_modules -Destination $app -Recurse
-          foreach ($f in @("package.json","openclaw.mjs","cli-root-options.mjs","gateway-run-argv.mjs","gateway-shutdown-budget.mjs","node-sqlite.mjs","node-version.mjs","node-runtime-update.mjs","node-runtime-recovery.mjs","node-host-launcher.mjs","LICENSE","THIRD_PARTY_NOTICES.md")) {
+          foreach ($f in @("package.json","openclaw.mjs","cli-root-options.mjs","LICENSE","THIRD_PARTY_NOTICES.md")) {
             if (Test-Path $f) { Copy-Item $f -Destination $app }
           }
-          # Workspace packages are linked, not copied; materialise the ones the
-          # runtime resolves through node_modules.
           $ai = Join-Path $app "node_modules\@openclaw\ai"
           if (Test-Path $ai) { Remove-Item -Recurse -Force $ai }
           New-Item -ItemType Directory -Force -Path $ai | Out-Null
           Copy-Item "packages\ai\dist" -Destination $ai -Recurse
           Copy-Item "packages\ai\package.json" -Destination $ai
-          # Optional coding-agent SDKs are not part of the employee first release;
-          # dropping them removes ~1.2 GB from the installer. Re-add to ship them.
           foreach ($p in @("@openai\codex-win32-x64","@anthropic-ai\claude-agent-sdk-win32-x64","@github\copilot-sdk-win32-x64","onnxruntime-node","@lancedb\lancedb-win32-x64-msvc")) {
             $target = Join-Path $app ("node_modules\" + $p)
             if (Test-Path $target) { Remove-Item -Recurse -Force $target }
           }
+          Write-Output "staged app tree"
       - name: Download the pinned Node runtime
         shell: pwsh
         run: |
@@ -138,7 +153,6 @@ jobs:
         run: |
           $setup = "release-assets\LanFu-Setup-x64.exe"
           Start-Process -FilePath $setup -ArgumentList @("/VERYSILENT","/SUPPRESSMSGBOXES","/NORESTART","/NOCANCEL") -Wait
-          # GitHub runners run elevated, where {autopf} resolves to Program Files.
           $candidates = @(
             (Join-Path $env:LOCALAPPDATA "Programs\LanFu"),
             (Join-Path $env:ProgramFiles "LanFu"),
@@ -147,7 +161,6 @@ jobs:
           $root = $candidates | Where-Object { Test-Path (Join-Path $_ "app\dist\index.js") } | Select-Object -First 1
           if (-not $root) { throw "installed app tree not found in any expected location" }
           Write-Output "installed to $root"
-          if (-not (Test-Path (Join-Path $root "app\dist\index.js"))) { throw "installed app tree missing" }
           $node = Join-Path $root "runtime\node.exe"
           $entry = Join-Path $root "app\openclaw.mjs"
           $proc = Start-Process -FilePath $node -ArgumentList @($entry, "gateway", "--port", "18789") -WorkingDirectory (Join-Path $root "app") -PassThru
@@ -172,7 +185,7 @@ jobs:
 
   linux-deb:
     name: Linux package
-    needs: resolve
+    needs: [resolve, build]
     runs-on: ubuntu-latest
     timeout-minutes: 60
     steps:
@@ -182,14 +195,16 @@ jobs:
         with:
           node-version: ${{ env.NODE_RUNTIME_VERSION }}
           cache: pnpm
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm build
+      - name: Download dist
+        uses: actions/download-artifact@v4
+        with:
+          name: lanfu-dist
+          path: dist
       - name: Switch the workspace to a flat dependency layout
         run: |
           sed -i 's/^nodeLinker: isolated$/nodeLinker: hoisted/' pnpm-workspace.yaml
           grep -q 'nodeLinker: hoisted' pnpm-workspace.yaml
           grep -q 'allowUnusedPatches' pnpm-workspace.yaml || echo 'allowUnusedPatches: true' >> pnpm-workspace.yaml
-          rm -rf node_modules
       - name: Install flat production dependencies
         run: pnpm install --prod --frozen-lockfile --ignore-scripts
       - name: Stage the application tree
@@ -197,7 +212,7 @@ jobs:
           mkdir -p release/app
           cp -r dist release/app/dist
           cp -r node_modules release/app/node_modules
-          for f in package.json openclaw.mjs cli-root-options.mjs gateway-run-argv.mjs gateway-shutdown-budget.mjs node-sqlite.mjs node-version.mjs node-runtime-update.mjs node-runtime-recovery.mjs node-host-launcher.mjs LICENSE THIRD_PARTY_NOTICES.md; do [ -f "$f" ] && cp "$f" release/app/; done
+          for f in package.json openclaw.mjs cli-root-options.mjs LICENSE THIRD_PARTY_NOTICES.md; do [ -f "$f" ] && cp "$f" release/app/; done
           rm -rf release/app/node_modules/@openclaw/ai
           mkdir -p release/app/node_modules/@openclaw/ai
           cp -r packages/ai/dist release/app/node_modules/@openclaw/ai/dist
@@ -231,7 +246,7 @@ jobs:
 
   release:
     name: Publish release
-    needs: [resolve, windows-exe, linux-deb]
+    needs: [resolve, build, windows-exe, linux-deb]
     if: ${{ github.event_name == 'push' || inputs.publish }}
     runs-on: ubuntu-latest
     steps:
@@ -251,8 +266,6 @@ jobs:
             echo "- Windows: LanFu-Setup-x64.exe"
             echo "- Linux: lanfu_${VERSION}_amd64.deb"
             echo "- 校验: SHA256SUMS.txt"
-            echo ""
-            echo "安装后会写入 %USERPROFILE%\\.lanfu\\openclaw.json（本地模式 + 公司模型地址），卸载不会删除用户数据。"
           } > "out/RELEASE_NOTES.md"
           cp release-assets/* out/ 2>/dev/null || true
       - uses: softprops/action-gh-release@v2
