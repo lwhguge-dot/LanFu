@@ -2579,6 +2579,8 @@ export const en: TranslationMap & {
   aboutPage: {
     productName: "LanFu",
     tagline: "Your personal AI assistant, running on your own devices.",
+    productVersion: "0.1.0",
+    upstream: "Built on OpenClaw 2026.9.6",
     waveHello: "Wave hello to LanFu",
     linksLabel: "Community and resources",
     linkWebsite: "Website",
@@ -2587,7 +2589,7 @@ export const en: TranslationMap & {
     linkDiscord: "Discord",
     linkX: "X (Twitter)",
     linkChangelog: "Changelog",
-    license: "© 2026 OpenClaw Foundation — MIT License.",
+    license: "© 2026 蓝凫教育 LanFu Edu — MIT License.",
     artifactTitle: "Control UI",
     artifactSubtitle: "Identity embedded when this browser artifact was built.",
     artifactDetails: "Control UI build details",

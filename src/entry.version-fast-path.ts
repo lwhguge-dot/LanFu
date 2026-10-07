@@ -53,9 +53,18 @@ export function tryHandleRootVersionFastPath(
     });
 
   resolveVersion()
-    .then(({ VERSION, resolveCommitHash }) => {
-      const commit = resolveCommitHash({ moduleUrl: deps.moduleUrl ?? import.meta.url });
-      output(commit ? `LanFu ${VERSION} (${commit})` : `LanFu ${VERSION}`);
+    .then(async ({ VERSION, resolveCommitHash }) => {
+      const moduleUrl = deps.moduleUrl ?? import.meta.url;
+      const commit = resolveCommitHash({ moduleUrl });
+      const { readLanFuProductVersionForModuleUrl, formatProductVersionLine } =
+        await import("./version.js");
+      output(
+        formatProductVersionLine({
+          version: VERSION,
+          productVersion: readLanFuProductVersionForModuleUrl(moduleUrl),
+          commit,
+        }),
+      );
       exit(0);
     })
     .catch(onError);

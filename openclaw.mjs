@@ -449,7 +449,12 @@ function tryOutputLauncherVersion(argv) {
     }
     const version = resolveLauncherVersion();
     const commit = resolveLauncherCommit();
-    process.stdout.write(commit ? `LanFu ${version} (${commit})\n` : `LanFu ${version}\n`);
+    const product = resolveLauncherProductVersion();
+    const label = product && product !== version ? product : version;
+    const upstream =
+      product && product !== version ? ` (OpenClaw ${version}${commit ? `, ${commit}` : ""})` : "";
+    const detail = upstream || (commit ? ` (${commit})` : "");
+    process.stdout.write(`LanFu ${label}${detail}\n`);
     return true;
   } catch {
     return false;
@@ -471,6 +476,11 @@ function readLauncherJson(relativePath) {
   } catch {
     return null;
   }
+}
+
+function resolveLauncherProductVersion() {
+  const packageJson = readLauncherJson("./package.json");
+  return normalizeLauncherMetadataValue(packageJson?.lanfu?.productVersion);
 }
 
 function resolveLauncherVersion() {

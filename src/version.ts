@@ -76,6 +76,45 @@ function firstNonEmpty(...values: Array<string | undefined>): string | undefined
   return undefined;
 }
 
+// LanFu ships an outward product version (for example 0.1.0) next to the upstream
+// compatibility version, which must keep driving config guards and plugin ranges.
+export function readLanFuProductVersionForModuleUrl(moduleUrl: string): string | null {
+  try {
+    const require = createRequire(moduleUrl);
+    for (const candidate of PACKAGE_JSON_CANDIDATES) {
+      try {
+        const parsed = require(candidate) as { lanfu?: { productVersion?: unknown } };
+        const productVersion = normalizeOptionalString(
+          typeof parsed.lanfu?.productVersion === "string"
+            ? parsed.lanfu.productVersion
+            : undefined,
+        );
+        if (productVersion) {
+          return productVersion;
+        }
+      } catch {
+        // ignore missing or unreadable candidate
+      }
+    }
+    return null;
+  } catch {
+    return null;
+  }
+}
+
+export function formatProductVersionLine(params: {
+  version: string;
+  productVersion?: string | null;
+  commit?: string | null;
+}): string {
+  const suffix = params.commit ? `, ${params.commit}` : "";
+  const product = normalizeOptionalString(params.productVersion ?? undefined);
+  if (product && product !== params.version) {
+    return `LanFu ${product} (OpenClaw ${params.version}${suffix})`;
+  }
+  return `LanFu ${params.version}${suffix}`;
+}
+
 export function readVersionFromPackageJsonForModuleUrl(moduleUrl: string): string | null {
   return readVersionFromJsonCandidates(moduleUrl, PACKAGE_JSON_CANDIDATES, {
     requirePackageName: true,
