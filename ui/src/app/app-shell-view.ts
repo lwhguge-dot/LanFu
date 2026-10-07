@@ -612,10 +612,6 @@ export function renderApplicationShell(host: ShellViewHost) {
           context.overlays.closeDevicePairSetup();
           host.navigate("devices");
         },
-        onGetApps: () => {
-          context.overlays.closeDevicePairSetup();
-          host.navigate("apps");
-        },
       })}
       ${
         memoryImportActive && isOptionalElementDefined(host.onboardingMemoryImportElement)

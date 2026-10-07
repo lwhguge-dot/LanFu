@@ -14,7 +14,6 @@ export function createExaWebSearchProviderBase() {
     envVars: ["EXA_API_KEY"],
     placeholder: "exa-...",
     signupUrl: "https://exa.ai/",
-    docsUrl: "https://docs.openclaw.ai/tools/web",
     autoDetectOrder: 65,
     credentialPath: EXA_CREDENTIAL_PATH,
     ...createWebSearchProviderContractFields({

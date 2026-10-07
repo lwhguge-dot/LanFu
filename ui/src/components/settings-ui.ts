@@ -79,7 +79,7 @@ export function renderSettingsPage(
 }
 
 // LanFu intranet build: upstream public docs links render as nothing.
-export function renderDocsLink(_url: string, _label: unknown): TemplateResult {
+export function renderDocsLink(_url: string | undefined, _label: unknown): TemplateResult {
   return html``;
 }
 
@@ -103,7 +103,7 @@ export function renderSettingsHelpTrigger(props: SettingsHelpTriggerProps): Temp
 
 // LanFu is an intranet build: the upstream public docs are not reachable for
 // employees, so learn-more affordances to docs.openclaw.ai render as nothing.
-export function renderLearnMoreLink(_url: string): TemplateResult {
+export function renderLearnMoreLink(_url?: string): TemplateResult {
   return html``;
 }
 

@@ -124,10 +124,6 @@ export async function resolveChannelSetupState(deps: SystemAgentCommandDeps | un
   };
 }
 
-export function formatChannelDocsUrl(docsPath: string): string {
-  return `https://docs.openclaw.ai${docsPath.startsWith("/") ? docsPath : `/${docsPath}`}`;
-}
-
 export function formatConfigValidationLine(snapshot: ConfigFileSnapshot): string {
   if (!snapshot.exists) {
     return `Config missing: ${shortenHomePath(snapshot.path)}`;

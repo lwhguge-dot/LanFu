@@ -32,11 +32,11 @@ async function parseLazyGroupError(params: {
   subcommands: Array<{ name: string; aliases?: string[] }>;
 }): Promise<{ error: CommanderError; output: string; stdout: string }> {
   const originalArgv = process.argv;
-  process.argv = ["node", "openclaw", ...params.argv];
+  process.argv = ["node", "lanfu", ...params.argv];
   let output = "";
   let stdout = "";
   try {
-    const program = new OpenClawCommand().name("openclaw").exitOverride();
+    const program = new OpenClawCommand().name("lanfu").exitOverride();
     program.configureOutput({
       writeOut: (value) => {
         stdout += value;
@@ -219,10 +219,10 @@ describe("formatCliParseErrorOutput", () => {
     },
   ])("keeps $name parse failures machine-readable by default", async (testCase) => {
     const originalArgv = process.argv;
-    process.argv = ["node", "openclaw", ...testCase.args];
+    process.argv = ["node", "lanfu", ...testCase.args];
     try {
       const program = new OpenClawCommand()
-        .name("openclaw")
+        .name("lanfu")
         .enablePositionalOptions()
         .option("--profile <name>")
         .exitOverride();
@@ -277,9 +277,9 @@ describe("formatCliParseErrorOutput", () => {
 
   it("keeps a consumed JSON spelling machine-readable when the command owns JSON by default", async () => {
     const originalArgv = process.argv;
-    process.argv = ["node", "openclaw", "cron", "status", "--limit", "--json"];
+    process.argv = ["node", "lanfu", "cron", "status", "--limit", "--json"];
     try {
-      const program = new OpenClawCommand().name("openclaw").exitOverride();
+      const program = new OpenClawCommand().name("lanfu").exitOverride();
       program.configureOutput({ writeErr: () => {} });
       const cron = program.command("cron");
       setCommandJsonMode(cron, "output", ({ argv }) => isCronMachineOutput(argv));
@@ -323,9 +323,9 @@ describe("formatCliParseErrorOutput", () => {
     },
   ])("keeps $name parse failures on the human error path", async (testCase) => {
     const originalArgv = process.argv;
-    process.argv = ["node", "openclaw", ...testCase.args];
+    process.argv = ["node", "lanfu", ...testCase.args];
     try {
-      const program = new OpenClawCommand().name("openclaw").exitOverride();
+      const program = new OpenClawCommand().name("lanfu").exitOverride();
       program.configureOutput({ writeErr: () => {} });
       const root = program.command(testCase.root);
       if (testCase.root === "cron") {
@@ -360,10 +360,10 @@ describe("formatCliParseErrorOutput", () => {
 
   it("keeps successful machine-command help outside the JSON failure path", async () => {
     const originalArgv = process.argv;
-    process.argv = ["node", "openclaw", "cron", "get", "--help"];
+    process.argv = ["node", "lanfu", "cron", "get", "--help"];
     let stdout = "";
     try {
-      const program = new OpenClawCommand().name("openclaw").exitOverride();
+      const program = new OpenClawCommand().name("lanfu").exitOverride();
       program.configureOutput({
         writeOut: (output) => {
           stdout += output;
@@ -383,7 +383,7 @@ describe("formatCliParseErrorOutput", () => {
 
           expect(error).toBeInstanceOf(CommanderError);
           expect((error as CommanderError).exitCode).toBe(0);
-          expect(stdout).toContain("Usage: openclaw cron get");
+          expect(stdout).toContain("Usage: lanfu cron get");
           expect(isJsonOutputModeActive(process.argv)).toBe(false);
         },
         { machineOutput: true, restoreChanges: true },
@@ -415,7 +415,7 @@ describe("formatCliParseErrorOutput", () => {
     const originalArgv = process.argv;
     process.argv = [
       "node",
-      "openclaw",
+      "lanfu",
       "--profile",
       "work",
       "p",
@@ -427,7 +427,7 @@ describe("formatCliParseErrorOutput", () => {
     let stderr = "";
     try {
       const program = new OpenClawCommand()
-        .name("openclaw")
+        .name("lanfu")
         .enablePositionalOptions()
         .option("--profile <name>")
         .exitOverride();
@@ -474,9 +474,9 @@ describe("formatCliParseErrorOutput", () => {
     { label: "after a consumed valued JSON token", args: ["--limit", "--json=true", "--json"] },
   ])("preserves a genuine JSON request $label", async ({ args }) => {
     const originalArgv = process.argv;
-    process.argv = ["node", "openclaw", "plugins", "search", ...args];
+    process.argv = ["node", "lanfu", "plugins", "search", ...args];
     try {
-      const program = new OpenClawCommand().name("openclaw").exitOverride();
+      const program = new OpenClawCommand().name("lanfu").exitOverride();
       program.configureOutput({ writeErr: () => {} });
       program
         .command("plugins")
@@ -497,9 +497,9 @@ describe("formatCliParseErrorOutput", () => {
 
   it("preserves JSON diagnostics for an unsupported but genuine output flag", async () => {
     const originalArgv = process.argv;
-    process.argv = ["node", "openclaw", "fleet", "logs", "--json"];
+    process.argv = ["node", "lanfu", "fleet", "logs", "--json"];
     try {
-      const program = new OpenClawCommand().name("openclaw").exitOverride();
+      const program = new OpenClawCommand().name("lanfu").exitOverride();
       program.configureOutput({ writeErr: () => {} });
       program
         .command("fleet")
@@ -517,55 +517,55 @@ describe("formatCliParseErrorOutput", () => {
 
   it("uses the same structured root diagnostic as the human renderer", () => {
     const error = createCliUnknownCommandError("pairng", {
-      argv: ["node", "openclaw", "pairng", "--json"],
+      argv: ["node", "lanfu", "pairng", "--json"],
     });
 
     expect(error.message).toBe('LanFu does not know the command "pairng".');
     expect(error.humanOutput).toBe(
-      'LanFu does not know the command "pairng".\nDid you mean this?\n  openclaw pairing\nTry: openclaw --help\nPlugin command? openclaw plugins list\n',
+      'LanFu does not know the command "pairng".\nDid you mean this?\n  lanfu pairing\nTry: lanfu --help\nPlugin command? lanfu plugins list\n',
     );
   });
 
   it("strips Commander framing from structured nested diagnostics", () => {
     const error = createCliParseError("error: unknown command 'lst'", {
-      argv: ["node", "openclaw", "sessions", "lst", "--json"],
+      argv: ["node", "lanfu", "sessions", "lst", "--json"],
       commandPath: ["sessions"],
       commandNames: ["list"],
     });
 
     expect(error.message).toBe('LanFu sessions has no command "lst".');
     expect(error.message).not.toMatch(/^error:/i);
-    expect(error.humanOutput).toContain("Did you mean this?\n  openclaw sessions list\n");
+    expect(error.humanOutput).toContain("Did you mean this?\n  lanfu sessions list\n");
   });
 
   it("explains unknown commands with root help and plugin hints", () => {
     const output = formatCliParseErrorOutput("error: unknown command 'wat'\n", {
-      argv: ["node", "openclaw", "wat"],
+      argv: ["node", "lanfu", "wat"],
     });
 
     expect(output).toBe(
-      'LanFu does not know the command "wat".\nTry: openclaw --help\nPlugin command? openclaw plugins list\n',
+      'LanFu does not know the command "wat".\nTry: lanfu --help\nPlugin command? lanfu plugins list\n',
     );
   });
 
   it("explains unknown subcommands within the active command tree", () => {
     const output = formatCliParseErrorOutput("error: unknown command 'list'\n", {
-      argv: ["node", "openclaw", "webhooks", "list"],
+      argv: ["node", "lanfu", "webhooks", "list"],
       commandPath: ["webhooks"],
     });
 
-    expect(output).toBe('LanFu webhooks has no command "list".\nTry: openclaw webhooks --help\n');
+    expect(output).toBe('LanFu webhooks has no command "list".\nTry: lanfu webhooks --help\n');
   });
 
   it("suggests sibling subcommands within the active command tree", () => {
     const output = formatCliParseErrorOutput("error: unknown command 'gmial'\n", {
-      argv: ["node", "openclaw", "webhooks", "gmial"],
+      argv: ["node", "lanfu", "webhooks", "gmial"],
       commandPath: ["webhooks"],
       commandNames: ["gmail"],
     });
 
     expect(output).toBe(
-      'LanFu webhooks has no command "gmial".\nDid you mean this?\n  openclaw webhooks gmail\nTry: openclaw webhooks --help\n',
+      'LanFu webhooks has no command "gmial".\nDid you mean this?\n  lanfu webhooks gmail\nTry: lanfu webhooks --help\n',
     );
   });
 
@@ -578,7 +578,7 @@ describe("formatCliParseErrorOutput", () => {
 
     expect(error.code).toBe("commander.unknownCommand");
     expect(output).toBe(
-      'LanFu sessions has no command "lst".\nDid you mean this?\n  openclaw sessions list\nTry: openclaw sessions --help\n',
+      'LanFu sessions has no command "lst".\nDid you mean this?\n  lanfu sessions list\nTry: lanfu sessions --help\n',
     );
   });
 
@@ -591,7 +591,7 @@ describe("formatCliParseErrorOutput", () => {
 
     expect(error.code).toBe("commander.unknownCommand");
     expect(output).toBe(
-      'LanFu config has no command "gett".\nDid you mean this?\n  openclaw config get\nTry: openclaw config --help\n',
+      'LanFu config has no command "gett".\nDid you mean this?\n  lanfu config get\nTry: lanfu config --help\n',
     );
   });
 
@@ -606,7 +606,7 @@ describe("formatCliParseErrorOutput", () => {
     expect(error.exitCode).toBe(1);
     expect(stdout).toBe("");
     expect(output).toBe(
-      'LanFu sessions has no command "lst".\nDid you mean this?\n  openclaw sessions list\nTry: openclaw sessions --help\n',
+      'LanFu sessions has no command "lst".\nDid you mean this?\n  lanfu sessions list\nTry: lanfu sessions --help\n',
     );
   });
 
@@ -620,7 +620,7 @@ describe("formatCliParseErrorOutput", () => {
     expect(error.code).toBe("commander.helpDisplayed");
     expect(error.exitCode).toBe(0);
     expect(output).toBe("");
-    expect(stdout).toContain("Usage: openclaw sessions list [options]");
+    expect(stdout).toContain("Usage: lanfu sessions list [options]");
   });
 
   it("suggests aliases from the live child command tree", async () => {
@@ -631,7 +631,7 @@ describe("formatCliParseErrorOutput", () => {
     });
 
     expect(error.code).toBe("commander.unknownCommand");
-    expect(output).toContain("Did you mean this?\n  openclaw cron remove\n");
+    expect(output).toContain("Did you mean this?\n  lanfu cron remove\n");
   });
 
   it("keeps excess arguments on a matched lazy subcommand", async () => {
@@ -642,27 +642,25 @@ describe("formatCliParseErrorOutput", () => {
     });
 
     expect(error.code).toBe("commander.excessArguments");
-    expect(output).toBe(
-      "Too many arguments for this command.\nTry: openclaw sessions list --help\n",
-    );
+    expect(output).toBe("Too many arguments for this command.\nTry: lanfu sessions list --help\n");
   });
 
   it("suggests close known commands for unknown commands", () => {
     const output = formatCliParseErrorOutput("error: unknown command 'upate'\n", {
-      argv: ["node", "openclaw", "upate"],
+      argv: ["node", "lanfu", "upate"],
     });
 
     expect(output).toBe(
-      'LanFu does not know the command "upate".\nDid you mean this?\n  openclaw update\nTry: openclaw --help\nPlugin command? openclaw plugins list\n',
+      'LanFu does not know the command "upate".\nDid you mean this?\n  lanfu update\nTry: lanfu --help\nPlugin command? lanfu plugins list\n',
     );
   });
 
   it("suggests explicit aliases for common adjacent terminology", () => {
     const output = formatCliParseErrorOutput("error: unknown command 'upgrade'\n", {
-      argv: ["node", "openclaw", "upgrade"],
+      argv: ["node", "lanfu", "upgrade"],
     });
 
-    expect(output).toContain("Did you mean this?\n  openclaw update\n");
+    expect(output).toContain("Did you mean this?\n  lanfu update\n");
   });
 
   it("preserves active profile context in command suggestions", () => {
@@ -670,10 +668,10 @@ describe("formatCliParseErrorOutput", () => {
     process.env.OPENCLAW_PROFILE = "work";
     try {
       const output = formatCliParseErrorOutput("error: unknown command 'doctr'\n", {
-        argv: ["node", "openclaw", "doctr"],
+        argv: ["node", "lanfu", "doctr"],
       });
 
-      expect(output).toContain("Did you mean this?\n  openclaw --profile work doctor\n");
+      expect(output).toContain("Did you mean this?\n  lanfu --profile work doctor\n");
     } finally {
       if (originalProfile === undefined) {
         delete process.env.OPENCLAW_PROFILE;
@@ -685,22 +683,20 @@ describe("formatCliParseErrorOutput", () => {
 
   it("points unknown options at the active command help", () => {
     const output = formatCliParseErrorOutput("error: unknown option '--wat'\n", {
-      argv: ["node", "openclaw", "channels", "status", "--wat"],
+      argv: ["node", "lanfu", "channels", "status", "--wat"],
     });
 
     expect(output).toBe(
-      'LanFu does not recognize option "--wat".\nTry: openclaw channels status --help\n',
+      'LanFu does not recognize option "--wat".\nTry: lanfu channels status --help\n',
     );
   });
 
   it("points missing required arguments at command help", () => {
     const output = formatCliParseErrorOutput("error: missing required argument 'name'\n", {
-      argv: ["node", "openclaw", "plugins", "install"],
+      argv: ["node", "lanfu", "plugins", "install"],
     });
 
-    expect(output).toBe(
-      'Missing required argument "name".\nTry: openclaw plugins install --help\n',
-    );
+    expect(output).toBe('Missing required argument "name".\nTry: lanfu plugins install --help\n');
   });
 
   it.each([
@@ -717,20 +713,20 @@ describe("formatCliParseErrorOutput", () => {
   ])("preserves the complete ordinary $name diagnostic", ({ raw, message }) => {
     expect(
       formatCliParseErrorOutput(raw, {
-        argv: ["node", "openclaw", "nodes", "invoke"],
+        argv: ["node", "lanfu", "nodes", "invoke"],
         commandPath: ["nodes", "invoke"],
       }),
-    ).toBe(`${message}\nTry: openclaw nodes invoke --help\n`);
+    ).toBe(`${message}\nTry: lanfu nodes invoke --help\n`);
   });
 
   it("prefers the parsed Commander path over option-like argv values", () => {
     const output = formatCliParseErrorOutput("error: unknown option '--wat'\n", {
-      argv: ["node", "openclaw", "plugins", "--source", "install", "list", "--wat"],
+      argv: ["node", "lanfu", "plugins", "--source", "install", "list", "--wat"],
       commandPath: ["plugins", "list"],
     });
 
     expect(output).toBe(
-      'LanFu does not recognize option "--wat".\nTry: openclaw plugins list --help\n',
+      'LanFu does not recognize option "--wat".\nTry: lanfu plugins list --help\n',
     );
   });
 });

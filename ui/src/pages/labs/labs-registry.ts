@@ -9,7 +9,7 @@ export type LabFeature = {
   id: string;
   title: () => string;
   description: () => string;
-  docsUrl: string;
+  docsUrl?: string;
   /** Leaf whose value decides whether the row reads as on. */
   configPath: readonly [string, ...string[]];
   /**
@@ -75,7 +75,6 @@ export const LAB_FEATURES = [
     id: "codeMode",
     title: () => t("labsPage.codeMode.title"),
     description: () => t("labsPage.codeMode.description"),
-    docsUrl: "https://docs.openclaw.ai/tools/code-mode",
     configPath: ["tools", "codeMode", "enabled"],
     // The on position writes the "auto" tier, never `true`: Labs offers
     // Auto/Off, and force-on for unevaluated models stays a config-only choice.
@@ -95,7 +94,6 @@ export const LAB_FEATURES = [
     id: "toolSearch",
     title: () => t("labsPage.toolSearch.title"),
     description: () => t("labsPage.toolSearch.description"),
-    docsUrl: "https://docs.openclaw.ai/tools/tool-search",
     configPath: ["tools", "toolSearch", "enabled"],
     onValue: true,
     offValue: false,
@@ -112,7 +110,6 @@ export const LAB_FEATURES = [
     id: "customPluginUi",
     title: () => t("labsPage.customPluginUi.title"),
     description: () => t("labsPage.customPluginUi.description"),
-    docsUrl: "https://docs.openclaw.ai/plugins/feature-plugins",
     configPath: ["gateway", "controlUi", "experimental", "customPlugins"],
     onValue: true,
     offValue: false,
@@ -125,7 +122,6 @@ export const LAB_FEATURES = [
     id: "hostDesktop",
     title: () => t("labsPage.hostDesktop.title"),
     description: () => t("labsPage.hostDesktop.description"),
-    docsUrl: "https://docs.openclaw.ai/gateway/configuration-reference#desktop",
     configPath: ["desktop", "host", "enabled"],
     onValue: true,
     offValue: false,
@@ -138,7 +134,6 @@ export const LAB_FEATURES = [
     id: "workerDesktop",
     title: () => t("labsPage.workerDesktop.title"),
     description: () => t("labsPage.workerDesktop.description"),
-    docsUrl: "https://docs.openclaw.ai/gateway/cloud-workers#desktop-interactive",
     configPath: ["cloudWorkers", "desktop"],
     onValue: true,
     offValue: false,

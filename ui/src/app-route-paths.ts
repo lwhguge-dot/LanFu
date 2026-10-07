@@ -46,7 +46,6 @@ const APP_ROUTE_DEFINITIONS = {
   "new-session": { path: "/new" },
   activity: { path: "/activity" },
   meetings: { path: "/meetings" },
-  apps: { path: "/apps" },
   portals: { path: "/portals" },
   "agents-home": { path: "/agents" },
   agents: { path: "/settings/agents" },

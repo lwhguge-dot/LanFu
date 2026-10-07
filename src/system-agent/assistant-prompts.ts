@@ -234,10 +234,12 @@ export function buildSystemAgentAssistantUserPrompt(params: {
     `Gemini CLI: ${params.overview.tools.gemini.found ? "found" : "not found"}`,
     `OpenAI API key: ${params.overview.tools.apiKeys.openai ? "found" : "not found"}`,
     `Anthropic API key: ${params.overview.tools.apiKeys.anthropic ? "found" : "not found"}`,
-    `LanFu docs: ${params.overview.references.docsPath ?? params.overview.references.docsUrl}`,
-    `OpenClaw source: ${
-      params.overview.references.sourcePath ?? params.overview.references.sourceUrl
-    }`,
+    params.overview.references.docsPath
+      ? `LanFu local docs: ${params.overview.references.docsPath}`
+      : "LanFu local docs: unavailable",
+    ...(params.overview.references.sourcePath
+      ? [`LanFu source: ${params.overview.references.sourcePath}`]
+      : []),
     params.overview.references.sourcePath
       ? "Source mode: local git checkout; inspect source directly when docs are insufficient."
       : "Source mode: package/install; use GitHub source when docs are insufficient.",

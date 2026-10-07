@@ -49,55 +49,6 @@ const GROUP_HINTS = [
   ["voicewake", "Voice Wake", 230],
 ] as const;
 
-// docsUrl targets task-oriented or beginner pages; configuration-reference anchors are banned.
-const SECTION_DOCS_URLS = {
-  accessGroups: "https://docs.openclaw.ai/channels/access-groups",
-  messages: "https://docs.openclaw.ai/concepts/messages",
-  tts: "https://docs.openclaw.ai/tools/tts",
-  commands: "https://docs.openclaw.ai/tools/slash-commands",
-  hooks: "https://docs.openclaw.ai/automation/hooks",
-  cron: "https://docs.openclaw.ai/automation/cron-jobs",
-  bindings: "https://docs.openclaw.ai/concepts/agent-bindings",
-  plugins: "https://docs.openclaw.ai/plugins/manage-plugins",
-  mcp: "https://docs.openclaw.ai/tools/mcp",
-  memory: "https://docs.openclaw.ai/concepts/memory",
-  talk: "https://docs.openclaw.ai/nodes/talk",
-  gateway: "https://docs.openclaw.ai/gateway/configuration",
-  browser: "https://docs.openclaw.ai/tools/browser",
-  nodeHost: "https://docs.openclaw.ai/nodes",
-  discovery: "https://docs.openclaw.ai/gateway/discovery",
-  acp: "https://docs.openclaw.ai/tools/acp-agents",
-  agents: "https://docs.openclaw.ai/concepts/agent",
-  models: "https://docs.openclaw.ai/concepts/models",
-  skills: "https://docs.openclaw.ai/tools/skills",
-  tools: "https://docs.openclaw.ai/tools",
-  session: "https://docs.openclaw.ai/concepts/session",
-  security: "https://docs.openclaw.ai/gateway/security",
-  approvals: "https://docs.openclaw.ai/tools/exec-approvals",
-  env: "https://docs.openclaw.ai/help/environment",
-  auth: "https://docs.openclaw.ai/concepts/oauth",
-  update: "https://docs.openclaw.ai/install/updating",
-  telemetry: "https://docs.openclaw.ai/gateway/telemetry",
-  logging: "https://docs.openclaw.ai/logging",
-  diagnostics: "https://docs.openclaw.ai/gateway/diagnostics",
-  cli: "https://docs.openclaw.ai/cli",
-  secrets: "https://docs.openclaw.ai/gateway/secrets",
-  ui: "https://docs.openclaw.ai/web/control-ui",
-  wizard: "https://docs.openclaw.ai/start/wizard",
-  channels: "https://docs.openclaw.ai/channels",
-  broadcast: "https://docs.openclaw.ai/channels/broadcast-groups",
-  audio: "https://docs.openclaw.ai/nodes/audio",
-  voicewake: "https://docs.openclaw.ai/nodes/voicewake",
-  presence: "https://docs.openclaw.ai/concepts/presence",
-  cloudWorkers: "https://docs.openclaw.ai/gateway/cloud-workers",
-  desktop: "https://docs.openclaw.ai/gateway/configuration",
-  worktreeRoot: "https://docs.openclaw.ai/concepts/managed-worktrees",
-  worktreeAcceleration: "https://docs.openclaw.ai/concepts/managed-worktrees",
-  proxy: "https://docs.openclaw.ai/security/network-proxy",
-  transcripts: "https://docs.openclaw.ai/plugins/meeting-plugins",
-  surfaces: "https://docs.openclaw.ai/concepts/messages",
-} as const satisfies Record<string, string>;
-
 const FIELD_PLACEHOLDERS: Record<string, string> = {
   "plugins.entries.*.hooks.timeoutMs": "Automatic (per hook)",
   "plugins.entries.*.hooks.timeouts.*": "Automatic (plugin or hook default)",
@@ -147,9 +98,6 @@ export function buildBaseHints(): ConfigUiHints {
       group: label,
       order,
     };
-  }
-  for (const [path, docsUrl] of Object.entries(SECTION_DOCS_URLS)) {
-    hints[path] = { ...hints[path], docsUrl };
   }
   for (const [metadata, field] of [
     [FIELD_LABELS, "label"],
@@ -233,8 +181,3 @@ export function mapSensitivePaths(
   });
   return applySensitiveUrlHints(next, urlPaths);
 }
-
-/** @internal */
-export const testApi = {
-  SECTION_DOCS_URLS,
-};

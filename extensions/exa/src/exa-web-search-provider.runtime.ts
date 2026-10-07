@@ -117,13 +117,12 @@ function invalidBaseUrlPayload(value: string) {
   return {
     error: "invalid_base_url",
     message: `plugins.entries.exa.config.webSearch.baseUrl must be a valid http(s) URL. Got: ${value}`,
-    docs: "https://docs.openclaw.ai/tools/exa-search",
   };
 }
 
 function resolveExaSearchEndpoint(
   exa?: ExaConfig,
-): { endpoint: string } | { error: string; message: string; docs: string } {
+): { endpoint: string } | { error: string; message: string; docs?: string } {
   const configured = normalizeOptionalString(exa?.baseUrl);
   if (!configured) {
     return { endpoint: EXA_SEARCH_ENDPOINT };
@@ -177,14 +176,13 @@ function invalidContentsPayload(message: string) {
   return {
     error: "invalid_contents",
     message,
-    docs: "https://docs.openclaw.ai/tools/web",
   };
 }
 
-function isErrorPayload(value: unknown): value is { error: string; message: string; docs: string } {
-  return Boolean(
-    value && typeof value === "object" && "error" in value && "message" in value && "docs" in value,
-  );
+function isErrorPayload(
+  value: unknown,
+): value is { error: string; message: string; docs?: string } {
+  return Boolean(value && typeof value === "object" && "error" in value && "message" in value);
 }
 
 function resolveExaSearchCount(value: unknown, fallback: number): number {
@@ -197,7 +195,7 @@ function resolveExaSearchCount(value: unknown, fallback: number): number {
 
 function parseExaContents(
   rawContents: unknown,
-): { value?: ExaContentsArgs } | { error: string; message: string; docs: string } {
+): { value?: ExaContentsArgs } | { error: string; message: string; docs?: string } {
   if (rawContents === undefined) {
     return { value: undefined };
   }
@@ -377,7 +375,6 @@ function missingExaKeyPayload() {
     error: "missing_exa_api_key",
     message:
       "web_search (exa) needs an Exa API key. Set EXA_API_KEY in the Gateway environment, or configure plugins.entries.exa.config.webSearch.apiKey.",
-    docs: "https://docs.openclaw.ai/tools/web",
   };
 }
 
@@ -446,7 +443,6 @@ export async function executeExaWebSearchProviderTool(
     return {
       error: "invalid_freshness",
       message: 'freshness must be one of "day", "week", "month", or "year".',
-      docs: "https://docs.openclaw.ai/tools/web",
     };
   }
 
@@ -457,7 +453,6 @@ export async function executeExaWebSearchProviderTool(
       error: "conflicting_time_filters",
       message:
         "freshness cannot be combined with date_after or date_before. Use one time-filter mode.",
-      docs: "https://docs.openclaw.ai/tools/web",
     };
   }
   const parsedDateRange = parseIsoDateRange({

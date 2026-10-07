@@ -94,13 +94,7 @@ function renderFailureFooter(feedback: LoginFailureFeedback) {
         <summary>${t("login.failure.rawError")}</summary>
         <div class="login-gate__failure-raw mono">${feedback.rawError}</div>
       </details>
-      <a
-        class="session-link login-gate__failure-docs"
-        href=${feedback.docsHref}
-        target=${EXTERNAL_LINK_TARGET}
-        rel=${buildExternalLinkRel()}
-        >${t("common.learnMore")}</a
-      >
+      ${feedback.docsHref ? html`<a class="session-link login-gate__failure-docs" href=${feedback.docsHref} target=${EXTERNAL_LINK_TARGET} rel=${buildExternalLinkRel()}> ${t("common.learnMore")}</a>` : nothing}
     </footer>
   `;
 }

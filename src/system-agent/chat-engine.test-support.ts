@@ -451,10 +451,7 @@ export function fakeOverviewLoader(
       apiKeys: { openai: false, anthropic: false },
     },
     gateway: { url: "ws://127.0.0.1:18789", source: "local", reachable: false },
-    references: {
-      docsUrl: "https://docs.openclaw.ai",
-      sourceUrl: "https://github.com/openclaw/openclaw",
-    },
+    references: {},
   });
 }
 

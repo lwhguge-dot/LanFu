@@ -106,8 +106,7 @@ export function registerGoogleMeetCli(params: {
   const operationTimeoutMs = resolveGoogleMeetGatewayOperationTimeoutMs(params.config);
   const root = params.program
     .command("googlemeet")
-    .description("Google Meet participant utilities")
-    .addHelpText("after", () => `\nDocs: https://docs.openclaw.ai/plugins/google-meet\n`);
+    .description("Google Meet participant utilities");
 
   const auth = root.command("auth").description("Google Meet OAuth helpers");
 

@@ -16,7 +16,6 @@ import {
 import type { RouteId } from "../app-route-paths.ts";
 import type { NativeDeviceSettingsCapability } from "../app/native-device-settings.ts";
 import { t } from "../i18n/index.ts";
-import { registerAppsEnglish } from "../i18n/locales/en-apps.ts";
 import { registerCommandPaletteEnglish } from "../i18n/locales/en-command-palette.ts";
 import { loadModelCatalog, modelCatalogRefreshError } from "../lib/model-catalog-store.ts";
 import type { PluginListResult } from "../lib/plugins/index.ts";
@@ -25,11 +24,8 @@ import type { IconName } from "./icons.ts";
 
 registerCommandPaletteEnglish();
 
-registerAppsEnglish();
-
 type CommandPaletteCatalogCategory =
   | "agents"
-  | "apps"
   | "automations"
   | "models"
   | "plugins"
@@ -65,8 +61,6 @@ export function commandPaletteCategoryLabel(category: string): string {
       return t("palette.categories.skills");
     case "agents":
       return t("palette.items.agents");
-    case "apps":
-      return t("palette.items.apps");
     case "automations":
       return t("palette.items.scheduled");
     case "models":
@@ -247,18 +241,6 @@ export function toCommandPaletteItems(
   }));
 }
 
-const APP_CARDS = [
-  "ios",
-  "android",
-  "appleWatch",
-  "wearOs",
-  "macos",
-  "windows",
-  "linux",
-  "chrome",
-  "plugins",
-] as const;
-
 export function getStaticCommandPaletteCatalogItems(
   canAdmin: boolean,
   nativeDeviceSettings: NativeDeviceSettingsCapability | null = null,
@@ -275,15 +257,6 @@ export function getStaticCommandPaletteCatalogItems(
       description: subtitleForRoute(routeId),
       searchText: routeId,
     }));
-  const apps = APP_CARDS.map((card) => ({
-    id: `app-${card}`,
-    label: t(`appsPage.cards.${card}.title`),
-    icon: "layoutGrid" as const,
-    category: "apps" as const,
-    routeId: "apps" as const,
-    description: t(`appsPage.cards.${card}.desc`),
-    searchText: card,
-  }));
   const capture = SETTINGS_SEARCH_TARGETS.meetingCapture;
   return [
     ...settings,
@@ -301,7 +274,6 @@ export function getStaticCommandPaletteCatalogItems(
           },
         ]
       : []),
-    ...apps,
   ];
 }
 

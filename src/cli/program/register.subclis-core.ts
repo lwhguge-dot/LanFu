@@ -126,7 +126,6 @@ const entrySpecs: readonly CommandGroupDescriptorSpec<
     async (program) => (await import("../cron-cli.js")).registerCronCli(program),
   ],
   [["dns"], async (program) => (await import("../dns-cli.js")).registerDnsCli(program)],
-  [["docs"], async (program) => (await import("../docs-cli.js")).registerDocsCli(program)],
   [
     ["qa"],
     async (program) => {

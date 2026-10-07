@@ -32,7 +32,7 @@ describe("OpenClawSchema telemetry config", () => {
       help: expect.stringContaining("ISO timestamp"),
     });
 
-    expect(response.uiHints.telemetry?.docsUrl).toBe("https://docs.openclaw.ai/gateway/telemetry");
+    expect(response.uiHints.telemetry?.docsUrl).toBeUndefined();
     expect(response.uiHints["telemetry.enabled"]?.advanced).toBe(true);
   });
 });

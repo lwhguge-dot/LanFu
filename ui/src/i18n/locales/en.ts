@@ -2605,7 +2605,6 @@ export const en: TranslationMap & {
     gatewayVersionHint:
       "Reported by the active Gateway connection; separate from this Control UI build.",
   },
-  appsPage: {},
   presence: {
     sharedOwner: {
       name: "Shared owner",

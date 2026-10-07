@@ -28,7 +28,6 @@ import { page as activityPage } from "./pages/activity/route.ts";
 import { page as agentsHomePage } from "./pages/agents-home/route.ts";
 import { page as agentsPage } from "./pages/agents/route.ts";
 import { page as approvalsPage } from "./pages/approvals/route.ts";
-import { page as appsPage } from "./pages/apps/route.ts";
 import { page as channelsPage } from "./pages/channels/route.ts";
 import { pages as chatPages } from "./pages/chat/route.ts";
 import type { ChatRouteData } from "./pages/chat/session-route-data.ts";
@@ -90,7 +89,6 @@ const APP_ROUTE_TREE = [
   activityPage,
   meetingsPage,
   dashboardsPage,
-  appsPage,
   portalsPage,
   agentsHomePage,
   agentsPage,

@@ -197,9 +197,6 @@ export function renderSidebarIdentityMenu(params: SidebarIdentityMenuParams) {
           case `${COMMAND_VALUE_PREFIX}pair-mobile`:
             params.onPairMobile();
             break;
-          case `${COMMAND_VALUE_PREFIX}apps`:
-            params.onNavigate("apps");
-            break;
           case `${COMMAND_VALUE_PREFIX}debug-overlay`:
             requestDebugOverlayToggle();
             break;
@@ -263,10 +260,6 @@ export function renderSidebarIdentityMenu(params: SidebarIdentityMenuParams) {
       >
         <span slot="icon" class="nav-item__icon" aria-hidden="true">${icons.smartphone}</span>
         <span class="sidebar-customize-menu__text">${t("devices.pairing.button")}</span>
-      </wa-dropdown-item>
-      <wa-dropdown-item class="sidebar-customize-menu__item" value="command:apps">
-        <span slot="icon" class="nav-item__icon" aria-hidden="true">${icons.layoutGrid}</span>
-        <span class="sidebar-customize-menu__text">${t("agentChip.getApps")}</span>
       </wa-dropdown-item>
       <wa-dropdown-item class="sidebar-customize-menu__item" value="command:debug-overlay">
         <span slot="icon" class="nav-item__icon" aria-hidden="true">${icons.activity}</span>

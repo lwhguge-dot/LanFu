@@ -60,13 +60,12 @@ function invalidBaseUrlPayload(value: string) {
   return {
     error: "invalid_base_url",
     message: `plugins.entries.parallel.config.webSearch.baseUrl must be a valid http(s) URL. Got: ${value}`,
-    docs: "https://docs.openclaw.ai/tools/parallel-search",
   };
 }
 
 function resolveParallelSearchEndpoint(
   parallel?: ParallelConfig,
-): { endpoint: string } | { error: string; message: string; docs: string } {
+): { endpoint: string } | { error: string; message: string; docs?: string } {
   const configured = normalizeOptionalString(parallel?.baseUrl);
   if (!configured) {
     return { endpoint: `${PARALLEL_BASE_URL}${PARALLEL_SEARCH_PATHNAME}` };
@@ -97,7 +96,6 @@ function missingParallelKeyPayload() {
     error: "missing_parallel_api_key",
     message:
       "web_search (parallel) needs a Parallel API key. Set PARALLEL_API_KEY in the Gateway environment, or configure plugins.entries.parallel.config.webSearch.apiKey.",
-    docs: "https://docs.openclaw.ai/tools/parallel-search",
   };
 }
 

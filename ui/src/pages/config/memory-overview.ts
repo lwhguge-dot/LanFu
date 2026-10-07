@@ -1,7 +1,6 @@
 import { html, nothing } from "lit";
 import type { DoctorMemoryStatusPayload } from "../../../../src/gateway/server-methods/doctor.ts";
 import "../../components/openclaw-mascot.ts";
-import type { MascotMood } from "../../components/mascot-pose.ts";
 import {
   renderSettingsNavRow,
   renderSettingsRow,
@@ -90,19 +89,10 @@ function renderHero(props: MemoryOverviewProps) {
                 mode: searchMode(readyPayload),
               })
         : t("memoryPage.overview.hero.loadingDescription");
-  // Mascot mood mirrors the old pet poses: sleeping, grumpy, reading, awake.
-  const mood: MascotMood = off
-    ? "sleepy"
-    : error
-      ? "sad"
-      : readyPayload && !noSearchRuntime
-        ? "thinking"
-        : "idle";
-
   return html`
     <section class="memory-overview__hero ${off ? "memory-overview__hero--sleeping" : ""}">
       <div class="memory-overview__lobster">
-        <openclaw-mascot mood=${mood} .size=${96}></openclaw-mascot>
+        <openclaw-mascot .size=${96}></openclaw-mascot>
       </div>
       <div class="memory-overview__hero-copy">
         <h2>${headline}</h2>

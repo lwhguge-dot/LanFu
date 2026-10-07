@@ -42,7 +42,6 @@ type SearchProviderSetupContribution = FlowContribution & {
 };
 
 const SEARCH_INSTALL_CATALOG_ENTRY = Symbol("search-install-catalog-entry");
-const WEB_SEARCH_DOCS_URL = "https://docs.openclaw.ai/tools/web";
 const CODEX_HOSTED_SEARCH_PROVIDER_ID = "codex";
 
 type SearchProviderEntryWithInstall = PluginWebSearchProviderEntry & {
@@ -492,22 +491,14 @@ export async function runSearchSetupFlow(
   );
   if (providerOptions.length === 0) {
     await prompter.note(
-      [
-        t("wizard.search.noProvidersByPolicy"),
-        t("wizard.search.noProvidersAction"),
-        t("wizard.search.docsLine", { url: WEB_SEARCH_DOCS_URL }),
-      ].join("\n"),
+      [t("wizard.search.noProvidersByPolicy"), t("wizard.search.noProvidersAction")].join("\n"),
       t("wizard.search.title"),
     );
     return { outcome: "kept-current", config, reason: "no-providers" };
   }
 
   await prompter.note(
-    [
-      t("wizard.search.intro"),
-      t("wizard.search.chooseProvider"),
-      t("wizard.search.docsLine", { url: WEB_SEARCH_DOCS_URL }),
-    ].join("\n"),
+    [t("wizard.search.intro"), t("wizard.search.chooseProvider")].join("\n"),
     t("wizard.search.title"),
   );
 
@@ -655,7 +646,6 @@ export async function runSearchSetupFlow(
       [
         `${entry.label} works without an API key.`,
         "LanFu will enable the plugin and use it as your web_search provider.",
-        `Docs: ${entry.docsUrl ?? "https://docs.openclaw.ai/tools/web"}`,
       ].join("\n"),
       "Web search",
     );
@@ -672,7 +662,6 @@ export async function runSearchSetupFlow(
       [
         `${entry.label} can use your existing ${authProviderLabel} OAuth sign-in for web_search.`,
         "No separate API key is required; API-key auth remains available as a fallback.",
-        `Docs: ${entry.docsUrl ?? WEB_SEARCH_DOCS_URL}`,
       ].join("\n"),
       "Web search",
     );
@@ -685,7 +674,6 @@ export async function runSearchSetupFlow(
       [
         `${entry.label} can use your existing ${authProviderLabel} auth profile for web_search.`,
         "No separate web-search key is required; API-key auth remains available as a fallback.",
-        `Docs: ${entry.docsUrl ?? WEB_SEARCH_DOCS_URL}`,
       ].join("\n"),
       "Web search",
     );
@@ -703,7 +691,6 @@ export async function runSearchSetupFlow(
         "Secret references enabled — LanFu will store a reference instead of the API key.",
         `Env var: ${ref.id}${envAvailable ? " (detected)" : ""}.`,
         ...(envAvailable ? [] : [`Set ${ref.id} in the Gateway environment.`]),
-        "Docs: https://docs.openclaw.ai/tools/web",
       ].join("\n"),
       "Web search",
     );
@@ -738,7 +725,6 @@ export async function runSearchSetupFlow(
     [
       `No ${credentialLabel} stored — web_search won't work until a key is available.`,
       `Get your key at: ${entry.signupUrl}`,
-      "Docs: https://docs.openclaw.ai/tools/web",
     ].join("\n"),
     "Web search",
   );

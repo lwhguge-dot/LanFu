@@ -30,7 +30,6 @@ describe("device pairing dialog", () => {
         onAccessChange: vi.fn(),
         onClose: vi.fn(),
         onManageDevices: vi.fn(),
-        onGetApps: vi.fn(),
       }),
       container,
     );
@@ -67,7 +66,6 @@ describe("device pairing dialog", () => {
         onAccessChange: vi.fn(),
         onClose: vi.fn(),
         onManageDevices: vi.fn(),
-        onGetApps: vi.fn(),
       }),
       container,
     );

@@ -7,10 +7,7 @@ import { registerMatrixProfileCommands } from "./cli-profile.js";
 import { registerMatrixVerificationCommands } from "./cli-verification.js";
 
 export function registerMatrixCli(params: { program: Command }): void {
-  const root = params.program
-    .command("matrix")
-    .description("Matrix channel utilities")
-    .addHelpText("after", () => "\nDocs: https://docs.openclaw.ai/channels/matrix\n");
+  const root = params.program.command("matrix").description("Matrix channel utilities");
 
   registerMatrixAccountCommands(root);
   registerMatrixProfileCommands(root);

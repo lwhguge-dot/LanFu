@@ -1,5 +1,6 @@
 // CLI startup presentation and config-before-plugin bootstrap.
 import type { ConfigFileSnapshot } from "../config/types.js";
+import { ensureLanFuStateMigration } from "../infra/lanfu-state-migration.js";
 import { routeLogsToStderr } from "../logging/console.js";
 import type { RuntimeEnv } from "../runtime.js";
 import { createLazyImportLoader } from "../shared/lazy-promise.js";
@@ -63,6 +64,16 @@ export async function ensureCliExecutionBootstrap(params: {
     skipPristineCoreStateMigrations,
     skipPristineStartupStateMigrations,
   } = params;
+  const stateMigration = ensureLanFuStateMigration();
+  const { pinRuntimePaths } = await import("../config/paths.js");
+  pinRuntimePaths(process.env);
+  if (stateMigration.status === "migrated" || stateMigration.status === "both-exist") {
+    runtime.log(
+      stateMigration.status === "migrated"
+        ? `LanFu migrated legacy state to ${stateMigration.stateDir}; backup kept at ${stateMigration.backupDir}.`
+        : stateMigration.warning,
+    );
+  }
   const { suppressDoctorStdout, pluginRegistry } = startupPolicy;
   const loadPlugins = params.loadPlugins ?? startupPolicy.loadPlugins;
   const skipConfigGuard = params.skipConfigGuard ?? startupPolicy.skipConfigGuard;

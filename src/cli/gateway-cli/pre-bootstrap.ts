@@ -10,6 +10,7 @@ import { GATEWAY_CONFIG_SELECTION_ENV_KEYS } from "../../config/gateway-env-sele
 import { CONFIG_AUDIT_STORE_LABEL } from "../../config/io.audit.js";
 import { describeConfigSnapshotInputChange } from "../../config/snapshot-inputs.js";
 import type { ConfigFileSnapshot } from "../../config/types.js";
+import { ensureLanFuStateMigration } from "../../infra/lanfu-state-migration.js";
 import { ExitError, type RuntimeEnv } from "../../runtime.js";
 import { withArtifactPreservingStateReads } from "../../state/openclaw-state-db-readonly.js";
 import { formatCliCommand } from "../command-format.js";
@@ -75,6 +76,7 @@ export function getGatewayStartGuardErrors(params: {
 }
 
 async function pinGatewayRunRuntimePaths(): Promise<void> {
+  ensureLanFuStateMigration();
   const [{ pinRuntimePaths }, { pinConfigDir }] = await Promise.all([
     import("../../config/paths.js"),
     import("../../utils.js"),

@@ -23,24 +23,8 @@ import {
 
 // External rows of the footer identity menu. Docs-first: public docs pages over
 // raw GitHub, matching the ClawSweeper docs-link policy for user-facing copy.
-const IDENTITY_MENU_LINKS: ReadonlyArray<{
-  href: string;
-  icon: IconName;
-  label: () => string;
-}> = [
-  { href: "https://docs.openclaw.ai", icon: "book", label: () => t("common.docs") },
-  {
-    href: "https://docs.openclaw.ai/help",
-    icon: "messageSquare",
-    label: () => t("agentChip.getHelp"),
-  },
-  { href: "https://discord.gg/clawd", icon: "users", label: () => t("agentChip.discord") },
-  {
-    href: "https://docs.openclaw.ai/releases",
-    icon: "scrollText",
-    label: () => t("agentChip.viewChangelog"),
-  },
-];
+const IDENTITY_MENU_LINKS: ReadonlyArray<{ href: string; icon: IconName; label: () => string }> =
+  [];
 
 const AGENT_VALUE_PREFIX = "agent:";
 export const COMMAND_VALUE_PREFIX = "command:";

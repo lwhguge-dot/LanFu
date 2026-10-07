@@ -6,15 +6,12 @@ import { renderPluginsHubTabs, type PluginsHubTab } from "./plugins-hub.ts";
 const HUB_COPY = {
   plugins: {
     route: "plugins",
-    docsUrl: "https://docs.openclaw.ai/plugins/manage-plugins",
   },
   skills: {
     route: "skills",
-    docsUrl: "https://docs.openclaw.ai/tools/skills",
   },
   "skill-workshop": {
     route: "skill-workshop",
-    docsUrl: "https://docs.openclaw.ai/tools/skill-workshop",
   },
 } as const;
 
@@ -36,9 +33,7 @@ export function renderPluginsHubHeader(props: PluginsHubHeaderProps): TemplateRe
     >
       <div class="hub-page-header__title">
         <h1 class="page-title">${titleForRoute(copy.route)}</h1>
-        <div class="page-subtitle">
-          ${subtitleForRoute(copy.route)} ${renderLearnMoreLink(copy.docsUrl)}
-        </div>
+        <div class="page-subtitle">${subtitleForRoute(copy.route)} ${renderLearnMoreLink()}</div>
       </div>
       <div class="hub-page-header__tabs">
         ${renderPluginsHubTabs({ active: props.active, onSelect: props.onSelect })}

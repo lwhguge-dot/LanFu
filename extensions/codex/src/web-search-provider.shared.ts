@@ -13,7 +13,6 @@ export function createCodexWebSearchProviderBase(): Omit<WebSearchProviderPlugin
     envVars: [],
     placeholder: "(uses Codex sign-in)",
     signupUrl: "https://chatgpt.com/codex",
-    docsUrl: "https://docs.openclaw.ai/tools/web",
     autoDetectOrder: 900,
     credentialPath: "",
     ...createWebSearchProviderContractFields({

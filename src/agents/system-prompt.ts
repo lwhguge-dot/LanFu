@@ -510,23 +510,29 @@ function buildDocsSection(params: {
   if (params.isMinimal) {
     return [];
   }
+  const behaviorLine = docsPath
+    ? "LanFu behavior questions: inspect local docs first" +
+      (params.readToolName
+        ? " via " + params.readToolName + "/local search"
+        : " using available tools") +
+      ". AGENTS/project/workspace/profile/memory = instructions/user memory, not product design truth."
+    : "LanFu behavior questions: inspect local source and ask the operator when local guidance is insufficient. AGENTS/project/workspace/profile/memory = instructions/user memory, not product design truth.";
+  const configLine = params.hasGateway
+    ? "Config field: use gateway(config.schema.lookup) with an exact path only when that action is exposed by the tool schema. Otherwise inspect the local configuration source and schema."
+    : "Configuration guidance: inspect the local configuration source and schema.";
   const lines = [
     "## Documentation",
-    docsPath ? `Docs: ${docsPath}` : "Docs: https://docs.openclaw.ai",
-    docsPath ? "Mirror: https://docs.openclaw.ai" : undefined,
-    sourcePath ? `Source: ${sourcePath}` : "Source: https://github.com/openclaw/openclaw",
-    docsPath
-      ? `LanFu behavior questions: docs first${params.readToolName ? ` via \`${params.readToolName}\`/local search` : " using available tools"}. AGENTS/project/workspace/profile/memory = instructions/user memory, not product design truth.`
-      : "LanFu behavior questions: docs mirror first when web exists. AGENTS/project/workspace/profile/memory = instructions/user memory, not product design truth.",
-    params.hasGateway
-      ? "Config field: use `gateway(config.schema.lookup)` with an exact path only when that action is exposed by the tool schema. Otherwise use `docs/gateway/configuration.md` and `docs/gateway/configuration-reference.md`."
-      : "Configuration docs: `docs/gateway/configuration.md`, `docs/gateway/configuration-reference.md`.",
+    docsPath ? `Local docs: ${docsPath}` : "Local documentation unavailable.",
+    sourcePath ? `Local source: ${sourcePath}` : undefined,
+    behaviorLine,
+    configLine,
     sourcePath
-      ? "If docs are silent/stale, say so and inspect local source."
-      : "If docs are silent/stale, say so and inspect GitHub source.",
-    "Diagnosis: run `openclaw status` when possible; ask only if blocked.",
+      ? "If local guidance is silent or stale, inspect the local source."
+      : "If local guidance is silent or stale, report that limitation and ask the operator.",
+    "Diagnosis: run lanfu status when possible; ask only if blocked.",
     "",
   ];
+
   return lines.filter((line): line is string => line !== undefined);
 }
 

@@ -26,10 +26,7 @@ function createOverview(gatewayReachable: boolean): SystemAgentOverview {
       source: "test",
       reachable: gatewayReachable,
     },
-    references: {
-      docsUrl: "https://docs.openclaw.ai",
-      sourceUrl: "https://github.com/openclaw/openclaw",
-    },
+    references: {},
   };
 }
 

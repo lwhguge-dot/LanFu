@@ -26,7 +26,6 @@ export class WebSearchProviderError extends Error {
       result: {
         error: "provider_error",
         message: `Search failed${status ? ` (HTTP ${status})` : ""}. ${hint}`,
-        docs: "https://docs.openclaw.ai/tools/web",
       },
     };
   }

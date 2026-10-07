@@ -30,7 +30,6 @@ export const SIDEBAR_NAV_ROUTES = [
   "activity",
   "meetings",
   "plugins",
-  "apps",
   "portals",
 ] as const satisfies readonly NavigationRouteId[];
 
@@ -336,7 +335,6 @@ const NAVIGATION_PRESENTATION: Record<NavigationRouteId, NavigationPresentation>
   agents: navigationPresentation("bot", "agents"),
   activity: navigationPresentation("activity", "activity"),
   meetings: navigationPresentation("book", "meetings"),
-  apps: navigationPresentation("layoutGrid", "apps"),
   portals: navigationPresentation("monitor", "portals"),
   approvals: navigationPresentation("badgeCheck", "approvals"),
   workboard: navigationPresentation("kanban", "workboard"),

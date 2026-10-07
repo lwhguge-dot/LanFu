@@ -241,11 +241,6 @@ describe("sidebar entries", () => {
     expect(normalizeSidebarEntries(["route:nodes", "route:usage"])).toEqual(["route:usage"]);
   });
 
-  it("keeps the apps promo page available in More", () => {
-    expect(sidebarMoreRoutes(DEFAULT_SIDEBAR_ENTRIES)).toContain("apps");
-    expect(isSettingsNavigationRoute("apps")).toBe(false);
-  });
-
   it("keeps Portals available in More", () => {
     expect(sidebarMoreRoutes(DEFAULT_SIDEBAR_ENTRIES)).toContain("portals");
     expect(isSettingsNavigationRoute("portals")).toBe(false);

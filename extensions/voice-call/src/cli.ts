@@ -144,10 +144,7 @@ export function registerVoiceCallCli(params: {
       setVoiceCallStateRuntime({ state: stateRuntime });
     }
   };
-  const root = program
-    .command("voicecall")
-    .description("Voice call utilities")
-    .addHelpText("after", () => `\nDocs: https://docs.openclaw.ai/cli/voicecall\n`);
+  const root = program.command("voicecall").description("Voice call utilities");
 
   root
     .command("setup")

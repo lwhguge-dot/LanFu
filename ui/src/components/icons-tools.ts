@@ -22,6 +22,13 @@ export function strokeIcon(body: SVGTemplateResult): TemplateResult {
   `;
 }
 
+const lanfuMarkIcon = html`<img
+  src="/lanfu-mark.png"
+  alt=""
+  aria-hidden="true"
+  style="display:block;width:1em;height:1em;object-fit:contain"
+/>`;
+
 export const toolIcons = {
   bookOpenText: strokeIcon(svg`<path d="M12 5v16M16 13h2M16 9h2" />
     <path d="M20.001 19A2 2 0 0022 17V5a2 2 0 00-1.999-2L16 3.002A5 5 0 0012 5a5 5 0 00-4-2H4a2 2 0 00-2 2v12a2 2 0 001.999 2H8a5 5 0 014 2 5 5 0 014-2z" />
@@ -158,41 +165,12 @@ export const toolIcons = {
   listTree: strokeIcon(
     svg`<path d="M21 12h-8M21 6H8M21 18h-8M3 6v4c0 1.1.9 2 2 2h3M3 10v6c0 1.1.9 2 2 2h3" />`,
   ),
-  claw: strokeIcon(svg` <path
-      d="M8.2 10 A5.2 5.2 0 1 0 8.2 20.4 A5.2 5.2 0 0 0 8.2 10 Z M10.2 20 C14.5 20.8 19 18.6 22.3 13.2 C21 12.9 19.7 12.7 18.4 12.8 L17.5 14.6 L16 12.9 L14.3 14.5 L13.5 13 L11.5 14.2 Z"
-    />
-    <path
-      class="claw-icon__jaw"
-      d="M5.6 12.2 C5.2 5.6 10.4 1.4 15.6 2 C19.4 2.6 21.8 5.2 22.6 8.2 C20.9 7.7 19.2 7.6 17.6 7.9 L16.9 6.3 L15.2 8.5 C13.6 9.4 12.2 10.9 11.6 12.4 L6.8 13 Z"
-    />`),
-  spark: strokeIcon(svg` <path
-    d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"
-  />`),
+  claw: lanfuMarkIcon,
+  /* legacy key retained for plugin/UI callers; it now uses the approved LanFu mark. */
+  lobster: lanfuMarkIcon,
+  spark: strokeIcon(svg` <path d="M12 2 14.7 9.3 22 12l-7.3 2.7L12 22l-2.7-7.3L2 12l7.3-2.7Z" />`),
   // Theme tokens brighten the gradient in dark mode; var() needs style attributes.
-  // LanFu bluebird; shapes mirror ui/src/components/mascot-canvas.ts.
-  lobster: html`
-    <svg viewBox="0 0 120 120" fill="none">
-      <defs>
-        <linearGradient id="lob-g" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" style="stop-color: var(--lobster-icon-body, #3b82f6)" />
-          <stop offset="100%" style="stop-color: var(--lobster-icon-shade, #1e40af)" />
-        </linearGradient>
-      </defs>
-      <path
-        d="M60 12C42 12 28 28 26 48C24 70 30 90 42 100L42 110L52 110L52 100C52 100 56 102 60 102C64 102 68 100 68 100L68 110L78 110L78 100C90 90 96 70 94 48C92 28 78 12 60 12Z"
-        fill="url(#lob-g)"
-      />
-      <path d="M33 46C22 52 16 68 21 82C24 88 32 88 34 80C37 70 38 58 33 46Z" fill="url(#lob-g)" />
-      <path d="M87 46C98 52 104 68 99 82C96 88 88 88 86 80C83 70 82 58 87 46Z" fill="url(#lob-g)" />
-      <path d="M50 14Q38 4 32 9" style="stroke: #93c5fd" stroke-width="3" stroke-linecap="round" />
-      <path d="M70 14Q82 4 88 9" style="stroke: #93c5fd" stroke-width="3" stroke-linecap="round" />
-      <path d="M60 42L66 48L60 53L54 48Z" fill="#f2a833" />
-      <circle cx="45" cy="35" r="6" style="fill: var(--lobster-icon-eye, #050810)" />
-      <circle cx="75" cy="35" r="6" style="fill: var(--lobster-icon-eye, #050810)" />
-      <circle cx="46" cy="34" r="2.5" fill="#00e5cc" />
-      <circle cx="76" cy="34" r="2.5" fill="#00e5cc" />
-    </svg>
-  `,
+  // The approved LanFu logo is used for legacy mascot icon keys.
   circleUser: strokeIcon(svg` <path d="M18 20a6 6 0 0 0-12 0" />
     <circle cx="12" cy="10" r="4" />
     <circle cx="12" cy="12" r="10" />`),

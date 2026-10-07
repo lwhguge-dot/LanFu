@@ -56,10 +56,7 @@ const overview: SystemAgentOverview = {
     reachable: false,
     error: "offline",
   },
-  references: {
-    docsUrl: "https://docs.openclaw.ai",
-    sourceUrl: "https://github.com/openclaw/openclaw",
-  },
+  references: {},
 };
 
 const verifiedConfig = {

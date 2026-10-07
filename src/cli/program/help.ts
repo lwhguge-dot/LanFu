@@ -1,6 +1,5 @@
 // Root Commander help, global options, banner, version, and example formatting.
 import type { Command } from "commander";
-import { formatDocsLink } from "../../../packages/terminal-core/src/links.js";
 import { isRich, theme } from "../../../packages/terminal-core/src/theme.js";
 import { resolveCommitHash } from "../../infra/git-commit.js";
 import { formatConsoleDiagnosticBlock } from "../../logging/json-console-line.js";
@@ -154,7 +153,6 @@ export function configureProgramHelp(
     if (command !== program) {
       return "";
     }
-    const docs = formatDocsLink("/cli", "docs.openclaw.ai/cli");
-    return `\n${theme.heading("Examples:")}\n${fmtExamples}\n\n${theme.muted("Docs:")} ${docs}\n`;
+    return `\n${theme.heading("Examples:")}\n${fmtExamples}\n`;
   });
 }

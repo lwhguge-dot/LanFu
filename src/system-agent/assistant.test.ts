@@ -31,10 +31,7 @@ function overview(overrides: Partial<SystemAgentOverview["tools"]> = {}): System
       source: "local loopback",
       reachable: false,
     },
-    references: {
-      docsUrl: "https://docs.openclaw.ai",
-      sourceUrl: "https://github.com/openclaw/openclaw",
-    },
+    references: {},
   };
 }
 
@@ -125,9 +122,7 @@ describe("OpenClaw assistant", () => {
         defaultModel: "openai/gpt-5.5",
         references: {
           docsPath: "/tmp/openclaw/docs",
-          docsUrl: "https://docs.openclaw.ai",
           sourcePath: "/tmp/openclaw",
-          sourceUrl: "https://github.com/openclaw/openclaw",
         },
       },
     });
@@ -136,8 +131,8 @@ describe("OpenClaw assistant", () => {
     expect(prompt).toContain("Default model: openai/gpt-5.5");
     expect(prompt).toContain("id=main, name=Main, workspace=/tmp/main");
     expect(prompt).toContain("OpenAI API key: found");
-    expect(prompt).toContain("OpenClaw docs: /tmp/openclaw/docs");
-    expect(prompt).toContain("OpenClaw source: /tmp/openclaw");
+    expect(prompt).toContain("LanFu local docs: /tmp/openclaw/docs");
+    expect(prompt).toContain("LanFu source: /tmp/openclaw");
   });
 
   it("keeps truncated conversation history valid at a UTF-16 boundary", () => {

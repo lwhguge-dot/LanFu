@@ -1,11 +1,7 @@
 import { resolveAmbientOwnerAgentId } from "../agents/agent-scope-config.js";
 // OpenClaw overview gathers config, agent, tool, docs, source, and gateway status.
 import { listAgentEntries } from "../agents/agent-scope.js";
-import {
-  OPENCLAW_DOCS_URL,
-  OPENCLAW_SOURCE_URL,
-  resolveOpenClawReferencePaths,
-} from "../agents/docs-path.js";
+import { resolveOpenClawReferencePaths } from "../agents/docs-path.js";
 import { readUtilityModelSetting } from "../agents/utility-model-setting.js";
 import {
   resolveConfiguredPrimaryModelForAgent,
@@ -63,9 +59,7 @@ export type SystemAgentOverview = {
   };
   references: {
     docsPath?: string;
-    docsUrl: string;
     sourcePath?: string;
-    sourceUrl: string;
   };
 };
 
@@ -227,9 +221,7 @@ export async function loadSystemAgentOverview(
     },
     references: {
       docsPath: references.docsPath ?? undefined,
-      docsUrl: OPENCLAW_DOCS_URL,
       sourcePath: references.sourcePath ?? undefined,
-      sourceUrl: OPENCLAW_SOURCE_URL,
     },
   };
 }
@@ -287,10 +279,10 @@ export function formatSystemAgentOverview(overview: SystemAgentOverview): string
         ? `conversation runs on ${overview.defaultModel ?? overview.setupModel}`
         : "inference unavailable; run openclaw onboard before starting LanFu"
     }`,
-    `Docs: ${overview.references.docsPath ?? overview.references.docsUrl}`,
-    overview.references.sourcePath
-      ? `Source: ${overview.references.sourcePath}`
-      : `Source: ${overview.references.sourceUrl}`,
+    overview.references.docsPath
+      ? `Local docs: ${overview.references.docsPath}`
+      : "Local docs: unavailable",
+    overview.references.sourcePath ? `Source: ${overview.references.sourcePath}` : undefined,
     `Gateway: ${overview.gateway.reachable ? "reachable" : "not reachable"} (${overview.gateway.url}, ${overview.gateway.source})`,
     overview.gateway.error ? `Gateway note: ${overview.gateway.error}` : undefined,
     `Next: ${recommendSystemAgentNextStep(overview)}`,

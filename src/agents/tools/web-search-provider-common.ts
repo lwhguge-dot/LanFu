@@ -245,15 +245,15 @@ export function parseIsoDateRange(params: {
   | {
       error: "invalid_date" | "invalid_date_range";
       message: string;
-      docs: string;
+      docs?: string;
     } {
-  const docs = params.docs ?? "https://docs.openclaw.ai/tools/web";
+  const docs = params.docs;
   const dateAfter = params.rawDateAfter ? normalizeToIsoDate(params.rawDateAfter) : undefined;
   if (params.rawDateAfter && !dateAfter) {
     return {
       error: "invalid_date",
       message: params.invalidDateAfterMessage,
-      docs,
+      ...(docs ? { docs } : {}),
     };
   }
 
@@ -262,7 +262,7 @@ export function parseIsoDateRange(params: {
     return {
       error: "invalid_date",
       message: params.invalidDateBeforeMessage,
-      docs,
+      ...(docs ? { docs } : {}),
     };
   }
 
@@ -270,7 +270,7 @@ export function parseIsoDateRange(params: {
     return {
       error: "invalid_date_range",
       message: params.invalidDateRangeMessage,
-      docs,
+      ...(docs ? { docs } : {}),
     };
   }
 
@@ -338,9 +338,9 @@ export function parseWebSearchTimeFilters<Provider extends WebSearchFreshnessPro
         | "invalid_date_range"
         | "conflicting_time_filters";
       message: string;
-      docs: string;
+      docs?: string;
     } {
-  const docs = params.docs ?? "https://docs.openclaw.ai/tools/web";
+  const docs = params.docs;
   const freshness = params.rawFreshness
     ? normalizeFreshness(params.rawFreshness, params.freshnessProvider)
     : undefined;
@@ -348,7 +348,7 @@ export function parseWebSearchTimeFilters<Provider extends WebSearchFreshnessPro
     return {
       error: "invalid_freshness",
       message: params.invalidFreshnessMessage,
-      docs,
+      ...(docs ? { docs } : {}),
     };
   }
 
@@ -358,7 +358,7 @@ export function parseWebSearchTimeFilters<Provider extends WebSearchFreshnessPro
       message:
         params.conflictingTimeFiltersMessage ??
         "freshness and date_after/date_before cannot be used together. Use either freshness (day/week/month/year) or a date range (date_after/date_before), not both.",
-      docs,
+      ...(docs ? { docs } : {}),
     };
   }
 
@@ -368,7 +368,7 @@ export function parseWebSearchTimeFilters<Provider extends WebSearchFreshnessPro
     invalidDateAfterMessage: params.invalidDateAfterMessage,
     invalidDateBeforeMessage: params.invalidDateBeforeMessage,
     invalidDateRangeMessage: params.invalidDateRangeMessage,
-    docs,
+    ...(docs ? { docs } : {}),
   });
   if ("error" in parsedDateRange) {
     return parsedDateRange;
@@ -438,12 +438,12 @@ function describeUnsupportedSearchFilter(name: UnsupportedWebSearchFilterName): 
 export function buildUnsupportedSearchFilterResponse(
   params: Record<string, unknown>,
   provider: string,
-  docs = "https://docs.openclaw.ai/tools/web",
+  docs?: string,
 ):
   | {
       error: string;
       message: string;
-      docs: string;
+      docs?: string;
     }
   | undefined {
   const unsupported = readUnsupportedSearchFilter(params);
@@ -460,6 +460,6 @@ export function buildUnsupportedSearchFilterResponse(
       ? "unsupported_date_filter"
       : `unsupported_${unsupported}`,
     message: `${label} is not supported by the ${provider} provider. Only Brave and Perplexity support ${supportedLabel}.`,
-    docs,
+    ...(docs ? { docs } : {}),
   };
 }
