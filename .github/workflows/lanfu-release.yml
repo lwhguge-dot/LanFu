@@ -74,7 +74,11 @@ jobs:
       # dist holds tens of thousands of files; upload-artifact v4 runs out of
       # heap while hashing them, so ship one archive instead.
       - name: Archive dist
-        run: tar -czf dist.tar.gz dist packages/ai/dist
+        run: |
+          # The build leaves symlinked node_modules under dist/extensions/*; they point
+          # back into the repository store, cannot survive a Windows extraction, and are
+          # redundant because the shipped app resolves plugins from its flat node_modules.
+          tar -czf dist.tar.gz --exclude='*/node_modules' dist packages/ai/dist
       - uses: actions/upload-artifact@v4
         with:
           name: lanfu-dist
@@ -104,7 +108,9 @@ jobs:
           # leaves dist half extracted; 7-Zip handles long paths.
           $sevenZip = Join-Path ${env:ProgramFiles} '7-Zip\7z.exe'
           if (-not (Test-Path $sevenZip)) { $sevenZip = '7z' }
-          # PowerShell splits an unquoted -o. into the switch -o.
+          # 7-Zip writes warnings to stderr, which GitHub's pwsh turns into a
+          # terminating error under its default ErrorActionPreference.
+          $ErrorActionPreference = 'Continue'
           & $sevenZip x dist.tar.gz "-o." -y | Out-Null
           & $sevenZip x dist.tar "-o." -y | Out-Null
           Remove-Item dist.tar, dist.tar.gz -Force -ErrorAction SilentlyContinue
