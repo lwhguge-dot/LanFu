@@ -28,7 +28,8 @@ permissions:
   contents: write
 
 concurrency:
-  group: lanfu-release-${{ env.LANFU_VERSION }}
+  # concurrency does not accept the env context; github.ref is always available.
+  group: lanfu-release-${{ github.ref }}
   cancel-in-progress: false
 
 env:
