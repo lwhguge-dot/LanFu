@@ -1,5 +1,10 @@
 name: CodeQL
 
+
+# Automatic runs are disabled: CodeQL needs GitHub Advanced Security on private
+# repositories, so the upload always failed on push. Re-enable push/schedule once
+# the repository has GHAS; meanwhile this runs on demand only.
+# (pull_request and workflow_dispatch remain.)
 on:
   workflow_dispatch:
     inputs:
@@ -38,11 +43,6 @@ on:
       - "packages/**"
       - "scripts/**"
       - "src/**"
-  push:
-    branches:
-      - main
-  schedule:
-    - cron: "0 6 * * *"
 
 concurrency:
   group: codeql-${{ github.workflow }}-${{ github.event_name == 'workflow_dispatch' && format('manual-{0}', github.run_id) || github.event_name == 'pull_request' && format('pr-{0}', github.event.pull_request.number) || format('ref-{0}', github.ref) }}
