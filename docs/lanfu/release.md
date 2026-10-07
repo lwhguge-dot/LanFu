@@ -13,10 +13,14 @@
 
 ## 发布流程
 
-1. 在仓库的 Actions → LanFu Release → Run workflow 里填 version（例如 0.1.0），publish 选择是否同时创建 Release。
-2. 流水线会：装依赖 → pnpm build → 用扁平布局物化生产依赖 → 下载固定版本 Node 24.19.0 → 组装 release root → Inno Setup 产出 LanFu-Setup-x64.exe → 在 runner 上静默安装并启动网关做冒烟验证（要求 HTTP 200）→ 计算 SHA256 → 上传产物。
+1. 发版方式是**推 tag**（推荐）：
+   ```bash
+   git tag lanfu-v0.1.1 && git push github lanfu-v0.1.1
+   ```
+   版本号从 tag 名推导，安装器、deb、Release 全用它，保证一致。也可以到 Actions → LanFu Release → Run workflow 手动填 version。
+2. 流水线分两段：`build` 任务产出 dist 并打包成 artifact；`windows-exe` / `linux-deb` 从**全新 checkout**开始，切到扁平布局装生产依赖（避免在已有 node_modules 上原地转换），下载 dist、捆绑固定版本 Node 24.19.0、用 Inno Setup 出 LanFu-Setup-x64.exe，然后**在 runner 上静默安装并等待安装器自己启动的网关返回 HTTP 200**——这一步不通过就不出包。
 3. Linux 任务同样产出 lanfu_<version>_amd64.deb。
-4. publish 为真时创建 draft Release（标签 lanfu-v<version>），由人工确认后再发布。
+4. 创建 **draft** Release（标签 lanfu-v<version>，含 exe / deb / SHA256SUMS.txt），在 Releases 页面点 **Publish release** 后员工才能下载。
 
 ## 发布产物
 
