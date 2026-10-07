@@ -138,7 +138,10 @@ jobs:
           if ($LASTEXITCODE -ge 8) { throw "robocopy dist failed with exit code $LASTEXITCODE" }
           $global:LASTEXITCODE = 0
           Copy-Item node_modules -Destination $app -Recurse
-          foreach ($f in @("package.json","openclaw.mjs","cli-root-options.mjs","LICENSE","THIRD_PARTY_NOTICES.md")) {
+          # The root .mjs files are runtime launchers (openclaw.mjs, node-host-launcher,
+          # node-runtime-*, gateway-*, cli-root-options), not build leftovers.
+          Copy-Item *.mjs -Destination $app
+          foreach ($f in @("package.json","LICENSE","THIRD_PARTY_NOTICES.md")) {
             if (Test-Path $f) { Copy-Item $f -Destination $app }
           }
           $ai = Join-Path $app "node_modules\@openclaw\ai"
@@ -247,7 +250,8 @@ jobs:
           mkdir -p release/app
           cp -r dist release/app/dist
           cp -r node_modules release/app/node_modules
-          for f in package.json openclaw.mjs cli-root-options.mjs LICENSE THIRD_PARTY_NOTICES.md; do [ -f "$f" ] && cp "$f" release/app/; done
+          cp *.mjs release/app/
+          for f in package.json LICENSE THIRD_PARTY_NOTICES.md; do [ -f "$f" ] && cp "$f" release/app/; done
           rm -rf release/app/node_modules/@openclaw/ai
           mkdir -p release/app/node_modules/@openclaw/ai
           cp -r packages/ai/dist release/app/node_modules/@openclaw/ai/dist
