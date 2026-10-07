@@ -1,0 +1,81 @@
+name: LanFu Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: LanFu version, for example 0.1.0
+        required: true
+        type: string
+      publish:
+        description: Publish the GitHub Release after artifact validation
+        required: true
+        default: false
+        type: boolean
+
+permissions:
+  contents: write
+
+concurrency:
+  group: lanfu-release-${{ inputs.version }}
+  cancel-in-progress: false
+
+jobs:
+  linux-deb:
+    name: Build Linux DEB
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 12.4.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24.19.0
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build:package
+      - name: Download fixed Node.js runtime
+        run: |
+          curl -fsSL https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-x64.tar.xz -o node.tar.xz
+          mkdir runtime
+          tar -xJf node.tar.xz --strip-components=1 -C runtime
+        shell: bash
+      - run: LANFU_NODE_RUNTIME_DIR="$PWD/runtime" node scripts/lanfu-release-manifest.mjs stage --platform linux --version "${{ inputs.version }}"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: lanfu-linux-${{ inputs.version }}
+          path: release-out/**
+
+  windows-exe:
+    name: Build Windows EXE
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 12.4.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24.19.0
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build:package
+      - run: choco install innosetup --no-progress -y
+      - name: Download fixed Node.js runtime
+        shell: pwsh
+        run: |
+          Invoke-WebRequest https://nodejs.org/dist/v24.19.0/node-v24.19.0-win-x64.zip -OutFile node.zip
+          Expand-Archive node.zip -DestinationPath .
+          Rename-Item node-v24.19.0-win-x64 runtime
+      - run: $env:LANFU_NODE_RUNTIME_DIR = "$pwd\\runtime"; node scripts/lanfu-release-manifest.mjs stage --platform windows --version "${{ inputs.version }}"\n\n首版产品发布。\n' '${{ inputs.version }}' > release-assets/RELEASE_NOTES.md
+      - uses: softprops/action-gh-release@v2
+        with:
+          tag_name: lanfu-v${{ inputs.version }}
+          name: LanFu ${{ inputs.version }}
+          draft: true
+          files: |
+            release-assets/**/*.exe
+            release-assets/**/*.deb
+            release-assets/SHA256SUMS.txt
+            release-assets/RELEASE_NOTES.md

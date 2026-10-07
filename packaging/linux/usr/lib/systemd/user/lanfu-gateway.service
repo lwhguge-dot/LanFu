@@ -1,0 +1,12 @@
+[Unit]
+Description=LanFu Gateway
+After=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/opt/lanfu/runtime/bin/node /opt/lanfu/app/openclaw.mjs gateway --port 18789
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=default.target
