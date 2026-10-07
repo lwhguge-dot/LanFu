@@ -181,7 +181,7 @@ jobs:
           $candidates = @(
             (Join-Path $env:LOCALAPPDATA "Programs\LanFu"),
             (Join-Path $env:ProgramFiles "LanFu"),
-            (Join-Path ${env:ProgramFiles(x86)} "LanFu"),
+            (Join-Path ${env:ProgramFiles(x86)} "LanFu")
           )
           $root = $candidates | Where-Object { Test-Path (Join-Path $_ "app\dist\index.js") } | Select-Object -First 1
           if (-not $root) { throw "installed app tree not found in any expected location" }
