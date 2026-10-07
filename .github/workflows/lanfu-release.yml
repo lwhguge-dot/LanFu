@@ -80,7 +80,12 @@ jobs:
           # takes effect; the --config.nodeLinker CLI flag is not reliable.
           $ws = Get-Content pnpm-workspace.yaml -Raw
           if ($ws -notmatch 'nodeLinker: isolated') { throw 'unexpected nodeLinker value' }
-          $ws.Replace('nodeLinker: isolated', 'nodeLinker: hoisted') | Set-Content pnpm-workspace.yaml -NoNewline
+          $ws = $ws.Replace('nodeLinker: isolated', 'nodeLinker: hoisted')
+          # --prod drops dev-only patches, which pnpm otherwise rejects.
+          if ($ws -notmatch 'allowUnusedPatches') { $ws = $ws + "`nallowUnusedPatches: true`n" }
+          Set-Content pnpm-workspace.yaml -Value $ws -NoNewline
+          # pnpm refuses to change the modules layout while node_modules exists.
+          Remove-Item -Recurse -Force node_modules -ErrorAction SilentlyContinue
       - name: Install flat production dependencies
         run: pnpm install --prod --frozen-lockfile --ignore-scripts
       - name: Stage the application tree
@@ -183,6 +188,8 @@ jobs:
         run: |
           sed -i 's/^nodeLinker: isolated$/nodeLinker: hoisted/' pnpm-workspace.yaml
           grep -q 'nodeLinker: hoisted' pnpm-workspace.yaml
+          grep -q 'allowUnusedPatches' pnpm-workspace.yaml || echo 'allowUnusedPatches: true' >> pnpm-workspace.yaml
+          rm -rf node_modules
       - name: Install flat production dependencies
         run: pnpm install --prod --frozen-lockfile --ignore-scripts
       - name: Stage the application tree
