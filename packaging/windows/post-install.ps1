@@ -15,7 +15,7 @@ if (-not (Test-Path $configPath)) {
   $token = ($bytes | ForEach-Object { $_.ToString("x2") }) -join ""
   $config = [ordered]@{
     gateway = [ordered]@{ mode = "local"; bind = "loopback"; auth = [ordered]@{ mode = "token"; token = $token } }
-    models = [ordered]@{ mode = "merge"; providers = [ordered]@{ vllm = [ordered]@{ baseUrl = $ModelBaseUrl; api = "openai-completions"; apiKey = "lanfu" } } }
+    models = [ordered]@{ mode = "merge"; providers = [ordered]@{ vllm = [ordered]@{ baseUrl = $ModelBaseUrl; api = "openai-completions"; apiKey = "sk-local" } } }
     agents = [ordered]@{ defaults = [ordered]@{ model = $DefaultModel } }
     update = [ordered]@{ auto = [ordered]@{ enabled = $false } }
   }

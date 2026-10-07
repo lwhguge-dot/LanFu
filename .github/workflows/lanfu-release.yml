@@ -1,14 +1,21 @@
+# LanFu release pipeline.
+#
+# Produces the Windows installer (and the Linux package) from a clean checkout.
+# The dependency tree is materialised FLAT (nodeLinker=hoisted) on purpose:
+# Inno Setup cannot preserve pnpm's symlinked layout, and pnpm's peer-encoded
+# .pnpm directory names exceed MAX_PATH on Windows. See
+# docs/lanfu/windows-packaging.md for the failures this avoids.
 name: LanFu Release
 
 on:
   workflow_dispatch:
     inputs:
       version:
-        description: LanFu version, for example 0.1.0
+        description: "LanFu product version, for example 0.1.0"
         required: true
         type: string
       publish:
-        description: Publish the GitHub Release after artifact validation
+        description: "Create a draft GitHub Release with the built assets"
         required: true
         default: false
         type: boolean
@@ -20,62 +27,192 @@ concurrency:
   group: lanfu-release-${{ inputs.version }}
   cancel-in-progress: false
 
+env:
+  NODE_RUNTIME_VERSION: 24.19.0
+  PNPM_VERSION: 12.4.0
+
 jobs:
-  linux-deb:
-    name: Build Linux DEB
-    runs-on: ubuntu-latest
+  windows-exe:
+    name: Windows installer
+    runs-on: windows-latest
+    timeout-minutes: 90
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
         with:
-          version: 12.4.0
+          version: ${{ env.PNPM_VERSION }}
       - uses: actions/setup-node@v4
         with:
-          node-version: 24.19.0
+          node-version: ${{ env.NODE_RUNTIME_VERSION }}
+          cache: pnpm
+      # Build with the repository's own (isolated) layout.
+      - name: Install workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build dist and Control UI
+        run: pnpm build
+      # Re-install production dependencies in a flat layout for shipping.
+      - name: Materialise flat production dependencies
+        run: pnpm install --prod --frozen-lockfile --ignore-scripts --config.nodeLinker=hoisted
+      - name: Stage the application tree
+        shell: pwsh
+        run: |
+          $app = "release\app"
+          New-Item -ItemType Directory -Force -Path $app | Out-Null
+          Copy-Item dist -Destination $app -Recurse
+          Copy-Item node_modules -Destination $app -Recurse
+          foreach ($f in @("package.json","openclaw.mjs","cli-root-options.mjs","gateway-run-argv.mjs","gateway-shutdown-budget.mjs","node-sqlite.mjs","node-version.mjs","node-runtime-update.mjs","node-runtime-recovery.mjs","node-host-launcher.mjs","LICENSE","THIRD_PARTY_NOTICES.md")) {
+            if (Test-Path $f) { Copy-Item $f -Destination $app }
+          }
+          # Workspace packages are linked, not copied; materialise the ones the
+          # runtime resolves through node_modules.
+          $ai = Join-Path $app "node_modules\@openclaw\ai"
+          if (Test-Path $ai) { Remove-Item -Recurse -Force $ai }
+          New-Item -ItemType Directory -Force -Path $ai | Out-Null
+          Copy-Item "packages\ai\dist" -Destination $ai -Recurse
+          Copy-Item "packages\ai\package.json" -Destination $ai
+          # Optional coding-agent SDKs are not part of the employee first release;
+          # dropping them removes ~1.2 GB from the installer. Re-add to ship them.
+          foreach ($p in @("@openai\codex-win32-x64","@anthropic-ai\claude-agent-sdk-win32-x64","@github\copilot-sdk-win32-x64","onnxruntime-node","@lancedb\lancedb-win32-x64-msvc")) {
+            $target = Join-Path $app ("node_modules\" + $p)
+            if (Test-Path $target) { Remove-Item -Recurse -Force $target }
+          }
+      - name: Download the pinned Node runtime
+        shell: pwsh
+        run: |
+          Invoke-WebRequest "https://nodejs.org/dist/v${{ env.NODE_RUNTIME_VERSION }}/node-v${{ env.NODE_RUNTIME_VERSION }}-win-x64.zip" -OutFile node.zip
+          Expand-Archive node.zip -DestinationPath node-tmp
+          Move-Item "node-tmp\node-v${{ env.NODE_RUNTIME_VERSION }}-win-x64" "release\runtime"
+      - name: Assemble the release root
+        shell: pwsh
+        run: |
+          Copy-Item packaging\windows\lanfu.cmd release\
+          Copy-Item packaging\windows\post-install.ps1 release\
+          Copy-Item packaging\windows\uninstall.ps1 release\
+          Copy-Item packaging\windows\lanfu.ico release\
+          Copy-Item packaging\windows\LanFu.iss release\
+      - name: Build the installer
+        shell: pwsh
+        run: |
+          $iscc = "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe"
+          if (-not (Test-Path $iscc)) { choco install innosetup --no-progress -y; $iscc = "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe" }
+          & $iscc "release\LanFu.iss"
+          New-Item -ItemType Directory -Force -Path release-assets | Out-Null
+          Copy-Item "release\out\LanFu-Setup-x64.exe" release-assets\
+      - name: Smoke test the installer on the runner
+        shell: pwsh
+        run: |
+          $setup = "release-assets\LanFu-Setup-x64.exe"
+          Start-Process -FilePath $setup -ArgumentList @("/VERYSILENT","/SUPPRESSMSGBOXES","/NORESTART","/NOCANCEL") -Wait
+          $root = Join-Path $env:LOCALAPPDATA "Programs\LanFu"
+          if (-not (Test-Path (Join-Path $root "app\dist\index.js"))) { throw "installed app tree missing" }
+          $node = Join-Path $root "runtime\node.exe"
+          $entry = Join-Path $root "app\openclaw.mjs"
+          $proc = Start-Process -FilePath $node -ArgumentList @($entry, "gateway", "--port", "18789") -WorkingDirectory (Join-Path $root "app") -PassThru
+          $ready = $false
+          for ($i = 0; $i -lt 30; $i++) {
+            Start-Sleep -Seconds 3
+            try { $r = Invoke-WebRequest "http://127.0.0.1:18789/" -UseBasicParsing -TimeoutSec 4; if ($r.StatusCode -eq 200) { $ready = $true; break } } catch { }
+          }
+          if (-not $ready) { throw "installed gateway did not become ready" }
+          Write-Output "installed gateway answered HTTP 200"
+          Stop-Process -Id $proc.Id -Force -ErrorAction SilentlyContinue
+      - name: Checksums
+        shell: pwsh
+        run: |
+          $hash = (Get-FileHash "release-assets\LanFu-Setup-x64.exe" -Algorithm SHA256).Hash.ToLower()
+          "LanFu-Setup-x64.exe  $hash" | Set-Content release-assets\SHA256SUMS.txt
+          Get-Content release-assets\SHA256SUMS.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: lanfu-windows-${{ inputs.version }}
+          path: release-assets/**
+
+  linux-deb:
+    name: Linux package
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_RUNTIME_VERSION }}
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - run: pnpm build:package
-      - name: Download fixed Node.js runtime
+      - run: pnpm build
+      - run: pnpm install --prod --frozen-lockfile --ignore-scripts --config.nodeLinker=hoisted
+      - name: Stage the application tree
         run: |
-          curl -fsSL https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-x64.tar.xz -o node.tar.xz
-          mkdir runtime
-          tar -xJf node.tar.xz --strip-components=1 -C runtime
-        shell: bash
-      - run: LANFU_NODE_RUNTIME_DIR="$PWD/runtime" node scripts/lanfu-release-manifest.mjs stage --platform linux --version "${{ inputs.version }}"
+          mkdir -p release/app
+          cp -r dist release/app/dist
+          cp -r node_modules release/app/node_modules
+          for f in package.json openclaw.mjs cli-root-options.mjs gateway-run-argv.mjs gateway-shutdown-budget.mjs node-sqlite.mjs node-version.mjs node-runtime-update.mjs node-runtime-recovery.mjs node-host-launcher.mjs LICENSE THIRD_PARTY_NOTICES.md; do [ -f "$f" ] && cp "$f" release/app/; done
+          rm -rf release/app/node_modules/@openclaw/ai
+          mkdir -p release/app/node_modules/@openclaw/ai
+          cp -r packages/ai/dist release/app/node_modules/@openclaw/ai/dist
+          cp packages/ai/package.json release/app/node_modules/@openclaw/ai/package.json
+          for p in @openai/codex-linux-x64 @anthropic-ai/claude-agent-sdk-linux-x64 @github/copilot-sdk-linux-x64 onnxruntime-node @lancedb/lancedb-linux-x64-gnu; do rm -rf "release/app/node_modules/$p"; done
+      - name: Download the pinned Node runtime
+        run: |
+          curl -fsSL "https://nodejs.org/dist/v${{ env.NODE_RUNTIME_VERSION }}/node-v${{ env.NODE_RUNTIME_VERSION }}-linux-x64.tar.xz" -o node.tar.xz
+          mkdir -p release/runtime && tar -xJf node.tar.xz --strip-components=1 -C release/runtime
+      - name: Assemble the release root
+        run: cp packaging/linux/usr/bin/lanfu release/ && cp packaging/linux/usr/lib/systemd/user/lanfu-gateway.service release/
+      - name: Build the deb
+        run: |
+          VERSION="${{ inputs.version }}"
+          ROOT="deb-root"
+          rm -rf "$ROOT"
+          mkdir -p "$ROOT/opt/lanfu" "$ROOT/usr/bin" "$ROOT/usr/lib/systemd/user" "$ROOT/DEBIAN"
+          cp -r release/. "$ROOT/opt/lanfu/"
+          cp packaging/linux/usr/bin/lanfu "$ROOT/usr/bin/lanfu"
+          cp packaging/linux/usr/lib/systemd/user/lanfu-gateway.service "$ROOT/usr/lib/systemd/user/lanfu-gateway.service"
+          printf "Package: lanfu\nVersion: %s\nSection: utils\nPriority: optional\nArchitecture: amd64\nMaintainer: LanFu\nDescription: LanFu company AI assistant\n" "$VERSION" > "$ROOT/DEBIAN/control"
+          mkdir -p release-assets
+          dpkg-deb --build --root-owner-group "$ROOT" "release-assets/lanfu_${VERSION}_amd64.deb"
+      - name: Checksums
+        run: |
+          cd release-assets && sha256sum *.deb > SHA256SUMS.txt && cat SHA256SUMS.txt
       - uses: actions/upload-artifact@v4
         with:
           name: lanfu-linux-${{ inputs.version }}
-          path: release-out/**
+          path: release-assets/**
 
-  windows-exe:
-    name: Build Windows EXE
-    runs-on: windows-latest
+  release:
+    name: Publish release
+    needs: [windows-exe, linux-deb]
+    if: ${{ inputs.publish }}
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
+      - uses: actions/download-artifact@v4
         with:
-          version: 12.4.0
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 24.19.0
-          cache: pnpm
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm build:package
-      - run: choco install innosetup --no-progress -y
-      - name: Download fixed Node.js runtime
-        shell: pwsh
+          path: release-assets
+          merge-multiple: true
+      - name: Release notes
         run: |
-          Invoke-WebRequest https://nodejs.org/dist/v24.19.0/node-v24.19.0-win-x64.zip -OutFile node.zip
-          Expand-Archive node.zip -DestinationPath .
-          Rename-Item node-v24.19.0-win-x64 runtime
-      - run: $env:LANFU_NODE_RUNTIME_DIR = "$pwd\\runtime"; node scripts/lanfu-release-manifest.mjs stage --platform windows --version "${{ inputs.version }}"\n\n首版产品发布。\n' '${{ inputs.version }}' > release-assets/RELEASE_NOTES.md
+          VERSION="${{ inputs.version }}"
+          mkdir -p out
+          {
+            echo "# LanFu $VERSION"
+            echo ""
+            echo "Windows 与 Linux 首版安装包。Windows 安装器自带固定版本 Node.js，员工无需另装 Node/pnpm/Git。"
+            echo ""
+            echo "- Windows: LanFu-Setup-x64.exe"
+            echo "- Linux: lanfu_${VERSION}_amd64.deb"
+            echo "- 校验: SHA256SUMS.txt"
+            echo ""
+            echo "安装后会写入 %USERPROFILE%\\.lanfu\\openclaw.json（本地模式 + 公司模型地址），卸载不会删除用户数据。"
+          } > "out/RELEASE_NOTES.md"
+          cp release-assets/* out/ 2>/dev/null || true
       - uses: softprops/action-gh-release@v2
         with:
           tag_name: lanfu-v${{ inputs.version }}
           name: LanFu ${{ inputs.version }}
           draft: true
+          body_path: out/RELEASE_NOTES.md
           files: |
-            release-assets/**/*.exe
-            release-assets/**/*.deb
-            release-assets/SHA256SUMS.txt
-            release-assets/RELEASE_NOTES.md
+            out/*.exe
+            out/*.deb
+            out/SHA256SUMS.txt

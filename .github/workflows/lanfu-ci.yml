@@ -1,3 +1,6 @@
+# LanFu CI: type checks plus the targeted test suites that cover the product boundary.
+# The full upstream suite is intentionally not run here (it needs the upstream
+# fixtures and takes tens of minutes); see docs/lanfu/release.md.
 name: LanFu CI
 
 on:
@@ -14,36 +17,54 @@ concurrency:
   group: lanfu-ci-${{ github.ref }}
   cancel-in-progress: true
 
+env:
+  NODE_VERSION: 24.19.0
+  PNPM_VERSION: 12.4.0
+
 jobs:
   linux:
-    name: Linux typecheck and targeted tests
+    name: Type checks and product tests
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
         with:
-          version: 12.4.0
+          version: ${{ env.PNPM_VERSION }}
       - uses: actions/setup-node@v4
         with:
-          node-version: 24.19.0
+          node-version: ${{ env.NODE_VERSION }}
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm tsgo:core
-      - run: pnpm exec vitest run src/cli/program/error-output.test.ts src/config/state-dir.test.ts
+      - run: pnpm tsgo:ui
+      - run: pnpm tsgo:extensions
+      - run: pnpm tsgo:scripts
+      - name: Product boundary tests
+        run: |
+          pnpm exec vitest run \
+            src/infra/lanfu-state-migration.test.ts \
+            src/config/state-dir.test.ts \
+            src/cli/program/error-output.test.ts \
+            src/cli/program/help.test.ts \
+            ui/src/components/markdown.test.ts \
+            ui/src/components/openclaw-mascot.test.ts \
+            ui/src/pages/about/view.test.ts \
+            ui/src/app-navigation-groups.test.ts \
+            ui/src/pages/devices/view-pairing.test.ts
 
   windows:
     name: Windows compatibility tests
     runs-on: windows-latest
-    timeout-minutes: 30
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
         with:
-          version: 12.4.0
+          version: ${{ env.PNPM_VERSION }}
       - uses: actions/setup-node@v4
         with:
-          node-version: 24.19.0
+          node-version: ${{ env.NODE_VERSION }}
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm exec vitest run src/infra/windows-process-start.test.ts src/infra/windows-encoding.test.ts src/cli/completion-runtime.windows.test.ts
