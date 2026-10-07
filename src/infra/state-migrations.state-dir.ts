@@ -285,6 +285,12 @@ export function resolvePendingLegacyStateDirMigrationPaths(params: {
   if (!source) {
     return undefined;
   }
+  // LanFu relocates state with a one-shot copy and deliberately keeps the legacy
+  // root as a fallback. Once the new root exists the relocation is complete, so an
+  // existing target must not be reported as pending owner work on later startups.
+  if (isDirPath(target)) {
+    return undefined;
+  }
   const sourceTarget = resolveSymlinkTarget(source);
   if (
     (sourceTarget && path.resolve(sourceTarget) === path.resolve(target)) ||
