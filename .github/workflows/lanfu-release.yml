@@ -188,13 +188,22 @@ jobs:
           Write-Output "installed to $root"
           $node = Join-Path $root "runtime\node.exe"
           $entry = Join-Path $root "app\openclaw.mjs"
-          $proc = Start-Process -FilePath $node -ArgumentList @($entry, "gateway", "--port", "18789") -WorkingDirectory (Join-Path $root "app") -PassThru
+          $outLog = Join-Path $root "smoke-out.log"
+          $errLog = Join-Path $root "smoke-err.log"
+          $proc = Start-Process -FilePath $node -ArgumentList @($entry, "gateway", "--port", "18789") -WorkingDirectory (Join-Path $root "app") -PassThru -RedirectStandardOutput $outLog -RedirectStandardError $errLog
           $ready = $false
-          for ($i = 0; $i -lt 30; $i++) {
-            Start-Sleep -Seconds 3
+          # A first start on a cold runner takes longer than on a workstation.
+          for ($i = 0; $i -lt 60; $i++) {
+            Start-Sleep -Seconds 5
             try { $r = Invoke-WebRequest "http://127.0.0.1:18789/" -UseBasicParsing -TimeoutSec 4; if ($r.StatusCode -eq 200) { $ready = $true; break } } catch { }
           }
-          if (-not $ready) { throw "installed gateway did not become ready" }
+          if (-not $ready) {
+            Write-Output "--- gateway stdout ---"
+            Get-Content $outLog -Tail 40 -ErrorAction SilentlyContinue | ForEach-Object { Write-Output $_ }
+            Write-Output "--- gateway stderr ---"
+            Get-Content $errLog -Tail 40 -ErrorAction SilentlyContinue | ForEach-Object { Write-Output $_ }
+            throw "installed gateway did not become ready"
+          }
           Write-Output "installed gateway answered HTTP 200"
           Stop-Process -Id $proc.Id -Force -ErrorAction SilentlyContinue
       - name: Checksums
