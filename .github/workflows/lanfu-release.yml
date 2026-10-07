@@ -189,26 +189,25 @@ jobs:
           $root = $candidates | Where-Object { Test-Path (Join-Path $_ "app\dist\index.js") } | Select-Object -First 1
           if (-not $root) { throw "installed app tree not found in any expected location" }
           Write-Output "installed to $root"
-          $node = Join-Path $root "runtime\node.exe"
-          $entry = Join-Path $root "app\openclaw.mjs"
-          $outLog = Join-Path $root "smoke-out.log"
-          $errLog = Join-Path $root "smoke-err.log"
-          $proc = Start-Process -FilePath $node -ArgumentList @($entry, "gateway", "--port", "18789") -WorkingDirectory (Join-Path $root "app") -PassThru -RedirectStandardOutput $outLog -RedirectStandardError $errLog
+          # post-install.ps1 registers the logon task and starts it, so the gateway is
+          # already coming up. Starting a second instance would fight over the state
+          # database (StateDatabaseCoordinatorContentionError), so wait for this one.
           $ready = $false
-          # A first start on a cold runner takes longer than on a workstation.
-          for ($i = 0; $i -lt 60; $i++) {
+          for ($i = 0; $i -lt 72; $i++) {
             Start-Sleep -Seconds 5
             try { $r = Invoke-WebRequest "http://127.0.0.1:18789/" -UseBasicParsing -TimeoutSec 4; if ($r.StatusCode -eq 200) { $ready = $true; break } } catch { }
           }
           if (-not $ready) {
-            Write-Output "--- gateway stdout ---"
-            Get-Content $outLog -Tail 40 -ErrorAction SilentlyContinue | ForEach-Object { Write-Output $_ }
-            Write-Output "--- gateway stderr ---"
-            Get-Content $errLog -Tail 40 -ErrorAction SilentlyContinue | ForEach-Object { Write-Output $_ }
+            Write-Output "--- scheduled task ---"
+            Get-ScheduledTask -TaskName "LanFu Gateway" -ErrorAction SilentlyContinue | Select-Object TaskName, State | Format-List | Out-String | Write-Output
+            Write-Output "--- gateway log ---"
+            Get-ChildItem (Join-Path $env:TEMP "openclaw") -Filter *.log -ErrorAction SilentlyContinue |
+              Sort-Object LastWriteTime -Descending | Select-Object -First 1 |
+              ForEach-Object { Get-Content $_.FullName -Tail 40 | ForEach-Object { Write-Output $_ } }
             throw "installed gateway did not become ready"
           }
           Write-Output "installed gateway answered HTTP 200"
-          Stop-Process -Id $proc.Id -Force -ErrorAction SilentlyContinue
+          Stop-ScheduledTask -TaskName "LanFu Gateway" -ErrorAction SilentlyContinue
       - name: Checksums
         shell: pwsh
         run: |
