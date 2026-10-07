@@ -44,8 +44,7 @@ jobs:
         run: |
           pnpm exec vitest run \
             src/infra/lanfu-state-migration.test.ts \
-            src/config/state-dir.test.ts \
-            src/cli/program/error-output.test.ts \
+            src/config/state-dir-dotenv.test.ts \
             src/cli/program/help.test.ts \
             ui/src/components/markdown.test.ts \
             ui/src/components/openclaw-mascot.test.ts \

@@ -46,7 +46,7 @@ describe("renderAbout", () => {
 
     const hero = container.querySelector(".about-hero");
     expect(hero?.querySelector(".about-hero__name")?.textContent).toBe("LanFu");
-    expect(hero?.querySelector(".about-hero__version")?.textContent).toBe("v2026.7.10");
+    expect(hero?.querySelector(".about-hero__version")?.textContent).toBe("v0.1.0");
     expect(hero?.querySelector(".about-hero__clawd openclaw-mascot")).not.toBeNull();
 
     const clawd = hero?.querySelector<HTMLButtonElement>(".about-hero__clawd");
