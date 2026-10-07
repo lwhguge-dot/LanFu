@@ -112,7 +112,15 @@ jobs:
         run: |
           $setup = "release-assets\LanFu-Setup-x64.exe"
           Start-Process -FilePath $setup -ArgumentList @("/VERYSILENT","/SUPPRESSMSGBOXES","/NORESTART","/NOCANCEL") -Wait
-          $root = Join-Path $env:LOCALAPPDATA "Programs\LanFu"
+          # GitHub runners run elevated, where {autopf} resolves to Program Files.
+          $candidates = @(
+            (Join-Path $env:LOCALAPPDATA "Programs\LanFu"),
+            (Join-Path $env:ProgramFiles "LanFu"),
+            (Join-Path ${env:ProgramFiles(x86)} "LanFu"),
+          )
+          $root = $candidates | Where-Object { Test-Path (Join-Path $_ "app\dist\index.js") } | Select-Object -First 1
+          if (-not $root) { throw "installed app tree not found in any expected location" }
+          Write-Output "installed to $root"
           if (-not (Test-Path (Join-Path $root "app\dist\index.js"))) { throw "installed app tree missing" }
           $node = Join-Path $root "runtime\node.exe"
           $entry = Join-Path $root "app\openclaw.mjs"
