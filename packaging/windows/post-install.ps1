@@ -36,13 +36,20 @@ $settings = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopIfGoi
 Register-ScheduledTask -TaskName $taskName -Action $action -Trigger $trigger -Settings $settings -Description "LanFu Gateway" -Force | Out-Null
 Start-ScheduledTask -TaskName $taskName -ErrorAction SilentlyContinue
 
-# 3. open the control UI once.
+# 3. open the control UI once, but only in an interactive session. ShellExecute on a
+# URL never returns in a service session (for example a CI runner), which would hang
+# the [Run] step of the installer forever.
 Start-Sleep -Seconds 12
-try {
-  $cfg = Get-Content $configPath -Raw | ConvertFrom-Json
-  $token = $cfg.gateway.auth.token
-  Start-Process ("http://127.0.0.1:18789/?token=" + $token)
-} catch {
-  Start-Process "http://127.0.0.1:18789/"
+$interactive = $env:SESSIONNAME -and $env:SESSIONNAME -ne "Services"
+if ($interactive) {
+  try {
+    $cfg = Get-Content $configPath -Raw | ConvertFrom-Json
+    $token = $cfg.gateway.auth.token
+    Start-Process ("http://127.0.0.1:18789/?token=" + $token)
+  } catch {
+    Start-Process "http://127.0.0.1:18789/"
+  }
+} else {
+  Write-Output "Skipping the browser launch (non-interactive session)."
 }
 Write-Output "LanFu installed."

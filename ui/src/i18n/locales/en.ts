@@ -2579,7 +2579,7 @@ export const en: TranslationMap & {
   aboutPage: {
     productName: "LanFu",
     tagline: "Your personal AI assistant, running on your own devices.",
-    productVersion: "0.1.0",
+    productVersion: "0.1.1",
     upstream: "Built on OpenClaw 2026.9.6",
     waveHello: "Wave hello to LanFu",
     linksLabel: "Community and resources",

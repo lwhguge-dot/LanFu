@@ -1,6 +1,9 @@
 ; LanFu Windows installer (Inno Setup 6).
 #define MyAppName "LanFu"
+; The release workflow passes /DMyAppVersion=<version> so one source drives it.
+#ifndef MyAppVersion
 #define MyAppVersion "0.1.0"
+#endif
 #define MyAppPublisher "LanFu"
 
 [Setup]
