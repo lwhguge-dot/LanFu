@@ -51,8 +51,17 @@ jobs:
       - name: Build dist and Control UI
         run: pnpm build
       # Re-install production dependencies in a flat layout for shipping.
-      - name: Materialise flat production dependencies
-        run: pnpm install --prod --frozen-lockfile --ignore-scripts --config.nodeLinker=hoisted
+      - name: Switch the workspace to a flat dependency layout
+        shell: pwsh
+        run: |
+          # Inno Setup cannot preserve pnpm's symlinked layout and the peer-encoded
+          # .pnpm names exceed MAX_PATH. Rewriting the workspace key is what actually
+          # takes effect; the --config.nodeLinker CLI flag is not reliable.
+          $ws = Get-Content pnpm-workspace.yaml -Raw
+          if ($ws -notmatch 'nodeLinker: isolated') { throw 'unexpected nodeLinker value' }
+          $ws.Replace('nodeLinker: isolated', 'nodeLinker: hoisted') | Set-Content pnpm-workspace.yaml -NoNewline
+      - name: Install flat production dependencies
+        run: pnpm install --prod --frozen-lockfile --ignore-scripts
       - name: Stage the application tree
         shell: pwsh
         run: |
@@ -142,7 +151,12 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm build
-      - run: pnpm install --prod --frozen-lockfile --ignore-scripts --config.nodeLinker=hoisted
+      - name: Switch the workspace to a flat dependency layout
+        run: |
+          sed -i 's/^nodeLinker: isolated$/nodeLinker: hoisted/' pnpm-workspace.yaml
+          grep -q 'nodeLinker: hoisted' pnpm-workspace.yaml
+      - name: Install flat production dependencies
+        run: pnpm install --prod --frozen-lockfile --ignore-scripts
       - name: Stage the application tree
         run: |
           mkdir -p release/app
