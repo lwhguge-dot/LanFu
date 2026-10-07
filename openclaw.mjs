@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { existsSync, readFileSync, realpathSync, statSync } from "node:fs";
+import { existsSync, readFileSync, realpathSync, statSync, symlinkSync } from "node:fs";
 import { access } from "node:fs/promises";
 import module from "node:module";
 import os from "node:os";
@@ -19,6 +19,21 @@ import {
   classifyUnsupportedNodeCommand,
   formatUnsupportedNodeDiagnosticWarning,
 } from "./node-version.mjs";
+
+// Packaged installs resolve the "openclaw/plugin-sdk/*" self-reference through
+// node_modules/openclaw. The release archive cannot carry that link (Inno Setup would
+// materialise it, and 7-Zip refuses to create symlinks), so recreate it on first run.
+if (!existsSync(new URL("./.git", import.meta.url))) {
+  try {
+    const appDir = fileURLToPath(new URL(".", import.meta.url));
+    const selfLink = path.join(appDir, "node_modules", "openclaw");
+    if (!existsSync(selfLink)) {
+      symlinkSync(appDir, selfLink, process.platform === "win32" ? "junction" : "dir");
+    }
+  } catch {
+    // Best effort: the gateway reports a precise error if the link cannot be created.
+  }
+}
 
 const isSourceCheckoutLauncher = () =>
   existsSync(new URL("./.git", import.meta.url)) ||
