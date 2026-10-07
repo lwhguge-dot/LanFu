@@ -34,11 +34,28 @@ concurrency:
 
 env:
   NODE_RUNTIME_VERSION: 24.19.0
-  # workflow_dispatch takes the input; a tag push derives it from the tag name.
-  LANFU_VERSION: ${{ github.event_name == 'workflow_dispatch' && inputs.version || replace(github.ref_name, 'lanfu-v', '') }}
 
 jobs:
+  # GitHub expressions have no replace(); resolve the version in a shell step.
+  resolve:
+    name: Resolve version
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.v.outputs.version }}
+    steps:
+      - id: v
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            version="${{ inputs.version }}"
+          else
+            version="${GITHUB_REF_NAME#lanfu-v}"
+          fi
+          if [ -z "$version" ]; then echo "could not resolve a version" >&2; exit 1; fi
+          echo "resolved version: $version"
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+
   windows-exe:
+    needs: resolve
     name: Windows installer
     runs-on: windows-latest
     timeout-minutes: 90
@@ -145,11 +162,12 @@ jobs:
           Get-Content release-assets\SHA256SUMS.txt
       - uses: actions/upload-artifact@v4
         with:
-          name: lanfu-windows-${{ env.LANFU_VERSION }}
+          name: lanfu-windows-${{ needs.resolve.outputs.version }}
           path: release-assets/**
 
   linux-deb:
     name: Linux package
+    needs: resolve
     runs-on: ubuntu-latest
     timeout-minutes: 60
     steps:
@@ -186,7 +204,7 @@ jobs:
         run: cp packaging/linux/usr/bin/lanfu release/ && cp packaging/linux/usr/lib/systemd/user/lanfu-gateway.service release/
       - name: Build the deb
         run: |
-          VERSION="${{ env.LANFU_VERSION }}"
+          VERSION="${{ needs.resolve.outputs.version }}"
           ROOT="deb-root"
           rm -rf "$ROOT"
           mkdir -p "$ROOT/opt/lanfu" "$ROOT/usr/bin" "$ROOT/usr/lib/systemd/user" "$ROOT/DEBIAN"
@@ -201,12 +219,12 @@ jobs:
           cd release-assets && sha256sum *.deb > SHA256SUMS.txt && cat SHA256SUMS.txt
       - uses: actions/upload-artifact@v4
         with:
-          name: lanfu-linux-${{ env.LANFU_VERSION }}
+          name: lanfu-linux-${{ needs.resolve.outputs.version }}
           path: release-assets/**
 
   release:
     name: Publish release
-    needs: [windows-exe, linux-deb]
+    needs: [resolve, windows-exe, linux-deb]
     if: ${{ github.event_name == 'push' || inputs.publish }}
     runs-on: ubuntu-latest
     steps:
@@ -216,7 +234,7 @@ jobs:
           merge-multiple: true
       - name: Release notes
         run: |
-          VERSION="${{ env.LANFU_VERSION }}"
+          VERSION="${{ needs.resolve.outputs.version }}"
           mkdir -p out
           {
             echo "# LanFu $VERSION"
@@ -232,8 +250,8 @@ jobs:
           cp release-assets/* out/ 2>/dev/null || true
       - uses: softprops/action-gh-release@v2
         with:
-          tag_name: lanfu-v${{ env.LANFU_VERSION }}
-          name: LanFu ${{ env.LANFU_VERSION }}
+          tag_name: lanfu-v${{ needs.resolve.outputs.version }}
+          name: LanFu ${{ needs.resolve.outputs.version }}
           draft: true
           body_path: out/RELEASE_NOTES.md
           files: |
