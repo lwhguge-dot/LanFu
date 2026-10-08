@@ -216,23 +216,63 @@ jobs:
           & $iscc "/DMyAppVersion=${{ needs.resolve.outputs.version }}" "release\LanFu.iss"
           New-Item -ItemType Directory -Force -Path release-assets | Out-Null
           Copy-Item "release\out\LanFu-Setup-x64.exe" release-assets\
-      - name: Smoke test the installer on the runner
+      - name: Checksums
         shell: pwsh
         run: |
+          Push-Location release-assets
+          $lines = Get-ChildItem -File | Where-Object { $_.Name -ne "SHA256SUMS.txt" } | ForEach-Object {
+            $h = (Get-FileHash $_.Name -Algorithm SHA256).Hash.ToLower()
+            "$h  $($_.Name)"
+          }
+          $lines | Set-Content SHA256SUMS.txt -Encoding ascii
+          $lines | ForEach-Object { Write-Output $_ }
+          Pop-Location
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: lanfu-windows-${{ needs.resolve.outputs.version }}
+          path: release-assets/**
+
+      - name: Smoke test the installer on the runner
+        timeout-minutes: 45
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = "Continue"
+          function Step($t) { Write-Output ("[smoke] " + $t) }
+          # Runs a command with stdin from NUL and a hard timeout. A console-less
+          # process that reads stdin would otherwise block forever and hang the job.
+          function Invoke-Cli([string]$file, [string]$arguments, [int]$timeoutMs) {
+            $psi = New-Object System.Diagnostics.ProcessStartInfo
+            $psi.FileName = $file
+            $psi.Arguments = $arguments + " < NUL"
+            $psi.UseShellExecute = $false
+            $psi.RedirectStandardOutput = $true
+            $psi.RedirectStandardError = $true
+            $psi.CreateNoWindow = $true
+            $p = [System.Diagnostics.Process]::Start($psi)
+            $out = $p.StandardOutput.ReadToEnd()
+            if (-not $p.WaitForExit($timeoutMs)) { try { $p.Kill() } catch { }; return "" }
+            return $out
+          }
+
+          Step "installing"
           $setup = "release-assets\LanFu-Setup-x64.exe"
-          Start-Process -FilePath $setup -ArgumentList @("/VERYSILENT","/SUPPRESSMSGBOXES","/NORESTART","/NOCANCEL") -Wait
-          $candidates = @(
+          $proc = Start-Process -FilePath $setup -ArgumentList @("/VERYSILENT","/SUPPRESSMSGBOXES","/NORESTART","/NOCANCEL") -PassThru
+          if (-not $proc.WaitForExit(1800000)) { try { $proc.Kill() } catch { }; throw "installer did not finish within 30 minutes" }
+          Step ("installer exit code " + $proc.ExitCode)
+
+          $root = @(
             (Join-Path $env:LOCALAPPDATA "Programs\LanFu"),
             (Join-Path $env:ProgramFiles "LanFu"),
             (Join-Path ${env:ProgramFiles(x86)} "LanFu")
-          )
-          $root = $candidates | Where-Object { Test-Path (Join-Path $_ "app\dist\index.js") } | Select-Object -First 1
+          ) | Where-Object { Test-Path (Join-Path $_ "app\dist\index.js") } | Select-Object -First 1
           if (-not $root) { throw "installed app tree not found in any expected location" }
-          Write-Output "installed to $root"
+          Step "installed to $root"
 
           # post-install.ps1 registers the per-user autostart and launches the gateway,
           # so it is already coming up. Starting a second instance would fight over the
           # state database (StateDatabaseCoordinatorContentionError), so wait for this one.
+          Step "waiting for the gateway"
           $ready = $false
           for ($i = 0; $i -lt 72; $i++) {
             Start-Sleep -Seconds 5
@@ -242,63 +282,47 @@ jobs:
             Write-Output "--- HKCU autostart ---"
             Get-ItemProperty "HKCU:\Software\Microsoft\Windows\CurrentVersion\Run" -Name "LanFuGateway" -ErrorAction SilentlyContinue | Format-List | Out-String | Write-Output
             Write-Output "--- post-install log ---"
-            Get-Content (Join-Path $env:TEMP "lanfu-post-install.log") -Tail 40 -ErrorAction SilentlyContinue | ForEach-Object { Write-Output $_ }
-            Write-Output "--- gateway log ---"
-            Get-ChildItem (Join-Path $env:TEMP "openclaw") -Filter *.log -ErrorAction SilentlyContinue |
-              Sort-Object LastWriteTime -Descending | Select-Object -First 1 |
-              ForEach-Object { Get-Content $_.FullName -Tail 40 | ForEach-Object { Write-Output $_ } }
+            Get-Content (Join-Path $env:TEMP "lanfu-post-install.log") -Tail 60 -ErrorAction SilentlyContinue | ForEach-Object { Write-Output $_ }
             throw "installed gateway did not become ready"
           }
-          Write-Output "installed gateway answered HTTP 200"
+          Step "gateway answered HTTP 200"
 
-          # ---- Desktop shell: installed, wired to the local gateway, and paired.
+          Step "checking the desktop shell"
           $shellExe = Join-Path $env:LOCALAPPDATA "LanFu\LanFu.exe"
           if (-not (Test-Path $shellExe)) { throw "desktop shell was not installed at $shellExe" }
-          Write-Output "desktop shell present"
-
           $registryPath = Join-Path $env:APPDATA "LanFu\gateways.json"
           if (-not (Test-Path $registryPath)) { throw "desktop shell was not wired to the gateway" }
-          $registry = Get-Content $registryPath -Raw | ConvertFrom-Json
-          $record = $registry.gateways[0]
+          $record = (Get-Content $registryPath -Raw | ConvertFrom-Json).gateways[0]
           if ($record.url -ne "ws://127.0.0.1:18789") { throw "unexpected gateway url: $($record.url)" }
           if ($record.isLocal) { throw "isLocal must stay false or the shell uses device-signature auth" }
-          Write-Output "desktop shell wired to $($record.url) (isLocal=$($record.isLocal))"
+          Step "shell wired to $($record.url) (isLocal=$($record.isLocal))"
 
-          # post-install.ps1 launches the shell and approves the pending pairing request.
-          # Require it to have happened: a pending request left behind means the employee
-          # would open the app to a pairing prompt they cannot resolve.
+          # A pending request left behind means the employee would open the app to a
+          # pairing prompt they cannot resolve, so require the approval to have happened.
+          Step "waiting for the pairing approval"
           $paired = $false
           for ($i = 0; $i -lt 24; $i++) {
             Start-Sleep -Seconds 5
-            $raw = & "$root\lanfu.cmd" devices list --json 2>$null | Out-String
-            $start = $raw.IndexOf("{")
-            if ($start -lt 0) { continue }
-            $devices = $raw.Substring($start) | ConvertFrom-Json
+            $raw = Invoke-Cli (Join-Path $root "lanfu.cmd") "devices list --json --timeout 8000" 15000
+            $idx = $raw.IndexOf("{")
+            if ($idx -lt 0) { continue }
+            try { $devices = $raw.Substring($idx) | ConvertFrom-Json } catch { continue }
             if (@($devices.pending).Count -eq 0 -and @($devices.paired).Count -gt 0) { $paired = $true; break }
           }
           if (-not $paired) {
             Write-Output "--- post-install log ---"
-            Get-Content (Join-Path $env:TEMP "lanfu-post-install.log") -Tail 30 -ErrorAction SilentlyContinue | ForEach-Object { Write-Output $_ }
-            & "$root\lanfu.cmd" devices list 2>&1 | Select-Object -First 30 | ForEach-Object { Write-Output $_ }
+            Get-Content (Join-Path $env:TEMP "lanfu-post-install.log") -Tail 60 -ErrorAction SilentlyContinue | ForEach-Object { Write-Output $_ }
+            Write-Output "--- devices ---"
+            Invoke-Cli (Join-Path $root "lanfu.cmd") "devices list --timeout 8000" 15000 | ForEach-Object { Write-Output $_ }
             throw "desktop shell did not complete device pairing"
           }
-          Write-Output "desktop shell paired with the gateway"
+          Step "desktop shell paired with the gateway"
 
-          # ---- Leave the machine as we found it.
+          Step "cleaning up"
           Get-Process -Name "LanFu" -ErrorAction SilentlyContinue | Stop-Process -Force -ErrorAction SilentlyContinue
           Get-Process -Name "node" -ErrorAction SilentlyContinue | Stop-Process -Force -ErrorAction SilentlyContinue
           Remove-ItemProperty "HKCU:\Software\Microsoft\Windows\CurrentVersion\Run" -Name "LanFuGateway" -ErrorAction SilentlyContinue
-      - name: Checksums
-        shell: pwsh
-        run: |
-          $hash = (Get-FileHash "release-assets\LanFu-Setup-x64.exe" -Algorithm SHA256).Hash.ToLower()
-          "LanFu-Setup-x64.exe  $hash" | Set-Content release-assets\SHA256SUMS.txt
-          Get-Content release-assets\SHA256SUMS.txt
-      - uses: actions/upload-artifact@v4
-        with:
-          name: lanfu-windows-${{ needs.resolve.outputs.version }}
-          path: release-assets/**
-
+          Step "done"
   linux-deb:
     name: Linux package
     needs: [resolve, build]
