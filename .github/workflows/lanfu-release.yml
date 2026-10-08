@@ -168,6 +168,46 @@ jobs:
           Copy-Item packaging\windows\uninstall.ps1 release\
           Copy-Item packaging\windows\lanfu.ico release\
           Copy-Item packaging\windows\LanFu.iss release\
+      # ---- Desktop shell (tray + native window), built from the LanFu fork of the -
+      # ---- upstream Windows Hub. Public repository, so no cross-repo token is needed.
+      - name: Check out the desktop shell source
+        uses: actions/checkout@v4
+        with:
+          repository: lwhguge-dot/lanfu-windows
+          ref: main
+          path: hub-src
+          fetch-depth: 0
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "10.0.x"
+
+      - name: Build the desktop shell installer
+        shell: pwsh
+        run: |
+          $version = "${{ needs.resolve.outputs.version }}"
+          # GitVersion.MsBuild needs the full history, hence fetch-depth: 0 above.
+          dotnet restore hub-src\src\OpenClaw.Tray.WinUI -r win-x64
+          if ($LASTEXITCODE -ne 0) { throw "hub restore failed" }
+          dotnet publish hub-src\src\OpenClaw.Tray.WinUI -c Release -r win-x64 --self-contained --no-restore `
+            -o hub-publish -p:Version=$version -p:InformationalVersion=$version
+          if ($LASTEXITCODE -ne 0) { throw "hub publish failed" }
+          if (-not (Test-Path "hub-publish\LanFu.exe")) { throw "hub publish output missing" }
+
+          Invoke-WebRequest -Uri "https://aka.ms/vc14/vc_redist.x64.exe" -OutFile hub-vc_redist.x64.exe -UseBasicParsing
+          $sig = Get-AuthenticodeSignature -LiteralPath hub-vc_redist.x64.exe
+          if ($sig.Status -ne "Valid") { throw "vc_redist is not validly signed" }
+
+          $iscc = "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe"
+          if (-not (Test-Path $iscc)) { choco install innosetup --no-progress -y }
+          $hubRoot = (Resolve-Path hub-src).Path
+          & $iscc /DMyAppVersion=$version /DMyAppArch=x64 `
+            "/Dpublish=$hubRoot\..\hub-publish" "/DvcRedist=$hubRoot\..\hub-vc_redist.x64.exe" `
+            "/O$hubRoot\..\hub-out" "$hubRoot\installer.iss"
+          if ($LASTEXITCODE -ne 0) { throw "hub installer failed" }
+          Copy-Item "hub-out\LanFu-Setup-x64.exe" "release\LanFu-Hub-Setup-x64.exe"
+          Write-Output "desktop shell installer staged"
+
       - name: Build the installer
         shell: pwsh
         run: |
@@ -189,17 +229,20 @@ jobs:
           $root = $candidates | Where-Object { Test-Path (Join-Path $_ "app\dist\index.js") } | Select-Object -First 1
           if (-not $root) { throw "installed app tree not found in any expected location" }
           Write-Output "installed to $root"
-          # post-install.ps1 registers the logon task and starts it, so the gateway is
-          # already coming up. Starting a second instance would fight over the state
-          # database (StateDatabaseCoordinatorContentionError), so wait for this one.
+
+          # post-install.ps1 registers the per-user autostart and launches the gateway,
+          # so it is already coming up. Starting a second instance would fight over the
+          # state database (StateDatabaseCoordinatorContentionError), so wait for this one.
           $ready = $false
           for ($i = 0; $i -lt 72; $i++) {
             Start-Sleep -Seconds 5
             try { $r = Invoke-WebRequest "http://127.0.0.1:18789/" -UseBasicParsing -TimeoutSec 4; if ($r.StatusCode -eq 200) { $ready = $true; break } } catch { }
           }
           if (-not $ready) {
-            Write-Output "--- scheduled task ---"
-            Get-ScheduledTask -TaskName "LanFu Gateway" -ErrorAction SilentlyContinue | Select-Object TaskName, State | Format-List | Out-String | Write-Output
+            Write-Output "--- HKCU autostart ---"
+            Get-ItemProperty "HKCU:\Software\Microsoft\Windows\CurrentVersion\Run" -Name "LanFuGateway" -ErrorAction SilentlyContinue | Format-List | Out-String | Write-Output
+            Write-Output "--- post-install log ---"
+            Get-Content (Join-Path $env:TEMP "lanfu-post-install.log") -Tail 40 -ErrorAction SilentlyContinue | ForEach-Object { Write-Output $_ }
             Write-Output "--- gateway log ---"
             Get-ChildItem (Join-Path $env:TEMP "openclaw") -Filter *.log -ErrorAction SilentlyContinue |
               Sort-Object LastWriteTime -Descending | Select-Object -First 1 |
@@ -207,7 +250,44 @@ jobs:
             throw "installed gateway did not become ready"
           }
           Write-Output "installed gateway answered HTTP 200"
-          Stop-ScheduledTask -TaskName "LanFu Gateway" -ErrorAction SilentlyContinue
+
+          # ---- Desktop shell: installed, wired to the local gateway, and paired.
+          $shellExe = Join-Path $env:LOCALAPPDATA "LanFu\LanFu.exe"
+          if (-not (Test-Path $shellExe)) { throw "desktop shell was not installed at $shellExe" }
+          Write-Output "desktop shell present"
+
+          $registryPath = Join-Path $env:APPDATA "LanFu\gateways.json"
+          if (-not (Test-Path $registryPath)) { throw "desktop shell was not wired to the gateway" }
+          $registry = Get-Content $registryPath -Raw | ConvertFrom-Json
+          $record = $registry.gateways[0]
+          if ($record.url -ne "ws://127.0.0.1:18789") { throw "unexpected gateway url: $($record.url)" }
+          if ($record.isLocal) { throw "isLocal must stay false or the shell uses device-signature auth" }
+          Write-Output "desktop shell wired to $($record.url) (isLocal=$($record.isLocal))"
+
+          # post-install.ps1 launches the shell and approves the pending pairing request.
+          # Require it to have happened: a pending request left behind means the employee
+          # would open the app to a pairing prompt they cannot resolve.
+          $paired = $false
+          for ($i = 0; $i -lt 24; $i++) {
+            Start-Sleep -Seconds 5
+            $raw = & "$root\lanfu.cmd" devices list --json 2>$null | Out-String
+            $start = $raw.IndexOf("{")
+            if ($start -lt 0) { continue }
+            $devices = $raw.Substring($start) | ConvertFrom-Json
+            if (@($devices.pending).Count -eq 0 -and @($devices.paired).Count -gt 0) { $paired = $true; break }
+          }
+          if (-not $paired) {
+            Write-Output "--- post-install log ---"
+            Get-Content (Join-Path $env:TEMP "lanfu-post-install.log") -Tail 30 -ErrorAction SilentlyContinue | ForEach-Object { Write-Output $_ }
+            & "$root\lanfu.cmd" devices list 2>&1 | Select-Object -First 30 | ForEach-Object { Write-Output $_ }
+            throw "desktop shell did not complete device pairing"
+          }
+          Write-Output "desktop shell paired with the gateway"
+
+          # ---- Leave the machine as we found it.
+          Get-Process -Name "LanFu" -ErrorAction SilentlyContinue | Stop-Process -Force -ErrorAction SilentlyContinue
+          Get-Process -Name "node" -ErrorAction SilentlyContinue | Stop-Process -Force -ErrorAction SilentlyContinue
+          Remove-ItemProperty "HKCU:\Software\Microsoft\Windows\CurrentVersion\Run" -Name "LanFuGateway" -ErrorAction SilentlyContinue
       - name: Checksums
         shell: pwsh
         run: |
