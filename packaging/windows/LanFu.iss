@@ -1,4 +1,4 @@
-; LanFu unified installer: gateway runtime + desktop shell in one package.
+﻿; LanFu unified installer: gateway runtime + desktop shell in one package.
 ;
 ; Layout (assembled by .github/workflows/lanfu-release.yml):
 ;   app/                        gateway runtime tree (node + dist + node_modules)
@@ -32,6 +32,17 @@ UninstallDisplayIcon={app}\lanfu.ico
 SetupIconFile=lanfu.ico
 CloseApplications=no
 
+[Languages]
+; The product ships to Chinese-speaking employees only, so the whole wizard — page
+; text, task descriptions, progress and error messages — is Simplified Chinese.
+; ChineseSimplified.isl is vendored next to this script because Inno Setup does not
+; bundle it; the release workflow stages it together with this file.
+Name: "chinesesimplified"; MessagesFile: "ChineseSimplified.isl"
+
+[Messages]
+; CustomMessage used by the desktop-shell step below is already Chinese; the rest of
+; the wizard text comes from ChineseSimplified.isl.
+WelcomeLabel2=即将在你的电脑上安装 [name/ver]。%n%n安装完成后，桌面会出现 LanFu 图标，双击即可使用。%n%n安装过程中请勿关闭窗口。
 
 [Files]
 ; Gateway runtime (validated by the CI smoke test)
@@ -57,4 +68,3 @@ Filename: "powershell.exe"; Parameters: "-NoProfile -ExecutionPolicy Bypass -Fil
 [UninstallDelete]
 ; The uninstaller must remove the whole app tree, including files written at runtime
 Type: filesandordirs; Name: "{app}"
-

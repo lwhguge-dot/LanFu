@@ -169,6 +169,8 @@ jobs:
           Copy-Item packaging\windows\uninstall.ps1 release\
           Copy-Item packaging\windows\lanfu.ico release\
           Copy-Item packaging\windows\LanFu.iss release\
+          # Inno Setup ships no Simplified Chinese language file; it is vendored and staged next to LanFu.iss.
+          Copy-Item packaging\windows\ChineseSimplified.isl release
       # ---- Desktop shell (tray + native window), built from the LanFu fork of the -
       # ---- upstream Windows Hub. Public repository, so no cross-repo token is needed.
       - name: Check out the desktop shell source

@@ -1,5 +1,26 @@
 {
   "fallbacks": {
+    "aboutPage.license": [
+      "ar",
+      "de",
+      "es",
+      "fa",
+      "fr",
+      "hi",
+      "id",
+      "it",
+      "ja-JP",
+      "ko",
+      "nl",
+      "pl",
+      "pt-BR",
+      "ru",
+      "th",
+      "tr",
+      "uk",
+      "vi",
+      "zh-TW"
+    ],
     "aboutPage.productName": [
       "ar",
       "de",
@@ -19,7 +40,48 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
+      "zh-TW"
+    ],
+    "aboutPage.productVersion": [
+      "ar",
+      "de",
+      "es",
+      "fa",
+      "fr",
+      "hi",
+      "id",
+      "it",
+      "ja-JP",
+      "ko",
+      "nl",
+      "pl",
+      "pt-BR",
+      "ru",
+      "th",
+      "tr",
+      "uk",
+      "vi",
+      "zh-TW"
+    ],
+    "aboutPage.upstream": [
+      "ar",
+      "de",
+      "es",
+      "fa",
+      "fr",
+      "hi",
+      "id",
+      "it",
+      "ja-JP",
+      "ko",
+      "nl",
+      "pl",
+      "pt-BR",
+      "ru",
+      "th",
+      "tr",
+      "uk",
+      "vi",
       "zh-TW"
     ],
     "aboutPage.waveHello": [
@@ -41,7 +103,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "approvalPage.brandName": [
@@ -63,7 +124,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "approvalPage.connectionErrorDescription": [
@@ -85,161 +145,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
-      "zh-TW"
-    ],
-    "appsPage.cards.android.desc": [
-      "ar",
-      "de",
-      "es",
-      "fa",
-      "fr",
-      "hi",
-      "id",
-      "it",
-      "ja-JP",
-      "ko",
-      "nl",
-      "pl",
-      "pt-BR",
-      "ru",
-      "th",
-      "tr",
-      "uk",
-      "vi",
-      "zh-CN",
-      "zh-TW"
-    ],
-    "appsPage.cards.chrome.desc": [
-      "ar",
-      "de",
-      "es",
-      "fa",
-      "fr",
-      "hi",
-      "id",
-      "it",
-      "ja-JP",
-      "ko",
-      "nl",
-      "pl",
-      "pt-BR",
-      "ru",
-      "th",
-      "tr",
-      "uk",
-      "vi",
-      "zh-CN",
-      "zh-TW"
-    ],
-    "appsPage.cards.ios.desc": [
-      "ar",
-      "de",
-      "es",
-      "fa",
-      "fr",
-      "hi",
-      "id",
-      "it",
-      "ja-JP",
-      "ko",
-      "nl",
-      "pl",
-      "pt-BR",
-      "ru",
-      "th",
-      "tr",
-      "uk",
-      "vi",
-      "zh-CN",
-      "zh-TW"
-    ],
-    "appsPage.cards.plugins.desc": [
-      "ar",
-      "de",
-      "es",
-      "fa",
-      "fr",
-      "hi",
-      "id",
-      "it",
-      "ja-JP",
-      "ko",
-      "nl",
-      "pl",
-      "pt-BR",
-      "ru",
-      "th",
-      "tr",
-      "uk",
-      "vi",
-      "zh-CN",
-      "zh-TW"
-    ],
-    "appsPage.cards.wearOs.desc": [
-      "ar",
-      "de",
-      "es",
-      "fa",
-      "fr",
-      "hi",
-      "id",
-      "it",
-      "ja-JP",
-      "ko",
-      "nl",
-      "pl",
-      "pt-BR",
-      "ru",
-      "th",
-      "tr",
-      "uk",
-      "vi",
-      "zh-CN",
-      "zh-TW"
-    ],
-    "appsPage.cards.windows.desc": [
-      "ar",
-      "de",
-      "es",
-      "fa",
-      "fr",
-      "hi",
-      "id",
-      "it",
-      "ja-JP",
-      "ko",
-      "nl",
-      "pl",
-      "pt-BR",
-      "ru",
-      "th",
-      "tr",
-      "uk",
-      "vi",
-      "zh-CN",
-      "zh-TW"
-    ],
-    "appsPage.heroTitle": [
-      "ar",
-      "de",
-      "es",
-      "fa",
-      "fr",
-      "hi",
-      "id",
-      "it",
-      "ja-JP",
-      "ko",
-      "nl",
-      "pl",
-      "pt-BR",
-      "ru",
-      "th",
-      "tr",
-      "uk",
-      "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "browser.navigationCheckFailed": [
@@ -261,7 +166,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "chat.catalog.deleteSessionConfirm": [
@@ -283,7 +187,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "chat.catalog.openInOpenClaw": [
@@ -305,7 +208,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "chat.catalogOpenTargetViewer": [
@@ -327,7 +229,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "chat.messages.copyLink": [
@@ -349,7 +250,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "chat.modelControls.routes.anthropicApi.detail": [
@@ -371,7 +271,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "chat.modelControls.routes.anthropicApi.label": [
@@ -393,7 +292,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "chat.nativeRuntimeRecovery.confirmMessage": [
@@ -415,7 +313,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "chat.nativeRuntimeRecovery.reasons.sandbox": [
@@ -437,7 +334,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "chat.nativeRuntimeRecovery.reasons.tool-policy": [
@@ -459,7 +355,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "chat.nativeRuntimeRecovery.reasons.workspace-only": [
@@ -481,7 +376,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "chat.progressLabels.chirping": [
@@ -503,7 +397,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "chat.progressLabels.dawnchorusing": [
@@ -525,7 +418,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "chat.progressLabels.foraging": [
@@ -547,7 +439,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "chat.progressLabels.gliding": [
@@ -569,7 +460,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "chat.progressLabels.migrating": [
@@ -591,7 +481,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "chat.progressLabels.nesting": [
@@ -613,7 +502,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "chat.progressLabels.perching": [
@@ -635,7 +523,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "chat.progressLabels.preening": [
@@ -657,7 +544,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "chat.progressLabels.soaring": [
@@ -679,7 +565,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "chat.progressLabels.wingstretching": [
@@ -701,7 +586,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "chat.voice.asking": [
@@ -723,7 +607,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "chat.workspaceConflict.commandsUnavailable": [
@@ -745,7 +628,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "chat.workspaceConflict.description": [
@@ -767,7 +649,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "cloudWorkersPage.fields.setupHelp": [
@@ -789,7 +670,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "cloudWorkersPage.snapshots.cancelBuildMessage": [
@@ -811,7 +691,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "configHints.agents%2Edefaults%2Ecompaction%2Eenabled.help.v1-1eidh4l-5i": [
@@ -833,7 +712,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "configHints.agents%2Edefaults%2Ecompaction%2EmidTurnPrecheck.help.v1-33b41p-6r": [
@@ -855,7 +733,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "configHints.agents%2Edefaults%2Ecompaction%2EmidTurnPrecheck%2Eenabled.help.v1-5l14p5-5r": [
@@ -877,7 +754,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "configHints.agents%2Edefaults%2Ecompaction%2EthinkingLevel.help.v1-1slm1so-fv": [
@@ -899,7 +775,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "configHints.agents%2Edefaults%2EembeddedAgent.help.v1-c5rmgg-3e": [
@@ -921,7 +796,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "configHints.agents%2Edefaults%2EembeddedAgent.label.v1-15dkhv1-e": [
@@ -943,7 +817,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "configHints.agents%2Edefaults%2EembeddedAgent%2EexecutionContract.help.v1-4c1rk1-63": [
@@ -965,7 +838,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "configHints.agents%2Edefaults%2EembeddedAgent%2EexecutionContract.label.v1-mev5nv-x": [
@@ -987,7 +859,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "configHints.agents%2Edefaults%2EembeddedAgent%2EprojectSettingsPolicy.help.v1-i8m02v-62": [
@@ -1009,7 +880,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "configHints.agents%2Edefaults%2EembeddedAgent%2EprojectSettingsPolicy.label.v1-8sisjp-12": [
@@ -1031,7 +901,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "configHints.agents%2Edefaults%2Emodels%2E*%2EcodeMode.help.v1-13p28yt-6u": [
@@ -1053,7 +922,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "configHints.agents%2Edefaults%2EsystemAgent.help.v1-17r7gjk-31": [
@@ -1075,7 +943,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "configHints.agents%2Eentries%2E*%2EembeddedAgent.help.v1-1ygj255-48": [
@@ -1097,7 +964,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "configHints.agents%2Eentries%2E*%2EembeddedAgent.label.v1-180yrli-k": [
@@ -1119,7 +985,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "configHints.agents%2Eentries%2E*%2EembeddedAgent%2EexecutionContract.help.v1-d9200f-7h": [
@@ -1141,7 +1006,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "configHints.agents%2Eentries%2E*%2EembeddedAgent%2EexecutionContract.label.v1-1kef05u-13": [
@@ -1163,7 +1027,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "configHints.agents%2Eentries%2E*%2Emodels%2E*%2EcodeMode.help.v1-13pdokk-7j": [
@@ -1185,7 +1048,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "configHints.agents%2Eentries%2E*%2Eruntime.help.v1-1o6a7kw-3i": [
@@ -1207,7 +1069,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "configHints.agents%2Eentries%2E*%2Eruntime%2Eacp%2Eagent.help.v1-1pmgu3m-34": [
@@ -1229,7 +1090,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "configHints.agents%2Eentries%2E*%2Eruntime%2Etype.help.v1-f4fzwv-2o": [
@@ -1251,7 +1111,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "configHints.agents%2Eownership.help.v1-aknzg6-8d": [
@@ -1273,7 +1132,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "configHints.browser%2EallowSystemProfileImport.help.v1-125lewn-5t": [
@@ -1295,7 +1153,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "configHints.commands%2Emcp.help.v1-1pb24sw-2l": [
@@ -1317,7 +1174,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "configHints.diagnostics%2Eotel%2EmetricNamePrefix.help.v1-itg2zu-az": [
@@ -1339,7 +1195,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "configHints.env%2Evars.help.v1-oyd9ny-5k": [
@@ -1361,7 +1216,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "configHints.gateway%2Epush%2Eapns%2Erelay.help.v1-ghgj9e-6u": [
@@ -1383,7 +1237,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "configHints.gateway%2Etailscale%2EpreserveFunnel.help.v1-dyvucg-7n": [
@@ -1405,7 +1258,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "configHints.hooks.help.v1-1i88k6v-5s": [
@@ -1427,7 +1279,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "configHints.mcp.help.v1-g7easr-4v": [
@@ -1449,7 +1300,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "configHints.mcp%2Eservers.help.v1-bfpj80-3z": [
@@ -1471,7 +1321,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "configHints.mcp%2Eservers%2E*%2Ecodex.help.v1-y3a7pg-6u": [
@@ -1493,7 +1342,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "configHints.mcp%2Eservers%2E*%2Ecodex%2Eagents.help.v1-pe38nt-64": [
@@ -1515,7 +1363,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "configHints.mcp%2Eservers%2E*%2Ecodex%2Edefault_tools_approval_mode.help.v1-etsc1a-3a": [
@@ -1537,7 +1384,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "configHints.mcp%2Eservers%2E*%2Eoauth%2EauthProfileId.help.v1-17u1lq1-5w": [
@@ -1559,7 +1405,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "configHints.mcp%2EsessionIdleTtlMs.help.v1-15pawj3-84": [
@@ -1581,7 +1426,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "configHints.meta%2ElastTouchedVersion.help.v1-1cb9yv2-1f": [
@@ -1603,7 +1447,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "configHints.models%2Eproviders%2E*%2EagentRuntime.help.v1-1qnh9xq-5l": [
@@ -1625,7 +1468,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "configHints.models%2Eproviders%2E*%2EinjectNumCtxForOpenAICompat.help.v1-w7dyu6-6k": [
@@ -1647,7 +1489,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "configHints.models%2Eproviders%2E*%2ElocalService.help.v1-1dui25v-4v": [
@@ -1669,7 +1510,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "configHints.models%2Eproviders%2E*%2ElocalService%2EhealthUrl.help.v1-1oqu14x-32": [
@@ -1691,10 +1531,9 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
-    "configHints.models%2Eproviders%2E*%2ElocalService%2EidleStopMs.help.v1-mzv026-3t": [
+    "configHints.models%2Eproviders%2E*%2ElocalService%2EidleStopMs.help.v1-l3q1g0-3s": [
       "ar",
       "de",
       "es",
@@ -1713,7 +1552,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "configHints.models%2Eproviders%2E*%2Emodels%5B%5D%2EmediaInput%2Eimage%2EpreferredSidePx.help.v1-1qc9ecb-2u": [
@@ -1735,7 +1573,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "configHints.nodeHost%2EbrowserProxy%2EallowProfiles.help.v1-1vwznhn-88": [
@@ -1757,7 +1594,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "configHints.nodeHost%2EworkerRuns.help.v1-135s342-2m": [
@@ -1779,7 +1615,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "configHints.proxy.help.v1-usupo8-55": [
@@ -1801,7 +1636,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "configHints.skills%2Eload%2EextraDirs.help.v1-vwpa0d-50": [
@@ -1823,7 +1657,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "configHints.talk%2Erealtime%2EconsultRouting.help.v1-149phw9-5c": [
@@ -1845,7 +1678,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "configHints.talk%2Erealtime%2Einstructions.help.v1-teywqh-5m": [
@@ -1867,7 +1699,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "configHints.tools%2EcodeMode.help.v1-1l23zb1-6h": [
@@ -1889,7 +1720,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "configHints.tools%2EcodeMode%2Eenabled.help.v1-1mbahhu-ag": [
@@ -1911,7 +1741,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "configHints.tools%2Eexec%2Ereviewer%2EfastMode.help.v1-woiymd-8r": [
@@ -1933,7 +1762,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "configHints.tools%2Eexec%2Ereviewer%2Ethinking.help.v1-zghvxv-6r": [
@@ -1955,7 +1783,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "configHints.tools%2EtoolSearch.help.v1-1gvj5g6-7s": [
@@ -1977,7 +1804,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "configHints.tools%2EtoolSearch%2Eenabled.help.v1-212z6c-4e": [
@@ -1999,7 +1825,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "configHints.update.help.v1-4s3uns-59": [
@@ -2021,7 +1846,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "configHints.wizard%2ElastRunVersion.help.v1-9c2if4-16": [
@@ -2043,7 +1867,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "configPage.deviceSettings.activePresenceHint": [
@@ -2065,7 +1888,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "configPage.deviceSettings.appOnly": [
@@ -2087,7 +1909,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "configPage.deviceSettings.chromeExtensionEnableHint": [
@@ -2109,7 +1930,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "configPage.deviceSettings.chromeExtensionFailed": [
@@ -2131,7 +1951,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "configPage.deviceSettings.chromeExtensionHint": [
@@ -2153,7 +1972,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "configPage.deviceSettings.chromeExtensionNextActions.approve_extension": [
@@ -2175,7 +1993,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "configPage.deviceSettings.chromeExtensionNextActions.install_from_store": [
@@ -2197,7 +2014,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "configPage.deviceSettings.chromeExtensionNextActions.open_chrome": [
@@ -2219,7 +2035,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "configPage.deviceSettings.chromeExtensionStatusFailed": [
@@ -2241,7 +2056,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "configPage.deviceSettings.chromeExtensionStatusUnsupported": [
@@ -2263,7 +2077,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "configPage.deviceSettings.cookieSyncHint": [
@@ -2285,7 +2098,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "configPage.deviceSettings.cookieSyncUnavailable": [
@@ -2307,7 +2119,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "configPage.deviceSettings.iconStyleHint": [
@@ -2329,7 +2140,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "configPage.deviceSettings.keepAwakeComputerHint": [
@@ -2351,7 +2161,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "configPage.deviceSettings.keepAwakeHint": [
@@ -2373,7 +2182,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "configPage.deviceSettings.showDockIconHint": [
@@ -2395,7 +2203,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "configPage.deviceSettings.unattendedDesktopHint": [
@@ -2417,7 +2224,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "configView.appearance.accents.claw": [
@@ -2439,7 +2245,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "configView.appearance.fonts.previewCaption": [
@@ -2461,7 +2266,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "configView.appearance.themeUnavailable": [
@@ -2483,7 +2287,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "configView.notifications.iosInstallRequired": [
@@ -2505,7 +2308,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "configView.notifications.nativeBlockedHint": [
@@ -2527,7 +2329,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "configView.sessionStorage.backupHint": [
@@ -2549,7 +2350,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "configView.themes.claw.label": [
@@ -2571,7 +2371,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "connection.access.setupCodeHint": [
@@ -2593,7 +2392,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "cron.detail.newSubtitle": [
@@ -2615,7 +2413,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "cron.form.promptPlaceholder": [
@@ -2637,7 +2434,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "cron.list.emptyHint": [
@@ -2659,7 +2455,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "custodian.history.requestFailed": [
@@ -2681,7 +2476,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "custodian.nudge.channelSetupBody": [
@@ -2703,7 +2497,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "custodian.nudge.channelSetupTitle": [
@@ -2725,7 +2518,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "custodian.panel.close": [
@@ -2747,7 +2539,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "custodian.panel.dockBottom": [
@@ -2769,7 +2560,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "custodian.panel.dockRight": [
@@ -2791,7 +2581,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "custodian.panel.resize": [
@@ -2813,7 +2602,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "custodian.panel.title": [
@@ -2835,7 +2623,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "custodian.panel.toggle": [
@@ -2857,7 +2644,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "custodian.placeholder": [
@@ -2879,7 +2665,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "custodian.pluginHelpFailed": [
@@ -2901,7 +2686,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "custodian.pluginPlaceholder": [
@@ -2923,7 +2707,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "custodian.requestFailed": [
@@ -2945,7 +2728,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "custodian.sessionRestarted": [
@@ -2967,7 +2749,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "custodian.thinking": [
@@ -2989,7 +2770,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "custodian.title": [
@@ -3011,7 +2791,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "custodian.unsupportedGateway": [
@@ -3033,7 +2812,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "devices.pairing.qrAlt": [
@@ -3055,7 +2833,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "devices.pairing.waiting": [
@@ -3077,7 +2854,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "labsPage.codeMode.executorDescription": [
@@ -3099,7 +2875,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "login.failure.protocol.stepRestart": [
@@ -3121,7 +2896,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "login.heading": [
@@ -3143,7 +2917,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "login.setupCodeHint": [
@@ -3165,7 +2938,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "mcpPage.intro": [
@@ -3187,7 +2959,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "memoryImport.confirmBackup": [
@@ -3209,7 +2980,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "memoryImport.subtitle": [
@@ -3231,7 +3001,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "memoryPage.engine.openClawMemory": [
@@ -3253,7 +3022,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "memoryPage.intro": [
@@ -3275,7 +3043,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "modelProviders.defaults.thinkingHelp": [
@@ -3297,7 +3064,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "modelProviders.logout.confirm": [
@@ -3319,7 +3085,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "modelProviders.profiles.sourceSaved": [
@@ -3341,7 +3106,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "modelProviders.readiness.notConfigured": [
@@ -3363,7 +3127,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "modelSetup.access.gatewayTooOld": [
@@ -3385,7 +3148,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "modelSetup.intro": [
@@ -3407,7 +3169,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "modelSetup.manual.verifyHint": [
@@ -3429,7 +3190,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "modelSetup.nativeDiscovery.body": [
@@ -3451,7 +3211,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "modelSetup.success.body": [
@@ -3473,7 +3232,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "modelSetup.utility.hint": [
@@ -3495,7 +3253,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "modelSetup.utility.verified": [
@@ -3517,7 +3274,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "modelSetup.wizard.copyLink": [
@@ -3539,7 +3295,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "nav.askOpenClaw": [
@@ -3561,7 +3316,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "newSession.nativeTerminalHint": [
@@ -3583,7 +3337,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "newSession.terminalPlacementUnsupported": [
@@ -3605,7 +3358,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "onboarding.memoryImport.body": [
@@ -3627,7 +3379,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "onboarding.memoryImport.doneBody": [
@@ -3649,7 +3400,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "pluginConsent.declaredDescription": [
@@ -3671,7 +3421,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "pluginsPage.detailBuiltWith": [
@@ -3693,7 +3442,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "pluginsPage.editor.ask": [
@@ -3715,7 +3463,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "pluginsPage.optionalCapability": [
@@ -3737,7 +3484,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "searchPage.queryDefault": [
@@ -3759,7 +3505,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "searchPage.setupHint": [
@@ -3781,7 +3526,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "sessionsView.continueOnGatewayConfirm": [
@@ -3803,7 +3547,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "sessionsView.deletePreservedReasons.snapshot-failed": [
@@ -3825,7 +3568,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "sessionsView.moveSessionNoReplayWarning": [
@@ -3847,7 +3589,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "skillWorkshop.selfLearning.pitchBody": [
@@ -3869,7 +3610,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "subtitles.plugins": [
@@ -3891,7 +3631,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "systems.desktopSetupEnableHint": [
@@ -3913,7 +3652,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "systems.enableDesktopAccess": [
@@ -3935,7 +3673,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "tabs.custodian": [
@@ -3957,7 +3694,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "updates.confirm.macMessage": [
@@ -3979,7 +3715,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "updates.failureReasons.externalSupervisorUpdateRequired": [
@@ -4001,7 +3736,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "updates.failureReasons.notOpenclawRoot": [
@@ -4023,7 +3757,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "updates.page.channelDescription": [
@@ -4045,7 +3778,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "updates.report.message": [
@@ -4067,7 +3799,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "updates.triage.hostHint": [
@@ -4089,7 +3820,6 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ],
     "worktrees.subtitle": [
@@ -4111,10 +3841,9 @@
       "tr",
       "uk",
       "vi",
-      "zh-CN",
       "zh-TW"
     ]
   },
-  "sourceHash": "7980535d4e2c0e194b57175d6fe26e78fd3c0648e349772554b47f6a30bb1d4b",
+  "sourceHash": "a1c2ae43e7be489f368e49d6b6233b4d23ff43186a632da363258aab7dd1e5e6",
   "version": 1
 }
