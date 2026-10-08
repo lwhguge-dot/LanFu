@@ -64,19 +64,22 @@ try {
 # ---------------------------------------------------------------- 1b. 界面语言（含升级场景）
 # Existing installs keep their config, so the locale is merged in separately and
 # idempotently: an upgrade must also end up with a Simplified Chinese interface.
+# NOTE: the installer runs this through Windows PowerShell 5.1, which has no
+# ConvertFrom-Json -AsHashtable, so the object is edited with Add-Member instead.
 try {
   if (Test-Path $configPath) {
-    $json = Get-Content $configPath -Raw | ConvertFrom-Json -AsHashtable
-    if ($json -is [System.Collections.IDictionary]) {
-      if (-not $json.Contains("ui") -or -not ($json["ui"] -is [System.Collections.IDictionary])) { $json["ui"] = @{} }
-      $ui = $json["ui"]
-      if (-not $ui.Contains("prefs") -or -not ($ui["prefs"] -is [System.Collections.IDictionary])) { $ui["prefs"] = @{} }
-      if ($ui["prefs"]["locale"] -ne "zh-CN") {
-        $ui["prefs"]["locale"] = "zh-CN"
-        $json | ConvertTo-Json -Depth 12 | Set-Content -Path $configPath -Encoding UTF8
-        Say "  界面语言已设为简体中文"
-      } else { Say "  界面语言已是简体中文" }
+    $cfg = Get-Content $configPath -Raw | ConvertFrom-Json
+    if ($null -eq $cfg.ui) {
+      $cfg | Add-Member -NotePropertyName ui -NotePropertyValue (New-Object psobject) -Force
     }
+    if ($null -eq $cfg.ui.prefs) {
+      $cfg.ui | Add-Member -NotePropertyName prefs -NotePropertyValue (New-Object psobject) -Force
+    }
+    if ($cfg.ui.prefs.locale -ne "zh-CN") {
+      $cfg.ui.prefs | Add-Member -NotePropertyName locale -NotePropertyValue "zh-CN" -Force
+      $cfg | ConvertTo-Json -Depth 12 | Set-Content -Path $configPath -Encoding UTF8
+      Say "  界面语言已设为简体中文"
+    } else { Say "  界面语言已是简体中文" }
   }
 } catch { Say ("  语言设置步骤失败：" + $_.Exception.Message) }
 
