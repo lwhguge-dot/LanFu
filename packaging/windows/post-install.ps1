@@ -17,21 +17,24 @@ function Say($text) {
 }
 "=== LanFu post-install $(Get-Date -Format o) ===" | Set-Content -Path $logPath -ErrorAction SilentlyContinue
 
-# Runs the LanFu CLI with stdin redirected from NUL and a hard timeout. Without the
-# stdin redirect a hidden, console-less session can block forever waiting for input,
-# which hangs the installer that waits on this script.
-function Invoke-LanfuCli([string]$arguments, [int]$timeoutMs) {
+# Runs the LanFu CLI with a hard timeout. Two details matter:
+#   * lanfu.cmd is a batch file, so it must run through cmd.exe
+#   * stdin is closed immediately, because a console-less process that waits for
+#     input would block forever and hang the installer that waits on this script
+function Invoke-LanfuCli([string]$cliArguments, [int]$timeoutMs) {
   try {
     $psi = New-Object System.Diagnostics.ProcessStartInfo
-    $psi.FileName = $lanfuCli
-    $psi.Arguments = $arguments + " < NUL"
+    $psi.FileName = Join-Path $env:SystemRoot "System32\cmd.exe"
+    $psi.Arguments = '/c ""' + $lanfuCli + '" ' + $cliArguments + '"'
     $psi.UseShellExecute = $false
+    $psi.RedirectStandardInput = $true
     $psi.RedirectStandardOutput = $true
     $psi.RedirectStandardError = $true
     $psi.CreateNoWindow = $true
-    $p = [System.Diagnostics.Process]::Start($psi)
-    $out = $p.StandardOutput.ReadToEnd()
-    if (-not $p.WaitForExit($timeoutMs)) { try { $p.Kill() } catch { }; return "" }
+    $proc = [System.Diagnostics.Process]::Start($psi)
+    $proc.StandardInput.Close()
+    $out = $proc.StandardOutput.ReadToEnd()
+    if (-not $proc.WaitForExit($timeoutMs)) { try { $proc.Kill() } catch { }; return "" }
     return $out
   } catch { return "" }
 }
@@ -129,7 +132,7 @@ try { Start-Process -FilePath $hubExe -WorkingDirectory (Split-Path $hubExe) | O
 $approved = 0
 for ($i = 0; $i -lt 20; $i++) {
   Start-Sleep -Seconds 4
-  $raw = Invoke-LanfuCli "devices list --json --timeout 8000" 12000
+  $raw = Invoke-LanfuCli "devices list --json --timeout 8000" 15000
   if (-not $raw) { continue }
   $start = $raw.IndexOf("{")
   if ($start -lt 0) { continue }

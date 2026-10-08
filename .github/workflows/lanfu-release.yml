@@ -31,7 +31,8 @@ permissions:
 
 concurrency:
   group: lanfu-release-${{ github.ref }}
-  cancel-in-progress: false
+  # A stuck run must not hold the queue: a freshly pushed tag supersedes it.
+  cancel-in-progress: true
 
 env:
   NODE_RUNTIME_VERSION: 24.19.0
@@ -239,19 +240,22 @@ jobs:
         run: |
           $ErrorActionPreference = "Continue"
           function Step($t) { Write-Output ("[smoke] " + $t) }
-          # Runs a command with stdin from NUL and a hard timeout. A console-less
-          # process that reads stdin would otherwise block forever and hang the job.
-          function Invoke-Cli([string]$file, [string]$arguments, [int]$timeoutMs) {
+          # Runs a command with a hard timeout. lanfu.cmd is a batch file so it needs
+          # cmd.exe, and stdin is closed immediately: a console-less process that
+          # waits for input would otherwise block forever and hang the job.
+          function Invoke-Cli([string]$file, [string]$cliArguments, [int]$timeoutMs) {
             $psi = New-Object System.Diagnostics.ProcessStartInfo
-            $psi.FileName = $file
-            $psi.Arguments = $arguments + " < NUL"
+            $psi.FileName = Join-Path $env:SystemRoot "System32\cmd.exe"
+            $psi.Arguments = '/c ""' + $file + '" ' + $cliArguments + '"'
             $psi.UseShellExecute = $false
+            $psi.RedirectStandardInput = $true
             $psi.RedirectStandardOutput = $true
             $psi.RedirectStandardError = $true
             $psi.CreateNoWindow = $true
-            $p = [System.Diagnostics.Process]::Start($psi)
-            $out = $p.StandardOutput.ReadToEnd()
-            if (-not $p.WaitForExit($timeoutMs)) { try { $p.Kill() } catch { }; return "" }
+            $proc = [System.Diagnostics.Process]::Start($psi)
+            $proc.StandardInput.Close()
+            $out = $proc.StandardOutput.ReadToEnd()
+            if (-not $proc.WaitForExit($timeoutMs)) { try { $proc.Kill() } catch { }; return "" }
             return $out
           }
 
