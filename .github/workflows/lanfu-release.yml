@@ -382,7 +382,7 @@ jobs:
           if (-not (Test-Path $autostart)) { Fail "desktop shell autostart shortcut is missing" }
           $runKey = Get-ItemProperty "HKCU:\Software\Microsoft\Windows\CurrentVersion\Run" -Name "LanFuGateway" -ErrorAction SilentlyContinue
           if (-not $runKey.LanFuGateway) { Fail "gateway autostart entry is missing" }
-          if ($runKey.LanFuGateway -notmatch "allow-unconfigured") { Fail "gateway autostart must run in unconfigured mode" }
+          if ($runKey.LanFuGateway -notmatch "ensure-gateway") { Fail "gateway autostart must point at the retrying watchdog script" }
           Step "autostart registered for both the gateway and the shell"
 
           $shell = Get-Process -Name "LanFu" -ErrorAction SilentlyContinue | Select-Object -First 1
