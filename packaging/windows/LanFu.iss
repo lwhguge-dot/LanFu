@@ -87,3 +87,42 @@ Type: filesandordirs; Name: "{app}"
 ; 桌面端程序目录（用户数据在 %APPDATA%\LanFu 与 ~/.lanfu，按设计保留）
 Type: filesandordirs; Name: "{localappdata}\LanFu"
 
+[Code]
+// 覆盖安装时旧版界面、网关、守护脚本会锁住要替换的文件，导致安装失败。
+//
+// 为什么不靠 RestartManager（[Setup] CloseApplications）：实测它去关正在运行的
+// node 网关时关不掉，随后弹"无法自动关闭所有应用程序"并**直接中止安装**（退出码 5）。
+// 这里改成在解压前自己精准结束这几个进程：只结束可执行文件路径含 LanFu 的 node，
+// 不会误杀员工自己的 node 程序。
+function StopOldProcesses(): Boolean;
+var
+  ResultCode: Integer;
+  Script: String;
+  ScriptPath: String;
+begin
+  Result := True;
+
+  // 界面进程
+  Exec('taskkill.exe', '/F /IM LanFu.exe', '', SW_HIDE, ewWaitUntilTerminated, ResultCode);
+
+  // 网关 node 进程与守护脚本：用 WMI 精确定位，避免误杀
+  Script :=
+    'Get-CimInstance Win32_Process -Filter "Name = ''node.exe''" | ' + #13#10 +
+    '  Where-Object { $_.ExecutablePath -like ''*LanFu*'' } | ' + #13#10 +
+    '  ForEach-Object { Stop-Process -Id $_.ProcessId -Force -ErrorAction SilentlyContinue }' + #13#10 +
+    'Get-CimInstance Win32_Process -Filter "Name = ''powershell.exe''" | ' + #13#10 +
+    '  Where-Object { $_.CommandLine -like ''*ensure-gateway*'' } | ' + #13#10 +
+    '  ForEach-Object { Stop-Process -Id $_.ProcessId -Force -ErrorAction SilentlyContinue }' + #13#10;
+  ScriptPath := ExpandConstant('{tmp}\lanfu-stop-old.ps1');
+  if SaveStringToFile(ScriptPath, Script, False) then
+    Exec('powershell.exe', '-NoProfile -ExecutionPolicy Bypass -File "' + ScriptPath + '"', '',
+         SW_HIDE, ewWaitUntilTerminated, ResultCode);
+
+  Sleep(1500);
+end;
+
+function PrepareToInstall(var NeedsRestart: Boolean): String;
+begin
+  Result := '';
+  StopOldProcesses();
+end;
