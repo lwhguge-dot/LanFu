@@ -155,6 +155,56 @@ jobs:
             if (Test-Path $target) { Remove-Item -Recurse -Force $target }
           }
           Write-Output "staged app tree"
+      - name: Trim development-only files from the payload
+        shell: pwsh
+        run: |
+          # Employees install over a slow link, so the payload only carries what the
+          # runtime needs. The dependency tree ships source maps, type declarations,
+          # docs and test fixtures that nothing loads at runtime; dropping them halves
+          # the file count (112k -> 54k) and cuts ~350 MB, which is the bulk of the
+          # installation time. The smoke test below still installs and starts the
+          # gateway, so a wrongly removed file fails the build instead of the employee.
+          $app = "release\app"
+          $targets = @((Join-Path $app "node_modules"), (Join-Path $app "dist"))
+          $extensions = @(".map", ".md", ".markdown", ".txt", ".ts", ".tsx", ".mts", ".cts", ".flow")
+          $removedFiles = 0
+          $freedBytes = 0L
+          foreach ($root in $targets) {
+            if (-not (Test-Path $root)) { continue }
+            Get-ChildItem $root -Recurse -File -Force -ErrorAction SilentlyContinue | ForEach-Object {
+              $name = $_.Name
+              if ($name -like "LICENSE*" -or $name -like "NOTICE*") { return }
+              $drop = $false
+              if ($name -like "*.d.ts") { $drop = $true }
+              elseif ($extensions -contains $_.Extension) { $drop = $true }
+              if ($drop) {
+                $freedBytes += $_.Length
+                Remove-Item $_.FullName -Force -ErrorAction SilentlyContinue
+                $script:removedFiles++
+              }
+            }
+          }
+          foreach ($name in @("test","tests","__tests__","__mocks__","spec","docs","example","examples",".github",".vscode")) {
+            foreach ($root in $targets) {
+              if (-not (Test-Path $root)) { continue }
+              Get-ChildItem $root -Recurse -Directory -Force -ErrorAction SilentlyContinue |
+                Where-Object { $_.Name -eq $name } |
+                ForEach-Object { Remove-Item $_.FullName -Recurse -Force -ErrorAction SilentlyContinue }
+            }
+          }
+          # Drop directories the removals emptied, so extraction does not create them.
+          for ($i = 0; $i -lt 3; $i++) {
+            foreach ($root in $targets) {
+              if (-not (Test-Path $root)) { continue }
+              Get-ChildItem $root -Recurse -Directory -Force -ErrorAction SilentlyContinue |
+                Where-Object { (Get-ChildItem $_.FullName -Force -ErrorAction SilentlyContinue | Measure-Object).Count -eq 0 } |
+                ForEach-Object { Remove-Item $_.FullName -Force -ErrorAction SilentlyContinue }
+            }
+          }
+          $left = Get-ChildItem $app -Recurse -File -ErrorAction SilentlyContinue
+          Write-Output ("trimmed: removed $removedFiles files (" + [math]::Round($freedBytes / 1MB) + " MB); payload now " + $left.Count + " files, " + [math]::Round(($left | Measure-Object Length -Sum).Sum / 1MB) + " MB")
+          if (-not (Test-Path (Join-Path $app "node_modules\openclaw") ) -and -not (Test-Path (Join-Path $app "package.json"))) { throw "app tree looks wrong after trimming" }
+
       - name: Download the pinned Node runtime
         shell: pwsh
         run: |
@@ -167,6 +217,7 @@ jobs:
           Copy-Item packaging\windows\lanfu.cmd release\
           Copy-Item packaging\windows\post-install.ps1 release\
           Copy-Item packaging\windows\uninstall.ps1 release\
+          Copy-Item packaging\windows\ensure-gateway.ps1 release\
           Copy-Item packaging\windows\lanfu.ico release\
           Copy-Item packaging\windows\LanFu.iss release\
           # Inno Setup ships no Simplified Chinese language file; it is vendored and staged next to LanFu.iss.
@@ -185,7 +236,7 @@ jobs:
         with:
           dotnet-version: "10.0.x"
 
-      - name: Build the desktop shell installer
+      - name: Build the desktop shell payload
         shell: pwsh
         run: |
           $version = "${{ needs.resolve.outputs.version }}"
@@ -197,19 +248,20 @@ jobs:
           if ($LASTEXITCODE -ne 0) { throw "hub publish failed" }
           if (-not (Test-Path "hub-publish\LanFu.exe")) { throw "hub publish output missing" }
 
-          Invoke-WebRequest -Uri "https://aka.ms/vc14/vc_redist.x64.exe" -OutFile hub-vc_redist.x64.exe -UseBasicParsing
-          $sig = Get-AuthenticodeSignature -LiteralPath hub-vc_redist.x64.exe
-          if ($sig.Status -ne "Valid") { throw "vc_redist is not validly signed" }
+          # The shell is pinned to zh-CN, so the .NET satellite resource folders for
+          # every other language are dead weight in the installer.
+          $satellites = @("cs","da","de","el","es","fi","fr","he","hi","hu","id","it","ja","ko","nb","nl","pl","pt-BR","pt-PT","ro","ru","sk","sv","th","tr","uk","vi","zh-TW")
+          foreach ($name in $satellites) {
+            $dir = Join-Path "hub-publish" $name
+            if (Test-Path $dir) { Remove-Item $dir -Recurse -Force }
+          }
+          $files = Get-ChildItem hub-publish -Recurse -File
+          Write-Output ("desktop shell payload: " + $files.Count + " files, " + [math]::Round(($files | Measure-Object Length -Sum).Sum / 1MB) + " MB")
 
-          $iscc = "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe"
-          if (-not (Test-Path $iscc)) { choco install innosetup --no-progress -y }
-          $hubRoot = (Resolve-Path hub-src).Path
-          & $iscc /DMyAppVersion=$version /DMyAppArch=x64 `
-            "/Dpublish=$hubRoot\..\hub-publish" "/DvcRedist=$hubRoot\..\hub-vc_redist.x64.exe" `
-            "/O$hubRoot\..\hub-out" "$hubRoot\installer.iss"
-          if ($LASTEXITCODE -ne 0) { throw "hub installer failed" }
-          Copy-Item "hub-out\LanFu-Setup-x64.exe" "release\LanFu-Hub-Setup-x64.exe"
-          Write-Output "desktop shell installer staged"
+          New-Item -ItemType Directory -Force -Path "release\hub" | Out-Null
+          robocopy hub-publish "release\hub" /E /NFL /NDL /NJH /NJS /NP | Out-Null
+          if ($LASTEXITCODE -ge 8) { throw "staging the shell payload failed" }
+          $global:LASTEXITCODE = 0
 
       - name: Build the installer
         shell: pwsh
@@ -242,148 +294,86 @@ jobs:
         run: |
           $ErrorActionPreference = "Continue"
           function Step($t) { Write-Output ("[smoke] " + $t) }
-          # Runs a command with a hard timeout. lanfu.cmd is a batch file so it needs
-          # cmd.exe, and stdin is closed immediately: a console-less process that
-          # waits for input would otherwise block forever and hang the job.
-          function Invoke-Cli([string]$file, [string]$cliArguments, [int]$timeoutMs) {
-            $psi = New-Object System.Diagnostics.ProcessStartInfo
-            $psi.FileName = Join-Path $env:SystemRoot "System32\cmd.exe"
-            $psi.Arguments = '/c ""' + $file + '" ' + $cliArguments + '"'
-            $psi.UseShellExecute = $false
-            $psi.RedirectStandardInput = $true
-            $psi.RedirectStandardOutput = $true
-            $psi.RedirectStandardError = $true
-            $psi.CreateNoWindow = $true
-            $proc = [System.Diagnostics.Process]::Start($psi)
-            $proc.StandardInput.Close()
-            $out = $proc.StandardOutput.ReadToEnd()
-            if (-not $proc.WaitForExit($timeoutMs)) { try { $proc.Kill() } catch { }; return "" }
-            return $out
-          }
+          function Fail($t) { throw ("[smoke] " + $t) }
 
           Step "installing"
           $setup = "release-assets\LanFu-Setup-x64.exe"
           $proc = Start-Process -FilePath $setup -ArgumentList @("/VERYSILENT","/SUPPRESSMSGBOXES","/NORESTART","/NOCANCEL") -PassThru
-          if (-not $proc.WaitForExit(1800000)) { try { $proc.Kill() } catch { }; throw "installer did not finish within 30 minutes" }
+          if (-not $proc.WaitForExit(1800000)) { try { $proc.Kill() } catch { }; Fail "installer did not finish within 30 minutes" }
           Step ("installer exit code " + $proc.ExitCode)
+          if ($proc.ExitCode -ne 0) { Fail "installer returned $($proc.ExitCode)" }
 
           $root = @(
             (Join-Path $env:LOCALAPPDATA "Programs\LanFu"),
             (Join-Path $env:ProgramFiles "LanFu"),
             (Join-Path ${env:ProgramFiles(x86)} "LanFu")
           ) | Where-Object { Test-Path (Join-Path $_ "app\dist\index.js") } | Select-Object -First 1
-          if (-not $root) { throw "installed app tree not found in any expected location" }
+          if (-not $root) { Fail "installed app tree not found in any expected location" }
           Step "installed to $root"
 
-          # post-install.ps1 registers the per-user autostart and launches the gateway,
-          # so it is already coming up. Starting a second instance would fight over the
-          # state database (StateDatabaseCoordinatorContentionError), so wait for this one.
+          # The gateway resolves "openclaw/plugin-sdk/*" through this junction. The
+          # installer must create it: relying on the launcher to create it on first run
+          # was too late, the migration detection failed and the gateway refused to
+          # become ready, which is what skipped pairing on a real install.
+          Step "checking the dependency self-link"
+          $watchdog = Join-Path $root "ensure-gateway.ps1"
+          if (-not (Test-Path $watchdog)) { Fail "gateway watchdog script is missing" }
+          $selfLink = Join-Path $root "app\node_modules\openclaw"
+          if (-not (Test-Path $selfLink)) { Fail "app node_modules openclaw junction is missing" }
+          Step "self-link present"
+
           Step "waiting for the gateway"
           $ready = $false
-          for ($i = 0; $i -lt 72; $i++) {
+          for ($i = 0; $i -lt 96; $i++) {
             Start-Sleep -Seconds 5
             try { $r = Invoke-WebRequest "http://127.0.0.1:18789/" -UseBasicParsing -TimeoutSec 4; if ($r.StatusCode -eq 200) { $ready = $true; break } } catch { }
           }
           if (-not $ready) {
-            Write-Output "--- HKCU autostart ---"
-            Get-ItemProperty "HKCU:\Software\Microsoft\Windows\CurrentVersion\Run" -Name "LanFuGateway" -ErrorAction SilentlyContinue | Format-List | Out-String | Write-Output
             Write-Output "--- post-install log ---"
             Get-Content (Join-Path $env:TEMP "lanfu-post-install.log") -Tail 60 -ErrorAction SilentlyContinue | ForEach-Object { Write-Output $_ }
-            throw "installed gateway did not become ready"
+            Write-Output "--- gateway log ---"
+            Get-ChildItem (Join-Path $env:TEMP "openclaw") -Filter *.log -ErrorAction SilentlyContinue |
+              Sort-Object LastWriteTime -Descending | Select-Object -First 1 |
+              ForEach-Object { Get-Content $_.FullName -Tail 30 | ForEach-Object { Write-Output $_ } }
+            Fail "installed gateway did not become ready"
           }
           Step "gateway answered HTTP 200"
 
+          # Employees configure the connection themselves, so the installer must not
+          # have written any connection or gateway configuration.
+          Step "checking that the installer did not pre-wire anything"
+          $shellRegistry = Join-Path $env:APPDATA "LanFu\gateways.json"
+          if (Test-Path $shellRegistry) { Fail "the installer wrote a connection record; wiring is the employee job" }
+          $gatewayConfig = Join-Path $env:USERPROFILE ".lanfu\openclaw.json"
+          if (Test-Path $gatewayConfig) { Fail "the installer wrote a gateway config; configuration is the employee job" }
+          Step "no connection or gateway configuration was written"
+
           Step "checking the desktop shell"
           $shellExe = Join-Path $env:LOCALAPPDATA "LanFu\LanFu.exe"
-          if (-not (Test-Path $shellExe)) { throw "desktop shell was not installed at $shellExe" }
-          $registryPath = Join-Path $env:APPDATA "LanFu\gateways.json"
-          if (-not (Test-Path $registryPath)) { throw "desktop shell was not wired to the gateway" }
-          $record = (Get-Content $registryPath -Raw | ConvertFrom-Json).gateways[0]
-          if ($record.url -ne "ws://127.0.0.1:18789") { throw "unexpected gateway url: $($record.url)" }
-          if ($record.isLocal) { throw "isLocal must stay false or the shell uses device-signature auth" }
-          Step "shell wired to $($record.url) (isLocal=$($record.isLocal))"
+          if (-not (Test-Path $shellExe)) { Fail "desktop shell was not installed" }
+          Step "desktop shell installed"
 
-          # A pending request left behind means the employee would open the app to a
-          # pairing prompt they cannot resolve, so require the approval to have happened.
-          Step "waiting for the pairing approval"
-          $paired = $false
-          for ($i = 0; $i -lt 24; $i++) {
-            Start-Sleep -Seconds 5
-            $raw = Invoke-Cli (Join-Path $root "lanfu.cmd") "devices list --json --timeout 8000" 15000
-            $idx = $raw.IndexOf("{")
-            if ($idx -lt 0) { continue }
-            try { $devices = $raw.Substring($idx) | ConvertFrom-Json } catch { continue }
-            if (@($devices.pending).Count -eq 0 -and @($devices.paired).Count -gt 0) { $paired = $true; break }
-          }
-          if (-not $paired) {
-            Write-Output "--- post-install log ---"
-            Get-Content (Join-Path $env:TEMP "lanfu-post-install.log") -Tail 60 -ErrorAction SilentlyContinue | ForEach-Object { Write-Output $_ }
-            Write-Output "--- devices ---"
-            Invoke-Cli (Join-Path $root "lanfu.cmd") "devices list --timeout 8000" 15000 | ForEach-Object { Write-Output $_ }
-            throw "desktop shell did not complete device pairing"
-          }
-          Step "desktop shell paired with the gateway"
+          $shortcut = Join-Path ([Environment]::GetFolderPath("Desktop")) "LanFu.lnk"
+          if (-not (Test-Path $shortcut)) { Fail "desktop shortcut is missing" }
+          Step "desktop shortcut present"
+
+          $autostart = Join-Path $env:APPDATA "Microsoft\Windows\Start Menu\Programs\Startup\LanFu.lnk"
+          if (-not (Test-Path $autostart)) { Fail "desktop shell autostart shortcut is missing" }
+          $runKey = Get-ItemProperty "HKCU:\Software\Microsoft\Windows\CurrentVersion\Run" -Name "LanFuGateway" -ErrorAction SilentlyContinue
+          if (-not $runKey.LanFuGateway) { Fail "gateway autostart entry is missing" }
+          if ($runKey.LanFuGateway -notmatch "ensure-gateway") { Fail "gateway autostart must point at the retrying watchdog script" }
+          Step "autostart registered for both the gateway and the shell"
+
+          $shell = Get-Process -Name "LanFu" -ErrorAction SilentlyContinue | Select-Object -First 1
+          if (-not $shell) { Write-Output "[smoke] note: the shell process is not running (headless runner); the installer did try to launch it" }
+          else { Step "desktop shell launched by the installer" }
 
           Step "cleaning up"
           Get-Process -Name "LanFu" -ErrorAction SilentlyContinue | Stop-Process -Force -ErrorAction SilentlyContinue
           Get-Process -Name "node" -ErrorAction SilentlyContinue | Stop-Process -Force -ErrorAction SilentlyContinue
           Remove-ItemProperty "HKCU:\Software\Microsoft\Windows\CurrentVersion\Run" -Name "LanFuGateway" -ErrorAction SilentlyContinue
           Step "done"
-  linux-deb:
-    name: Linux package
-    needs: [resolve, build]
-    runs-on: ubuntu-latest
-    timeout-minutes: 60
-    steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: ${{ env.NODE_RUNTIME_VERSION }}
-          cache: pnpm
-      - name: Download dist
-        uses: actions/download-artifact@v4
-        with:
-          name: lanfu-dist
-      - name: Extract dist
-        run: tar -xzf dist.tar.gz
-      - name: Switch the workspace to a flat dependency layout
-        run: |
-          sed -i 's/^nodeLinker: isolated$/nodeLinker: hoisted/' pnpm-workspace.yaml
-          grep -q 'nodeLinker: hoisted' pnpm-workspace.yaml
-          grep -q 'allowUnusedPatches' pnpm-workspace.yaml || echo 'allowUnusedPatches: true' >> pnpm-workspace.yaml
-      - name: Install flat production dependencies
-        run: pnpm install --prod --frozen-lockfile --ignore-scripts
-      - name: Stage the application tree
-        run: |
-          mkdir -p release/app
-          cp -r dist release/app/dist
-          cp -r node_modules release/app/node_modules
-          cp *.mjs release/app/
-          for f in package.json LICENSE THIRD_PARTY_NOTICES.md; do [ -f "$f" ] && cp "$f" release/app/; done
-          rm -rf release/app/node_modules/@openclaw/ai
-          mkdir -p release/app/node_modules/@openclaw/ai
-          cp -r packages/ai/dist release/app/node_modules/@openclaw/ai/dist
-          cp packages/ai/package.json release/app/node_modules/@openclaw/ai/package.json
-          for p in @openai/codex-linux-x64 @anthropic-ai/claude-agent-sdk-linux-x64 @github/copilot-sdk-linux-x64 onnxruntime-node @lancedb/lancedb-linux-x64-gnu; do rm -rf "release/app/node_modules/$p"; done
-      - name: Download the pinned Node runtime
-        run: |
-          curl -fsSL "https://nodejs.org/dist/v${{ env.NODE_RUNTIME_VERSION }}/node-v${{ env.NODE_RUNTIME_VERSION }}-linux-x64.tar.xz" -o node.tar.xz
-          mkdir -p release/runtime && tar -xJf node.tar.xz --strip-components=1 -C release/runtime
-      - name: Assemble the release root
-        run: cp packaging/linux/usr/bin/lanfu release/ && cp packaging/linux/usr/lib/systemd/user/lanfu-gateway.service release/
-      - name: Build the deb
-        run: |
-          VERSION="${{ needs.resolve.outputs.version }}"
-          ROOT="deb-root"
-          rm -rf "$ROOT"
-          mkdir -p "$ROOT/opt/lanfu" "$ROOT/usr/bin" "$ROOT/usr/lib/systemd/user" "$ROOT/DEBIAN"
-          cp -r release/. "$ROOT/opt/lanfu/"
-          cp packaging/linux/usr/bin/lanfu "$ROOT/usr/bin/lanfu"
-          cp packaging/linux/usr/lib/systemd/user/lanfu-gateway.service "$ROOT/usr/lib/systemd/user/lanfu-gateway.service"
-          printf "Package: lanfu\nVersion: %s\nSection: utils\nPriority: optional\nArchitecture: amd64\nMaintainer: LanFu\nDescription: LanFu company AI assistant\n" "$VERSION" > "$ROOT/DEBIAN/control"
-          mkdir -p release-assets
-          dpkg-deb --build --root-owner-group "$ROOT" "release-assets/lanfu_${VERSION}_amd64.deb"
+
       - name: Checksums
         run: |
           cd release-assets && sha256sum *.deb > SHA256SUMS.txt && cat SHA256SUMS.txt

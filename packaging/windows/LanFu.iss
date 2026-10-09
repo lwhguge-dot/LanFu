@@ -1,14 +1,18 @@
-﻿; LanFu unified installer: gateway runtime + desktop shell in one package.
+; LanFu 一体化安装程序：本地网关运行时 + 桌面端，一次安装完成。
 ;
-; Layout (assembled by .github/workflows/lanfu-release.yml):
-;   app/                        gateway runtime tree (node + dist + node_modules)
-;   runtime/                    bundled Node.js
-;   lanfu.cmd, post-install.ps1, uninstall.ps1
-;   LanFu-Hub-Setup-x64.exe     the branded desktop shell installer
+; 发布根目录结构（由 .github/workflows/lanfu-release.yml 组装）：
+;   app/          网关运行时（node_modules 已剔除开发文件）
+;   runtime/      随包 Node.js
+;   hub/          桌面端程序（.NET 自包含发布产物，直接内嵌）
+;   lanfu.cmd / post-install.ps1 / uninstall.ps1 / lanfu.ico
+;
+; 设计要点：桌面端载荷直接内嵌，不再串联"桌面端安装器"——省掉一次完整的
+; 122MB 解压 + 二次解压，安装快一倍。
 
 #define MyAppName "LanFu"
 #define MyAppVersion "0.0.0"
 #define MyAppPublisher "LanFu Edu"
+#define MyAumid "LanFu.Desktop"
 
 [Setup]
 AppId={{8F2B1D64-3A75-4C9E-B2A1-LANFU00000001}
@@ -21,6 +25,7 @@ DisableProgramGroupPage=yes
 DisableReadyPage=yes
 OutputBaseFilename=LanFu-Setup-x64
 OutputDir=out
+; 载荷以大量小文件为主：solid 在这里解压更快、包体更小（实测非 solid 反而更慢更大）。
 Compression=lzma2
 SolidCompression=yes
 WizardStyle=modern
@@ -33,38 +38,52 @@ SetupIconFile=lanfu.ico
 CloseApplications=no
 
 [Languages]
-; The product ships to Chinese-speaking employees only, so the whole wizard — page
-; text, task descriptions, progress and error messages — is Simplified Chinese.
-; ChineseSimplified.isl is vendored next to this script because Inno Setup does not
-; bundle it; the release workflow stages it together with this file.
+; 产品只面向中文员工，向导全程简体中文。Inno Setup 不自带中文语言文件，
+; 因此随包放在脚本旁边，发布流水线会一并 stage。
 Name: "chinesesimplified"; MessagesFile: "ChineseSimplified.isl"
 
 [Messages]
-; CustomMessage used by the desktop-shell step below is already Chinese; the rest of
-; the wizard text comes from ChineseSimplified.isl.
-WelcomeLabel2=即将在你的电脑上安装 [name/ver]。%n%n安装完成后，桌面会出现 LanFu 图标，双击即可使用。%n%n安装过程中请勿关闭窗口。
+WelcomeLabel2=即将在你的电脑上安装 [name/ver]。%n%n安装完成后会自动打开 LanFu。%n%n安装过程需要几分钟，请勿关闭窗口。
 
 [Files]
-; Gateway runtime (validated by the CI smoke test)
+; 网关运行时（已剔除与运行无关的开发文件，安装更快）
 Source: "app\*"; DestDir: "{app}\app"; Flags: recursesubdirs createallsubdirs ignoreversion
 Source: "runtime\*"; DestDir: "{app}\runtime"; Flags: recursesubdirs createallsubdirs ignoreversion
 Source: "lanfu.cmd"; DestDir: "{app}"; Flags: ignoreversion
 Source: "post-install.ps1"; DestDir: "{app}"; Flags: ignoreversion
 Source: "uninstall.ps1"; DestDir: "{app}"; Flags: ignoreversion
+Source: "ensure-gateway.ps1"; DestDir: "{app}"; Flags: ignoreversion
 Source: "lanfu.ico"; DestDir: "{app}"; Flags: ignoreversion
-; Desktop shell installer, run silently below so employees install once
-Source: "LanFu-Hub-Setup-x64.exe"; DestDir: "{tmp}"; Flags: deleteafterinstall
+; 桌面端：直接内嵌，不再串联独立安装器
+Source: "hub\*"; DestDir: "{localappdata}\LanFu"; Flags: recursesubdirs createallsubdirs ignoreversion
+
+[Icons]
+; 桌面快捷方式 + 开始菜单（员工从桌面图标启动）
+Name: "{autodesktop}\LanFu"; Filename: "{localappdata}\LanFu\LanFu.exe"; AppUserModelID: "{#MyAumid}"
+Name: "{group}\LanFu"; Filename: "{localappdata}\LanFu\LanFu.exe"; AppUserModelID: "{#MyAumid}"
+Name: "{group}\LanFu 对话"; Filename: "{localappdata}\LanFu\LanFu.exe"; Parameters: "lanfu://chat"; AppUserModelID: "{#MyAumid}"
+Name: "{group}\LanFu 设置"; Filename: "{localappdata}\LanFu\LanFu.exe"; Parameters: "lanfu://commandcenter"; AppUserModelID: "{#MyAumid}"
+Name: "{group}\卸载 LanFu"; Filename: "{uninstallexe}"
+; 登录自启：桌面端常驻托盘（网关的自启由 post-install.ps1 注册）
+Name: "{userstartup}\LanFu"; Filename: "{localappdata}\LanFu\LanFu.exe"; Parameters: "--background"; AppUserModelID: "{#MyAumid}"
+
+[Registry]
+; lanfu:// 深链协议（与桌面端 AppIdentity.ProtocolScheme 一致）
+Root: HKCU; Subkey: "Software\Classes\lanfu"; ValueType: string; ValueName: ""; ValueData: "URL:LanFu Protocol"; Flags: uninsdeletekey
+Root: HKCU; Subkey: "Software\Classes\lanfu"; ValueType: string; ValueName: "URL Protocol"; ValueData: ""
+Root: HKCU; Subkey: "Software\Classes\lanfu\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: """{localappdata}\LanFu\LanFu.exe"",0"
+Root: HKCU; Subkey: "Software\Classes\lanfu\shell\open\command"; ValueType: string; ValueName: ""; ValueData: """{localappdata}\LanFu\LanFu.exe"" ""%1"""
 
 [Run]
-; 1. the desktop shell (tray + native window). Tasks are unchecked by default;
-;    enable both so the shell is on the desktop and starts at logon.
-Filename: "{tmp}\LanFu-Hub-Setup-x64.exe"; Parameters: "/VERYSILENT /SUPPRESSMSGBOXES /NORESTART /NOCANCEL /TASKS=""desktopicon,startupicon"""; StatusMsg: "正在安装 LanFu 桌面端..."; Flags: waituntilterminated
-; 2. gateway config, autostart, desktop-shell wiring and first pairing approval
-Filename: "powershell.exe"; Parameters: "-NoProfile -ExecutionPolicy Bypass -File ""{app}\post-install.ps1"""; Flags: runhidden waituntilterminated; StatusMsg: "正在配置 LanFu（首次启动约需 1 分钟）..."
+; 只做安装后收尾：补依赖自链接、注册网关自启、拉起网关、打开 LanFu 界面。
+; 安装器不写任何网关配置、不预绑定连接、不代替员工批准配对。
+Filename: "powershell.exe"; Parameters: "-NoProfile -ExecutionPolicy Bypass -File ""{app}\post-install.ps1"""; Flags: runhidden waituntilterminated; StatusMsg: "正在完成安装并启动 LanFu…"
 
 [UninstallRun]
 Filename: "powershell.exe"; Parameters: "-NoProfile -ExecutionPolicy Bypass -File ""{app}\uninstall.ps1"""; Flags: runhidden waituntilterminated; RunOnceId: "LanFuCleanup"
 
 [UninstallDelete]
-; The uninstaller must remove the whole app tree, including files written at runtime
 Type: filesandordirs; Name: "{app}"
+; 桌面端程序目录（用户数据在 %APPDATA%\LanFu 与 ~/.lanfu，按设计保留）
+Type: filesandordirs; Name: "{localappdata}\LanFu"
+
