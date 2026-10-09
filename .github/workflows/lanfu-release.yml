@@ -294,6 +294,8 @@ jobs:
           $ErrorActionPreference = "Continue"
           function Step($t) { Write-Output ("[smoke] " + $t) }
           function Show-Diagnostics {
+            Write-Output "--- installer setup log (tail) ---"
+            Get-Content (Join-Path $env:TEMP "lanfu-setup.log") -Tail 40 -ErrorAction SilentlyContinue | ForEach-Object { Write-Output $_ }
             Write-Output "--- post-install log ---"
             Get-Content (Join-Path $env:TEMP "lanfu-post-install.log") -Tail 80 -ErrorAction SilentlyContinue | ForEach-Object { Write-Output $_ }
             Write-Output "--- gateway watchdog log ---"
@@ -313,7 +315,9 @@ jobs:
 
           Step "installing"
           $setup = "release-assets\LanFu-Setup-x64.exe"
-          $proc = Start-Process -FilePath $setup -ArgumentList @("/VERYSILENT","/SUPPRESSMSGBOXES","/NORESTART","/NOCANCEL") -PassThru
+          $setupLog = Join-Path $env:TEMP "lanfu-setup.log"
+          Remove-Item $setupLog -Force -ErrorAction SilentlyContinue
+          $proc = Start-Process -FilePath $setup -ArgumentList @("/VERYSILENT","/SUPPRESSMSGBOXES","/NORESTART","/NOCANCEL","/LOG=$setupLog") -PassThru
           if (-not $proc.WaitForExit(1800000)) { try { $proc.Kill() } catch { }; Fail "installer did not finish within 30 minutes" }
           Step ("installer exit code " + $proc.ExitCode)
           if ($proc.ExitCode -ne 0) { Fail "installer returned $($proc.ExitCode)" }

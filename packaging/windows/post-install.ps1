@@ -1,4 +1,4 @@
-param(
+﻿param(
   [switch]$SkipLaunch
 )
 # LanFu 安装后配置。

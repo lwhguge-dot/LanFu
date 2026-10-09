@@ -1,4 +1,4 @@
-$ErrorActionPreference = "SilentlyContinue"
+﻿$ErrorActionPreference = "SilentlyContinue"
 
 # 先停掉正在运行的进程，否则文件被占用会导致卸载残留。
 # 顺序：守护脚本 -> 网关 -> 界面。
