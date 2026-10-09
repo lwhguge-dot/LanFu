@@ -77,10 +77,10 @@ Root: HKCU; Subkey: "Software\Classes\lanfu\shell\open\command"; ValueType: stri
 [Run]
 ; 只做安装后收尾：补依赖自链接、注册网关自启、拉起网关、打开 LanFu 界面。
 ; 安装器不写任何网关配置、不预绑定连接、不代替员工批准配对。
-Filename: "powershell.exe"; Parameters: "-NoProfile -ExecutionPolicy Bypass -File ""{app}\post-install.ps1"""; Flags: runhidden waituntilterminated; StatusMsg: "正在完成安装并启动 LanFu…"
+Filename: "{sys}\WindowsPowerShell\v1.0\powershell.exe"; Parameters: "-NoProfile -ExecutionPolicy Bypass -File ""{app}\post-install.ps1"""; Flags: runhidden waituntilterminated; StatusMsg: "正在完成安装并启动 LanFu…"
 
 [UninstallRun]
-Filename: "powershell.exe"; Parameters: "-NoProfile -ExecutionPolicy Bypass -File ""{app}\uninstall.ps1"""; Flags: runhidden waituntilterminated; RunOnceId: "LanFuCleanup"
+Filename: "{sys}\WindowsPowerShell\v1.0\powershell.exe"; Parameters: "-NoProfile -ExecutionPolicy Bypass -File ""{app}\uninstall.ps1"""; Flags: runhidden waituntilterminated; RunOnceId: "LanFuCleanup"
 
 [UninstallDelete]
 Type: filesandordirs; Name: "{app}"
