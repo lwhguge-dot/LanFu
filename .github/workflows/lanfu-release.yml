@@ -293,7 +293,23 @@ jobs:
         run: |
           $ErrorActionPreference = "Continue"
           function Step($t) { Write-Output ("[smoke] " + $t) }
-          function Fail($t) { throw ("[smoke] " + $t) }
+          function Show-Diagnostics {
+            Write-Output "--- post-install log ---"
+            Get-Content (Join-Path $env:TEMP "lanfu-post-install.log") -Tail 80 -ErrorAction SilentlyContinue | ForEach-Object { Write-Output $_ }
+            Write-Output "--- gateway watchdog log ---"
+            Get-Content (Join-Path $env:TEMP "lanfu-gateway-watchdog.log") -Tail 40 -ErrorAction SilentlyContinue | ForEach-Object { Write-Output $_ }
+            Write-Output "--- app\node_modules (openclaw entry) ---"
+            $nm = Join-Path $env:LOCALAPPDATA "Programs\LanFu\app\node_modules"
+            if (Test-Path $nm) {
+              Get-ChildItem $nm -Force -ErrorAction SilentlyContinue | Where-Object { $_.Name -like "*openclaw*" } | ForEach-Object {
+                Write-Output ("  " + $_.Name + " link=" + $_.LinkType + " target=" + $_.Target)
+              }
+              Write-Output ("  node_modules entries: " + (Get-ChildItem $nm -Force -ErrorAction SilentlyContinue | Measure-Object).Count)
+            } else { Write-Output "  node_modules missing" }
+            Write-Output "--- HKCU Run ---"
+            Get-ItemProperty "HKCU:\Software\Microsoft\Windows\CurrentVersion\Run" -ErrorAction SilentlyContinue | Format-List | Out-String | Write-Output
+          }
+          function Fail($t) { Show-Diagnostics; throw ("[smoke] " + $t) }
 
           Step "installing"
           $setup = "release-assets\LanFu-Setup-x64.exe"
@@ -316,7 +332,11 @@ jobs:
           # become ready, which is what skipped pairing on a real install.
           Step "checking the dependency self-link"
           $selfLink = Join-Path $root "app\node_modules\openclaw"
-          if (-not (Test-Path $selfLink)) { Fail "app node_modules openclaw junction is missing" }
+          if (-not (Test-Path $selfLink)) {
+            Write-Output ("[smoke] self-link path: " + $selfLink)
+            Write-Output ("[smoke] node_modules exists: " + (Test-Path (Join-Path $root "app\node_modules")))
+            Fail "the installer did not create the dependency self-link"
+          }
           Step "self-link present"
 
           Step "waiting for the gateway"

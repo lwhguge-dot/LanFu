@@ -10,7 +10,7 @@
 #     1. 每次重试前确认依赖自链接存在，缺失就补建（首次启动最常见的失败原因）
 #     2. 在较长时间窗口内反复重试，直到网关真正就绪
 param(
-  [int]$TimeoutSeconds = 1200
+  [int]$TimeoutSeconds = 2700
 )
 $ErrorActionPreference = "Continue"
 $root = Split-Path -Parent $MyInvocation.MyCommand.Path
