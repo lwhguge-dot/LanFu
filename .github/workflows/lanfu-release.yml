@@ -60,6 +60,7 @@ jobs:
   # packaging jobs so they can use a flat production-only dependency tree.
   build:
     name: Build dist
+    needs: resolve
     runs-on: ubuntu-latest
     timeout-minutes: 45
     steps:
@@ -69,6 +70,20 @@ jobs:
         with:
           node-version: ${{ env.NODE_RUNTIME_VERSION }}
           cache: pnpm
+      # The app reads lanfu.productVersion from package.json at RUNTIME (see
+      # src/version.ts), and the staging steps copy that package.json into the
+      # installer. Stamp the tag version here so the installer, the shell and the
+      # about page all agree; otherwise the app keeps showing whatever the last
+      # manual bump wrote (it said 0.1.1 through the 0.4.x line).
+      - name: Stamp the LanFu product version
+        run: |
+          node -e '
+            const fs = require("fs");
+            const pkg = JSON.parse(fs.readFileSync("package.json", "utf8"));
+            pkg.lanfu = Object.assign({}, pkg.lanfu, { productVersion: process.argv[1] });
+            fs.writeFileSync("package.json", JSON.stringify(pkg, null, 2) + "\n");
+            console.log("stamped productVersion:", process.argv[1]);
+          ' "${{ needs.resolve.outputs.version }}"
       - run: pnpm install --frozen-lockfile
       - name: Build dist and Control UI
         run: pnpm build
@@ -474,7 +489,8 @@ jobs:
           {
             echo "# LanFu $VERSION"
             echo ""
-            echo "Windows 与 Linux 首版安装包。Windows 安装器自带固定版本 Node.js，员工无需另装 Node/pnpm/Git。"
+            echo "Windows 安装器自带固定版本 Node.js，员工无需另装 Node/pnpm/Git；Linux 为 deb 包。"
+            echo "升级可直接覆盖安装；详细变更见仓库发布说明文档。"
             echo ""
             echo "- Windows: LanFu-Setup-x64.exe"
             echo "- Linux: lanfu_${VERSION}_amd64.deb"
