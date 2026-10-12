@@ -18,24 +18,6 @@ function Say($text) {
 }
 "=== LanFu 安装后配置 $(Get-Date -Format o) ===" | Set-Content -Path $logPath -ErrorAction SilentlyContinue
 
-# ---------------------------------------------------------------- 0. 诊断转储
-# 网关在安装器进程链里启动时会失败，在普通 shell 里正常，因此把安装时的上下文记下来。
-try {
-  $diag = Join-Path $env:TEMP "lanfu-install-context.txt"
-  $lines = @()
-  $lines += "cwd=" + (Get-Location).Path
-  $lines += "cwd-exists=" + (Test-Path (Get-Location).Path)
-  $lines += "TEMP=" + $env:TEMP + "  exists=" + (Test-Path $env:TEMP)
-  $lines += "TMP=" + $env:TMP
-  $lines += "NODE_OPTIONS=[" + $env:NODE_OPTIONS + "]"
-  $lines += "NODE_PATH=[" + $env:NODE_PATH + "]"
-  $lines += "PATH=" + $env:PATH
-  $lines += "--- all env ---"
-  Get-ChildItem Env: | Sort-Object Name | ForEach-Object { $lines += ($_.Name + "=" + $_.Value) }
-  $lines | Set-Content -Path $diag -Encoding UTF8
-  Say ("已转储安装上下文到 " + $diag)
-} catch { Say ("转储失败：" + $_.Exception.Message) }
-
 # ---------------------------------------------------------------- 1. 目录联接
 Say "正在补齐依赖自链接…"
 try {

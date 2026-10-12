@@ -29,4 +29,6 @@ Remove-Item -Path (Join-Path $env:LOCALAPPDATA "LanFu\start-gateway.cmd") -Force
 # 运行日志（不影响用户数据）
 Remove-Item -Path (Join-Path $env:TEMP "lanfu-gateway-watchdog.log") -Force
 Remove-Item -Path (Join-Path $env:TEMP "lanfu-post-install.log") -Force
+# 早期版本(<=0.4.1)的安装诊断残留：全量环境变量快照，必须清掉
+Remove-Item -Path (Join-Path $env:TEMP "lanfu-install-context.txt") -Force
 # 用户数据按设计保留：%USERPROFILE%\.lanfu（助手、记忆、渠道绑定）与 %APPDATA%\LanFu（界面偏好）
