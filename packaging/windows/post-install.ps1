@@ -88,9 +88,9 @@ try {
   if ((-not (Test-Path $stateDir)) -and (Test-Path $legacyWinDir)) {
     Say "检测到 Windows 原生 .openclaw，触发网关自带迁移…"
     $sw = [System.Diagnostics.Stopwatch]::StartNew()
-    # 任意 CLI 命令都会在启动早期执行 ensureLanFuStateMigration（备份+复制+校验）；
-    # 网关尚未运行，命令本身会失败，退出码忽略，只看 .lanfu 是否出现
-    (& $cmdExe /c ('"' + $cli + '" devices list --json')) 2>$null | Out-Null
+    # 实测只有 `doctor` 一定走本地启动引导（其余命令在网关可达时直接 RPC 短路，
+    # 不会执行迁移）；doctor 自身只做检查不修改。命令的退出码不重要，只看 .lanfu。
+    (& $cmdExe /c ('"' + $cli + '" doctor')) 2>$null | Out-Null
     $sw.Stop()
     if (Test-Path $stateDir) {
       Say ("  迁移完成（耗时 " + [int]$sw.Elapsed.TotalSeconds + " 秒），旧目录保留在原处")

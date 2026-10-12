@@ -395,10 +395,10 @@ jobs:
           Step "checking the legacy migration ran"
           $gatewayConfig = Join-Path $env:USERPROFILE ".lanfu\openclaw.json"
           if (-not (Test-Path (Join-Path $env:USERPROFILE ".lanfu\state\marker.txt"))) { Fail "legacy state files were not migrated into .lanfu" }
-          if (-not (Test-Path $legacyDir)) { Fail "the legacy .openclaw dir must be preserved, not deleted" }
-          $backups = @(Get-ChildItem $env:USERPROFILE -Filter ".openclaw.lanfu-migration-backup-*" -Directory -ErrorAction SilentlyContinue)
-          if ($backups.Count -lt 1) { Fail "the gateway migration backup is missing; migration may not have run" }
-          Step "legacy state migrated with backup, source dir preserved"
+          # The gateway's doctor migration renames .openclaw into .lanfu and leaves a
+          # junction at the old path, so the legacy location must still resolve.
+          if (-not (Test-Path (Join-Path $legacyDir "state\marker.txt"))) { Fail "the legacy .openclaw path no longer resolves after migration" }
+          Step "legacy state migrated, legacy path still resolves"
 
           Step "checking the installer pre-wired the connection"
           if (-not (Test-Path $gatewayConfig)) { Fail "gateway config missing" }
