@@ -4,7 +4,7 @@ LanFu 是公司提供的本地 AI 助手。装好之后，用浏览器打开本�
 
 ## Windows
 
-1. 用公司授权的 GitHub 账号登录，打开公司私有仓库的 Releases 页面。
+1. 打开公司仓库的 Releases 页面（公开仓库，无需登录）：https://github.com/lwhguge-dot/LanFu/releases
 2. 下载 LanFu-Setup-x64.exe 和 SHA256SUMS.txt。
 3. （建议）校验下载文件：在下载目录打开 PowerShell，执行
 
@@ -14,6 +14,7 @@ LanFu 是公司提供的本地 AI 助手。装好之后，用浏览器打开本�
 
 4. 双击 LanFu-Setup-x64.exe，按提示完成安装。安装过程不需要管理员权限，也不会要求你另外安装 Node.js。
 5. 安装完成后会自动注册登录自启并打开一次界面。之后可以随时双击桌面上的 LanFu 快捷方式。
+6. 首次对话前需要连接公司模型：在 LanFu 界面的模型选择里添加 API 密钥方式的提供商（地址与密钥由 IT 提供）。
 
 ### 访问公司模型需要什么
 

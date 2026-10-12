@@ -58,6 +58,7 @@ Source: "lanfu.cmd"; DestDir: "{app}"; Flags: ignoreversion
 Source: "post-install.ps1"; DestDir: "{app}"; Flags: ignoreversion
 Source: "uninstall.ps1"; DestDir: "{app}"; Flags: ignoreversion
 Source: "ensure-gateway.ps1"; DestDir: "{app}"; Flags: ignoreversion
+Source: "approve-pairing.ps1"; DestDir: "{app}"; Flags: ignoreversion
 Source: "lanfu.ico"; DestDir: "{app}"; Flags: ignoreversion
 ; 桌面端：直接内嵌，不再串联独立安装器
 Source: "hub\*"; DestDir: "{localappdata}\LanFu"; Flags: recursesubdirs createallsubdirs ignoreversion
@@ -80,8 +81,9 @@ Root: HKCU; Subkey: "Software\Classes\lanfu\DefaultIcon"; ValueType: string; Val
 Root: HKCU; Subkey: "Software\Classes\lanfu\shell\open\command"; ValueType: string; ValueName: ""; ValueData: """{localappdata}\LanFu\LanFu.exe"" ""%1"""
 
 [Run]
-; 只做安装后收尾：补依赖自链接、注册网关自启、拉起网关、打开 LanFu 界面。
-; 安装器不写任何网关配置、不预绑定连接、不代替员工批准配对。
+; 安装后收尾：预置连接（生成令牌+写连接记录）、补依赖自链接、注册网关自启、
+; 拉起网关、打开 LanFu 界面、后台批准桌面端配对。
+; 不写任何模型/渠道配置——AI 提供商由员工装好后在应用内自己连接。
 Filename: "{sys}\WindowsPowerShell\v1.0\powershell.exe"; Parameters: "-NoProfile -ExecutionPolicy Bypass -File ""{app}\post-install.ps1"""; Flags: runhidden waituntilterminated; StatusMsg: "正在完成安装并启动 LanFu…"
 
 [UninstallRun]

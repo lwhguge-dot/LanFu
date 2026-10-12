@@ -232,6 +232,7 @@ jobs:
           Copy-Item packaging\windows\post-install.ps1 release\
           Copy-Item packaging\windows\uninstall.ps1 release\
           Copy-Item packaging\windows\ensure-gateway.ps1 release\
+          Copy-Item packaging\windows\approve-pairing.ps1 release\
           Copy-Item packaging\windows\lanfu.ico release\
           Copy-Item packaging\windows\LanFu.iss release\
           # Inno Setup ships no Simplified Chinese language file; it is vendored and staged next to LanFu.iss.
@@ -375,14 +376,43 @@ jobs:
           }
           Step "gateway answered HTTP 200"
 
-          # Employees configure the connection themselves, so the installer must not
-          # have written any connection or gateway configuration.
-          Step "checking that the installer did not pre-wire anything"
-          $shellRegistry = Join-Path $env:APPDATA "LanFu\gateways.json"
-          if (Test-Path $shellRegistry) { Fail "the installer wrote a connection record; wiring is the employee job" }
+          # Minimal wiring (2026-10-12 decision): the installer mints the gateway token
+          # and pre-wires the shell's connection record, because a fresh gateway rejects
+          # every anonymous client and employees have no CLI to mint one themselves.
+          # Model/channel config must stay the employee's own choice.
+          Step "checking the installer pre-wired the connection"
           $gatewayConfig = Join-Path $env:USERPROFILE ".lanfu\openclaw.json"
-          if (Test-Path $gatewayConfig) { Fail "the installer wrote a gateway config; configuration is the employee job" }
-          Step "no connection or gateway configuration was written"
+          if (-not (Test-Path $gatewayConfig)) { Fail "gateway config missing; the installer must mint a token" }
+          $cfg = Get-Content $gatewayConfig -Raw | ConvertFrom-Json
+          if (-not $cfg.gateway.auth.token) { Fail "gateway auth token missing" }
+          if ($cfg.gateway.auth.token -notmatch "^[0-9a-f]{48}$") { Fail "unexpected token shape: $($cfg.gateway.auth.token)" }
+          Step "gateway token minted"
+
+          $shellRegistry = Join-Path $env:APPDATA "LanFu\gateways.json"
+          if (-not (Test-Path $shellRegistry)) { Fail "shell connection record missing" }
+          $reg = Get-Content $shellRegistry -Raw | ConvertFrom-Json
+          if (-not $reg.gateways -or -not $reg.gateways[0]) { Fail "connection record has no gateways" }
+          if ($reg.activeId -ne $reg.gateways[0].id) { Fail "connection record activeId mismatch" }
+          if ($reg.gateways[0].url -ne "ws://127.0.0.1:18789") { Fail "connection record url mismatch: $($reg.gateways[0].url)" }
+          if ($reg.gateways[0].isLocal -ne $false) { Fail "isLocal must be false; true takes the v2 signature path and never connects" }
+          Step "connection record wired (isLocal=False)"
+
+          $envDump = Join-Path $env:TEMP "lanfu-install-context.txt"
+          if (Test-Path $envDump) { Fail "the environment dump is back; 0.4.1 installs left one and uninstall never removed it" }
+          Step "no environment dump"
+
+          Step "waiting for the desktop shell pairing"
+          $paired = $false
+          for ($i = 0; $i -lt 60; $i++) {
+            Start-Sleep -Seconds 5
+            $out = (& (Join-Path $env:SystemRoot "System32\cmd.exe") /c ('"' + (Join-Path $root "lanfu.cmd") + '" devices list --json')) 2>$null | Out-String
+            $idx = $out.IndexOf("{")
+            if ($idx -lt 0) { continue }
+            try { $d = $out.Substring($idx) | ConvertFrom-Json } catch { continue }
+            if ((@($d.pending).Count -eq 0) -and (@($d.paired).Count -gt 0)) { $paired = $true; break }
+          }
+          if (-not $paired) { Fail "the desktop shell never completed pairing (installer-side approval did not land)" }
+          Step "desktop shell paired with the gateway"
 
           Step "checking the desktop shell"
           $shellExe = Join-Path $env:LOCALAPPDATA "LanFu\LanFu.exe"
