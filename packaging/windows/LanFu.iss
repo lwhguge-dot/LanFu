@@ -10,7 +10,12 @@
 ; 122MB 解压 + 二次解压，安装快一倍。
 
 #define MyAppName "LanFu"
-#define MyAppVersion "0.0.0"
+; CI 传 /DMyAppVersion=<版本>；脚本内的 #define 会覆盖命令行值（Inno 后定义
+; 生效），必须用 #ifndef 兜底，否则窗口标题、控制面板卸载项全部显示 0.0.0
+; （0.2.0～0.4.1 的正式发布全部中过这个招）。
+#ifndef MyAppVersion
+  #define MyAppVersion "0.0.0"
+#endif
 #define MyAppPublisher "LanFu Edu"
 #define MyAumid "LanFu.Desktop"
 
