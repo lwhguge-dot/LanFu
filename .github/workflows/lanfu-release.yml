@@ -330,6 +330,16 @@ jobs:
           function Fail($t) { Show-Diagnostics; throw ("[smoke] " + $t) }
 
           Step "installing"
+          # Simulate an employee who used native Windows OpenClaw before: seed a legacy
+          # state dir with a distinctive token and a marker file. The installer must
+          # migrate it (the gateway's own .openclaw -> .lanfu move) instead of minting
+          # a fresh state on top of it.
+          $legacyDir = Join-Path $env:USERPROFILE ".openclaw"
+          $legacyToken = "e2b" + ("0" * 43) + "c1"
+          New-Item -ItemType Directory -Force -Path (Join-Path $legacyDir "state") | Out-Null
+          "legacy-marker-7f3a" | Set-Content (Join-Path $legacyDir "state" "marker.txt")
+          @{ gateway = @{ auth = @{ token = $legacyToken } } } |
+            ConvertTo-Json -Depth 8 | Set-Content (Join-Path $legacyDir "openclaw.json")
           $setup = "release-assets\LanFu-Setup-x64.exe"
           $setupLog = Join-Path $env:TEMP "lanfu-setup.log"
           Remove-Item $setupLog -Force -ErrorAction SilentlyContinue
@@ -379,14 +389,31 @@ jobs:
           # Minimal wiring (2026-10-12 decision): the installer mints the gateway token
           # and pre-wires the shell's connection record, because a fresh gateway rejects
           # every anonymous client and employees have no CLI to mint one themselves.
-          # Model/channel config must stay the employee's own choice.
-          Step "checking the installer pre-wired the connection"
+          # 0.4.3: the legacy .openclaw seeded above must be migrated FIRST (the gateway
+          # only migrates while .lanfu is absent), its token preserved, and the company
+          # model seeded on top. Model/channel edits beyond the seed stay the employee's.
+          Step "checking the legacy migration ran"
           $gatewayConfig = Join-Path $env:USERPROFILE ".lanfu\openclaw.json"
-          if (-not (Test-Path $gatewayConfig)) { Fail "gateway config missing; the installer must mint a token" }
+          if (-not (Test-Path (Join-Path $env:USERPROFILE ".lanfu\state\marker.txt"))) { Fail "legacy state files were not migrated into .lanfu" }
+          if (-not (Test-Path $legacyDir)) { Fail "the legacy .openclaw dir must be preserved, not deleted" }
+          $backups = @(Get-ChildItem $env:USERPROFILE -Filter ".openclaw.lanfu-migration-backup-*" -Directory -ErrorAction SilentlyContinue)
+          if ($backups.Count -lt 1) { Fail "the gateway migration backup is missing; migration may not have run" }
+          Step "legacy state migrated with backup, source dir preserved"
+
+          Step "checking the installer pre-wired the connection"
+          if (-not (Test-Path $gatewayConfig)) { Fail "gateway config missing" }
           $cfg = Get-Content $gatewayConfig -Raw | ConvertFrom-Json
           if (-not $cfg.gateway.auth.token) { Fail "gateway auth token missing" }
-          if ($cfg.gateway.auth.token -notmatch "^[0-9a-f]{48}$") { Fail "unexpected token shape: $($cfg.gateway.auth.token)" }
-          Step "gateway token minted"
+          if ($cfg.gateway.auth.token -ne $legacyToken) { Fail "the legacy token must be preserved, not re-minted (got: $($cfg.gateway.auth.token))" }
+          Step "legacy token preserved"
+
+          Step "checking the company model preset"
+          if (-not $cfg.models.providers.vllm) { Fail "company model provider not seeded" }
+          if ($cfg.models.providers.vllm.baseUrl -ne "http://100.116.120.40:8000/v1") { Fail "vllm baseUrl mismatch: $($cfg.models.providers.vllm.baseUrl)" }
+          if (@($cfg.models.providers.vllm.models).Count -lt 2) { Fail "model catalog missing entries" }
+          if ($cfg.agents.defaults.model -ne "vllm/qwen38") { Fail "default model not set: $($cfg.agents.defaults.model)" }
+          if ($cfg.update.auto.enabled -ne $false) { Fail "gateway auto-update must stay off the upstream channel" }
+          Step "company model preset (qwen38/qwen38-think) and default model in place"
 
           $shellRegistry = Join-Path $env:APPDATA "LanFu\gateways.json"
           if (-not (Test-Path $shellRegistry)) { Fail "shell connection record missing" }
