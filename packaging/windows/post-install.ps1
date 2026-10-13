@@ -15,7 +15,6 @@ $root = Split-Path -Parent $MyInvocation.MyCommand.Path
 $appDir = Join-Path $root "app"
 $watchdog = Join-Path $root "ensure-gateway.ps1"
 $approver = Join-Path $root "approve-pairing.ps1"
-$cli = Join-Path $root "lanfu.cmd"
 $logPath = Join-Path $env:TEMP "lanfu-post-install.log"
 $psExe = Join-Path $env:SystemRoot "System32\WindowsPowerShell\v1.0\powershell.exe"
 $cmdExe = Join-Path $env:SystemRoot "System32\cmd.exe"
@@ -38,8 +37,18 @@ try {
     Say "Windows 侧无历史状态，扫描 WSL 发行版…"
     $distros = @()
     try {
-      $raw = (& $cmdExe /c "wsl.exe --list --quiet") 2>$null | Out-String
-      # wsl.exe 输出为 UTF-16LE，经 cmd 转手后可能夹杂 NUL 字符，清掉再按行拆
+      # wsl.exe 输出为 UTF-16LE，经 cmd 转手后可能夹杂 NUL 字符，清掉再按行拆。
+      # 加 20 秒硬超时：WSL 服务卡死时绝不能拖住整个安装器（doctor 挂起的前车之鉴）。
+      $raw = ""
+      $tmpOut = Join-Path $env:TEMP "lanfu-wsl-list.txt"
+      $p = Start-Process -FilePath $cmdExe -ArgumentList ('/c wsl.exe --list --quiet > "' + $tmpOut + '" 2>nul') -WindowStyle Hidden -PassThru
+      if ($p.WaitForExit(20000)) {
+        $raw = Get-Content $tmpOut -Raw -ErrorAction SilentlyContinue
+      } else {
+        try { Stop-Process -Id $p.Id -Force -ErrorAction SilentlyContinue } catch { }
+        Say "  wsl.exe 20 秒无响应，跳过 WSL 扫描"
+      }
+      Remove-Item $tmpOut -Force -ErrorAction SilentlyContinue
       $clean = ($raw -replace "`0", "")
       $distros = @($clean -split "`r?`n" | Where-Object { $_.Trim() -and $_ -notmatch "没有|not installed|WSL" } | ForEach-Object { $_.Trim() })
     } catch { Say ("  WSL 列举失败：" + $_.Exception.Message) }
@@ -83,22 +92,26 @@ try {
   } else { Say "Windows 侧已有状态（或旧版 .openclaw），跳过 WSL 搬运" }
 } catch { Say ("  WSL 搬运失败（不影响安装）：" + $_.Exception.Message) }
 
-# ---- 1b. 触发网关自带的 .openclaw → .lanfu 迁移（必须在铸令牌之前！）----
+# ---- 1b. 旧状态迁移：.openclaw/.clawdbot → .lanfu（必须发生在铸令牌之前！）----
+# 直接做重命名 + 原位置回链（junction），与网关 doctor 迁移的最终状态完全一致。
+# 不走 CLI 触发：实机证明 doctor 在无网关/无控制台环境（CI runner）会无限挂起，
+# 而重命名是同卷原子操作——失败时旧目录原样不动，成功时没有任何中间态。
 try {
-  if ((-not (Test-Path $stateDir)) -and (Test-Path $legacyWinDir)) {
-    Say "检测到 Windows 原生 .openclaw，触发网关自带迁移…"
-    $sw = [System.Diagnostics.Stopwatch]::StartNew()
-    # 实测只有 `doctor` 一定走本地启动引导（其余命令在网关可达时直接 RPC 短路，
-    # 不会执行迁移）；doctor 自身只做检查不修改。命令的退出码不重要，只看 .lanfu。
-    (& $cmdExe /c ('"' + $cli + '" doctor')) 2>$null | Out-Null
-    $sw.Stop()
-    if (Test-Path $stateDir) {
-      Say ("  迁移完成（耗时 " + [int]$sw.Elapsed.TotalSeconds + " 秒），旧目录保留在原处")
-    } else {
-      Say "  迁移未生效（.lanfu 未出现），继续安装流程"
+  if (-not (Test-Path $stateDir)) {
+    foreach ($legacyName in @(".openclaw", ".clawdbot")) {
+      $legacy = Join-Path $env:USERPROFILE $legacyName
+      if (-not (Test-Path $legacy)) { continue }
+      Say ("检测到 " + $legacyName + "，改名为 .lanfu 并在原位置留 junction…")
+      New-Item -ItemType Directory -Force -Path (Split-Path $stateDir) | Out-Null
+      Rename-Item -Path $legacy -NewName ".lanfu" -ErrorAction Stop
+      try {
+        New-Item -ItemType Junction -Path $legacy -Target $stateDir -ErrorAction Stop | Out-Null
+        Say "  迁移完成，旧路径经 junction 继续可用"
+      } catch { Say "  迁移完成（原位置回链失败，不影响使用）" }
+      break
     }
   }
-} catch { Say ("  迁移触发失败：" + $_.Exception.Message) }
+} catch { Say ("  迁移失败：" + $_.Exception.Message + "（旧目录未动，继续安装）") }
 
 # ---- 1c. 网关令牌（仅缺失时生成）----
 Say "正在预置网关连接…"
