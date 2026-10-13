@@ -54,7 +54,11 @@ jobs:
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
             version="${{ inputs.version }}"
           else
+            # Tags are v0.4.7+ (updater-native); lanfu-v* is the historical form.
+            # Strip either prefix - a leading v would poison the Debian package
+            # version, which must start with a digit.
             version="${GITHUB_REF_NAME#lanfu-v}"
+            version="${version#v}"
           fi
           if [ -z "$version" ]; then echo "could not resolve a version" >&2; exit 1; fi
           echo "resolved version: $version"
