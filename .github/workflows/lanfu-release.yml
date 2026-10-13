@@ -13,6 +13,10 @@ name: LanFu Release
 on:
   push:
     tags:
+      # v0.4.7+ is the native format for the in-app updater (Updatum strips only a
+      # leading v, so a lanfu-v prefix would parse to nothing). lanfu-v* stays
+      # accepted for historical tags.
+      - "v*"
       - "lanfu-v*"
   workflow_dispatch:
     inputs:
