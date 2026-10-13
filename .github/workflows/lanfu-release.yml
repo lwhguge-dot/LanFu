@@ -165,6 +165,13 @@ jobs:
           New-Item -ItemType Directory -Force -Path $ai | Out-Null
           Copy-Item "packages\ai\dist" -Destination $ai -Recurse
           Copy-Item "packages\ai\package.json" -Destination $ai
+          # Workspace templates (AGENTS.md/SOUL.md/IDENTITY.md/USER.md, roles/) are
+          # loaded at runtime from docs/reference/templates under the package root;
+          # every agent turn needs them. Without this the first chat dies with
+          # "Missing workspace template". The trim step only touches node_modules
+          # and dist, so this location is safe.
+          New-Item -ItemType Directory -Force -Path (Join-Path $app "docs\reference") | Out-Null
+          Copy-Item "docs\reference\templates" -Destination (Join-Path $app "docs\reference") -Recurse
           foreach ($p in @("@openai\codex-win32-x64","@anthropic-ai\claude-agent-sdk-win32-x64","@github\copilot-sdk-win32-x64","onnxruntime-node","@lancedb\lancedb-win32-x64-msvc")) {
             $target = Join-Path $app ("node_modules\" + $p)
             if (Test-Path $target) { Remove-Item -Recurse -Force $target }
@@ -428,6 +435,12 @@ jobs:
           if (Test-Path $envDump) { Fail "the environment dump is back; 0.4.1 installs left one and uninstall never removed it" }
           Step "no environment dump"
 
+          Step "checking workspace templates are packaged"
+          foreach ($tpl in @("AGENTS.md", "SOUL.md", "IDENTITY.md", "USER.md")) {
+            if (-not (Test-Path (Join-Path $root "app\docs\reference\templates\$tpl"))) { Fail "workspace template missing from payload: $tpl (every agent turn needs it)" }
+          }
+          Step "workspace templates packaged"
+
           Step "waiting for the desktop shell pairing"
           $paired = $false
           for ($i = 0; $i -lt 60; $i++) {
@@ -503,6 +516,9 @@ jobs:
           cp -r packages/ai/dist release/app/node_modules/@openclaw/ai/dist
           cp packages/ai/package.json release/app/node_modules/@openclaw/ai/package.json
           for p in @openai/codex-linux-x64 @anthropic-ai/claude-agent-sdk-linux-x64 @github/copilot-sdk-linux-x64 onnxruntime-node @lancedb/lancedb-linux-x64-gnu; do rm -rf "release/app/node_modules/$p"; done
+          # Workspace templates are runtime data (see the windows-exe note).
+          mkdir -p release/app/docs/reference
+          cp -r docs/reference/templates release/app/docs/reference/
       - name: Download the pinned Node runtime
         run: |
           curl -fsSL "https://nodejs.org/dist/v${{ env.NODE_RUNTIME_VERSION }}/node-v${{ env.NODE_RUNTIME_VERSION }}-linux-x64.tar.xz" -o node.tar.xz
