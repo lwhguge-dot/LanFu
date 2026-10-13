@@ -580,7 +580,10 @@ jobs:
           cp release-assets/* out/ 2>/dev/null || true
       - uses: softprops/action-gh-release@v2
         with:
-          tag_name: lanfu-v${{ needs.resolve.outputs.version }}
+          # Publish under the tag that triggered the run (v0.4.7+ is the
+          # updater-native form; a hardcoded lanfu-v prefix once silently
+          # retagged a v-tagged release into a form the updater cannot parse).
+          tag_name: ${{ github.event_name == 'push' && github.ref_name || format('v{0}', needs.resolve.outputs.version) }}
           name: LanFu ${{ needs.resolve.outputs.version }}
           # Published, not draft: employees download the asset straight from the
           # release page, and draft releases are invisible to them.
