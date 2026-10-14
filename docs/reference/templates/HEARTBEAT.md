@@ -1,28 +1,21 @@
 ---
-summary: "Migration guide for the retired HEARTBEAT.md workspace file"
-title: "Retired HEARTBEAT.md workspace file"
+summary: "已停用的 HEARTBEAT.md 工作区文件迁移说明"
+title: "HEARTBEAT.md 已停用"
 read_when:
-  - Migrating an older workspace that still has HEARTBEAT.md
+  - 迁移仍带有 HEARTBEAT.md 的旧工作区
 ---
 
-# HEARTBEAT.md is retired
+# HEARTBEAT.md 已停用
 
-OpenClaw no longer creates `HEARTBEAT.md` in new workspaces or reads it at runtime. Heartbeat instructions now live in the system-owned monitor scratch in the shared state database.
+LanFu 不再在新工作区创建 `HEARTBEAT.md`，运行时也不再读取它。心跳指令现在存放在共享状态数据库中由系统管理的监控任务备注里。
 
-Manage the current monitor scratch with the monitor job id from `openclaw automations list --all`:
+用 `lanfu automations list --all` 找到监控任务的 jobId 后管理它的备注：
 
 ```bash
-openclaw automations scratch <jobId>
-openclaw automations scratch <jobId> --set "..."
-openclaw automations scratch <jobId> --file notes.md
-openclaw automations scratch <jobId> --unset
+lanfu automations scratch <jobId>
+lanfu automations scratch <jobId> --set "..."
+lanfu automations scratch <jobId> --file notes.md
+lanfu automations scratch <jobId> --unset
 ```
 
-If an older workspace still contains `HEARTBEAT.md`, run `openclaw doctor --fix`. Doctor imports its instructions into monitor scratch, converts valid legacy `tasks:` entries into cron jobs, archives the original under the state directory, and removes the workspace file.
-
-## Related
-
-- [Heartbeat](/gateway/heartbeat)
-- [Cron CLI](/cli/cron)
-- [Doctor](/cli/doctor)
-- [Heartbeat config](/gateway/config-agents)
+如果旧工作区里还有 `HEARTBEAT.md`，运行 `lanfu doctor --fix`：doctor 会把它的指令导入监控任务备注、把有效的旧式 `tasks:` 条目转成定时任务、把原文件归档到状态目录，然后从工作区移除。

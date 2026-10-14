@@ -1,23 +1,18 @@
 ---
-summary: "Workspace template for BOOT.md"
-title: "BOOT.md template"
+summary: "BOOT.md 工作区模板"
+title: "BOOT.md 模板"
 read_when:
-  - Adding a BOOT.md checklist
+  - 添加 BOOT.md 启动清单
 ---
 
 # BOOT.md
 
-Add short, explicit startup instructions here. The bundled `boot-md` hook runs this file once per agent workspace every time the gateway starts, if the file exists and has non-whitespace content. Multiple agents sharing a workspace only trigger one run.
+在这里写简短、明确的启动指令。内置的 `boot-md` 钩子会在网关每次启动时对每个工作区运行一次本文件（文件存在且非空白时）。多助手共享一个工作区只触发一次。
 
-The hook ships disabled. Enable it first:
+该钩子默认关闭，先启用：
 
 ```bash
-openclaw hooks enable boot-md
+lanfu hooks enable boot-md
 ```
 
-This hook turns off normal final-response delivery. If a checklist item sends a message, use the message tool. Name a channel and a target in each call. Then reply with the silent token `NO_REPLY`, in any letter case.
-
-## Related
-
-- [Agent workspace](/concepts/agent-workspace)
-- [Hooks](/automation/hooks/bundled-hooks#boot-md)
+此钩子会关闭常规的最终回复投递。如果清单项需要发消息，用消息工具并在每次调用中写明渠道和目标，然后回复静默令牌 `NO_REPLY`（大小写均可）。

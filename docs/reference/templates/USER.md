@@ -1,36 +1,27 @@
 ---
-summary: "Durable user preference and profile directives"
-title: "USER template"
+summary: "用户长期偏好与画像指令"
+title: "USER 模板"
 read_when:
-  - Bootstrapping a workspace manually
+  - 手动初始化工作区
 ---
 
-# USER.md - User Model
+# USER.md - 用户画像
 
-Store stable user preferences and profile facts as directives that can guide future sessions.
+把用户稳定的偏好和背景事实存成指令，供以后的会话参考。
 
-Use one directive per entry:
+一条指令一个条目，格式如下：
 
 ```md
 <!-- observed: YYYY-MM-DD | status: active -->
 
-- Prefer concise progress updates during implementation work.
+- 始终用中文回复。
 ```
 
-- Begin each directive with an imperative such as `Always`, `Never`, or `Prefer`.
-- Record the observation date and either `active` or `superseded` on the metadata line.
-- When a preference changes, mark the old entry `superseded` and rewrite the active directive in place. Never append a contradictory active directive.
-- Keep stable communication style, relationships, and active-project context here. Put durable non-profile facts and decisions in `MEMORY.md`.
-- Save this file at the workspace root as `USER.md`. It loads every session with a separate 4,000-character budget.
+**规则：**
 
-## Directives
+- 写成祈使句（"始终……""绝不……""优先……"）。
+- 每条前面加 `<!-- observed: 日期 | status: active -->` 标记。
+- 偏好变化时，把旧条目标记为 `superseded` 并原地重写新的生效指令；绝不留下两条互相矛盾的 active 指令。
+- 记录的内容：沟通风格、称呼习惯、常用工具、在做的项目、重要的人际关系背景。
 
-Replace the example below with a real directive and a real observation date before you save this file. Never leave a placeholder directive `active`.
-
-<!-- observed: YYYY-MM-DD | status: active -->
-
-- Prefer ...
-
-## Related
-
-- [Agent workspace](/concepts/agent-workspace)
+_观察到了就记下来，但不要主动追问；让条目在自然对话中生长。_

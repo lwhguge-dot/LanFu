@@ -50,7 +50,7 @@ describe("runDreamNarrative", () => {
       model: "anthropic/claude-sonnet-4-6",
       timeoutMs: 60_000,
       message: expect.stringContaining("API endpoints need authentication"),
-      extraSystemPrompt: expect.stringContaining("Output ONLY the diary entry"),
+      extraSystemPrompt: expect.stringContaining("只输出日记正文"),
     });
     expect(outcome).toEqual({ status: "completed" });
     expect(await fs.readFile(path.join(workspaceDir, "DREAMS.md"), "utf8")).toContain(

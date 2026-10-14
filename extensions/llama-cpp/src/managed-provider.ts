@@ -91,7 +91,7 @@ export function registerLlamaCppProvider(api: OpenClawPluginApi): void {
         wizard: {
           choiceId: "llama-cpp-existing-server",
           choiceLabel: "Existing llama-server",
-          choiceHint: "Connect to a llama.cpp server managed outside OpenClaw",
+          choiceHint: "连接由其它软件管理的 llama.cpp 服务",
           groupId: LLAMA_CPP_PROVIDER_ID,
           groupLabel: "Local llama.cpp",
           groupHint: "Managed or external llama.cpp server",

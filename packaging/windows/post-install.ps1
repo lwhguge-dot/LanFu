@@ -113,6 +113,22 @@ try {
   }
 } catch { Say ("  迁移失败：" + $_.Exception.Message + "（旧目录未动，继续安装）") }
 
+# ---- 1b-2. 一次性搬迁：早期版本把 main 工作区错放在 .openclaw\workspace ----
+# 0.4.8 起默认工作区跟随状态目录（.lanfu\workspace）。这里把旧位置的数据搬过去；
+# 经 junction 迁移的机器（.openclaw 是回链）两个路径本就相同，会自动跳过。
+try {
+  $oldWs = Join-Path $env:USERPROFILE ".openclaw\workspace"
+  $newWs = Join-Path $stateDir "workspace"
+  if ((Test-Path $oldWs) -and (-not (Test-Path $newWs))) {
+    $isJunction = (Get-Item $env:USERPROFILE\.openclaw -Force).LinkType -eq "Junction"
+    if (-not $isJunction) {
+      New-Item -ItemType Directory -Force -Path $stateDir | Out-Null
+      Move-Item -Path $oldWs -Destination $newWs -ErrorAction Stop
+      Say "  已把旧工作区搬入 .lanfu\workspace"
+    }
+  }
+} catch { Say ("  工作区搬迁失败（不影响安装）：" + $_.Exception.Message) }
+
 # ---- 1c. 网关令牌（仅缺失时生成）----
 Say "正在预置网关连接…"
 $shellToken = $null
@@ -205,6 +221,32 @@ try {
         $changed = $true
         Say "  已关闭网关自动更新（避免连到上游官方通道）"
       }
+      # 记忆系统预置：公司 bge-m3 做向量检索（与实测可用的开发实例配置一致），
+      # trigram 分词对中文全文检索至关重要；默认开启跨会话记忆
+      if (-not $cfg.memory) {
+        $memoryBlock = @'
+{
+  "search": { "provider": "ollama", "model": "bge-m3", "remote": { "baseUrl": "http://100.116.120.40:11434" } },
+  "store": { "fts": { "tokenizer": "trigram" } },
+  "enabled": true,
+  "rememberAcrossConversations": true
+}
+'@ | ConvertFrom-Json
+        Add-Member -MemberType NoteProperty -Name memory -Value $memoryBlock -InputObject $cfg
+        $changed = $true
+        Say "  已预置记忆系统（bge-m3 向量检索 + trigram 中文分词）"
+      } else { Say "  已存在记忆配置，保留" }
+      # 执行权限默认档：上游缺省解析为“完全访问”，公司产品默认降为“工作区”档
+      # （auto = 工作区内自动执行、工作区外受限）；员工仍可在界面里自行调高
+      if (-not $cfg.tools) {
+        Add-Member -MemberType NoteProperty -Name tools -Value ('{"exec":{"mode":"auto"}}' | ConvertFrom-Json) -InputObject $cfg
+        $changed = $true
+        Say "  已设置执行权限默认档为工作区（auto）"
+      } elseif (-not $cfg.tools.exec) {
+        Add-Member -MemberType NoteProperty -Name exec -Value ('{"mode":"auto"}' | ConvertFrom-Json) -InputObject $cfg.tools
+        $changed = $true
+        Say "  已设置执行权限默认档为工作区（auto）"
+      } else { Say "  已存在执行权限配置，保留" }
       if ($changed) { $cfg | ConvertTo-Json -Depth 32 | Set-Content -Path $cfgPath -Encoding UTF8 }
     }
   }

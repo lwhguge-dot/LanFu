@@ -49,7 +49,7 @@
       "appGuidedDiscovery": true,
       "appGuidedActionLabel": "Set up model",
       "choiceLabel": "Managed local server",
-      "choiceHint": "Choose a Qwen, Gemma, or Muse model for this Gateway's hardware and install llama.cpp",
+      "choiceHint": "为这台电脑选择一个 Qwen、Gemma 或 Muse 模型并安装 llama.cpp",
       "groupId": "llama-cpp",
       "groupLabel": "Local llama.cpp",
       "groupHint": "Managed or external llama.cpp server"
@@ -61,7 +61,7 @@
       "appGuidedDiscovery": true,
       "appGuidedSecret": true,
       "choiceLabel": "Existing llama-server",
-      "choiceHint": "Connect to a llama.cpp server managed outside OpenClaw",
+      "choiceHint": "连接由其它软件管理的 llama.cpp 服务",
       "groupId": "llama-cpp",
       "groupLabel": "Local llama.cpp",
       "groupHint": "Managed or external llama.cpp server",

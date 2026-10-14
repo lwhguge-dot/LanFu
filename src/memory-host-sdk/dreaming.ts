@@ -24,7 +24,9 @@ const DEFAULT_MEMORY_DREAMING_TIMEZONE = undefined;
 const DEFAULT_MEMORY_DREAMING_VERBOSE_LOGGING = false;
 const DEFAULT_MEMORY_DREAMING_STORAGE_MODE = "separate";
 const DEFAULT_MEMORY_DREAMING_SEPARATE_REPORTS = false;
-export const DEFAULT_MEMORY_DREAMING_FREQUENCY = "0 3 * * *";
+// 记忆整理（dreaming）默认时间：中午 12:30。上游原值是凌晨 3 点，但国内员工
+// 电脑那时的开机率几乎为零；午休时段开机率高、也不打扰工作。错过会自动补跑。
+export const DEFAULT_MEMORY_DREAMING_FREQUENCY = "30 12 * * *";
 export const DEFAULT_MEMORY_DREAMING_PLUGIN_ID = "memory-core";
 export const MANAGED_MEMORY_DREAMING_CRON_NAME = "Memory Dreaming Promotion";
 export const MANAGED_MEMORY_DREAMING_CRON_TAG = "[managed-by=memory-core.short-term-promotion]";

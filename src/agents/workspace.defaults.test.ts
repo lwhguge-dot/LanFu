@@ -19,7 +19,10 @@ describe("DEFAULT_AGENT_WORKSPACE_DIR", () => {
       () => resolveDefaultAgentWorkspaceDir(),
     );
 
-    expect(resolved).toBe(path.join(path.resolve(home), ".openclaw", "workspace"));
+    // The workspace lives inside the resolved state directory (~/.lanfu by
+    // default); the old ~/.openclaw/workspace fallback spawned a stray legacy
+    // directory next to the real state on every machine.
+    expect(resolved).toBe(path.join(path.resolve(home), ".lanfu", "workspace"));
   });
 
   it("uses OPENCLAW_WORKSPACE_DIR before OPENCLAW_HOME", () => {

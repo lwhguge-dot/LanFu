@@ -1,14 +1,12 @@
 ---
-summary: "Retired TOOLS.md workspace template"
-title: "TOOLS.md retired"
+summary: "已停用的 TOOLS.md 工作区模板"
+title: "TOOLS.md 已停用"
 read_when:
-  - Bootstrapping a workspace manually
+  - 手动初始化工作区
 ---
 
-# TOOLS.md is retired
+# TOOLS.md 已停用
 
-Local tool and environment notes now live in the `## Tools` section of `AGENTS.md`. Skills continue to define how tools work.
+本地工具和环境备注现在写在 `AGENTS.md` 的 `## 工具` 一节里。工具的具体用法仍由技能文件定义。
 
-Run `openclaw doctor --fix` to archive an existing workspace `TOOLS.md`, merge customized content into `AGENTS.md`, and remove the retired file.
-
-See the [AGENTS.md template](/reference/templates/AGENTS) and [agent workspace guide](/concepts/agent-workspace).
+运行 `lanfu doctor --fix` 可以归档工作区里已有的 `TOOLS.md`：定制内容会合并进 `AGENTS.md`，然后移除这个停用的文件。
