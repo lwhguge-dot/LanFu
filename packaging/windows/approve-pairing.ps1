@@ -20,7 +20,8 @@ $logPath = Join-Path $env:TEMP "lanfu-pairing.log"
 $identityName = "小蓝"
 
 function Note($text) {
-  Add-Content -Path $logPath -Value ((Get-Date -Format "HH:mm:ss") + " " + $text) -ErrorAction SilentlyContinue
+  # UTF-8：日志含中文/Emoji，默认 ANSI 编码会把它们写成乱码
+  Add-Content -Path $logPath -Value ((Get-Date -Format "HH:mm:ss") + " " + $text) -Encoding UTF8 -ErrorAction SilentlyContinue
 }
 
 # CLI 的输出前可能带有非 JSON 的提示行（例如检测到 legacy 目录时的警告），从第一个
@@ -67,7 +68,7 @@ function Ensure-Identity {
   }
 }
 
-"=== LanFu 配对批准与身份预置 $(Get-Date -Format o) ===" | Set-Content -Path $logPath -ErrorAction SilentlyContinue
+"=== LanFu 配对批准与身份预置 $(Get-Date -Format o) ===" | Set-Content -Path $logPath -Encoding UTF8 -ErrorAction SilentlyContinue
 Note ("CLI: " + $cli)
 $deadline = (Get-Date).AddSeconds($TimeoutSeconds)
 $identityDone = $false

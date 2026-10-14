@@ -473,12 +473,17 @@ jobs:
 
           Step "checking the assistant identity preset"
           $agentsOut = (& (Join-Path $env:SystemRoot "System32\cmd.exe") /c ('"' + (Join-Path $root "lanfu.cmd") + '" agents list --json')) 2>$null | Out-String
-          $agentsIdx = $agentsOut.IndexOf("{")
+          # agents list --json returns a top-level ARRAY; find whichever bracket starts the JSON
+          $agentsIdx = $agentsOut.IndexOf("[")
+          $agentsBrace = $agentsOut.IndexOf("{")
+          if ($agentsIdx -lt 0 -or ($agentsBrace -ge 0 -and $agentsBrace -lt $agentsIdx)) { $agentsIdx = $agentsBrace }
           $agentOk = $false
           if ($agentsIdx -ge 0) {
             try {
               $roster = $agentsOut.Substring($agentsIdx) | ConvertFrom-Json
-              $mainAgent = @($roster.agents) | Where-Object { $_.id -eq "main" } | Select-Object -First 1
+              # accept array-of-agents or {agents:[...]} shapes
+              $agentRows = if ($roster -is [array]) { $roster } else { @($roster.agents) }
+              $mainAgent = @($agentRows) | Where-Object { $_.id -eq "main" } | Select-Object -First 1
               # agents list flattens identity to identityName/identityEmoji
               if ($mainAgent.identityName -eq "小蓝" -and $mainAgent.identityEmoji) { $agentOk = $true }
             } catch { }
