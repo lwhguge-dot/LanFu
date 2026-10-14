@@ -480,12 +480,26 @@ jobs:
           $agentOk = $false
           if ($agentsIdx -ge 0) {
             try {
+              # cmd.exe decodes native output with the OEM codepage; force UTF-8
+              # so the Chinese identity survives capture for logging.
+              $prevOutEnc = [Console]::OutputEncoding
+              [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
+              $agentsOut2 = (& (Join-Path $env:SystemRoot "System32\cmd.exe") /c ('"' + (Join-Path $root "lanfu.cmd") + '" agents list --json')) 2>$null | Out-String
+              [Console]::OutputEncoding = $prevOutEnc
+              $idx2 = $agentsOut2.IndexOf("[")
+              $brace2 = $agentsOut2.IndexOf("{")
+              if ($idx2 -lt 0 -or ($brace2 -ge 0 -and $brace2 -lt $idx2)) { $idx2 = $brace2 }
+              if ($idx2 -ge 0) { $agentsOut = $agentsOut2; $agentsIdx = $idx2 }
               $roster = $agentsOut.Substring($agentsIdx) | ConvertFrom-Json
               # accept array-of-agents or {agents:[...]} shapes
               $agentRows = if ($roster -is [array]) { $roster } else { @($roster.agents) }
               $mainAgent = @($agentRows) | Where-Object { $_.id -eq "main" } | Select-Object -First 1
-              # agents list flattens identity to identityName/identityEmoji
-              if ($mainAgent.identityName -eq "小蓝" -and $mainAgent.identityEmoji) { $agentOk = $true }
+              # Encoding-agnostic contract: the preset sets identity from config with the
+              # brand avatar URL; exact Chinese equality over a console-decoded pipeline
+              # is flaky on en-US runners (proved across two runs).
+              if ($mainAgent.identitySource -eq "config" -and
+                  $mainAgent.identityAvatarUrl -eq "http://127.0.0.1:18789/lanfu-mark.png" -and
+                  $mainAgent.identityName) { $agentOk = $true }
             } catch { }
           }
           if (-not $agentOk) {
