@@ -331,6 +331,8 @@ jobs:
             Get-Content (Join-Path $env:TEMP "lanfu-post-install.log") -Tail 80 -ErrorAction SilentlyContinue | ForEach-Object { Write-Output $_ }
             Write-Output "--- gateway watchdog log ---"
             Get-Content (Join-Path $env:TEMP "lanfu-gateway-watchdog.log") -Tail 40 -ErrorAction SilentlyContinue | ForEach-Object { Write-Output $_ }
+            Write-Output "--- pairing/identity log ---"
+            Get-Content (Join-Path $env:TEMP "lanfu-pairing.log") -Tail 30 -ErrorAction SilentlyContinue | ForEach-Object { Write-Output $_ }
             Write-Output "--- app\node_modules (openclaw entry) ---"
             $nm = Join-Path $env:LOCALAPPDATA "Programs\LanFu\app\node_modules"
             if (Test-Path $nm) {
@@ -477,10 +479,14 @@ jobs:
             try {
               $roster = $agentsOut.Substring($agentsIdx) | ConvertFrom-Json
               $mainAgent = @($roster.agents) | Where-Object { $_.id -eq "main" } | Select-Object -First 1
-              if ($mainAgent.identity.name -eq "小蓝" -and $mainAgent.identity.emoji) { $agentOk = $true }
+              # agents list flattens identity to identityName/identityEmoji
+              if ($mainAgent.identityName -eq "小蓝" -and $mainAgent.identityEmoji) { $agentOk = $true }
             } catch { }
           }
-          if (-not $agentOk) { Fail "the Xiaolan assistant identity was not preset" }
+          if (-not $agentOk) {
+            Write-Output ("[smoke] agents list raw (identity check): " + $agentsOut.Substring(0, [Math]::Min(600, $agentsOut.Length)))
+            Fail "the Xiaolan assistant identity was not preset"
+          }
           Step "assistant identity preset (小蓝)"
 
           Step "checking the desktop shell"
