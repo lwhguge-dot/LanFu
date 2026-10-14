@@ -497,11 +497,13 @@ jobs:
               # accept array-of-agents or {agents:[...]} shapes
               $agentRows = if ($roster -is [array]) { $roster } else { @($roster.agents) }
               $mainAgent = @($agentRows) | Where-Object { $_.id -eq "main" } | Select-Object -First 1
-              # Encoding-agnostic contract: the preset sets identity from config with
-              # the brand avatar URL only the installer writes, and a non-empty name.
+              # Encoding-agnostic contract: on a fresh install nothing but the
+              # installer preset sets a config-sourced identity with name+emoji.
+              # (identityAvatarUrl is absent when the CLI resolves the roster
+              # without the gateway HTTP avatar base path - do not require it.)
               if ($mainAgent.identitySource -eq "config" -and
-                  $mainAgent.identityAvatarUrl -eq "http://127.0.0.1:18789/lanfu-mark.png" -and
-                  $mainAgent.identityName) { $agentOk = $true }
+                  $mainAgent.identityName -and
+                  $mainAgent.identityEmoji) { $agentOk = $true }
             } catch { }
           }
           if (-not $agentOk) {
