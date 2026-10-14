@@ -222,14 +222,20 @@ try {
         Say "  已关闭网关自动更新（避免连到上游官方通道）"
       }
       # 记忆系统预置：公司 bge-m3 做向量检索（与实测可用的开发实例配置一致），
-      # trigram 分词对中文全文检索至关重要；默认开启跨会话记忆
+      # trigram 分词对中文全文检索至关重要；默认开启跨会话记忆。
+      # 注意 store/enabled/rememberAcrossConversations 都在 memory.search 之下——
+      # 放错层级会让配置校验失败、网关拒绝启动（v0.4.8 首跑的教训）。
       if (-not $cfg.memory) {
         $memoryBlock = @'
 {
-  "search": { "provider": "ollama", "model": "bge-m3", "remote": { "baseUrl": "http://100.116.120.40:11434" } },
-  "store": { "fts": { "tokenizer": "trigram" } },
-  "enabled": true,
-  "rememberAcrossConversations": true
+  "search": {
+    "provider": "ollama",
+    "model": "bge-m3",
+    "remote": { "baseUrl": "http://100.116.120.40:11434" },
+    "store": { "fts": { "tokenizer": "trigram" } },
+    "enabled": true,
+    "rememberAcrossConversations": true
+  }
 }
 '@ | ConvertFrom-Json
         Add-Member -MemberType NoteProperty -Name memory -Value $memoryBlock -InputObject $cfg

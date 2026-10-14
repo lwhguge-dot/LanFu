@@ -432,8 +432,8 @@ jobs:
 
           Step "checking the memory and permission presets"
           if ($cfg.memory.search.model -ne "bge-m3") { Fail "memory embedding model not preset: $($cfg.memory.search.model)" }
-          if ($cfg.memory.store.fts.tokenizer -ne "trigram") { Fail "memory fts tokenizer must be trigram for Chinese" }
-          if ($cfg.memory.enabled -ne $true) { Fail "memory must be enabled by default" }
+          if ($cfg.memory.search.store.fts.tokenizer -ne "trigram") { Fail "memory fts tokenizer must be trigram for Chinese" }
+          if ($cfg.memory.search.enabled -ne $true) { Fail "memory must be enabled by default" }
           if ($cfg.tools.exec.mode -ne "auto") { Fail "exec default must be workspace (auto), got: $($cfg.tools.exec.mode)" }
           Step "memory preset (bge-m3 + trigram) and workspace exec default in place"
 
