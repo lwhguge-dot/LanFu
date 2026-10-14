@@ -472,31 +472,33 @@ jobs:
           Step "desktop shell paired with the gateway"
 
           Step "checking the assistant identity preset"
-          $agentsOut = (& (Join-Path $env:SystemRoot "System32\cmd.exe") /c ('"' + (Join-Path $root "lanfu.cmd") + '" agents list --json')) 2>$null | Out-String
-          # agents list --json returns a top-level ARRAY; find whichever bracket starts the JSON
+          # Redirect the JSON to a file INSIDE cmd: bytes hit disk untouched, so no
+          # console-codepage decode can mangle the Chinese identity on the way in.
+          # (Setting [Console]::OutputEncoding on the headless runner truncated the
+          # capture to "["; decoding the pipeline directly failed CJK equality.)
+          $agentsFile = Join-Path $env:TEMP "lanfu-agents.json"
+          Remove-Item $agentsFile -Force -ErrorAction SilentlyContinue
+          $null = & (Join-Path $env:SystemRoot "System32\cmd.exe") /c ('"' + (Join-Path $root "lanfu.cmd") + '" agents list --json > "' + $agentsFile + '" 2>nul')
+          $agentOk = $false
+          $agentsOut = ""
+          if (Test-Path $agentsFile) { $agentsOut = Get-Content $agentsFile -Raw -Encoding UTF8 }
           $agentsIdx = $agentsOut.IndexOf("[")
           $agentsBrace = $agentsOut.IndexOf("{")
           if ($agentsIdx -lt 0 -or ($agentsBrace -ge 0 -and $agentsBrace -lt $agentsIdx)) { $agentsIdx = $agentsBrace }
-          $agentOk = $false
           if ($agentsIdx -ge 0) {
             try {
-              # cmd.exe decodes native output with the OEM codepage; force UTF-8
-              # so the Chinese identity survives capture for logging.
-              $prevOutEnc = [Console]::OutputEncoding
-              [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
-              $agentsOut2 = (& (Join-Path $env:SystemRoot "System32\cmd.exe") /c ('"' + (Join-Path $root "lanfu.cmd") + '" agents list --json')) 2>$null | Out-String
-              [Console]::OutputEncoding = $prevOutEnc
-              $idx2 = $agentsOut2.IndexOf("[")
-              $brace2 = $agentsOut2.IndexOf("{")
-              if ($idx2 -lt 0 -or ($brace2 -ge 0 -and $brace2 -lt $idx2)) { $idx2 = $brace2 }
-              if ($idx2 -ge 0) { $agentsOut = $agentsOut2; $agentsIdx = $idx2 }
-              $roster = $agentsOut.Substring($agentsIdx) | ConvertFrom-Json
+              $json = $agentsOut.Substring($agentsIdx)
+              try { $roster = $json | ConvertFrom-Json } catch {
+                # trailing non-JSON output after the array: trim to the last bracket
+                $last = $json.LastIndexOf("]")
+                if ($last -lt 0) { throw }
+                $roster = $json.Substring(0, $last + 1) | ConvertFrom-Json
+              }
               # accept array-of-agents or {agents:[...]} shapes
               $agentRows = if ($roster -is [array]) { $roster } else { @($roster.agents) }
               $mainAgent = @($agentRows) | Where-Object { $_.id -eq "main" } | Select-Object -First 1
-              # Encoding-agnostic contract: the preset sets identity from config with the
-              # brand avatar URL; exact Chinese equality over a console-decoded pipeline
-              # is flaky on en-US runners (proved across two runs).
+              # Encoding-agnostic contract: the preset sets identity from config with
+              # the brand avatar URL only the installer writes, and a non-empty name.
               if ($mainAgent.identitySource -eq "config" -and
                   $mainAgent.identityAvatarUrl -eq "http://127.0.0.1:18789/lanfu-mark.png" -and
                   $mainAgent.identityName) { $agentOk = $true }
