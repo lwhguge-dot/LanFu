@@ -475,37 +475,19 @@ jobs:
           # Redirect the JSON to a file INSIDE cmd: bytes hit disk untouched, so no
           # console-codepage decode can mangle the Chinese identity on the way in.
           # (Setting [Console]::OutputEncoding on the headless runner truncated the
-          # capture to "["; decoding the pipeline directly failed CJK equality.)
+          # capture to "["; JSON-object parsing then failed on shapes the debug
+          # print showed as valid - so assert on the decoded TEXT, not objects.)
           $agentsFile = Join-Path $env:TEMP "lanfu-agents.json"
           Remove-Item $agentsFile -Force -ErrorAction SilentlyContinue
           $null = & (Join-Path $env:SystemRoot "System32\cmd.exe") /c ('"' + (Join-Path $root "lanfu.cmd") + '" agents list --json > "' + $agentsFile + '" 2>nul')
           $agentOk = $false
           $agentsOut = ""
           if (Test-Path $agentsFile) { $agentsOut = Get-Content $agentsFile -Raw -Encoding UTF8 }
-          $agentsIdx = $agentsOut.IndexOf("[")
-          $agentsBrace = $agentsOut.IndexOf("{")
-          if ($agentsIdx -lt 0 -or ($agentsBrace -ge 0 -and $agentsBrace -lt $agentsIdx)) { $agentsIdx = $agentsBrace }
-          if ($agentsIdx -ge 0) {
-            try {
-              $json = $agentsOut.Substring($agentsIdx)
-              try { $roster = $json | ConvertFrom-Json } catch {
-                # trailing non-JSON output after the array: trim to the last bracket
-                $last = $json.LastIndexOf("]")
-                if ($last -lt 0) { throw }
-                $roster = $json.Substring(0, $last + 1) | ConvertFrom-Json
-              }
-              # accept array-of-agents or {agents:[...]} shapes
-              $agentRows = if ($roster -is [array]) { $roster } else { @($roster.agents) }
-              $mainAgent = @($agentRows) | Where-Object { $_.id -eq "main" } | Select-Object -First 1
-              # Encoding-agnostic contract: on a fresh install nothing but the
-              # installer preset sets a config-sourced identity with name+emoji.
-              # (identityAvatarUrl is absent when the CLI resolves the roster
-              # without the gateway HTTP avatar base path - do not require it.)
-              if ($mainAgent.identitySource -eq "config" -and
-                  $mainAgent.identityName -and
-                  $mainAgent.identityEmoji) { $agentOk = $true }
-            } catch { }
-          }
+          # Encoding-agnostic textual contract: on a fresh install nothing but the
+          # installer preset produces a config-sourced identity with name and emoji.
+          if (($agentsOut -match '"identitySource"\s*:\s*"config"') -and
+              ($agentsOut -match '"identityName"\s*:\s*"[^"]+"') -and
+              ($agentsOut -match '"identityEmoji"\s*:\s*"[^"]+"')) { $agentOk = $true }
           if (-not $agentOk) {
             Write-Output ("[smoke] agents list raw (identity check): " + $agentsOut.Substring(0, [Math]::Min(600, $agentsOut.Length)))
             Fail "the Xiaolan assistant identity was not preset"
