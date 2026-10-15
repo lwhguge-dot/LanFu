@@ -45,6 +45,14 @@ describe("local agent avatar files", () => {
     expect(resolveAgentAvatarUrlFromSource(cfg, "main", "data:text/plain,avatar")).toBeUndefined();
   });
 
+  it("passes through Control UI same-origin asset paths that resolve to no local file", () => {
+    const { cfg } = createWorkspace();
+
+    expect(resolveAgentAvatarUrlFromSource(cfg, "main", "/lanfu-mark.png")).toBe("/lanfu-mark.png");
+    // Protocol-relative and scheme-carrying values stay out of the same-origin contract.
+    expect(resolveAgentAvatarUrlFromSource(cfg, "main", "//evil.example/x.png")).toBeUndefined();
+  });
+
   it.each(["inlining", "a failed read"])("closes the pinned descriptor after %s", (outcome) => {
     const { cfg, workspace } = createWorkspace();
     const avatarPath = path.join(workspace, "avatar.png");

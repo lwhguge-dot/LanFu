@@ -339,6 +339,39 @@ describe("agents set-identity command", () => {
     });
   });
 
+  it("clears a stored emoji when --emoji is passed empty", async () => {
+    configMocks.readConfigFileSnapshot.mockResolvedValue(
+      createTestConfigSnapshot({
+        agents: {
+          entries: { main: { identity: { name: "小蓝", emoji: "🦆", theme: "务实" } } },
+        },
+      }),
+    );
+
+    await agentsSetIdentityCommand(
+      { agent: "main", name: "小蓝", emoji: "", avatar: "/lanfu-mark.png" },
+      runtime,
+    );
+
+    expect(getWrittenMainIdentity()).toEqual({
+      name: "小蓝",
+      theme: "务实",
+      avatar: "/lanfu-mark.png",
+    });
+  });
+
+  it("keeps a stored emoji when --emoji is omitted", async () => {
+    configMocks.readConfigFileSnapshot.mockResolvedValue(
+      createTestConfigSnapshot({
+        agents: { entries: { main: { identity: { name: "小蓝", emoji: "🦆" } } } },
+      }),
+    );
+
+    await agentsSetIdentityCommand({ agent: "main", name: "小蓝" }, runtime);
+
+    expect(getWrittenMainIdentity()).toEqual({ name: "小蓝", emoji: "🦆" });
+  });
+
   it.each(["ghostzzz", "агент✨", "   "])(
     "errors without changing config when --agent names %j",
     async (agent) => {

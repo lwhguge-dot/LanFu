@@ -78,7 +78,17 @@ export async function agentsSetIdentityCommand(
   const emojiRaw = normalizeOptionalString(opts.emoji);
   const themeRaw = normalizeOptionalString(opts.theme);
   const avatarRaw = normalizeOptionalString(opts.avatar);
-  const hasExplicitIdentity = Boolean(nameRaw || emojiRaw || themeRaw || avatarRaw);
+  // An explicitly passed empty value clears the stored key (used by installers
+  // to self-heal stale presets); omitting the flag keeps the stored value.
+  const clearEmoji = opts.emoji !== undefined && !emojiRaw;
+  const clearAvatar = opts.avatar !== undefined && !avatarRaw;
+  const identityClearKeys = [
+    ...(clearEmoji ? ["emoji" as const] : []),
+    ...(clearAvatar ? ["avatar" as const] : []),
+  ];
+  const hasExplicitIdentity = Boolean(
+    nameRaw || emojiRaw || themeRaw || avatarRaw || identityClearKeys.length > 0,
+  );
 
   const identityFileRaw = normalizeOptionalString(opts.identityFile);
   const workspaceRaw = normalizeOptionalString(opts.workspace);
@@ -161,6 +171,7 @@ export async function agentsSetIdentityCommand(
   const nextConfig = applyAgentConfig(cfg, {
     agentId: resolvedAgentId,
     identity: incomingIdentity,
+    identityClearKeys: identityClearKeys.length > 0 ? identityClearKeys : undefined,
   });
   const committed = await replaceConfigFile({
     ...writeSnapshot,

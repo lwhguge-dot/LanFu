@@ -5,8 +5,9 @@
 # 任何批准入口——批准需要 CLI 或网页管理页。因此安装器替员工批准本机桌面端这一台设备。
 #
 # 身份：出厂默认助手=小蓝（蓝凫教育工作助手）。幂等：仅在没有任何身份、或身份仍是
-# 小蓝（可安全刷新）时写入；员工改过名字/头像则绝不覆盖。头像直接用网关自供的
-# 品牌标志 URL，无需往工作区复制文件。
+# 小蓝（可安全刷新）时写入；员工改过名字则绝不覆盖。头像用网关自供的同源品牌标志
+# 路径（/lanfu-mark.png，网页端可直接渲染），不再设置 emoji——0.4.8 曾预置鸭子 emoji
+# 和绝对 URL 头像，这里检测到旧残留时自动刷新为新预设。
 param(
   [int]$TimeoutSeconds = 300
 )
@@ -42,27 +43,63 @@ function Invoke-CliRaw($arguments) {
   } catch { return $null }
 }
 
+# 0.4.8 的工作区模板 IDENTITY.md 带着"Emoji：🦆"行，助手会在聊天里自述为鸭子；
+# 身份仍是小蓝预设时同步清掉这一行。用户改过身份的文件绝不触碰。
+function Repair-WorkspaceIdentityFile {
+  try {
+    $list = Invoke-CliJson "agents list --json"
+    if (-not $list) { return }
+    $agents = @($list.agents)
+    $main = $agents | Where-Object { $_.id -eq "main" } | Select-Object -First 1
+    if (-not $main) { $main = $agents | Select-Object -First 1 }
+    if (-not $main.workspace) { return }
+    $file = Join-Path $main.workspace "IDENTITY.md"
+    if (-not (Test-Path $file)) { return }
+    $text = [System.IO.File]::ReadAllText($file)
+    if ($text -notmatch "小蓝") { return }
+    $new = $text -replace "(?m)^- \*\*Emoji：\*\* 🦆\r?\n", ""
+    if ($new -ne $text) {
+      [System.IO.File]::WriteAllText($file, $new, (New-Object System.Text.UTF8Encoding($false)))
+      Note "已清理工作区 IDENTITY.md 的旧 Emoji 行"
+    }
+  } catch {
+    Note ("清理 IDENTITY.md 失败：" + $_.Exception.Message)
+  }
+}
+
 function Ensure-Identity {
-  # 幂等检查：读 main 智能体当前身份
+  # 幂等检查：读 main 智能体当前身份（agents list 的身份字段在顶层：
+  # identityName / identityEmoji / identityAvatarUrl / identitySource）
   $list = Invoke-CliJson "agents list --json"
   if ($list) {
     $agents = @($list.agents)
     $main = $agents | Where-Object { $_.id -eq "main" } | Select-Object -First 1
     if (-not $main) { $main = $agents | Select-Object -First 1 }
-    $name = $main.identity.name
+    $name = $main.identityName
+    $emoji = $main.identityEmoji
+    $avatar = $main.identityAvatarUrl
     if ($name -and $name -ne $identityName) {
       Note ("身份已由用户自定为 " + $name + "，不覆盖")
       return
     }
+    if ($emoji -eq "🦆" -or $avatar -eq "http://127.0.0.1:18789/lanfu-mark.png") {
+      Note "检测到 0.4.8 旧预设残留（鸭子 emoji / 绝对 URL 头像），刷新为新预设"
+    } elseif (-not $emoji -and $avatar -eq "/lanfu-mark.png" -and $name -eq $identityName) {
+      Repair-WorkspaceIdentityFile
+      Note "身份已是当前预设，跳过"
+      return
+    }
+    Repair-WorkspaceIdentityFile
   }
+  # --emoji ""：显式清除 0.4.8 预置的鸭子 emoji（省略该参数只会保留旧值）
   $out = Invoke-CliRaw @("agents", "set-identity", "--agent", "main",
     "--name", $identityName,
     "--theme", "务实、简洁、有主见",
-    "--emoji", "🦆",
-    "--avatar", "http://127.0.0.1:18789/lanfu-mark.png",
+    "--emoji", "",
+    "--avatar", "/lanfu-mark.png",
     "--json")
   if ($out -match '"ok"\s*:\s*true') {
-    Note "助手身份已预置为小蓝（蓝凫标志头像）"
+    Note "助手身份已预置为小蓝（蓝凫品牌矢量头像）"
   } else {
     Note ("身份预置返回：" + ($out -replace "\s+", " ").Substring(0, [Math]::Min(160, $out.Length)))
   }

@@ -122,6 +122,8 @@ export function applyAgentConfig(
     agentDir?: string;
     model?: string | null;
     identity?: IdentityConfig;
+    /** Identity keys to remove after merging (explicit clears). */
+    identityClearKeys?: ReadonlyArray<"emoji" | "avatar">;
   },
 ): OpenClawConfig {
   const agentId = normalizeAgentId(params.agentId);
@@ -129,7 +131,14 @@ export function applyAgentConfig(
   const list = listAgentEntries(cfg);
   const index = findAgentEntryIndex(list, agentId);
   const base = (index >= 0 ? list[index] : undefined) ?? { id: agentId };
-  const mergedIdentity = params.identity ? { ...base.identity, ...params.identity } : undefined;
+  let mergedIdentity = params.identity ? { ...base.identity, ...params.identity } : undefined;
+  if (mergedIdentity && params.identityClearKeys?.length) {
+    const cleared = { ...mergedIdentity };
+    for (const key of params.identityClearKeys) {
+      delete cleared[key];
+    }
+    mergedIdentity = cleared;
+  }
   const nextEntry: AgentEntry = {
     ...base,
     ...(name ? { name } : {}),

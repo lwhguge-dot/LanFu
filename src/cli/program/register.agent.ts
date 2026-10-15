@@ -241,8 +241,11 @@ export function registerAgentsCommands(program: Command): void {
     .option("--from-identity", "Read values from IDENTITY.md", false)
     .option("--name <name>", "Identity name")
     .option("--theme <theme>", "Identity theme")
-    .option("--emoji <emoji>", "Identity emoji")
-    .option("--avatar <value>", "Identity avatar (workspace path, http(s) URL, or data URI)")
+    .option("--emoji <emoji>", 'Identity emoji (pass "" to clear)')
+    .option(
+      "--avatar <value>",
+      'Identity avatar (workspace path, http(s) URL, or data URI; pass "" to clear)',
+    )
     .option("--json", "Output JSON summary", false)
     .addHelpText(
       "after",

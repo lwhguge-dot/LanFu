@@ -170,5 +170,16 @@ export function resolveAgentAvatarUrlFromSource(
     return undefined;
   }
   const opened = openLocalAgentAvatarFile({ cfg, agentId, source: normalized });
-  return opened.ok ? readOpenedLocalAgentAvatarDataUrl(opened.file) : undefined;
+  if (opened.ok) {
+    return readOpenedLocalAgentAvatarDataUrl(opened.file);
+  }
+  // Control UI same-origin asset paths (for example "/lanfu-mark.png") refer to
+  // gateway-served static files, not files on this machine. They carry no URI
+  // scheme, and on Windows the local-file branch above can only resolve a
+  // leading "/" to a drive root outside the workspace, so pass the path through
+  // for the web client to render same-origin.
+  if (/^\/(?!\/)/.test(normalized)) {
+    return normalized;
+  }
+  return undefined;
 }
