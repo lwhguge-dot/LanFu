@@ -273,8 +273,11 @@ jobs:
           # GitVersion.MsBuild needs the full history, hence fetch-depth: 0 above.
           dotnet restore hub-src\src\OpenClaw.Tray.WinUI -r win-x64
           if ($LASTEXITCODE -ne 0) { throw "hub restore failed" }
+          # LANFU_UPDATE_TOKEN (Actions secret) carries a read-only fine-grained
+          # GitHub PAT that authenticates the shell's update checks (60 -> 5000
+          # req/h); without it the shell falls back to anonymous checks.
           dotnet publish hub-src\src\OpenClaw.Tray.WinUI -c Release -r win-x64 --self-contained --no-restore `
-            -o hub-publish -p:Version=$version -p:InformationalVersion=$version
+            -o hub-publish -p:Version=$version -p:InformationalVersion=$version "-p:UpdateCheckGitHubToken=${{ secrets.LANFU_UPDATE_TOKEN }}"
           if ($LASTEXITCODE -ne 0) { throw "hub publish failed" }
           if (-not (Test-Path "hub-publish\LanFu.exe")) { throw "hub publish output missing" }
 
