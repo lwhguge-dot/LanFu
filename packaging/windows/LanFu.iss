@@ -63,6 +63,13 @@ Source: "lanfu.ico"; DestDir: "{app}"; Flags: ignoreversion
 ; 桌面端：直接内嵌，不再串联独立安装器
 Source: "hub\*"; DestDir: "{localappdata}\LanFu"; Flags: recursesubdirs createallsubdirs ignoreversion
 
+[InstallDelete]
+; 升级安装前清掉上一版的 dist 缓存。
+; 构建产物文件名带 hash，Inno 覆盖安装只新增/覆盖文件、不会删除旧文件，
+; 多次更新后 app\dist 会积累大量孤儿 chunk（0.4.20 实测 707MB dist 里约 424MB 是旧 chunk）。
+; dist 完全由本次安装包重建，删除是安全的；放在 [InstallDelete] 可以保证每次升级后只剩当前版本的文件。
+Type: filesandordirs; Name: "{app}\app\dist"
+
 [Icons]
 ; 桌面快捷方式 + 开始菜单（员工从桌面图标启动）
 Name: "{autodesktop}\LanFu"; Filename: "{localappdata}\LanFu\LanFu.exe"; AppUserModelID: "{#MyAumid}"
