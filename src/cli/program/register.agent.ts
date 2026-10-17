@@ -246,6 +246,10 @@ export function registerAgentsCommands(program: Command): void {
       "--avatar <value>",
       'Identity avatar (workspace path, http(s) URL, or data URI; pass "" to clear)',
     )
+    // Explicit booleans exist because PowerShell 5.1 drops empty-string arguments
+    // when invoking native commands, so an installer cannot pass --emoji "".
+    .option("--clear-emoji", "Remove the stored identity emoji", false)
+    .option("--clear-avatar", "Remove the stored identity avatar", false)
     .option("--json", "Output JSON summary", false)
     .addHelpText(
       "after",
@@ -279,6 +283,8 @@ ${formatHelpExamples([
             theme: opts.theme as string | undefined,
             emoji: opts.emoji as string | undefined,
             avatar: opts.avatar as string | undefined,
+            clearEmoji: Boolean(opts.clearEmoji),
+            clearAvatar: Boolean(opts.clearAvatar),
             json: Boolean(opts.json),
           },
           runtime,

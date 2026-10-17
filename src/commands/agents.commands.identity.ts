@@ -37,6 +37,8 @@ type AgentsSetIdentityOptions = {
   emoji?: string;
   theme?: string;
   avatar?: string;
+  clearEmoji?: boolean;
+  clearAvatar?: boolean;
   fromIdentity?: boolean;
   json?: boolean;
 };
@@ -80,8 +82,9 @@ export async function agentsSetIdentityCommand(
   const avatarRaw = normalizeOptionalString(opts.avatar);
   // An explicitly passed empty value clears the stored key (used by installers
   // to self-heal stale presets); omitting the flag keeps the stored value.
-  const clearEmoji = opts.emoji !== undefined && !emojiRaw;
-  const clearAvatar = opts.avatar !== undefined && !avatarRaw;
+  // The boolean clear flags exist for shells that drop empty-string arguments.
+  const clearEmoji = opts.clearEmoji === true || (opts.emoji !== undefined && !emojiRaw);
+  const clearAvatar = opts.clearAvatar === true || (opts.avatar !== undefined && !avatarRaw);
   const identityClearKeys = [
     ...(clearEmoji ? ["emoji" as const] : []),
     ...(clearAvatar ? ["avatar" as const] : []),

@@ -360,6 +360,29 @@ describe("agents set-identity command", () => {
     });
   });
 
+  it("clears a stored emoji via the --clear-emoji flag", async () => {
+    configMocks.readConfigFileSnapshot.mockResolvedValue(
+      createTestConfigSnapshot({
+        agents: {
+          entries: { main: { identity: { name: "小蓝", emoji: "🦆", theme: "务实" } } },
+        },
+      }),
+    );
+
+    // PowerShell 5.1 drops empty-string arguments for native commands, so installers
+    // pass the boolean flag instead of --emoji "".
+    await agentsSetIdentityCommand(
+      { agent: "main", name: "小蓝", clearEmoji: true, avatar: "/lanfu-mark.png" },
+      runtime,
+    );
+
+    expect(getWrittenMainIdentity()).toEqual({
+      name: "小蓝",
+      theme: "务实",
+      avatar: "/lanfu-mark.png",
+    });
+  });
+
   it("keeps a stored emoji when --emoji is omitted", async () => {
     configMocks.readConfigFileSnapshot.mockResolvedValue(
       createTestConfigSnapshot({

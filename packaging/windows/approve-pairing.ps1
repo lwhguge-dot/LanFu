@@ -25,14 +25,20 @@ function Note($text) {
   Add-Content -Path $logPath -Value ((Get-Date -Format "HH:mm:ss") + " " + $text) -Encoding UTF8 -ErrorAction SilentlyContinue
 }
 
-# CLI 的输出前可能带有非 JSON 的提示行（例如检测到 legacy 目录时的警告），从第一个
-# '{' 开始截取；网关未就绪时命令失败，返回 null 由外层重试。
+# CLI 的输出前可能带有非 JSON 的提示行（例如检测到 legacy 目录时的警告）。从每个
+# 以 '{' 或 '[' 开头的行尝试解析：agents list 的根是数组，devices list 的根是对象，
+# 只从 '{' 截取会把数组截断成非法 JSON。网关未就绪时命令失败，返回 null 由外层重试。
 function Invoke-CliJson($arguments) {
   try {
     $out = (& $cmdExe /c ('"' + $cli + '" ' + $arguments)) 2>$null | Out-String
-    $idx = $out.IndexOf("{")
-    if ($idx -lt 0) { return $null }
-    return ($out.Substring($idx) | ConvertFrom-Json)
+    $lines = $out -split "`r?`n"
+    for ($i = 0; $i -lt $lines.Count; $i++) {
+      $head = $lines[$i].TrimStart()
+      if (-not ($head.StartsWith("{") -or $head.StartsWith("["))) { continue }
+      $candidate = ($lines[$i..($lines.Count - 1)] -join "`n")
+      try { return ($candidate | ConvertFrom-Json) } catch { }
+    }
+    return $null
   } catch { return $null }
 }
 
@@ -47,12 +53,11 @@ function Invoke-CliRaw($arguments) {
 # 身份仍是小蓝预设时同步清掉这一行。用户改过身份的文件绝不触碰。
 function Repair-WorkspaceIdentityFile {
   try {
-    $list = Invoke-CliJson "agents list --json"
-    if (-not $list) { return }
-    $agents = @($list.agents)
+    $agents = @(Get-AgentRows)
+    if (-not $agents) { return }
     $main = $agents | Where-Object { $_.id -eq "main" } | Select-Object -First 1
     if (-not $main) { $main = $agents | Select-Object -First 1 }
-    if (-not $main.workspace) { return }
+    if (-not $main -or -not $main.workspace) { return }
     $file = Join-Path $main.workspace "IDENTITY.md"
     if (-not (Test-Path $file)) { return }
     $text = [System.IO.File]::ReadAllText($file)
@@ -67,12 +72,21 @@ function Repair-WorkspaceIdentityFile {
   }
 }
 
+# agents list --json 的根是数组，ConvertFrom-Json 可能把它展开成单个对象；兼容
+# 单行对象、对象数组和旧的 { agents: [...] } 三种形状。调用点用 @() 包裹，
+# 因为单元素数组经函数返回会被 PowerShell 展开成对象。
+function Get-AgentRows {
+  $list = Invoke-CliJson "agents list --json"
+  if (-not $list) { return @() }
+  if ($list.PSObject.Properties.Name -contains "agents") { return @($list.agents) }
+  return @($list)
+}
+
 function Ensure-Identity {
   # 幂等检查：读 main 智能体当前身份（agents list 的身份字段在顶层：
   # identityName / identityEmoji / identityAvatarUrl / identitySource）
-  $list = Invoke-CliJson "agents list --json"
-  if ($list) {
-    $agents = @($list.agents)
+  $agents = @(Get-AgentRows)
+  if ($agents.Count -gt 0) {
     $main = $agents | Where-Object { $_.id -eq "main" } | Select-Object -First 1
     if (-not $main) { $main = $agents | Select-Object -First 1 }
     $name = $main.identityName
@@ -91,17 +105,20 @@ function Ensure-Identity {
     }
     Repair-WorkspaceIdentityFile
   }
-  # --emoji ""：显式清除 0.4.8 预置的鸭子 emoji（省略该参数只会保留旧值）
+  # --clear-emoji：显式清除 0.4.8 预置的鸭子 emoji（省略只会保留旧值）。
+  # 不用 --emoji ""：PowerShell 5.1 调用原生程序时会丢弃空字符串参数。
   $out = Invoke-CliRaw @("agents", "set-identity", "--agent", "main",
     "--name", $identityName,
     "--theme", "务实、简洁、有主见",
-    "--emoji", "",
+    "--clear-emoji",
     "--avatar", "/lanfu-mark.png",
     "--json")
   if ($out -match '"ok"\s*:\s*true') {
     Note "助手身份已预置为小蓝（蓝凫品牌矢量头像）"
   } else {
-    Note ("身份预置返回：" + ($out -replace "\s+", " ").Substring(0, [Math]::Min(160, $out.Length)))
+    $text = ($out -replace "\s+", " ")
+    if ($text.Length -gt 160) { $text = $text.Substring(0, 160) }
+    Note ("身份预置返回：" + $text)
   }
 }
 
