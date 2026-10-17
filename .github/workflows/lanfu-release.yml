@@ -607,20 +607,26 @@ jobs:
         with:
           path: release-assets
           merge-multiple: true
+      - uses: actions/checkout@v4
+      # Each release must say what THIS version changed. The body comes from
+      # docs/lanfu/releases/<version>.md (written when the version is bumped);
+      # the old fixed installer blurb is gone because the in-app update dialog
+      # shows this body verbatim, and repeating the same text every time is noise.
       - name: Release notes
         run: |
           VERSION="${{ needs.resolve.outputs.version }}"
           mkdir -p out
-          {
-            echo "# LanFu $VERSION"
-            echo ""
-            echo "Windows 安装器自带固定版本 Node.js，员工无需另装 Node/pnpm/Git；Linux 为 deb 包。"
-            echo "升级可直接覆盖安装；详细变更见仓库发布说明文档。"
-            echo ""
-            echo "- Windows: LanFu-Setup-x64.exe"
-            echo "- Linux: lanfu_${VERSION}_amd64.deb"
-            echo "- 校验: SHA256SUMS.txt"
-          } > "out/RELEASE_NOTES.md"
+          NOTES="docs/lanfu/releases/${VERSION}.md"
+          if [ -f "$NOTES" ]; then
+            cat "$NOTES" > "out/RELEASE_NOTES.md"
+          else
+            {
+              echo "# LanFu $VERSION"
+              echo ""
+              echo "本版未填写更新说明，详见仓库发布说明。"
+            } > "out/RELEASE_NOTES.md"
+            echo "::warning::missing release notes file $NOTES"
+          fi
           cp release-assets/* out/ 2>/dev/null || true
       - uses: softprops/action-gh-release@v2
         with:
