@@ -51,16 +51,21 @@ while ((Get-Date) -lt $deadline) {
   $attempt++
   Ensure-SelfLink | Out-Null
   Note ("第 " + $attempt + " 次启动网关")
+  $stdoutLog = Join-Path $env:TEMP "lanfu-gateway-stdout.log"
+  $stderrLog = Join-Path $env:TEMP "lanfu-gateway-stderr.log"
   try {
-    $proc = Start-Process -FilePath $node -ArgumentList @($entry, "gateway", "--port", "18789", "--allow-unconfigured") -WorkingDirectory $appDir -WindowStyle Hidden -PassThru
+    $proc = Start-Process -FilePath $node -ArgumentList @($entry, "gateway", "--port", "18789", "--allow-unconfigured") -WorkingDirectory $appDir -WindowStyle Hidden -PassThru -RedirectStandardOutput $stdoutLog -RedirectStandardError $stderrLog
   } catch {
     Note ("  启动失败：" + $_.Exception.Message)
     Start-Sleep -Seconds 15
     continue
   }
-  for ($i = 0; $i -lt 9; $i++) {
+  # 冷启动实测约 50~65 秒（状态迁移探测 ~20s + 插件/模型加载 ~19s + 侧车 ~6s），
+  # 旧版 45 秒窗口会在网关即将就绪前把它杀掉，导致首启连试 3~4 次、多等 2~4 分钟。
+  # 这里放宽到 120 秒；未就绪才杀，且下一轮会先补自链接再重试。
+  for ($i = 0; $i -lt 24; $i++) {
     Start-Sleep -Seconds 5
-    if (Test-Ready) { Note ("  就绪（第 " + $attempt + " 次尝试）"); exit 0 }
+    if (Test-Ready) { Note ("  就绪（第 " + $attempt + " 次尝试，" + (($i + 1) * 5) + " 秒）"); exit 0 }
     if ($proc -and $proc.HasExited) { break }
   }
   if (-not (Test-Ready)) {
