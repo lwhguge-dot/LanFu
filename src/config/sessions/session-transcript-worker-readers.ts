@@ -208,7 +208,11 @@ export function createSessionHistoryWorkerReaders(
       ),
     readExactEntries: async (input) =>
       await runRequest(
-        () => ({ kind: "session-exact-entries", ...input }),
+        // The worker transport cannot structured-clone the Windows env Proxy that
+        // cloneEnvWithPlatformSemantics returns; send a plain snapshot (same fix
+        // readRowFacts already applies). Without this, every isolated cron setup
+        // fails with "DataCloneError: #<Object> could not be cloned." on Windows.
+        () => ({ kind: "session-exact-entries", ...input, env: { ...input.env } }),
         JSON.stringify(input).length * 2,
         (value) => {
           if (
