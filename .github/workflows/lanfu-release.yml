@@ -503,6 +503,13 @@ jobs:
           $shellExe = Join-Path $env:LOCALAPPDATA "LanFu\LanFu.exe"
           if (-not (Test-Path $shellExe)) { Fail "desktop shell was not installed" }
           Step "desktop shell installed"
+          # The shell renders its brand-mark fallbacks (agent badge, owner card) from
+          # ms-appx:///Assets/lanfu-mark.png. That asset is caught by the fork's blanket
+          # *.png .gitignore rule, so 0.4.9 shipped without it and both fallbacks rendered
+          # empty. Assert it is in the installed payload so it can never go missing again.
+          $brandMark = Join-Path $env:LOCALAPPDATA "LanFu\Assets\lanfu-mark.png"
+          if (-not (Test-Path $brandMark)) { Fail "the desktop shell is missing its bundled brand mark (Assets\lanfu-mark.png); badge/owner fallbacks would render empty" }
+          Step "desktop shell ships the bundled brand mark"
 
           $shortcut = Join-Path ([Environment]::GetFolderPath("Desktop")) "LanFu.lnk"
           if (-not (Test-Path $shortcut)) { Fail "desktop shortcut is missing" }

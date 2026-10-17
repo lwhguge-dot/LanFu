@@ -9,7 +9,7 @@
 # 路径（/lanfu-mark.png，网页端可直接渲染），不再设置 emoji——0.4.8 曾预置鸭子 emoji
 # 和绝对 URL 头像，这里检测到旧残留时自动刷新为新预设。
 param(
-  [int]$TimeoutSeconds = 300
+  [int]$TimeoutSeconds = 1800
 )
 $ErrorActionPreference = "Continue"
 $root = Split-Path -Parent $MyInvocation.MyCommand.Path
@@ -23,6 +23,15 @@ $identityName = "小蓝"
 function Note($text) {
   # UTF-8：日志含中文/Emoji，默认 ANSI 编码会把它们写成乱码
   Add-Content -Path $logPath -Value ((Get-Date -Format "HH:mm:ss") + " " + $text) -Encoding UTF8 -ErrorAction SilentlyContinue
+}
+
+# 网关就绪探测：只用 HTTP 请求（不启动 CLI）。网关尚未就绪时反复调用 CLI 会派生
+# node 子进程并与其争抢状态目录，实测会拖慢甚至阻塞网关启动，所以先等 HTTP 200。
+function Test-GatewayReady {
+  try {
+    $r = Invoke-WebRequest "http://127.0.0.1:18789/" -UseBasicParsing -TimeoutSec 4
+    return ($r.StatusCode -eq 200)
+  } catch { return $false }
 }
 
 # CLI 的输出前可能带有非 JSON 的提示行（例如检测到 legacy 目录时的警告）。从每个
@@ -127,6 +136,10 @@ Note ("CLI: " + $cli)
 $deadline = (Get-Date).AddSeconds($TimeoutSeconds)
 $identityDone = $false
 while ((Get-Date) -lt $deadline) {
+  # 网关未就绪时不要启动 CLI：CLI 会派生 node 进程并争抢网关状态目录，
+  # 0.4.9 在本机实测把首启拖到 5 分钟以上，approver 的 300 秒窗口因此到期，
+  # 身份自愈没能在安装时执行。先等网关 HTTP 就绪，再调 CLI。
+  if (-not (Test-GatewayReady)) { Start-Sleep -Seconds 5; continue }
   $d = Invoke-CliJson "devices list --json"
   if ($d) {
     # 网关已可达：先做身份预置（与配对独立，且只需一次）
@@ -134,7 +147,7 @@ while ((Get-Date) -lt $deadline) {
 
     $paired = @($d.paired | Where-Object { $_.displayName -eq "LanFu" })
     if ($paired.Count -gt 0) { Note "桌面端已在配对列表，无需处理"; exit 0 }
-    $pending = @($d.pending)
+    $pending = @($d.pending | Where-Object { $_ -and $_.requestId })
     if ($pending.Count -gt 0) {
       foreach ($p in $pending) {
         Note ("发现待批准请求 " + $p.requestId + "（" + $p.displayName + "）")
