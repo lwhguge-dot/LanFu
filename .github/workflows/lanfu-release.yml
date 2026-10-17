@@ -603,11 +603,14 @@ jobs:
     if: ${{ github.event_name == 'push' || inputs.publish }}
     runs-on: ubuntu-latest
     steps:
+      # Checkout MUST run before download-artifact: checkout's default clean
+      # step would delete the released assets downloaded into the workspace
+      # (0.4.16 shipped an asset-less release that way).
+      - uses: actions/checkout@v4
       - uses: actions/download-artifact@v4
         with:
           path: release-assets
           merge-multiple: true
-      - uses: actions/checkout@v4
       # Each release must say what THIS version changed. The body comes from
       # docs/lanfu/releases/<version>.md (written when the version is bumped);
       # the old fixed installer blurb is gone because the in-app update dialog
