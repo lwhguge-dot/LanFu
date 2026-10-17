@@ -73,6 +73,17 @@ jobs:
     timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
+      # Fail fast: every release must say what changed in THIS version. The file
+      # is published verbatim as the GitHub Release body, which the in-app update
+      # dialog shows. Missing it used to fall back to a fixed blurb, so the
+      # update prompt looked identical on every release.
+      - name: Verify the per-version release notes exist
+        run: |
+          VERSION="${{ needs.resolve.outputs.version }}"
+          if [ ! -f "docs/lanfu/releases/${VERSION}.md" ]; then
+            echo "::error::missing docs/lanfu/releases/${VERSION}.md — every release must say what changed in this version"
+            exit 1
+          fi
       - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v4
         with:
