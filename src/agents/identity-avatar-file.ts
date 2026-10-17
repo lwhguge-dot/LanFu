@@ -11,6 +11,7 @@ import {
   hasAvatarUriScheme,
   isAvatarDataUrl,
   isAvatarHttpUrl,
+  isControlUiSameOriginAvatarPath,
   isPathWithinRoot,
   isSupportedLocalAvatarExtension,
   isWindowsAbsolutePath,
@@ -178,7 +179,7 @@ export function resolveAgentAvatarUrlFromSource(
   // scheme, and on Windows the local-file branch above can only resolve a
   // leading "/" to a drive root outside the workspace, so pass the path through
   // for the web client to render same-origin.
-  if (/^\/(?!\/)/.test(normalized)) {
+  if (isControlUiSameOriginAvatarPath(normalized)) {
     return normalized;
   }
   return undefined;

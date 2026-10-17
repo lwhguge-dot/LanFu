@@ -50,6 +50,32 @@ describe("identity avatar validation", () => {
     });
   });
 
+  it("accepts same-origin Control UI asset avatars", async () => {
+    await withTempHome(async (home) => {
+      const workspace = path.join(home, "openclaw");
+      const res = validateConfigObject({
+        agents: {
+          entries: {
+            main: { default: true, workspace, identity: { avatar: "/lanfu-mark.png" } },
+          },
+        },
+      });
+      expect(res.ok).toBe(true);
+    });
+  });
+
+  it("rejects protocol-relative and non-image same-origin values", async () => {
+    await withTempHome(async (home) => {
+      const workspace = path.join(home, "openclaw");
+      for (const avatar of ["//evil.example/x.png", "/api/status"]) {
+        const res = validateConfigObject({
+          agents: { entries: { main: { default: true, workspace, identity: { avatar } } } },
+        });
+        expect(res.ok).toBe(false);
+      }
+    });
+  });
+
   it("rejects avatar paths outside workspace", async () => {
     await withTempHome(async (home) => {
       const workspace = path.join(home, "openclaw");

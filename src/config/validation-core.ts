@@ -16,6 +16,7 @@ import {
   hasAvatarUriScheme,
   isAvatarDataUrl,
   isAvatarHttpUrl,
+  isControlUiSameOriginAvatarPath,
   isPathWithinRoot,
   isWindowsAbsolutePath,
 } from "../shared/avatar-policy.js";
@@ -176,6 +177,11 @@ function validateIdentityAvatar(
     }
     const avatar = avatarRaw.trim();
     if (!avatar || isAvatarDataUrl(avatar) || isAvatarHttpUrl(avatar)) {
+      continue;
+    }
+    // Same-origin Control UI assets (for example the gateway-served brand mark)
+    // are not workspace files, so the workspace containment check does not apply.
+    if (isControlUiSameOriginAvatarPath(avatar)) {
       continue;
     }
     if (avatar.startsWith("~")) {

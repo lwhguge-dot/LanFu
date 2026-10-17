@@ -64,6 +64,19 @@ export function isWindowsAbsolutePath(value: string): boolean {
   return WINDOWS_ABS_RE.test(value);
 }
 
+/**
+ * Same-origin Control UI asset paths such as "/lanfu-mark.png". They reference
+ * files the gateway serves, not files inside the agent workspace, so config
+ * validation and the agent-list projection must accept them without a local
+ * file check. The extension allowlist keeps the value an image reference.
+ */
+export function isControlUiSameOriginAvatarPath(value: string): boolean {
+  if (!value.startsWith("/") || value.startsWith("//") || /\s/.test(value)) {
+    return false;
+  }
+  return AVATAR_PATH_EXT_RE.test(value);
+}
+
 /** Checks that a resolved avatar path remains inside its configured root. */
 export function isPathWithinRoot(rootDir: string, targetPath: string): boolean {
   return isPathInside(rootDir, targetPath);
