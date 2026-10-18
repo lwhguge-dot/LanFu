@@ -537,6 +537,31 @@ jobs:
           if (-not $shell) { Write-Output "[smoke] note: the shell process is not running (headless runner); the installer did try to launch it" }
           else { Step "desktop shell launched by the installer" }
 
+          # Upgrade path regression: install the same build a second time over the
+          # installed tree. [InstallDelete] clears app\dist before extraction, so
+          # hash-named chunks must not accumulate (0.4.20 reached 707 MB of dist with
+          # 424 MB orphaned chunks; 0.4.21 fixed that). Without this check a future
+          # packaging change could silently bring the bloat back.
+          Step "reinstalling to check upgrade cleanup"
+          Get-Process -Name "LanFu" -ErrorAction SilentlyContinue | Stop-Process -Force -ErrorAction SilentlyContinue
+          Get-Process -Name "node" -ErrorAction SilentlyContinue | Stop-Process -Force -ErrorAction SilentlyContinue
+          Start-Sleep -Seconds 5
+          $distRoot = Join-Path $root "app\dist"
+          $filesBefore = (Get-ChildItem $distRoot -Recurse -File | Measure-Object).Count
+          $chunksBefore = (Get-ChildItem $distRoot -Recurse -File -Filter "official-external-provider-catalog-*.mjs" | Measure-Object).Count
+          $proc2 = Start-Process -FilePath $setup -ArgumentList @("/VERYSILENT","/SUPPRESSMSGBOXES","/NORESTART","/NOCANCEL","/LOG=$setupLog") -PassThru
+          if (-not $proc2.WaitForExit(1800000)) { try { $proc2.Kill() } catch { }; Fail "second installer run did not finish within 30 minutes" }
+          if ($proc2.ExitCode -ne 0) { Fail "second installer returned $($proc2.ExitCode)" }
+          $filesAfter = (Get-ChildItem $distRoot -Recurse -File | Measure-Object).Count
+          $chunksAfter = (Get-ChildItem $distRoot -Recurse -File -Filter "official-external-provider-catalog-*.mjs" | Measure-Object).Count
+          Write-Output ("[smoke] dist files $filesBefore -> $filesAfter; catalog chunk copies $chunksBefore -> $chunksAfter")
+          if ($chunksAfter -ne 1) { Fail "upgrade cleanup did not run: $chunksAfter copies of the catalog chunk remain" }
+          if ($filesAfter -gt [math]::Ceiling($filesBefore * 1.02)) { Fail "dist file count grew during reinstall: $filesBefore -> $filesAfter" }
+          $readyAgain = $false
+          for ($i = 0; $i -lt 48; $i++) { Start-Sleep -Seconds 5; try { $r = Invoke-WebRequest "http://127.0.0.1:18789/" -UseBasicParsing -TimeoutSec 4; if ($r.StatusCode -eq 200) { $readyAgain = $true; break } } catch { } }
+          if (-not $readyAgain) { Fail "gateway did not become ready after the upgrade reinstall" }
+          Step "upgrade cleanup keeps dist flat and the gateway healthy"
+
           Step "cleaning up"
           Get-Process -Name "LanFu" -ErrorAction SilentlyContinue | Stop-Process -Force -ErrorAction SilentlyContinue
           Get-Process -Name "node" -ErrorAction SilentlyContinue | Stop-Process -Force -ErrorAction SilentlyContinue
