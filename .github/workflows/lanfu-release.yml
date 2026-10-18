@@ -251,6 +251,12 @@ jobs:
           Invoke-WebRequest "https://nodejs.org/dist/v${{ env.NODE_RUNTIME_VERSION }}/node-v${{ env.NODE_RUNTIME_VERSION }}-win-x64.zip" -OutFile node.zip
           Expand-Archive node.zip -DestinationPath node-tmp
           Move-Item "node-tmp\node-v${{ env.NODE_RUNTIME_VERSION }}-win-x64" "release\runtime"
+          # The gateway only needs node.exe. npm/npx/corepack and the bundled
+          # npm node_modules are dead weight in every install (~12 MB installed).
+          foreach ($name in @("npm","npx","npx.cmd","npx.ps1","npm.cmd","npm.ps1","corepack","corepack.cmd","node_modules","install_tools.bat","nodevars.bat","CHANGELOG.md","README.md")) {
+            $target = Join-Path "release\runtime" $name
+            if (Test-Path $target) { Remove-Item $target -Recurse -Force }
+          }
       - name: Assemble the release root
         shell: pwsh
         run: |
@@ -611,6 +617,9 @@ jobs:
         run: |
           curl -fsSL "https://nodejs.org/dist/v${{ env.NODE_RUNTIME_VERSION }}/node-v${{ env.NODE_RUNTIME_VERSION }}-linux-x64.tar.xz" -o node.tar.xz
           mkdir -p release/runtime && tar -xJf node.tar.xz --strip-components=1 -C release/runtime
+          # Same trim as Windows: keep node + LICENSE, drop the npm toolchain/headers.
+          rm -rf release/runtime/lib/node_modules release/runtime/include release/runtime/share/doc release/runtime/share/man
+          rm -f release/runtime/bin/npm release/runtime/bin/npx release/runtime/bin/corepack release/runtime/CHANGELOG.md release/runtime/README.md
       - name: Assemble the release root
         run: cp packaging/linux/usr/bin/lanfu release/ && cp packaging/linux/usr/lib/systemd/user/lanfu-gateway.service release/
       - name: Build the deb

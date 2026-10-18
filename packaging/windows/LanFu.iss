@@ -31,7 +31,7 @@ DisableReadyPage=yes
 OutputBaseFilename=LanFu-Setup-x64
 OutputDir=out
 ; 载荷以大量小文件为主：solid 在这里解压更快、包体更小（实测非 solid 反而更慢更大）。
-Compression=lzma2
+Compression=lzma2/ultra64
 SolidCompression=yes
 WizardStyle=modern
 PrivilegesRequired=lowest
