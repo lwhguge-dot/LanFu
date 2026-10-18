@@ -633,7 +633,7 @@ export default definePluginEntry({
           wizard: {
             choiceId: "github-copilot-enterprise",
             choiceLabel: "GitHub Copilot (Enterprise / data residency)",
-            choiceHint: "Device login against your GitHub Enterprise (*.ghe.com) tenant",
+            choiceHint: "用 GitHub Enterprise（*.ghe.com）租户设备登录",
             methodId: "device-enterprise",
             assistantPriority: 2,
             modelSelection: {
@@ -646,7 +646,7 @@ export default definePluginEntry({
         setup: {
           choiceId: "github-copilot",
           choiceLabel: "GitHub Copilot",
-          choiceHint: "Device login with your GitHub account",
+          choiceHint: "用 GitHub 账户设备登录",
           methodId: "device",
           assistantPriority: 1,
           modelSelection: {

@@ -24,10 +24,10 @@ export function createAnthropicProvider(): ProviderPlugin {
         wizard: {
           choiceId: "anthropic-cli",
           choiceLabel: "Anthropic Claude CLI",
-          choiceHint: "Keep using an existing Claude Code CLI login on this host",
+          choiceHint: "继续使用本机已有的 Claude Code CLI 登录",
           groupId: "anthropic",
           groupLabel: "Anthropic",
-          groupHint: "Claude CLI + API key",
+          groupHint: "Claude CLI + API 密钥",
         },
       },
       {
@@ -39,10 +39,10 @@ export function createAnthropicProvider(): ProviderPlugin {
         wizard: {
           choiceId: "setup-token",
           choiceLabel: "Anthropic setup-token",
-          choiceHint: "Token created by running 'claude setup-token' in your terminal",
+          choiceHint: "在终端运行 'claude setup-token' 生成的令牌",
           groupId: "anthropic",
           groupLabel: "Anthropic",
-          groupHint: "Claude CLI + API key + token",
+          groupHint: "Claude CLI + API 密钥 + 令牌",
         },
       },
       {
@@ -56,7 +56,7 @@ export function createAnthropicProvider(): ProviderPlugin {
           choiceLabel: "Anthropic API key",
           groupId: "anthropic",
           groupLabel: "Anthropic",
-          groupHint: "Claude CLI + API key",
+          groupHint: "Claude CLI + API 密钥",
         },
       },
     ],

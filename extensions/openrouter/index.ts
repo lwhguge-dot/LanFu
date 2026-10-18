@@ -282,7 +282,7 @@ export default defineSingleProviderPluginEntry({
       label: "OpenRouter",
       docsPath: "/providers/models",
       manifestAuth: {
-        hint: "API key",
+        hint: "API 密钥",
         defaultModel: OPENROUTER_DEFAULT_MODEL_REF,
         applyConfig: applyOpenrouterConfig,
       },

@@ -12,7 +12,7 @@ export function createXaiProvider(): ProviderPlugin {
         id: "api-key",
         kind: "api_key",
         label: "xAI API key",
-        hint: "API key",
+        hint: "API 密钥",
         run: async () => ({ profiles: [] }),
         wizard: {
           groupLabel: "xAI (Grok)",

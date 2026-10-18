@@ -119,7 +119,7 @@ describe("opencode provider plugin", () => {
     expect(provider.auth[0]?.wizard).toMatchObject({
       choiceLabel: "OpenCode Zen catalog",
       groupId: "opencode",
-      groupHint: "Shared API key infrastructure for Zen + Go",
+      groupHint: "Zen + Go 共享 API 密钥",
     });
   });
 

@@ -280,11 +280,11 @@
       "channelLogin": {},
       "appGuidedSecret": true,
       "choiceLabel": "GitHub Copilot",
-      "choiceHint": "Device login with your GitHub account",
+      "choiceHint": "用 GitHub 账户设备登录",
       "assistantPriority": 1,
       "groupId": "copilot",
       "groupLabel": "Copilot",
-      "groupHint": "GitHub, GitHub Enterprise + Local Proxy",
+      "groupHint": "GitHub、GitHub Enterprise + 本地代理",
       "optionKey": "githubCopilotToken",
       "cliFlag": "--github-copilot-token",
       "cliOption": "--github-copilot-token <token>",
@@ -297,11 +297,11 @@
       "appGuidedAuth": "device-code",
       "credentialOnly": true,
       "choiceLabel": "GitHub Copilot (Enterprise / data residency)",
-      "choiceHint": "Device login against your GitHub Enterprise (*.ghe.com) tenant",
+      "choiceHint": "用 GitHub Enterprise（*.ghe.com）租户设备登录",
       "assistantPriority": 2,
       "groupId": "copilot",
       "groupLabel": "Copilot",
-      "groupHint": "GitHub, GitHub Enterprise + Local Proxy"
+      "groupHint": "GitHub、GitHub Enterprise + 本地代理"
     }
   ],
   "configSchema": {

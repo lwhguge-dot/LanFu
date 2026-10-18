@@ -23,7 +23,7 @@
       "choiceLabel": "Fireworks API key",
       "groupId": "fireworks",
       "groupLabel": "Fireworks",
-      "groupHint": "API key",
+      "groupHint": "API 密钥",
       "optionKey": "fireworksApiKey",
       "cliFlag": "--fireworks-api-key",
       "cliOption": "--fireworks-api-key <key>",

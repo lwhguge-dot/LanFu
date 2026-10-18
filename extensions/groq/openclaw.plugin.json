@@ -36,7 +36,7 @@
       "choiceId": "groq-api-key",
       "appGuidedSecret": true,
       "choiceLabel": "Groq API key",
-      "choiceHint": "Fast OpenAI-compatible inference",
+      "choiceHint": "快速、兼容 OpenAI 的推理",
       "groupId": "groq",
       "groupLabel": "Groq",
       "optionKey": "groqApiKey",

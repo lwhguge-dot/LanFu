@@ -30,10 +30,10 @@ export default definePluginEntry({
           wizard: {
             choiceId: "comfy-cloud-api-key",
             choiceLabel: "Comfy Cloud API key",
-            choiceHint: "Required for cloud workflows",
+            choiceHint: "云端工作流必需",
             groupId: "comfy",
             groupLabel: "ComfyUI",
-            groupHint: "Local or cloud workflows",
+            groupHint: "本地或云端工作流",
             onboardingScopes: ["image-generation"],
           },
         }),

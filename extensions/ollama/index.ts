@@ -772,7 +772,7 @@ export default definePluginEntry({
           providerId: OLLAMA_CLOUD_PROVIDER_ID,
           methodId: "api-key",
           label: "Ollama Cloud API key",
-          hint: "Hosted models via ollama.com",
+          hint: "通过 ollama.com 托管模型",
           optionKey: "ollamaCloudApiKey",
           flagName: "--ollama-cloud-api-key",
           envVar: "OLLAMA_API_KEY",
@@ -783,10 +783,10 @@ export default definePluginEntry({
           wizard: {
             choiceId: "ollama-cloud",
             choiceLabel: "Ollama Cloud",
-            choiceHint: "Hosted models via ollama.com",
+            choiceHint: "通过 ollama.com 托管模型",
             groupId: "ollama",
             groupLabel: "Ollama",
-            groupHint: "Cloud and local open models",
+            groupHint: "云端与本地开源模型",
           },
         }),
       ],
@@ -852,7 +852,7 @@ export default definePluginEntry({
         {
           id: "local",
           label: "Ollama",
-          hint: "Connect to an Ollama server and select a cloud or local model",
+          hint: "连接 Ollama 服务并选择云端或本地模型",
           kind: "custom",
           appGuidedSetup: {
             detectAvailability: detectAppGuidedOllamaAvailability,
@@ -963,10 +963,10 @@ export default definePluginEntry({
         setup: {
           choiceId: "ollama",
           choiceLabel: "Ollama",
-          choiceHint: "Connect to an Ollama server and select a cloud or local model",
+          choiceHint: "连接 Ollama 服务并选择云端或本地模型",
           groupId: "ollama",
           groupLabel: "Ollama",
-          groupHint: "Cloud and local open models",
+          groupHint: "云端与本地开源模型",
           methodId: "local",
           modelSelection: {
             promptWhenAuthChoiceProvided: true,

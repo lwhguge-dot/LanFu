@@ -182,7 +182,7 @@
       "choiceLabel": "xAI API key",
       "groupId": "xai",
       "groupLabel": "xAI (Grok)",
-      "groupHint": "API key or OAuth",
+      "groupHint": "API 密钥或 OAuth",
       "onboardingFeatured": true,
       "optionKey": "xaiApiKey",
       "cliFlag": "--xai-api-key",
@@ -198,10 +198,10 @@
       "credentialOnly": true,
       "channelLogin": {},
       "choiceLabel": "xAI OAuth",
-      "choiceHint": "Remote-friendly browser sign-in without a localhost callback",
+      "choiceHint": "适合远程的浏览器登录（无需 localhost 回调）",
       "groupId": "xai",
       "groupLabel": "xAI (Grok)",
-      "groupHint": "API key or OAuth",
+      "groupHint": "API 密钥或 OAuth",
       "onboardingFeatured": true
     },
     {
@@ -210,11 +210,11 @@
       "choiceId": "xai-device-code",
       "appGuidedAuth": "device-code",
       "choiceLabel": "xAI device code",
-      "choiceHint": "Compatibility alias for xAI OAuth device-code sign-in",
+      "choiceHint": "xAI OAuth 设备码登录的兼容别名",
       "assistantVisibility": "manual-only",
       "groupId": "xai",
       "groupLabel": "xAI (Grok)",
-      "groupHint": "API key or OAuth"
+      "groupHint": "API 密钥或 OAuth"
     }
   ],
   "uiHints": {

@@ -57,7 +57,7 @@
       "website": "https://ollama.com/download",
       "groupId": "ollama",
       "groupLabel": "Ollama",
-      "groupHint": "Cloud and local open models"
+      "groupHint": "云端与本地开源模型"
     },
     {
       "provider": "ollama-cloud",
@@ -70,7 +70,7 @@
       "website": "https://ollama.com/download",
       "groupId": "ollama",
       "groupLabel": "Ollama",
-      "groupHint": "Cloud and local open models",
+      "groupHint": "云端与本地开源模型",
       "optionKey": "ollamaCloudApiKey",
       "cliFlag": "--ollama-cloud-api-key",
       "cliOption": "--ollama-cloud-api-key <key>",

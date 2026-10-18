@@ -23,7 +23,7 @@
       "choiceLabel": "Venice AI API key",
       "groupId": "venice",
       "groupLabel": "Venice AI",
-      "groupHint": "Privacy-focused (uncensored models)",
+      "groupHint": "注重隐私（无审查模型）",
       "optionKey": "veniceApiKey",
       "cliFlag": "--venice-api-key",
       "cliOption": "--venice-api-key <key>",

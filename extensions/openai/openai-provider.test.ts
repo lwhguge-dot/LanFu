@@ -286,10 +286,10 @@ describe("buildOpenAIProvider", () => {
     expect(provider.catalog).toBeDefined();
     expectFields(apiKey?.wizard, {
       choiceLabel: "OpenAI API Key",
-      choiceHint: "Use your OpenAI API key directly",
+      choiceHint: "直接使用 OpenAI API 密钥",
       groupId: "openai",
       groupLabel: "OpenAI",
-      groupHint: "ChatGPT/Codex sign-in or API key",
+      groupHint: "ChatGPT/Codex 登录或 API 密钥",
     });
     expect(apiKey?.starterModel).toBe("openai/gpt-6-astra");
   });

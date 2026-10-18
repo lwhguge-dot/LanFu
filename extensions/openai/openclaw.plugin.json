@@ -309,11 +309,11 @@
       "appGuidedAuth": "oauth",
       "credentialOnly": true,
       "choiceLabel": "ChatGPT Login",
-      "choiceHint": "Sign in with your ChatGPT or Codex subscription",
+      "choiceHint": "用 ChatGPT 或 Codex 订阅登录",
       "assistantPriority": -10,
       "groupId": "openai",
       "groupLabel": "OpenAI",
-      "groupHint": "ChatGPT/Codex sign-in or API key"
+      "groupHint": "ChatGPT/Codex 登录或 API 密钥"
     },
     {
       "provider": "openai",
@@ -326,11 +326,11 @@
         "aliases": ["codex"]
       },
       "choiceLabel": "ChatGPT Device Pairing",
-      "choiceHint": "Pair your ChatGPT account in browser with a device code",
+      "choiceHint": "在浏览器用设备码配对 ChatGPT 账户",
       "assistantPriority": -40,
       "groupId": "openai",
       "groupLabel": "OpenAI",
-      "groupHint": "ChatGPT/Codex sign-in or API key",
+      "groupHint": "ChatGPT/Codex 登录或 API 密钥",
       "onboardingFeatured": true
     },
     {
@@ -340,11 +340,11 @@
       "choiceId": "openai-api-key",
       "appGuidedSecret": true,
       "choiceLabel": "OpenAI API Key",
-      "choiceHint": "Use your OpenAI API key directly",
+      "choiceHint": "直接使用 OpenAI API 密钥",
       "assistantPriority": 5,
       "groupId": "openai",
       "groupLabel": "OpenAI",
-      "groupHint": "ChatGPT/Codex sign-in or API key",
+      "groupHint": "ChatGPT/Codex 登录或 API 密钥",
       "onboardingFeatured": true,
       "optionKey": "openaiApiKey",
       "cliFlag": "--openai-api-key",

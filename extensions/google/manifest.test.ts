@@ -158,8 +158,8 @@ describe("google manifest model catalog", () => {
         provider: "google",
         method: "api-key",
         choiceLabel: "Google AI Studio API key",
-        choiceHint: "Supported API-key access from aistudio.google.com/apikey",
-        groupHint: "Supported API-key setup",
+        choiceHint: "通过 aistudio.google.com/apikey 使用 API 密钥",
+        groupHint: "支持 API 密钥方式",
       }),
     ]);
     expect(choices.some((choice) => choice.provider === "google-gemini-cli")).toBe(false);

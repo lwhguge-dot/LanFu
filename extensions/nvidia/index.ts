@@ -30,7 +30,7 @@ export default defineSingleProviderPluginEntry({
         choiceLabel: "NVIDIA API key",
         groupId: "nvidia",
         groupLabel: "NVIDIA",
-        groupHint: "Direct API key",
+        groupHint: "直接使用 API 密钥",
         methodId: "api-key",
         modelSelection: {
           promptWhenAuthChoiceProvided: true,

@@ -23,7 +23,7 @@
       "choiceLabel": "Vydra API key",
       "groupId": "vydra",
       "groupLabel": "Vydra",
-      "groupHint": "Image, video, and speech",
+      "groupHint": "图像、视频与语音",
       "onboardingScopes": ["image-generation"],
       "optionKey": "vydraApiKey",
       "cliFlag": "--vydra-api-key",

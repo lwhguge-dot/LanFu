@@ -101,7 +101,7 @@
       "choiceLabel": "Cerebras API key",
       "groupId": "cerebras",
       "groupLabel": "Cerebras",
-      "groupHint": "Fast OpenAI-compatible inference",
+      "groupHint": "快速、兼容 OpenAI 的推理",
       "optionKey": "cerebrasApiKey",
       "cliFlag": "--cerebras-api-key",
       "cliOption": "--cerebras-api-key <key>",

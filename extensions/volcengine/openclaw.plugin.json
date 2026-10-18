@@ -344,7 +344,7 @@
       "choiceLabel": "Volcano Engine API key",
       "groupId": "volcengine",
       "groupLabel": "Volcano Engine",
-      "groupHint": "API key",
+      "groupHint": "API 密钥",
       "optionKey": "volcengineApiKey",
       "cliFlag": "--volcengine-api-key",
       "cliOption": "--volcengine-api-key <key>",

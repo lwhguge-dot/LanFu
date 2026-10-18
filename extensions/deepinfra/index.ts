@@ -37,7 +37,7 @@ export default defineSingleProviderPluginEntry({
       {
         methodId: "api-key",
         label: "DeepInfra API key",
-        hint: "Unified API for open source models",
+        hint: "开源模型统一 API",
         optionKey: "deepinfraApiKey",
         flagName: "--deepinfra-api-key",
         envVar: "DEEPINFRA_API_KEY",
@@ -52,10 +52,10 @@ export default defineSingleProviderPluginEntry({
         wizard: {
           choiceId: "deepinfra-api-key",
           choiceLabel: "DeepInfra API key",
-          choiceHint: "Unified API for open source models",
+          choiceHint: "开源模型统一 API",
           groupId: PROVIDER_ID,
           groupLabel: "DeepInfra",
-          groupHint: "Unified API for open source models",
+          groupHint: "开源模型统一 API",
         },
       },
     ],

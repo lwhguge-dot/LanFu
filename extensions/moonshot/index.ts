@@ -30,7 +30,7 @@ export default defineSingleProviderPluginEntry({
         providerId: PROVIDER_ID,
         methodId: "api-key-cn",
         label: "Kimi API key (.cn)",
-        hint: "Kimi API models · https://platform.kimi.ai/docs/pricing/chat",
+        hint: "Kimi API 模型 · https://platform.kimi.ai/docs/pricing/chat",
         optionKey: "moonshotApiKey",
         flagName: "--moonshot-api-key",
         envVar: "MOONSHOT_API_KEY",

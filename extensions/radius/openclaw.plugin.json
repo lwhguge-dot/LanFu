@@ -19,7 +19,7 @@
       "choiceLabel": "Radius (browser sign-in)",
       "groupId": "radius",
       "groupLabel": "Radius",
-      "groupHint": "Browser sign-in or API key"
+      "groupHint": "浏览器登录或 API 密钥"
     },
     {
       "provider": "radius",
@@ -29,7 +29,7 @@
       "choiceLabel": "Radius API key",
       "groupId": "radius",
       "groupLabel": "Radius",
-      "groupHint": "Browser sign-in or API key",
+      "groupHint": "浏览器登录或 API 密钥",
       "optionKey": "radiusApiKey",
       "cliFlag": "--radius-api-key",
       "cliOption": "--radius-api-key <key>",

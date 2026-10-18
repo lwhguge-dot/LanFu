@@ -45,7 +45,7 @@ export default defineSingleProviderPluginEntry({
     docsPath: "/providers/models",
     envVars: ["OPENCODE_API_KEY", "OPENCODE_ZEN_API_KEY"],
     manifestAuth: {
-      hint: "Shared API key infrastructure for Zen + Go",
+      hint: "Zen + Go 共享 API 密钥",
       promptMessage: "Enter OpenCode API key",
       profileIds: ["opencode:default", "opencode-go:default"],
       defaultModel: OPENCODE_ZEN_DEFAULT_MODEL_REF,

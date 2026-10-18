@@ -20,10 +20,10 @@
       "assistantVisibility": "detected-only",
       "modelTarget": "utility",
       "choiceLabel": "Apple Foundation Models (on-device)",
-      "choiceHint": "Free on-device setup and utility tasks; choose a separate model for your agent",
+      "choiceHint": "设备端免费设置与实用任务；为智能体另选模型",
       "groupId": "apple-fm",
       "groupLabel": "Apple Foundation Models",
-      "groupHint": "On-device, no API key",
+      "groupHint": "设备端运行，无需 API 密钥",
       "onboardingFeatured": true,
       "appGuidedDiscovery": true,
       "appGuidedActionLabel": "Set up on this Mac"

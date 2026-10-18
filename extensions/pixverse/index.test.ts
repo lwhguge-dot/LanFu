@@ -81,10 +81,10 @@ describe("pixverse plugin", () => {
       wizard: {
         choiceId: "pixverse-api-key",
         choiceLabel: "PixVerse API key",
-        choiceHint: "Prompts for International or CN endpoint",
+        choiceHint: "提示选择国际或中国端点",
         groupId: "pixverse",
         groupLabel: "PixVerse",
-        groupHint: "Video generation",
+        groupHint: "视频生成",
         onboardingScopes: ["image-generation"],
       },
     });

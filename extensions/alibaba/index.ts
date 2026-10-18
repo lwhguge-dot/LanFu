@@ -30,7 +30,7 @@ export default definePluginEntry({
             choiceLabel: "Alibaba Model Studio API key",
             groupId: "alibaba",
             groupLabel: "Alibaba Model Studio",
-            groupHint: "DashScope / Model Studio API key",
+            groupHint: "DashScope / 模型工作室 API 密钥",
             onboardingScopes: ["image-generation"],
           },
         }),

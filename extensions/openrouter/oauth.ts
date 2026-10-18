@@ -393,15 +393,15 @@ export function createOpenRouterOAuthAuthMethod(
   return {
     id: OPENROUTER_OAUTH_METHOD_ID,
     label: "OpenRouter OAuth",
-    hint: "Browser sign-in",
+    hint: "浏览器登录",
     kind: "oauth",
     wizard: {
       choiceId: OPENROUTER_OAUTH_CHOICE_ID,
       choiceLabel: "OpenRouter OAuth",
-      choiceHint: "Browser sign-in",
+      choiceHint: "浏览器登录",
       groupId: PROVIDER_ID,
       groupLabel: "OpenRouter",
-      groupHint: "OAuth or API key",
+      groupHint: "OAuth 或 API 密钥",
       methodId: OPENROUTER_OAUTH_METHOD_ID,
       onboardingScopes: ["text-inference", "music-generation"],
       onboardingFeatured: true,

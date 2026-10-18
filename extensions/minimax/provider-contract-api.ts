@@ -6,7 +6,7 @@ const noopAuth = async () => ({ profiles: [] });
 const wizardGroup = {
   groupId: "minimax",
   groupLabel: "MiniMax",
-  groupHint: "M3 (recommended)",
+  groupHint: "M3（推荐）",
 } as const;
 
 export function createMinimaxProvider(): ProviderPlugin {
@@ -22,12 +22,12 @@ export function createMinimaxProvider(): ProviderPlugin {
         id: "api-global",
         kind: "api_key",
         label: "MiniMax API key (Global)",
-        hint: "Global endpoint - api.minimax.io",
+        hint: "国际端点 - api.minimax.io",
         run: noopAuth,
         wizard: {
           choiceId: "minimax-global-api",
           choiceLabel: "MiniMax API key (Global)",
-          choiceHint: "Global endpoint - api.minimax.io",
+          choiceHint: "国际端点 - api.minimax.io",
           ...wizardGroup,
         },
       },
@@ -35,12 +35,12 @@ export function createMinimaxProvider(): ProviderPlugin {
         id: "api-cn",
         kind: "api_key",
         label: "MiniMax API key (CN)",
-        hint: "CN endpoint - api.minimaxi.com",
+        hint: "中国端点 - api.minimaxi.com",
         run: noopAuth,
         wizard: {
           choiceId: "minimax-cn-api",
           choiceLabel: "MiniMax API key (CN)",
-          choiceHint: "CN endpoint - api.minimaxi.com",
+          choiceHint: "中国端点 - api.minimaxi.com",
           ...wizardGroup,
         },
       },
@@ -61,12 +61,12 @@ export function createMinimaxPortalProvider(): ProviderPlugin {
         id: "oauth",
         kind: "device_code",
         label: "MiniMax OAuth (Global)",
-        hint: "Global endpoint - api.minimax.io",
+        hint: "国际端点 - api.minimax.io",
         run: noopAuth,
         wizard: {
           choiceId: "minimax-global-oauth",
           choiceLabel: "MiniMax OAuth (Global)",
-          choiceHint: "Global endpoint - api.minimax.io",
+          choiceHint: "国际端点 - api.minimax.io",
           ...wizardGroup,
         },
       },
@@ -74,12 +74,12 @@ export function createMinimaxPortalProvider(): ProviderPlugin {
         id: "oauth-cn",
         kind: "device_code",
         label: "MiniMax OAuth (CN)",
-        hint: "CN endpoint - api.minimaxi.com",
+        hint: "中国端点 - api.minimaxi.com",
         run: noopAuth,
         wizard: {
           choiceId: "minimax-cn-oauth",
           choiceLabel: "MiniMax OAuth (CN)",
-          choiceHint: "CN endpoint - api.minimaxi.com",
+          choiceHint: "中国端点 - api.minimaxi.com",
           ...wizardGroup,
         },
       },

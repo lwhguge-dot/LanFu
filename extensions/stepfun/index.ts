@@ -162,7 +162,7 @@ function createStepFunApiKeyMethod(surface: StepFunSurface, region: StepFunRegio
       choiceHint: hint,
       groupId: "stepfun",
       groupLabel: "StepFun",
-      groupHint: "Standard / Step Plan (China / Global)",
+      groupHint: "标准 / Step 套餐（中国 / 国际）",
     },
   });
 }

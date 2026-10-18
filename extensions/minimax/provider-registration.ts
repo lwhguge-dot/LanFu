@@ -56,7 +56,7 @@ const MINIMAX_USAGE_ENV_VAR_KEYS = [
 const MINIMAX_WIZARD_GROUP = {
   groupId: "minimax",
   groupLabel: "MiniMax",
-  groupHint: "M3 (recommended)",
+  groupHint: "M3（推荐）",
 } as const;
 const HYBRID_ANTHROPIC_OPENAI_REPLAY_HOOKS = buildProviderReplayFamilyHooks({
   family: "hybrid-anthropic-openai",
@@ -79,7 +79,7 @@ function resolveMinimaxRegionLabel(region: MiniMaxRegion): string {
 }
 
 function resolveMinimaxEndpointHint(region: MiniMaxRegion): string {
-  return region === "cn" ? "CN endpoint - api.minimaxi.com" : "Global endpoint - api.minimax.io";
+  return region === "cn" ? "中国端点 - api.minimaxi.com" : "国际端点 - api.minimax.io";
 }
 
 function apiModelRef(modelId: string): string {

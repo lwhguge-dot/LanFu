@@ -73,15 +73,15 @@ export default definePluginEntry({
         {
           id: "api-key",
           label: "Cloudflare AI Gateway",
-          hint: "Account ID + Gateway ID + API key",
+          hint: "账户 ID + 网关 ID + API 密钥",
           kind: "api_key",
           wizard: {
             choiceId: "cloudflare-ai-gateway-api-key",
             choiceLabel: "Cloudflare AI Gateway",
-            choiceHint: "Account ID + Gateway ID + API key",
+            choiceHint: "账户 ID + 网关 ID + API 密钥",
             groupId: "cloudflare-ai-gateway",
             groupLabel: "Cloudflare AI Gateway",
-            groupHint: "Account ID + Gateway ID + API key",
+            groupHint: "账户 ID + 网关 ID + API 密钥",
           },
           run: async (ctx) => {
             const metadata = await resolveCloudflareGatewayMetadataInteractive({

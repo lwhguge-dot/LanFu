@@ -27,7 +27,7 @@ const PROVIDER_ID = "arcee";
 const ARCEE_WIZARD_GROUP = {
   groupId: "arcee",
   groupLabel: "Arcee AI",
-  groupHint: "Direct API or OpenRouter",
+  groupHint: "直连 API 或 OpenRouter",
 } as const;
 
 async function resolveArceeCatalog(ctx: ProviderCatalogContext) {
@@ -102,7 +102,7 @@ export default defineSingleProviderPluginEntry({
         wizard: {
           choiceId: "arceeai-api-key",
           choiceLabel: "Arcee AI API key",
-          choiceHint: "Direct (chat.arcee.ai)",
+          choiceHint: "直连（chat.arcee.ai）",
           ...ARCEE_WIZARD_GROUP,
         },
       },
@@ -121,7 +121,7 @@ export default defineSingleProviderPluginEntry({
         wizard: {
           choiceId: "arceeai-openrouter",
           choiceLabel: "OpenRouter API key",
-          choiceHint: "Via OpenRouter (openrouter.ai)",
+          choiceHint: "经 OpenRouter（openrouter.ai）",
           ...ARCEE_WIZARD_GROUP,
         },
       },

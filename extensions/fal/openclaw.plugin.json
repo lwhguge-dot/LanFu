@@ -22,7 +22,7 @@
       "choiceLabel": "fal API key",
       "groupId": "fal",
       "groupLabel": "fal",
-      "groupHint": "Image, video, and music generation",
+      "groupHint": "图像、视频与音乐生成",
       "onboardingScopes": ["image-generation", "music-generation"],
       "optionKey": "falApiKey",
       "cliFlag": "--fal-api-key",

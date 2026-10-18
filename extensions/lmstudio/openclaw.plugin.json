@@ -56,7 +56,7 @@
       "cliDescription": "LM Studio API key",
       "groupId": "lmstudio",
       "groupLabel": "LM Studio",
-      "groupHint": "Self-hosted open-weight models"
+      "groupHint": "自托管开放权重模型"
     }
   ],
   "contracts": {

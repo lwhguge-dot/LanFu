@@ -292,7 +292,7 @@
       "choiceLabel": "Baseten API key",
       "groupId": "baseten",
       "groupLabel": "Baseten",
-      "groupHint": "Hosted Model APIs, including Inkling",
+      "groupHint": "托管模型 API（含 Inkling）",
       "optionKey": "basetenApiKey",
       "cliFlag": "--baseten-api-key",
       "cliOption": "--baseten-api-key <key>",

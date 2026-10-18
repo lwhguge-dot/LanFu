@@ -509,18 +509,18 @@ describe("minimax provider hooks", () => {
       {
         id: "api-global",
         label: "MiniMax API key (Global)",
-        hint: "Global endpoint - api.minimax.io",
+        hint: "国际端点 - api.minimax.io",
         choiceId: "minimax-global-api",
         groupId: "minimax",
-        groupHint: "M3 (recommended)",
+        groupHint: "M3（推荐）",
       },
       {
         id: "api-cn",
         label: "MiniMax API key (CN)",
-        hint: "CN endpoint - api.minimaxi.com",
+        hint: "中国端点 - api.minimaxi.com",
         choiceId: "minimax-cn-api",
         groupId: "minimax",
-        groupHint: "M3 (recommended)",
+        groupHint: "M3（推荐）",
       },
     ]);
 
@@ -537,18 +537,18 @@ describe("minimax provider hooks", () => {
       {
         id: "oauth",
         label: "MiniMax OAuth (Global)",
-        hint: "Global endpoint - api.minimax.io",
+        hint: "国际端点 - api.minimax.io",
         choiceId: "minimax-global-oauth",
         groupId: "minimax",
-        groupHint: "M3 (recommended)",
+        groupHint: "M3（推荐）",
       },
       {
         id: "oauth-cn",
         label: "MiniMax OAuth (CN)",
-        hint: "CN endpoint - api.minimaxi.com",
+        hint: "中国端点 - api.minimaxi.com",
         choiceId: "minimax-cn-oauth",
         groupId: "minimax",
-        groupHint: "M3 (recommended)",
+        groupHint: "M3（推荐）",
       },
     ]);
   });

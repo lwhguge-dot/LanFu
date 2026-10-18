@@ -229,19 +229,19 @@ describe("xiaomi provider plugin", () => {
       {
         id: "token-plan-ams",
         label: "Xiaomi Token Plan (Europe)",
-        hint: "Endpoint preset: token-plan-ams.xiaomimimo.com/v1",
+        hint: "端点预设：token-plan-ams.xiaomimimo.com/v1",
         choiceId: "xiaomi-token-plan-ams",
       },
       {
         id: "token-plan-cn",
         label: "Xiaomi Token Plan (China)",
-        hint: "Endpoint preset: token-plan-cn.xiaomimimo.com/v1",
+        hint: "端点预设：token-plan-cn.xiaomimimo.com/v1",
         choiceId: "xiaomi-token-plan-cn",
       },
       {
         id: "token-plan-sgp",
         label: "Xiaomi Token Plan (Singapore)",
-        hint: "Endpoint preset: token-plan-sgp.xiaomimimo.com/v1",
+        hint: "端点预设：token-plan-sgp.xiaomimimo.com/v1",
         choiceId: "xiaomi-token-plan-sgp",
       },
     ]);

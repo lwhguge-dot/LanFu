@@ -197,7 +197,7 @@
       "choiceLabel": "OpenCode Zen catalog",
       "groupId": "opencode",
       "groupLabel": "OpenCode",
-      "groupHint": "Shared API key infrastructure for Zen + Go",
+      "groupHint": "Zen + Go 共享 API 密钥",
       "optionKey": "opencodeZenApiKey",
       "cliFlag": "--opencode-zen-api-key",
       "cliOption": "--opencode-zen-api-key <key>",

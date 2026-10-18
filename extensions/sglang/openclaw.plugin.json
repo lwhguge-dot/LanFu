@@ -42,10 +42,10 @@
       "method": "custom",
       "choiceId": "sglang",
       "choiceLabel": "SGLang",
-      "choiceHint": "Fast self-hosted OpenAI-compatible server",
+      "choiceHint": "快速自托管、兼容 OpenAI 的服务器",
       "groupId": "sglang",
       "groupLabel": "SGLang",
-      "groupHint": "Fast self-hosted server"
+      "groupHint": "快速自托管服务器"
     }
   ],
   "configSchema": {

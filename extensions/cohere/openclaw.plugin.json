@@ -210,7 +210,7 @@
       "choiceLabel": "Cohere API key",
       "groupId": "cohere",
       "groupLabel": "Cohere",
-      "groupHint": "OpenAI-compatible inference",
+      "groupHint": "兼容 OpenAI 的推理",
       "optionKey": "cohereApiKey",
       "cliFlag": "--cohere-api-key",
       "cliOption": "--cohere-api-key <key>",

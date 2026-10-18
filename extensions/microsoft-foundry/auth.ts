@@ -44,16 +44,16 @@ function shouldTestFoundryTextConnection(params: {
 export const entraIdAuthMethod: ProviderAuthMethod = {
   id: "entra-id",
   label: "Entra ID (az login)",
-  hint: "Use your Azure login — no API key needed",
+  hint: "用 Azure 登录，无需 API 密钥",
   kind: "custom",
   wizard: {
     choiceId: "microsoft-foundry-entra",
     choiceLabel: "Microsoft Foundry (Entra ID / az login)",
-    choiceHint: "Use your Azure login — no API key needed",
+    choiceHint: "用 Azure 登录，无需 API 密钥",
     onboardingScopes: ["text-inference", "image-generation"],
     groupId: "microsoft-foundry",
     groupLabel: "Microsoft Foundry",
-    groupHint: "Entra ID + API key",
+    groupHint: "Entra ID + API 密钥",
   },
   run: async (ctx: ProviderAuthContext): Promise<ProviderAuthResult> => {
     if (!isAzCliInstalled()) {
@@ -213,7 +213,7 @@ export const apiKeyAuthMethod: ProviderAuthMethod = {
     onboardingScopes: ["text-inference", "image-generation"],
     groupId: "microsoft-foundry",
     groupLabel: "Microsoft Foundry",
-    groupHint: "Entra ID + API key",
+    groupHint: "Entra ID + API 密钥",
   },
   run: async (ctx) => {
     const authStore = ensureAuthProfileStore(ctx.agentDir, {

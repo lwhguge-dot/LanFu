@@ -207,7 +207,7 @@ export default defineSingleProviderPluginEntry({
       {
         methodId: "api-key",
         label: "xAI API key",
-        hint: "API key",
+        hint: "API 密钥",
         optionKey: "xaiApiKey",
         flagName: "--xai-api-key",
         envVar: "XAI_API_KEY",

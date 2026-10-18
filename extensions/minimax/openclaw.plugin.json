@@ -48,10 +48,10 @@
       "credentialOnly": true,
       "channelLogin": {},
       "choiceLabel": "MiniMax OAuth (Global)",
-      "choiceHint": "Global endpoint - api.minimax.io",
+      "choiceHint": "国际端点 - api.minimax.io",
       "groupId": "minimax",
       "groupLabel": "MiniMax",
-      "groupHint": "M3 (recommended)"
+      "groupHint": "M3（推荐）"
     },
     {
       "provider": "minimax",
@@ -60,10 +60,10 @@
       "appGuidedSecret": true,
       "deprecatedChoiceIds": ["minimax", "minimax-api", "minimax-cloud", "minimax-api-lightning"],
       "choiceLabel": "MiniMax API key (Global)",
-      "choiceHint": "Global endpoint - api.minimax.io",
+      "choiceHint": "国际端点 - api.minimax.io",
       "groupId": "minimax",
       "groupLabel": "MiniMax",
-      "groupHint": "M3 (recommended)",
+      "groupHint": "M3（推荐）",
       "optionKey": "minimaxApiKey",
       "cliFlag": "--minimax-api-key",
       "cliOption": "--minimax-api-key <key>",
@@ -77,10 +77,10 @@
       "credentialOnly": true,
       "channelLogin": {},
       "choiceLabel": "MiniMax OAuth (CN)",
-      "choiceHint": "CN endpoint - api.minimaxi.com",
+      "choiceHint": "中国端点 - api.minimaxi.com",
       "groupId": "minimax",
       "groupLabel": "MiniMax",
-      "groupHint": "M3 (recommended)"
+      "groupHint": "M3（推荐）"
     },
     {
       "provider": "minimax",
@@ -89,10 +89,10 @@
       "appGuidedSecret": true,
       "deprecatedChoiceIds": ["minimax-api-key-cn"],
       "choiceLabel": "MiniMax API key (CN)",
-      "choiceHint": "CN endpoint - api.minimaxi.com",
+      "choiceHint": "中国端点 - api.minimaxi.com",
       "groupId": "minimax",
       "groupLabel": "MiniMax",
-      "groupHint": "M3 (recommended)",
+      "groupHint": "M3（推荐）",
       "optionKey": "minimaxApiKey",
       "cliFlag": "--minimax-api-key",
       "cliOption": "--minimax-api-key <key>",

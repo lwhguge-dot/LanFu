@@ -40,10 +40,10 @@
       "appGuidedAuth": "oauth",
       "credentialOnly": true,
       "choiceLabel": "Chutes (OAuth)",
-      "choiceHint": "Browser sign-in",
+      "choiceHint": "浏览器登录",
       "groupId": "chutes",
       "groupLabel": "Chutes",
-      "groupHint": "OAuth + API key"
+      "groupHint": "OAuth + API 密钥"
     },
     {
       "provider": "chutes",
@@ -51,10 +51,10 @@
       "choiceId": "chutes-api-key",
       "appGuidedSecret": true,
       "choiceLabel": "Chutes API key",
-      "choiceHint": "Open-source models including Llama, DeepSeek, and more",
+      "choiceHint": "开源模型（含 Llama、DeepSeek 等）",
       "groupId": "chutes",
       "groupLabel": "Chutes",
-      "groupHint": "OAuth + API key",
+      "groupHint": "OAuth + API 密钥",
       "optionKey": "chutesApiKey",
       "cliFlag": "--chutes-api-key",
       "cliOption": "--chutes-api-key <key>",

@@ -138,26 +138,24 @@ describe("OpenAI plugin manifest", () => {
     );
 
     expect(openAiLogin?.choiceLabel).toBe("ChatGPT Login");
-    expect(openAiLogin?.choiceHint).toBe("Sign in with your ChatGPT or Codex subscription");
+    expect(openAiLogin?.choiceHint).toBe("用 ChatGPT 或 Codex 订阅登录");
     expect(openAiLogin && "assistantVisibility" in openAiLogin).toBe(false);
     expect(openAiLogin?.groupId).toBe("openai");
     expect(openAiLogin?.groupLabel).toBe("OpenAI");
-    expect(openAiLogin?.groupHint).toBe("ChatGPT/Codex sign-in or API key");
+    expect(openAiLogin?.groupHint).toBe("ChatGPT/Codex 登录或 API 密钥");
     expect(openAiDeviceCode?.choiceLabel).toBe("ChatGPT Device Pairing");
-    expect(openAiDeviceCode?.choiceHint).toBe(
-      "Pair your ChatGPT account in browser with a device code",
-    );
+    expect(openAiDeviceCode?.choiceHint).toBe("在浏览器用设备码配对 ChatGPT 账户");
     expect(openAiDeviceCode && "assistantVisibility" in openAiDeviceCode).toBe(false);
     expect(openAiDeviceCode?.onboardingFeatured).toBe(true);
     expect(openAiLogin?.onboardingFeatured).not.toBe(true);
     expect(openAiDeviceCode?.groupId).toBe("openai");
     expect(openAiDeviceCode?.groupLabel).toBe("OpenAI");
-    expect(openAiDeviceCode?.groupHint).toBe("ChatGPT/Codex sign-in or API key");
+    expect(openAiDeviceCode?.groupHint).toBe("ChatGPT/Codex 登录或 API 密钥");
     expect(apiKey?.choiceLabel).toBe("OpenAI API Key");
-    expect(apiKey?.choiceHint).toBe("Use your OpenAI API key directly");
+    expect(apiKey?.choiceHint).toBe("直接使用 OpenAI API 密钥");
     expect(apiKey?.groupId).toBe("openai");
     expect(apiKey?.groupLabel).toBe("OpenAI");
-    expect(apiKey?.groupHint).toBe("ChatGPT/Codex sign-in or API key");
+    expect(apiKey?.groupHint).toBe("ChatGPT/Codex 登录或 API 密钥");
     expect(choices.map((choice) => choice.choiceLabel)).not.toContain(
       "OpenAI Codex (ChatGPT OAuth)",
     );

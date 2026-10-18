@@ -405,11 +405,11 @@
       "choiceId": "anthropic-cli",
       "deprecatedChoiceIds": ["claude-cli"],
       "choiceLabel": "Anthropic Claude CLI",
-      "choiceHint": "Keep using an existing Claude Code CLI login on this host",
+      "choiceHint": "继续使用本机已有的 Claude Code CLI 登录",
       "assistantPriority": -20,
       "groupId": "anthropic",
       "groupLabel": "Anthropic",
-      "groupHint": "Claude CLI + API key",
+      "groupHint": "Claude CLI + API 密钥",
       "onboardingFeatured": true
     },
     {
@@ -418,11 +418,11 @@
       "choiceId": "setup-token",
       "appGuidedSecret": true,
       "choiceLabel": "Anthropic setup-token",
-      "choiceHint": "Token created by running 'claude setup-token' in your terminal",
+      "choiceHint": "在终端运行 'claude setup-token' 生成的令牌",
       "assistantPriority": 40,
       "groupId": "anthropic",
       "groupLabel": "Anthropic",
-      "groupHint": "Claude CLI + API key + token",
+      "groupHint": "Claude CLI + API 密钥 + 令牌",
       "onboardingFeatured": true
     },
     {
@@ -434,7 +434,7 @@
       "choiceLabel": "Anthropic API key",
       "groupId": "anthropic",
       "groupLabel": "Anthropic",
-      "groupHint": "Claude CLI + API key",
+      "groupHint": "Claude CLI + API 密钥",
       "onboardingFeatured": true,
       "optionKey": "anthropicApiKey",
       "cliFlag": "--anthropic-api-key",

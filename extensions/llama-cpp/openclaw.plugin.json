@@ -52,7 +52,7 @@
       "choiceHint": "为这台电脑选择一个 Qwen、Gemma 或 Muse 模型并安装 llama.cpp",
       "groupId": "llama-cpp",
       "groupLabel": "Local llama.cpp",
-      "groupHint": "Managed or external llama.cpp server"
+      "groupHint": "托管或外部 llama.cpp 服务器"
     },
     {
       "provider": "llama-cpp",
@@ -64,7 +64,7 @@
       "choiceHint": "连接由其它软件管理的 llama.cpp 服务",
       "groupId": "llama-cpp",
       "groupLabel": "Local llama.cpp",
-      "groupHint": "Managed or external llama.cpp server",
+      "groupHint": "托管或外部 llama.cpp 服务器",
       "optionKey": "llamaServerApiKey",
       "cliFlag": "--llama-server-api-key",
       "cliOption": "--llama-server-api-key <key>",

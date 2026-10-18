@@ -155,7 +155,7 @@ describe("nvidia provider hooks", () => {
         choiceLabel: "NVIDIA API key",
         groupId: "nvidia",
         groupLabel: "NVIDIA",
-        groupHint: "Direct API key",
+        groupHint: "直接使用 API 密钥",
         optionKey: "nvidiaApiKey",
         cliFlag: "--nvidia-api-key",
         cliOption: "--nvidia-api-key <key>",
@@ -181,11 +181,11 @@ describe("nvidia provider hooks", () => {
       {
         id: "api-key",
         label: "NVIDIA API key",
-        hint: "Direct API key",
+        hint: "直接使用 API 密钥",
         choiceId: "nvidia-api-key",
         groupId: "nvidia",
         groupLabel: "NVIDIA",
-        groupHint: "Direct API key",
+        groupHint: "直接使用 API 密钥",
       },
     ]);
   });
@@ -198,7 +198,7 @@ describe("nvidia provider hooks", () => {
       choiceLabel: "NVIDIA API key",
       groupId: "nvidia",
       groupLabel: "NVIDIA",
-      groupHint: "Direct API key",
+      groupHint: "直接使用 API 密钥",
       methodId: "api-key",
       modelSelection: {
         promptWhenAuthChoiceProvided: true,

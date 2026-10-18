@@ -65,7 +65,7 @@ export default definePluginEntry({
         {
           id: "custom",
           label: LMSTUDIO_PROVIDER_LABEL,
-          hint: "Connect to a running LM Studio server and use an already loaded model",
+          hint: "连接正在运行的 LM Studio 服务并使用已加载模型",
           kind: "custom",
           appGuidedSetup: {
             detectAvailability: async (ctx) => {
@@ -155,10 +155,10 @@ export default definePluginEntry({
         setup: {
           choiceId: PROVIDER_ID,
           choiceLabel: "LM Studio",
-          choiceHint: "Connect to a running LM Studio server and use an already loaded model",
+          choiceHint: "连接正在运行的 LM Studio 服务并使用已加载模型",
           groupId: PROVIDER_ID,
           groupLabel: "LM Studio",
-          groupHint: "Self-hosted open-weight models",
+          groupHint: "自托管开放权重模型",
           methodId: "custom",
         },
         modelPicker: {

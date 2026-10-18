@@ -9,14 +9,13 @@ import {
 const noopAuth = async () => ({ profiles: [] });
 const OPENAI_API_KEY_LABEL = "OpenAI API Key";
 const OPENAI_CHATGPT_LOGIN_LABEL = "ChatGPT Login";
-const OPENAI_CHATGPT_LOGIN_HINT = "Sign in with your ChatGPT or Codex subscription";
+const OPENAI_CHATGPT_LOGIN_HINT = "用 ChatGPT 或 Codex 订阅登录";
 const OPENAI_CHATGPT_DEVICE_PAIRING_LABEL = "ChatGPT Device Pairing";
-const OPENAI_CHATGPT_DEVICE_PAIRING_HINT =
-  "Pair your ChatGPT account in browser with a device code";
+const OPENAI_CHATGPT_DEVICE_PAIRING_HINT = "在浏览器用设备码配对 ChatGPT 账户";
 const OPENAI_ACCOUNT_WIZARD_GROUP = {
   groupId: "openai",
   groupLabel: "OpenAI",
-  groupHint: "ChatGPT/Codex sign-in or API key",
+  groupHint: "ChatGPT/Codex 登录或 API 密钥",
 } as const;
 const CODEX_CHATGPT_IMPORT = {
   migrationProviderId: "codex",
@@ -104,13 +103,13 @@ export function createOpenAIProvider(): ProviderPlugin {
         id: "api-key",
         kind: "api_key",
         label: OPENAI_API_KEY_LABEL,
-        hint: "Use your OpenAI API key directly",
+        hint: "直接使用 OpenAI API 密钥",
         run: noopAuth,
         credentialImport: CODEX_API_KEY_IMPORT,
         wizard: {
           choiceId: "openai-api-key",
           choiceLabel: OPENAI_API_KEY_LABEL,
-          choiceHint: "Use your OpenAI API key directly",
+          choiceHint: "直接使用 OpenAI API 密钥",
           assistantPriority: 5,
           onboardingFeatured: true,
           ...OPENAI_ACCOUNT_WIZARD_GROUP,

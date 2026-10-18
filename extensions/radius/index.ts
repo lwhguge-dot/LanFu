@@ -46,7 +46,7 @@ export default defineSingleProviderPluginEntry({
           choiceLabel: "Radius (browser sign-in)",
           groupId: "radius",
           groupLabel: "Radius",
-          groupHint: "Browser sign-in or API key",
+          groupHint: "浏览器登录或 API 密钥",
         },
         run: async (ctx) => {
           const credentials = await (await loadOAuth()).loginRadiusOAuth(ctx);

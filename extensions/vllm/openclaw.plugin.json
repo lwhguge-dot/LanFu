@@ -42,10 +42,10 @@
       "method": "custom",
       "choiceId": "vllm",
       "choiceLabel": "vLLM",
-      "choiceHint": "Local/self-hosted OpenAI-compatible server",
+      "choiceHint": "本地/自托管、兼容 OpenAI 的服务器",
       "groupId": "vllm",
       "groupLabel": "vLLM",
-      "groupHint": "Local/self-hosted OpenAI-compatible"
+      "groupHint": "本地/自托管、兼容 OpenAI"
     }
   ],
   "configSchema": {

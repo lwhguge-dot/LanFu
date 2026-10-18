@@ -135,7 +135,7 @@ export default definePluginEntry({
         setup: {
           choiceId: "copilot-proxy",
           choiceLabel: "Copilot Proxy",
-          choiceHint: "Configure base URL + model ids",
+          choiceHint: "配置 base URL + 模型 ID",
           methodId: "local",
         },
       },

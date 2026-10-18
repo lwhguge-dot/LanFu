@@ -48,7 +48,7 @@ const TOKEN_PLAN_ENV_VAR = "XIAOMI_TOKEN_PLAN_API_KEY";
 const XIAOMI_WIZARD_GROUP = {
   groupId: "xiaomi",
   groupLabel: "Xiaomi",
-  groupHint: "Pay-as-you-go / Token Plan",
+  groupHint: "按量付费 / Token 套餐",
 };
 const XIAOMI_PROVIDER_HOOKS = {
   ...buildProviderReplayFamilyHooks({
@@ -258,7 +258,7 @@ function createXiaomiApiKeyAuthMethod(region?: XiaomiTokenPlanRegion): ProviderA
     ? `Xiaomi Token Plan (${regionLabel})`
     : "Xiaomi API key (Pay-as-you-go)";
   const choiceHint = region
-    ? `Endpoint preset: token-plan-${region}.xiaomimimo.com/v1`
+    ? `端点预设：token-plan-${region}.xiaomimimo.com/v1`
     : "Endpoint: api.xiaomimimo.com/v1";
   const auth = region
     ? ({

@@ -30,7 +30,7 @@
       "choiceLabel": "Together AI API key",
       "groupId": "together",
       "groupLabel": "Together AI",
-      "groupHint": "API key",
+      "groupHint": "API 密钥",
       "optionKey": "togetherApiKey",
       "cliFlag": "--together-api-key",
       "cliOption": "--together-api-key <key>",

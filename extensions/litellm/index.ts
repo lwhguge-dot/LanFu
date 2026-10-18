@@ -51,7 +51,7 @@ export default definePluginEntry({
       providerId: PROVIDER_ID,
       methodId: "api-key",
       label: "LiteLLM API key",
-      hint: "Unified gateway for 100+ LLM providers",
+      hint: "100+ 模型服务商的统一网关",
       optionKey: "litellmApiKey",
       flagName: "--litellm-api-key",
       envVar: "LITELLM_API_KEY",
@@ -69,7 +69,7 @@ export default definePluginEntry({
         choiceLabel: "LiteLLM API key",
         groupId: PROVIDER_ID,
         groupLabel: "LiteLLM",
-        groupHint: "Unified LLM gateway (100+ providers)",
+        groupHint: "统一 LLM 网关（100+ 服务商）",
         methodId: "api-key",
       },
     });

@@ -82,7 +82,7 @@
       "choiceLabel": "LongCat API key",
       "groupId": "longcat",
       "groupLabel": "LongCat",
-      "groupHint": "API key",
+      "groupHint": "API 密钥",
       "optionKey": "longcatApiKey",
       "cliFlag": "--longcat-api-key",
       "cliOption": "--longcat-api-key <key>",

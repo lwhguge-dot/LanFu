@@ -65,16 +65,15 @@ export function registerLlamaCppProvider(api: OpenClawPluginApi): void {
       {
         id: "local",
         label: LLAMA_CPP_PROVIDER_LABEL,
-        hint: "Choose a Qwen, Gemma, or Muse model for this Gateway’s hardware and install llama.cpp",
+        hint: "为这台网关的硬件选择 Qwen、Gemma 或 Muse 模型并安装 llama.cpp",
         kind: "custom",
         wizard: {
           choiceId: LLAMA_CPP_PROVIDER_ID,
           choiceLabel: "Managed local server",
-          choiceHint:
-            "Choose a Qwen, Gemma, or Muse model for this Gateway’s hardware and install llama.cpp",
+          choiceHint: "为这台网关的硬件选择 Qwen、Gemma 或 Muse 模型并安装 llama.cpp",
           groupId: LLAMA_CPP_PROVIDER_ID,
           groupLabel: "Local llama.cpp",
-          groupHint: "Managed or external llama.cpp server",
+          groupHint: "托管或外部 llama.cpp 服务器",
           methodId: "local",
         },
         appGuidedSetup: {
@@ -94,7 +93,7 @@ export function registerLlamaCppProvider(api: OpenClawPluginApi): void {
           choiceHint: "连接由其它软件管理的 llama.cpp 服务",
           groupId: LLAMA_CPP_PROVIDER_ID,
           groupLabel: "Local llama.cpp",
-          groupHint: "Managed or external llama.cpp server",
+          groupHint: "托管或外部 llama.cpp 服务器",
           methodId: "existing-server",
         },
         appGuidedSetup: {

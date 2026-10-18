@@ -11,8 +11,8 @@ import { resolveThinkingProfile } from "./thinking-policy.js";
 export default defineSelfHostedOpenAICompatibleProvider({
   id: "vllm",
   label: VLLM_PROVIDER_LABEL,
-  hint: "Local/self-hosted OpenAI-compatible server",
-  groupHint: "Local/self-hosted OpenAI-compatible",
+  hint: "本地/自托管、兼容 OpenAI 的服务器",
+  groupHint: "本地/自托管、兼容 OpenAI",
   defaultBaseUrl: VLLM_DEFAULT_BASE_URL,
   apiKeyEnvVar: VLLM_DEFAULT_API_KEY_ENV_VAR,
   modelPlaceholder: VLLM_MODEL_PLACEHOLDER,

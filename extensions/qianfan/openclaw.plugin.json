@@ -180,7 +180,7 @@
       "choiceLabel": "Qianfan API key",
       "groupId": "qianfan",
       "groupLabel": "Qianfan",
-      "groupHint": "API key",
+      "groupHint": "API 密钥",
       "optionKey": "qianfanApiKey",
       "cliFlag": "--qianfan-api-key",
       "cliOption": "--qianfan-api-key <key>",

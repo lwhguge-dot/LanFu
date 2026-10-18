@@ -13,11 +13,11 @@
       "method": "local",
       "choiceId": "copilot-proxy",
       "choiceLabel": "Copilot Proxy",
-      "choiceHint": "Configure base URL + model ids",
+      "choiceHint": "配置 base URL + 模型 ID",
       "assistantPriority": 3,
       "groupId": "copilot",
       "groupLabel": "Copilot",
-      "groupHint": "GitHub, GitHub Enterprise + Local Proxy"
+      "groupHint": "GitHub、GitHub Enterprise + 本地代理"
     }
   ],
   "configSchema": {

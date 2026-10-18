@@ -170,7 +170,7 @@
       "choiceLabel": "Kimi Code API key (subscription)",
       "groupId": "moonshot",
       "groupLabel": "Moonshot AI (Kimi)",
-      "groupHint": "Kimi Code membership · https://www.kimi.com/membership/pricing",
+      "groupHint": "Kimi Code 会员 · https://www.kimi.com/membership/pricing",
       "optionKey": "kimiCodeApiKey",
       "cliFlag": "--kimi-code-api-key",
       "cliOption": "--kimi-code-api-key <key>",

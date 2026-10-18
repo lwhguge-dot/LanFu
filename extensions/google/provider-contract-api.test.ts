@@ -9,10 +9,10 @@ describe("google provider contract", () => {
       expect.objectContaining({
         id: "api-key",
         label: "Google AI Studio API key",
-        hint: "Supported API-key access from aistudio.google.com/apikey",
+        hint: "通过 aistudio.google.com/apikey 使用 API 密钥",
         wizard: expect.objectContaining({
           choiceLabel: "Google AI Studio API key",
-          groupHint: "Supported API-key setup",
+          groupHint: "支持 API 密钥方式",
         }),
       }),
     ]);

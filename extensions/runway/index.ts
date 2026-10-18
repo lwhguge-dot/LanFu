@@ -27,7 +27,7 @@ export default definePluginEntry({
             choiceLabel: "Runway API key",
             groupId: "runway",
             groupLabel: "Runway",
-            groupHint: "API key",
+            groupHint: "API 密钥",
             onboardingScopes: ["image-generation"],
           },
         }),
