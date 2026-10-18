@@ -69,6 +69,24 @@ Source: "hub\*"; DestDir: "{localappdata}\LanFu"; Flags: recursesubdirs createal
 ; 多次更新后 app\dist 会积累大量孤儿 chunk（0.4.20 实测 707MB dist 里约 424MB 是旧 chunk）。
 ; dist 完全由本次安装包重建，删除是安全的；放在 [InstallDelete] 可以保证每次升级后只剩当前版本的文件。
 Type: filesandordirs; Name: "{app}\app\dist"
+; 0.4.25 起 Node 运行时不再随包分发 npm/corepack 等工具链；升级时清掉旧版本残留，
+; 否则老机器会继续占着约 12MB（新装已经不带这些文件）。
+; node.exe 与 LICENSE 保留，网关只需要 node.exe。
+Type: filesandordirs; Name: "{app}\runtime\node_modules"
+Type: filesandordirs; Name: "{app}\runtime\npm"
+Type: filesandordirs; Name: "{app}\runtime\npx"
+Type: filesandordirs; Name: "{app}\runtime\corepack"
+Type: files; Name: "{app}\runtime\npm.cmd"
+Type: files; Name: "{app}\runtime\npm.ps1"
+Type: files; Name: "{app}\runtime\npx.cmd"
+Type: files; Name: "{app}\runtime\npx.ps1"
+Type: files; Name: "{app}\runtime\corepack.cmd"
+Type: files; Name: "{app}\runtime\install_tools.bat"
+Type: files; Name: "{app}\runtime\nodevars.bat"
+Type: files; Name: "{app}\runtime\CHANGELOG.md"
+Type: files; Name: "{app}\runtime\README.md"
+; 旧版本曾经在 {app} 根留下 ensure-gateway.ps1 的 .bak 备份。
+Type: files; Name: "{app}\*.bak"
 
 [Icons]
 ; 桌面快捷方式 + 开始菜单（员工从桌面图标启动）
