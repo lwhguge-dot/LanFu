@@ -87,6 +87,20 @@ Type: files; Name: "{app}\runtime\CHANGELOG.md"
 Type: files; Name: "{app}\runtime\README.md"
 ; 旧版本曾经在 {app} 根留下 ensure-gateway.ps1 的 .bak 备份。
 Type: files; Name: "{app}\*.bak"
+; 0.4.27 起桌面端不再打包 WPF/WinForms 程序集；升级时清掉旧版本残留（约 51MB），
+; 否则老机器会继续占着这些文件（新装已经不带）。
+Type: files; Name: "{localappdata}\LanFu\PresentationFramework.dll"
+Type: files; Name: "{localappdata}\LanFu\PresentationCore.dll"
+Type: files; Name: "{localappdata}\LanFu\WindowsBase.dll"
+Type: files; Name: "{localappdata}\LanFu\System.Xaml.dll"
+Type: files; Name: "{localappdata}\LanFu\ReachFramework.dll"
+Type: files; Name: "{localappdata}\LanFu\System.Printing.dll"
+Type: files; Name: "{localappdata}\LanFu\System.Windows.Forms.dll"
+Type: files; Name: "{localappdata}\LanFu\System.Windows.Forms.Design.dll"
+Type: files; Name: "{localappdata}\LanFu\System.Windows.Forms.Primitives.dll"
+Type: files; Name: "{localappdata}\LanFu\System.Drawing.Design.dll"
+Type: files; Name: "{localappdata}\LanFu\Accessibility.dll"
+Type: files; Name: "{localappdata}\LanFu\System.Windows.Input.Manipulations.dll"
 
 [Icons]
 ; 桌面快捷方式 + 开始菜单（员工从桌面图标启动）
