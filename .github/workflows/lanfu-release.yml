@@ -308,6 +308,23 @@ jobs:
           $files = Get-ChildItem hub-publish -Recurse -File
           Write-Output ("desktop shell payload: " + $files.Count + " files, " + [math]::Round(($files | Measure-Object Length -Sum).Sum / 1MB) + " MB")
 
+          # WinUI 3 never uses WPF/WinForms, but self-contained publish drags in the
+          # WindowsDesktop runtime pack (~51 MB installed). Drop the unused
+          # assemblies before packing; the smoke test asserts they are gone.
+          $unusedAssemblies = @(
+            "PresentationFramework.dll", "PresentationCore.dll", "WindowsBase.dll",
+            "System.Xaml.dll", "ReachFramework.dll", "System.Printing.dll",
+            "System.Windows.Forms.dll", "System.Windows.Forms.Design.dll",
+            "System.Windows.Forms.Primitives.dll", "System.Drawing.Design.dll",
+            "Accessibility.dll", "System.Windows.Input.Manipulations.dll"
+          )
+          $removedAssemblies = 0
+          foreach ($name in $unusedAssemblies) {
+            $path = Join-Path "hub-publish" $name
+            if (Test-Path $path) { Remove-Item $path -Force; $removedAssemblies++ }
+          }
+          Write-Output ("trimmed " + $removedAssemblies + " unused WPF/WinForms assemblies from the shell payload")
+
           New-Item -ItemType Directory -Force -Path "release\hub" | Out-Null
           robocopy hub-publish "release\hub" /E /NFL /NDL /NJH /NJS /NP | Out-Null
           if ($LASTEXITCODE -ge 8) { throw "staging the shell payload failed" }
@@ -526,6 +543,9 @@ jobs:
           # empty. Assert it is in the installed payload so it can never go missing again.
           $brandMark = Join-Path $env:LOCALAPPDATA "LanFu\Assets\lanfu-mark.png"
           if (-not (Test-Path $brandMark)) { Fail "the desktop shell is missing its bundled brand mark (Assets\lanfu-mark.png); badge/owner fallbacks would render empty" }
+          $trimmedAssembly = Join-Path $env:LOCALAPPDATA "LanFu\PresentationFramework.dll"
+          if (Test-Path $trimmedAssembly) { Fail "unused WPF assemblies were not trimmed from the shell payload" }
+          Step "desktop shell payload trimmed"
           Step "desktop shell ships the bundled brand mark"
 
           $shortcut = Join-Path ([Environment]::GetFolderPath("Desktop")) "LanFu.lnk"
