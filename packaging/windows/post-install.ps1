@@ -214,6 +214,13 @@ try {
         $changed = $true
         Say "  已设置默认模型 vllm/qwen38"
       }
+      # heartbeat 默认关闭：公司产品不需要周期性心跳轮询；员工仍可自行开启。
+      if (-not $cfg.agents.defaults.heartbeat) {
+        Add-Member -MemberType NoteProperty -Name heartbeat -Value ('{"every":"0m"}' | ConvertFrom-Json) -InputObject $cfg.agents.defaults
+        $changed = $true
+        Say "  已关闭 heartbeat 默认轮询（every=0m）"
+      }
+
       if (-not $cfg.update) {
         # 注意：PS 5.1 不能把 hashtable 直接管道给 ConvertFrom-Json，必须走 JSON 文本
         $updateBlock = '{"auto":{"enabled":false}}' | ConvertFrom-Json
