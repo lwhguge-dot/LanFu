@@ -19,7 +19,8 @@ const REM_TASK_SIGNAL_RE =
   /\b(reminder|task|to-?do|action item|next step|need to|follow up|respond to|call\b|check\b)\b|提醒|任务|待办|下一步|需要(?:去|做|改|加|检查)|跟进|记得去/i;
 const REM_ROUTING_SIGNAL_RE =
   /\b(categor(?:ize|ized|ization)|route|routing|workflow|processor|read later|auto-implement|codex|razor)\b/i;
-const REM_OPERATOR_RULE_SIGNAL_RE = /\b(learned:|rule:|always [a-z])\b|规则[:：]|规矩[:：]|经验[:：]|教训[:：]|原则[:：]|要求[:：]/i;
+const REM_OPERATOR_RULE_SIGNAL_RE =
+  /\b(learned:|rule:|always [a-z])\b|规则[:：]|规矩[:：]|经验[:：]|教训[:：]|原则[:：]|要求[:：]/i;
 const REM_EXTERNALIZATION_SIGNAL_RE =
   /\b(obsidian|memory|tracker|notes captured|committed to memory|updated .*md|documented|file comparison table)\b/i;
 const REM_RETRY_SIGNAL_RE =

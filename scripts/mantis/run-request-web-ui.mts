@@ -4,7 +4,7 @@ import { execFileSync } from "node:child_process";
 import { randomUUID } from "node:crypto";
 import { chmodSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import path from "node:path";
-import { assertPodmanProofStorage } from "./telegram-proof-storage.mts";
+import { assertPodmanProofStorage } from "./proof-storage.mts";
 
 const [candidate, outputArg, image = "localhost/mantis-request-proof"] = process.argv.slice(2);
 if (

@@ -1,5 +1,5 @@
 ---
-summary: "Read-only OpenClaw sessions on paired gateways."
+summary: "Read-only LanFu sessions on paired gateways."
 read_when:
   - You are installing, configuring, or auditing the session-share plugin
 title: "Session Share plugin reference"
@@ -10,7 +10,7 @@ Run `pnpm plugins:inventory:gen` to rebuild it. Hand-written text survives only
 between the openclaw-plugin-reference:manual-start and
 openclaw-plugin-reference:manual-end comment markers. -->
 
-Read-only OpenClaw sessions on paired gateways.
+Read-only LanFu sessions on paired gateways.
 
 ## Distribution
 

@@ -38,8 +38,6 @@ import {
   resolveUsageProviderId,
 } from "../infra/provider-usage.js";
 import { resolveActiveProviderThinkingProfile } from "../plugins/provider-thinking-active.js";
-import { normalizeAccountId } from "../routing/account-id.js";
-import { resolveNormalizedAccountEntry } from "../routing/account-lookup.js";
 import { createLazyPromise } from "../shared/lazy-runtime.js";
 import { readTaskStatusSnapshots } from "../tasks/task-status-access.js";
 import {
@@ -48,10 +46,6 @@ import {
   formatTaskStatusDetail,
   formatTaskStatusTitle,
 } from "../tasks/task-status.js";
-import {
-  deliveryContextFromSession,
-  sessionDeliveryOrigin,
-} from "../utils/delivery-context.read.js";
 // Status text helpers render runtime status summaries for CLI output.
 import {
   buildCodexSyntheticUsageAuth,
@@ -74,37 +68,6 @@ const USAGE_OAUTH_ONLY_PROVIDERS = new Set([
   "google-gemini-cli",
   "openai",
 ]);
-
-function resolveStatusChannelFeatureLine(params: {
-  cfg: OpenClawConfig;
-  statusChannel: string;
-  statusAccountId?: string;
-  sessionEntry?: SessionEntry;
-}): string | undefined {
-  const channel = normalizeOptionalLowercaseString(params.statusChannel);
-  if (channel !== "telegram") {
-    return undefined;
-  }
-  const telegramConfig = params.cfg.channels?.telegram;
-  const accountId = normalizeAccountId(
-    params.statusAccountId ??
-      deliveryContextFromSession(params.sessionEntry)?.accountId ??
-      sessionDeliveryOrigin(params.sessionEntry)?.accountId ??
-      telegramConfig?.defaultAccount,
-  );
-  const accountConfig = resolveNormalizedAccountEntry(
-    telegramConfig?.accounts,
-    accountId,
-    normalizeAccountId,
-  );
-  const richMessagesSetting = accountConfig?.richMessages ?? telegramConfig?.richMessages;
-  if (richMessagesSetting === true) {
-    return "Telegram rich messages: on · Bot API 10.3 sendRichMessage enabled";
-  }
-  return accountConfig?.richMessages === false
-    ? "Telegram rich messages: off · enable richMessages for this Telegram account"
-    : "Telegram rich messages: off · set channels.telegram.richMessages=true for tables/details/rich media";
-}
 
 // Status loaders keep the lazy-promise eviction default: a transient module-load
 // failure on one /status request self-heals on the next instead of poisoning
@@ -574,12 +537,6 @@ export async function buildStatusReplyParts(
   const pluginHealthLine = Object.hasOwn(params, "pluginHealthLineOverride")
     ? params.pluginHealthLineOverride
     : await resolveRuntimePluginHealthLine();
-  const channelFeatureLine = resolveStatusChannelFeatureLine({
-    cfg,
-    statusChannel,
-    statusAccountId: params.statusAccountId,
-    sessionEntry,
-  });
   const { buildStatusMessageParts } = await loadStatusMessageRuntime();
   await waitForContextWindowCacheLoad();
   const configuredThinkingDefault = resolveConfiguredThinkingDefault({
@@ -702,7 +659,6 @@ export async function buildStatusReplyParts(
     subagentsLine,
     taskLine,
     pluginHealthLine,
-    channelFeatureLine,
     mediaDecisions: params.mediaDecisions,
     includeTranscriptUsage: params.includeTranscriptUsage ?? true,
   });

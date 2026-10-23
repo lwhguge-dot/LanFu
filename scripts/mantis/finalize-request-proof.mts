@@ -13,9 +13,7 @@ import {
   type RequestExecution,
 } from "./request-proof.ts";
 
-const scenario = z
-  .enum(["web-ui-chat-proof", "telegram-bot-e2e-proof", "telegram-markdown-parser-fidelity"])
-  .parse(process.argv[2] ?? "web-ui-chat-proof");
+const scenario = z.enum(["web-ui-chat-proof"]).parse(process.argv[2] ?? "web-ui-chat-proof");
 const definition = requestProofDefinitions[scenario];
 const identity = requestIdentitySchema.parse({
   request_id: process.env.REQUEST_ID,

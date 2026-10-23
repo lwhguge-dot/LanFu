@@ -11,7 +11,9 @@
           "label": "WeCom"
         },
         "contracts": {
-          "tools": ["wecom_mcp"]
+          "tools": [
+            "wecom_mcp"
+          ]
         },
         "channel": {
           "id": "wecom",
@@ -21,7 +23,11 @@
           "docsPath": "/channels/wecom",
           "docsLabel": "wecom",
           "blurb": "Enterprise messaging and documents, scheduling, task tools.",
-          "aliases": ["qywx", "wework", "enterprise-wechat"],
+          "aliases": [
+            "qywx",
+            "wework",
+            "enterprise-wechat"
+          ],
           "order": 45
         },
         "channelConfigs": {
@@ -52,7 +58,11 @@
           "label": "Yuanbao"
         },
         "contracts": {
-          "tools": ["query_group_info", "query_session_members", "yuanbao_remind"]
+          "tools": [
+            "query_group_info",
+            "query_session_members",
+            "yuanbao_remind"
+          ]
         },
         "channel": {
           "id": "yuanbao",
@@ -62,7 +72,12 @@
           "docsPath": "/channels/yuanbao",
           "docsLabel": "yuanbao",
           "blurb": "Tencent Yuanbao AI assistant conversation channel.",
-          "aliases": ["yuanbao", "yb", "tencent-yuanbao", "元宝"],
+          "aliases": [
+            "yuanbao",
+            "yb",
+            "tencent-yuanbao",
+            "元宝"
+          ],
           "order": 85
         },
         "channelConfigs": {
@@ -95,9 +110,14 @@
         "setupFeatures": {
           "configPromotion": "preserve-root"
         },
-        "legacyNpmPackageNames": ["@openclaw/qqbot"],
+        "legacyNpmPackageNames": [
+          "@openclaw/qqbot"
+        ],
         "contracts": {
-          "tools": ["qqbot_platform_api", "qqbot_remind"]
+          "tools": [
+            "qqbot_platform_api",
+            "qqbot_remind"
+          ]
         },
         "channel": {
           "id": "qqbot",
@@ -107,8 +127,13 @@
           "docsPath": "/channels/qqbot",
           "docsLabel": "qqbot",
           "blurb": "connect to QQ via official QQ Bot API with group chat and direct message support.",
-          "envVars": ["QQBOT_APP_ID", "QQBOT_CLIENT_SECRET"],
-          "approvalFlags": ["native"],
+          "envVars": [
+            "QQBOT_APP_ID",
+            "QQBOT_CLIENT_SECRET"
+          ],
+          "approvalFlags": [
+            "native"
+          ],
           "doctorCapabilities": {
             "openDmRequiresAllowFromWildcard": false
           },
@@ -143,18 +168,24 @@
             "manifest": {
               "id": "qqbot",
               "description": "OpenClaw QQ Bot channel plugin for group and direct-message workflows.",
-              "channels": ["qqbot"],
+              "channels": [
+                "qqbot"
+              ],
               "contracts": {
                 "tools": []
               },
-              "skills": ["./skills"]
+              "skills": [
+                "./skills"
+              ]
             }
           },
           "compatibilityMigration": "qqbot.tencent-2.0-compatibility",
           "schemaAllOf": [
             {
               "not": {
-                "required": ["defaultAccount"]
+                "required": [
+                  "defaultAccount"
+                ]
               },
               "properties": {
                 "allowFrom": {
@@ -184,7 +215,9 @@
                 "accounts": {
                   "type": "object",
                   "not": {
-                    "required": ["default"]
+                    "required": [
+                      "default"
+                    ]
                   },
                   "additionalProperties": {
                     "type": "object",
@@ -214,11 +247,15 @@
                         }
                       }
                     },
-                    "required": ["allowFrom"]
+                    "required": [
+                      "allowFrom"
+                    ]
                   }
                 }
               },
-              "required": ["allowFrom"]
+              "required": [
+                "allowFrom"
+              ]
             }
           ]
         },
@@ -226,7 +263,9 @@
           "qqbot": {
             "label": "QQ Bot",
             "description": "QQ Bot API conversation channel.",
-            "preferOver": ["qqbot"],
+            "preferOver": [
+              "qqbot"
+            ],
             "schema": {
               "type": "object",
               "additionalProperties": true,
@@ -266,7 +305,11 @@
           "docsPath": "/channels/wechat",
           "docsLabel": "weixin",
           "blurb": "Personal WeChat messaging via QR-code login.",
-          "aliases": ["weixin", "wechat", "微信"],
+          "aliases": [
+            "weixin",
+            "wechat",
+            "微信"
+          ],
           "order": 75
         },
         "channelConfigs": {
@@ -284,45 +327,6 @@
           "defaultChoice": "npm",
           "expectedIntegrity": "sha512-hhO9prUQwzfSpIL6XGWazRsxNs89K+Mis3iQW6a8eum4AIDxOUiTFMg4nlNVD/au0SjAx5CcJjo3KYWZqGpgQA==",
           "minHostVersion": ">=2026.5.12"
-        }
-      }
-    },
-    {
-      "name": "@zalo-platforms/openclaw-zaloclawbot",
-      "description": "OpenClaw Zalo ClawBot channel plugin by the Zalo Platforms team.",
-      "source": "external",
-      "kind": "channel",
-      "openclaw": {
-        "plugin": {
-          "id": "openclaw-zaloclawbot",
-          "label": "Zalo ClawBot"
-        },
-        "channel": {
-          "id": "openclaw-zaloclawbot",
-          "label": "Zalo ClawBot",
-          "selectionLabel": "Zalo ClawBot (QR)",
-          "detailLabel": "Zalo ClawBot",
-          "docsPath": "/channels/zaloclawbot",
-          "docsLabel": "zaloclawbot",
-          "blurb": "Personal Zalo assistant bot via QR-code login — owner-bound, no setup.",
-          "aliases": ["zaloclawbot", "zalo-clawbot"],
-          "order": 82
-        },
-        "channelConfigs": {
-          "openclaw-zaloclawbot": {
-            "label": "Zalo ClawBot",
-            "description": "Personal Zalo assistant — QR-onboarded, owner-bound.",
-            "schema": {
-              "type": "object",
-              "additionalProperties": true
-            }
-          }
-        },
-        "install": {
-          "npmSpec": "@zalo-platforms/openclaw-zaloclawbot@0.1.4",
-          "defaultChoice": "npm",
-          "expectedIntegrity": "sha512-5IxZriHJYACLLGqkCPPsTP9tas62kXEOFqTFAFMdunAM3SPhIJwVFRp0WvoP/m7L2PX85weD0g8LOtxM93VDYg==",
-          "minHostVersion": ">=2026.4.10"
         }
       }
     }

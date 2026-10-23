@@ -68,7 +68,6 @@ blockExoticSubdeps: true
 overrides:
   # Memory LanceDB supplies vectors; WhatsApp prepares thumbnails with Rastermill.
   "@lancedb/lancedb>@huggingface/transformers": "-"
-  "baileys>sharp": "-"
   "@agentclientprotocol/codex-acp@1.11.0>@openai/codex": 0.155.1
   "@codemirror/commands@6.11.0>@codemirror/view": 6.43.11
   "@anthropic-ai/sdk": 0.125.0
@@ -104,7 +103,6 @@ overrides:
   tar: 7.5.22
   tough-cookie: 6.0.2
   "tsdown>rolldown-plugin-dts": 0.28.5
-  "zca-js@2.1.2>tough-cookie": 6.0.2
   yauzl: 3.4.0
   protobufjs: 8.8.0
   uuid: 14.0.2
@@ -114,11 +112,7 @@ allowBuilds:
   "@google/genai": true
   "@lydell/node-pty": true
   "@matrix-org/matrix-sdk-crypto-nodejs": true
-  "@tloncorp/api": true
-  "@tloncorp/tlon-skill": true
-  baileys: true
   authenticate-pam: true
-  "@discordjs/opus": false
   esbuild: true
   koffi: false
   protobufjs: true
@@ -129,13 +123,7 @@ allowBuilds:
   "@openclaw/crabline": true
   rastermill: true
   node-pty: true
-
-# The transient npm lock generator also needs the peer marked optional.
-packageExtensions:
-  baileys:
-    peerDependenciesMeta:
-      sharp:
-        optional: true
+  baileys: set this to true or false
 
 patchedDependencies:
   "chrome-devtools-mcp@1.8.0": patches/chrome-devtools-mcp@1.8.0.patch

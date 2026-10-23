@@ -508,7 +508,7 @@ export function registerQaLabCli(program: Command) {
   credentials
     .command("add")
     .description("Add one credential payload to the shared pool")
-    .requiredOption("--kind <kind>", "Credential kind (for Telegram v1, use telegram)")
+    .requiredOption("--kind <kind>", "Credential kind")
     .requiredOption("--payload-file <path>", "JSON object file containing the credential payload")
     .option("--repo-root <path>", "Repository root for resolving relative payload-file paths")
     .option("--note <text>", "Optional note stored with this credential row")

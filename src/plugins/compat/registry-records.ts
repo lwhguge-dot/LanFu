@@ -356,42 +356,6 @@ export const PLUGIN_COMPAT_RECORDS = [
     ],
   },
   {
-    code: "whatsapp-web-inbound-flat-message-aliases",
-    status: "removed",
-    owner: "channel",
-    introduced: "2026-05-30",
-    replacement:
-      "WhatsApp `WebInboundCallbackMessage` nested contexts: `event`, `payload`, `quote`, `group`, and `platform`",
-    docsPath: "/plugins/compatibility",
-    surfaces: [
-      "@openclaw/whatsapp WebInboundMessage flat fields",
-      "WhatsApp monitorWebInbox onMessage callback",
-      "WhatsApp monitorWebChannel listenerFactory injected messages",
-    ],
-    diagnostics: ["plugin compatibility registry and compatibility guide"],
-    tests: ["src/plugins/compat/registry.test.ts"],
-    releaseNote:
-      "WhatsApp WebInboundMessage flat fields were removed; callbacks now receive only nested inbound contexts.",
-  },
-  {
-    code: "whatsapp-web-inbound-admission-top-level-fields",
-    status: "removed",
-    owner: "channel",
-    introduced: "2026-06-14",
-    replacement:
-      "WhatsApp `WebInboundMessage.admission` fields: `conversation.id`, `accountId`, `ingress.decision`, and `conversation.kind`",
-    docsPath: "/plugins/compatibility",
-    surfaces: [
-      "@openclaw/whatsapp WebInboundMessage top-level admission fields",
-      "WhatsApp monitorWebInbox onMessage callback",
-      "WhatsApp monitorWebChannel listenerFactory injected messages",
-    ],
-    diagnostics: ["plugin compatibility registry and compatibility guide"],
-    tests: ["src/plugins/compat/registry.test.ts"],
-    releaseNote:
-      "WhatsApp WebInboundMessage top-level admission fields were removed; callbacks now read the canonical admission envelope.",
-  },
-  {
     code: "sdk-untrusted-context-identifier-aliases",
     status: "removal-pending",
     owner: "sdk",
@@ -412,25 +376,6 @@ export const PLUGIN_COMPAT_RECORDS = [
     tests: ["src/auto-reply/reply/inbound-context.test.ts"],
     releaseNote:
       "Untrusted-named prompt-context SDK identifiers remain wired as deprecated aliases of the channel-named fields while plugins migrate.",
-  },
-  {
-    code: "bundled-channel-sdk-compat-facades",
-    status: "active",
-    owner: "sdk",
-    introduced: "2026-04-28",
-    replacement:
-      "generic channel SDK subpaths or plugin-local `api.ts` / `runtime-api.ts` barrels for new plugins",
-    docsPath: "/plugins/sdk-overview",
-    surfaces: [
-      "openclaw/plugin-sdk/discord component message helpers",
-      "openclaw/plugin-sdk/telegram-account resolveTelegramAccount",
-    ],
-    diagnostics: ["plugin SDK compatibility registry"],
-    tests: [
-      "src/plugin-sdk/discord.test.ts",
-      "src/plugin-sdk/telegram-account.test.ts",
-      "src/plugins/contracts/plugin-sdk-package-contract-guardrails.test.ts",
-    ],
   },
   {
     code: "channel-explicit-target-parser",
@@ -602,31 +547,6 @@ export const PLUGIN_COMPAT_RECORDS = [
     ],
     releaseNote:
       "The legacy `runEmbeddedPiAgent` and `EmbeddedPi*` plugin aliases were removed; plugins must use the neutral embedded-agent names.",
-  },
-  {
-    code: "plugin-sdk-shipped-channel-setup-exports",
-    status: "deprecated",
-    owner: "channel",
-    introduced: "2026-07-23",
-    deprecated: "2026-07-23",
-    warningStarts: "2026-07-23",
-    replacement:
-      "retain until supported published packages migrate to plugin-owned config schemas plus generic `openclaw/plugin-sdk/channel-config-schema` and `openclaw/plugin-sdk/setup-runtime` primitives",
-    docsPath: "/plugins/sdk-migration#published-channel-setup-compatibility",
-    surfaces: [
-      "openclaw/plugin-sdk/bundled-channel-config-schema SlackConfigSchema",
-      "openclaw/plugin-sdk/bundled-channel-config-schema DiscordConfigSchema",
-      "openclaw/plugin-sdk/bundled-channel-config-schema SignalConfigSchema",
-      "openclaw/plugin-sdk/bundled-channel-config-schema MSTeamsConfigSchema",
-      "openclaw/plugin-sdk/setup-runtime createLegacyCompatChannelDmPolicy",
-      "openclaw/plugin-sdk/setup-runtime promptLegacyChannelAllowFromForAccount",
-    ],
-    diagnostics: [
-      "repository deprecated API usage guard for core and bundled plugins; no external runtime import warning",
-    ],
-    tests: ["src/plugin-sdk/shipped-channel-compat.test.ts", "src/plugins/compat/registry.test.ts"],
-    releaseNote:
-      "Published LanFu channel packages through 2026.7.1 remain loadable while they migrate to plugin-owned config and setup helpers.",
   },
   {
     code: "generated-bundled-channel-config-fallback",

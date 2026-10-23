@@ -5,17 +5,9 @@ import type {
   ChannelHealthMonitorConfig,
   ChannelHeartbeatVisibilityConfig,
 } from "./types.channel-health.js";
-import type { DiscordConfig } from "./types.discord.js";
-import type { GoogleChatConfig } from "./types.googlechat.js";
-import type { IMessageConfig } from "./types.imessage.js";
 import type { ChannelImplicitMentionsConfig } from "./types.implicit-mentions.js";
 import type { IrcConfig } from "./types.irc.js";
 import type { MentionPatternsPolicyConfig } from "./types.messages.js";
-import type { MSTeamsConfig } from "./types.msteams.js";
-import type { SignalConfig } from "./types.signal.js";
-import type { SlackConfig } from "./types.slack.js";
-import type { TelegramConfig } from "./types.telegram.js";
-import type { WhatsAppConfig } from "./types.whatsapp.js";
 
 export type {
   ChannelHealthMonitorConfig,
@@ -133,15 +125,7 @@ export interface ChannelsConfig {
   defaults?: ChannelDefaultsConfig;
   /** Map provider -> channel id / DM peer id -> model override. See docs/gateway/config-channels.md for supported key forms. */
   modelByChannel?: ChannelModelByChannelConfig;
-  discord?: DiscordConfig;
-  googlechat?: GoogleChatConfig;
-  imessage?: IMessageConfig;
   irc?: IrcConfig;
-  msteams?: MSTeamsConfig;
-  signal?: SignalConfig;
-  slack?: SlackConfig;
-  telegram?: TelegramConfig;
-  whatsapp?: WhatsAppConfig;
   /**
    * Channel sections are plugin-owned and keyed by arbitrary channel ids.
    * Open-world config keeps SDK/plugin-owned sections ergonomic for dynamic ids.

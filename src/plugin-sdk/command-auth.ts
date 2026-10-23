@@ -21,7 +21,6 @@ export {
   type AccessGroupMembershipLookup,
   type ResolvedAccessGroupAllowFromState,
 } from "./access-groups.js";
-export { buildCommandsPaginationKeyboard } from "./telegram-command-ui.js";
 export {
   createPreCryptoDirectDmAuthorizer,
   resolveInboundDirectDmAccessWithRuntime,

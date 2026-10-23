@@ -21,13 +21,13 @@ describe("QA scenario module flow", () => {
       module: `data:text/javascript,${encodeURIComponent(moduleSource)}`,
       call: "runScenario",
     });
-    const flow = qaScenarioModuleFlow.resolveFlow(moduleFlow, "Discord canary") as QaScenarioFlow;
+    const flow = qaScenarioModuleFlow.resolveFlow(moduleFlow, "Matrix canary") as QaScenarioFlow;
     const scenario = {
-      id: "discord-canary",
-      title: "Discord canary",
-      sourcePath: "qa/scenarios/discord-canary.yaml",
-      surface: "discord",
-      objective: "measure Discord reply latency",
+      id: "matrix-canary",
+      title: "Matrix canary",
+      sourcePath: "qa/scenarios/matrix-canary.yaml",
+      surface: "matrix",
+      objective: "measure Matrix reply latency",
       successCriteria: ["matched reply records RTT"],
       execution: { kind: "flow", flow, flowKind: "module" },
     } satisfies QaSeedScenarioWithSource;
@@ -44,7 +44,7 @@ describe("QA scenario module flow", () => {
     });
     const evidence = buildQaSuiteEvidenceSummary({
       artifactPaths: [],
-      channelId: "discord",
+      channelId: "matrix",
       generatedAt: "2026-09-03T00:00:00.000Z",
       primaryModel: "mock-openai/gpt-5.6-luna",
       providerMode: "mock-openai",
@@ -78,13 +78,13 @@ describe("QA scenario module flow", () => {
       module: `data:text/javascript,${encodeURIComponent(moduleSource)}`,
       call: "runScenario",
     });
-    const flow = qaScenarioModuleFlow.resolveFlow(moduleFlow, "Discord canary") as QaScenarioFlow;
+    const flow = qaScenarioModuleFlow.resolveFlow(moduleFlow, "Matrix canary") as QaScenarioFlow;
     const scenario = {
-      id: "discord-canary",
-      title: "Discord canary",
-      sourcePath: "qa/scenarios/discord-canary.yaml",
-      surface: "discord",
-      objective: "measure Discord reply latency",
+      id: "matrix-canary",
+      title: "Matrix canary",
+      sourcePath: "qa/scenarios/matrix-canary.yaml",
+      surface: "matrix",
+      objective: "measure Matrix reply latency",
       successCriteria: ["matched reply records RTT"],
       execution: { kind: "flow", flow, flowKind: "module" },
     } satisfies QaSeedScenarioWithSource;
@@ -101,7 +101,7 @@ describe("QA scenario module flow", () => {
     });
     const evidence = buildQaSuiteEvidenceSummary({
       artifactPaths: [],
-      channelId: "discord",
+      channelId: "matrix",
       generatedAt: "2026-09-03T00:00:00.000Z",
       primaryModel: "mock-openai/gpt-5.6-luna",
       providerMode: "mock-openai",

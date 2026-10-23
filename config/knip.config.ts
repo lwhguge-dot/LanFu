@@ -33,7 +33,6 @@ const repositoryScriptEntries = [
   ".github/actions/setup-pnpm-store-cache/seed-pnpm-from-image.mjs!",
   "apps/android/scripts/build-release-artifacts.ts!",
   "scripts/bundle-a2ui.mts!",
-  "scripts/build-discord-activity-sdk.mts!",
   // package-mac-app.sh launches the architecture scheduler by path.
   "scripts/build-mac-swift.mts!",
   // CI passes this native test launcher through the Apple command log wrapper.
@@ -90,7 +89,6 @@ const repositoryScriptEntries = [
   "scripts/e2e/lib/fleet-cache/runtime-preflight.mjs!",
   // test:e2e:node-auto-update runs the installed-package proof against a frozen tarball.
   "scripts/e2e/lib/node-auto-update/scenario.mjs!",
-  "scripts/e2e/lib/npm-telegram-live/prepare-package.mts!",
   "scripts/e2e/lib/onboard/assert-config.mjs!",
   "scripts/e2e/lib/onboard/write-config.mjs!",
   "scripts/e2e/lib/openai-chat-tools/client.mjs!",
@@ -152,9 +150,7 @@ const repositoryScriptEntries = [
   // Invoked by scripts/lib/live-docker-stage.sh during container validation.
   "scripts/live-docker-normalize-config.ts!",
   // Mantis controllers launch these observers and bridge by path inside isolated runtimes.
-  "scripts/mantis/observe-request-telegram-qa.mts!",
   "scripts/mantis/observe-request-web-ui.mts!",
-  "scripts/mantis/telegram-proof-bridge.mjs!",
   "scripts/mcp-code-mode-gateway-e2e.ts!",
   // Existing explicit Linux proof driver imports the inactive capsule adapter.
   // Reachability for auditing is not registration or permission to execute it.
@@ -353,8 +349,6 @@ const rootEntries = [
   "apps/linux/ui/gateway-notice.js!",
   "apps/linux/ui/gateways.js!",
   "scripts/qa/render-maturity-docs.ts!",
-  bundledPluginFile("telegram", "src/audit.ts", "!"),
-  bundledPluginFile("telegram", "src/token.ts", "!"),
   "src/hooks/bundled/*/handler.ts!",
   "src/hooks/llm-slug-generator.ts!",
   // Local-only test-state consumers are modeled by the full-tree test scan.
@@ -396,15 +390,12 @@ const bundledPluginIgnoredRuntimeDependencies = [
   "@a2ui/lit",
   "@azure/identity",
   "@clawdbot/lobster",
-  "@discord/embedded-app-sdk",
-  "@discordjs/opus",
   "@homebridge/ciao",
   "@lit/context",
   "@matrix-org/matrix-sdk-crypto-wasm",
   "@mozilla/readability",
   "@openai/codex",
   "@pierre/theme",
-  "@tloncorp/tlon-skill",
   "@agentclientprotocol/codex-acp",
   "jiti",
   "json5",
@@ -417,15 +408,12 @@ const bundledPluginIgnoredRuntimeDependencies = [
 const rootBundledPluginRuntimeDependencies = [
   "@anthropic-ai/sdk",
   "@google/genai",
-  "@grammyjs/runner",
-  "@grammyjs/transformer-throttler",
   "@homebridge/ciao",
   "@mozilla/readability",
   "@silvia-odwyer/photon-node",
   "@trycua/cua-driver",
   // Root bundles the browser plugin's patched MCP server for npm installations.
   "chrome-devtools-mcp",
-  "grammy",
   "linkedom",
   "minimatch",
   "node-edge-tts",
@@ -535,7 +523,6 @@ const config = {
     "scripts/**/*.d.{mts,ts}",
     "**/live-*.ts",
     "src/shared/text/assistant-visible-text.ts",
-    bundledPluginFile("telegram", "src/draft-chunking.ts"),
   ],
   // Knip's `ignoreFiles` only suppresses unused-file findings. Test helpers
   // belong in `ignore` so they do not inflate unused-export/type findings.
@@ -870,7 +857,6 @@ const config = {
     ]),
     [`${BUNDLED_PLUGIN_ROOT_DIR}/deepgram`]: bundledPluginWorkspace(),
     [`${BUNDLED_PLUGIN_ROOT_DIR}/deepinfra`]: bundledPluginWorkspace(),
-    [`${BUNDLED_PLUGIN_ROOT_DIR}/discord`]: bundledPluginWorkspace(),
     [`${BUNDLED_PLUGIN_ROOT_DIR}/diffs`]: bundledPluginWorkspace([
       // scripts/build-diffs-viewer-runtime.mts bundles this browser entry.
       "src/viewer-client.ts!",
@@ -967,14 +953,6 @@ const config = {
       "src/profile-evidence-sharding.ts!",
     ]),
     [`${BUNDLED_PLUGIN_ROOT_DIR}/senseaudio`]: bundledPluginWorkspace(),
-    [`${BUNDLED_PLUGIN_ROOT_DIR}/slack`]: {
-      ...bundledPluginWorkspace([
-        // The vendor integrity test executes this verifier by path.
-        "scripts/verify-official-skills.mjs!",
-      ]),
-      // @slack/bolt loads Socket Mode, whose Undici 7 peer must be provided by the plugin.
-      ignoreDependencies: [...bundledPluginIgnoredRuntimeDependencies, "undici"],
-    },
     [`${BUNDLED_PLUGIN_ROOT_DIR}/tavily`]: bundledPluginWorkspace(),
     [`${BUNDLED_PLUGIN_ROOT_DIR}/tencent`]: bundledPluginWorkspace(),
     [`${BUNDLED_PLUGIN_ROOT_DIR}/vllm`]: bundledPluginWorkspace(),
@@ -983,11 +961,6 @@ const config = {
       "vault-secret-ref-resolver.js!",
     ]),
     [`${BUNDLED_PLUGIN_ROOT_DIR}/voyage`]: bundledPluginWorkspace(),
-    [`${BUNDLED_PLUGIN_ROOT_DIR}/whatsapp`]: {
-      ...bundledPluginWorkspace(),
-      // Baileys loads its optional audio decoder at runtime for supported media.
-      ignoreDependencies: [...bundledPluginIgnoredRuntimeDependencies, "audio-decode"],
-    },
     [`${BUNDLED_PLUGIN_ROOT_DIR}/xiaomi`]: bundledPluginWorkspace(),
     [`${BUNDLED_PLUGIN_ROOT_DIR}/xai`]: bundledPluginWorkspace(),
     [`${BUNDLED_PLUGIN_ROOT_DIR}/llama-cpp`]: {

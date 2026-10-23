@@ -1,6 +1,5 @@
 name: CodeQL
 
-
 # Automatic runs are disabled: CodeQL needs GitHub Advanced Security on private
 # repositories, so the upload always failed on push. Re-enable push/schedule once
 # the repository has GHAS; meanwhile this runs on demand only.

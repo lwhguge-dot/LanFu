@@ -25,35 +25,15 @@ export const GENERATED_BUNDLED_CHANNEL_IDS: readonly BundledChannelIdMetadata[] 
     label: "ClickClack",
   },
   {
-    channelId: "discord",
-    label: "Discord",
-  },
-  {
     channelId: "feishu",
     aliases: ["lark"],
     order: 35,
     label: "Feishu",
   },
   {
-    channelId: "googlechat",
-    aliases: ["gchat", "google-chat"],
-    order: 55,
-    label: "Google Chat",
-  },
-  {
-    channelId: "imessage",
-    aliases: ["imsg"],
-    label: "iMessage",
-  },
-  {
     channelId: "irc",
     aliases: ["internet-relay-chat"],
     label: "IRC",
-  },
-  {
-    channelId: "line",
-    order: 75,
-    label: "LINE",
   },
   {
     channelId: "matrix",
@@ -64,12 +44,6 @@ export const GENERATED_BUNDLED_CHANNEL_IDS: readonly BundledChannelIdMetadata[] 
     channelId: "mattermost",
     order: 65,
     label: "Mattermost",
-  },
-  {
-    channelId: "msteams",
-    aliases: ["teams"],
-    order: 60,
-    label: "Microsoft Teams",
   },
   {
     channelId: "nextcloud-talk",
@@ -98,14 +72,6 @@ export const GENERATED_BUNDLED_CHANNEL_IDS: readonly BundledChannelIdMetadata[] 
     label: "Reef",
   },
   {
-    channelId: "signal",
-    label: "Signal",
-  },
-  {
-    channelId: "slack",
-    label: "Slack",
-  },
-  {
     channelId: "sms",
     order: 88,
     label: "SMS",
@@ -114,35 +80,5 @@ export const GENERATED_BUNDLED_CHANNEL_IDS: readonly BundledChannelIdMetadata[] 
     channelId: "synology-chat",
     order: 90,
     label: "Synology Chat",
-  },
-  {
-    channelId: "telegram",
-    label: "Telegram",
-  },
-  {
-    channelId: "tlon",
-    order: 90,
-    label: "Tlon",
-  },
-  {
-    channelId: "twitch",
-    aliases: ["twitch-chat"],
-    label: "Twitch",
-  },
-  {
-    channelId: "whatsapp",
-    label: "WhatsApp",
-  },
-  {
-    channelId: "zalo",
-    aliases: ["zl"],
-    order: 80,
-    label: "Zalo",
-  },
-  {
-    channelId: "zalouser",
-    aliases: ["zlu"],
-    order: 85,
-    label: "Zalo Personal",
   },
 ];

@@ -179,10 +179,10 @@ export async function registerChannelsCli(
           ["openclaw channels add", "Open guided channel setup."],
           ["openclaw channels status --probe", "Run channel status checks and probes."],
           [
-            "openclaw channels add --channel telegram --token <token>",
+            "openclaw channels add --channel qqbot --token <token>",
             "Add or update a channel account non-interactively.",
           ],
-          ["openclaw channels login --channel whatsapp", "Link a WhatsApp Web account."],
+          ["openclaw channels login --channel feishu", "Link a Feishu/Lark bot."],
         ])}\n`,
     );
 
@@ -218,7 +218,7 @@ export async function registerChannelsCli(
     .option("--agent <id>", "Agent owner for channel discovery")
     .option("--channel <name>", `Channel (${formatCliChannelOptions(["all"])})`)
     .option("--account <id>", "Account id (only with --channel)", parseAccountSelector)
-    .option("--target <dest>", "Channel target for permission audit (Discord channel:<id>)")
+    .option("--target <dest>", "Channel target for permission audit (e.g. channel:<id>)")
     .option("--timeout <ms>", "Timeout in ms", "10000")
     .option("--json", "Output JSON", false)
     .action(async (opts, command) => {
@@ -328,8 +328,8 @@ export async function registerChannelsCli(
         `\n${theme.heading("Examples:")}\n${formatHelpExamples([
           ["openclaw channels add", "Open guided setup for available chat channels."],
           [
-            "openclaw channels add --channel telegram --token <token>",
-            "Add or update Telegram non-interactively.",
+            "openclaw channels add --channel qqbot --token <token>",
+            "Add or update QQ bot non-interactively.",
           ],
           ["openclaw channels list --all", "Find channel ids before using --channel."],
         ])}\n`,

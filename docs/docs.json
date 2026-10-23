@@ -1,7 +1,7 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "name": "OpenClaw",
-  "description": "Self-hosted gateway that connects Discord, Google Chat, iMessage, Matrix, Microsoft Teams, Signal, Slack, Telegram, WhatsApp, Zalo, and more to AI coding agents. Run one Gateway process on your own machine and message your AI assistant from anywhere.",
+  "description": "Self-hosted gateway that connects Feishu/Lark, WeCom, WeChat, QQ, Matrix, Mattermost, Nextcloud Talk, Synology Chat, IRC, Nostr, SMS, and more to AI coding agents. Run one Gateway process on your own machine and message your AI assistant from anywhere.",
   "theme": "mint",
   "icons": {
     "library": "lucide"
@@ -151,10 +151,6 @@
     {
       "source": "/cli/crestodian",
       "destination": "/cli/openclaw"
-    },
-    {
-      "source": "/channels/bluebubbles",
-      "destination": "/channels/imessage-from-bluebubbles"
     },
     {
       "source": "/install/migrating-matrix",
@@ -381,10 +377,6 @@
       "destination": "/channels/mattermost"
     },
     {
-      "source": "/line",
-      "destination": "/channels/line"
-    },
-    {
       "source": "/glm",
       "destination": "/providers/zai"
     },
@@ -401,22 +393,6 @@
       "destination": "/cli/message"
     },
     {
-      "source": "/providers/discord",
-      "destination": "/channels/discord"
-    },
-    {
-      "source": "/providers/googlechat",
-      "destination": "/channels/googlechat"
-    },
-    {
-      "source": "/providers/grammy",
-      "destination": "/channels/telegram"
-    },
-    {
-      "source": "/providers/imessage",
-      "destination": "/channels/imessage"
-    },
-    {
       "source": "/providers/location",
       "destination": "/channels/location"
     },
@@ -425,40 +401,8 @@
       "destination": "/channels/mattermost"
     },
     {
-      "source": "/providers/msteams",
-      "destination": "/channels/msteams"
-    },
-    {
-      "source": "/providers/line",
-      "destination": "/channels/line"
-    },
-    {
-      "source": "/providers/signal",
-      "destination": "/channels/signal"
-    },
-    {
-      "source": "/providers/slack",
-      "destination": "/channels/slack"
-    },
-    {
-      "source": "/providers/telegram",
-      "destination": "/channels/telegram"
-    },
-    {
       "source": "/providers/troubleshooting",
       "destination": "/channels/troubleshooting"
-    },
-    {
-      "source": "/providers/zalo",
-      "destination": "/channels/zalo"
-    },
-    {
-      "source": "/channels/openclaw-zaloclawbot",
-      "destination": "/channels/zaloclawbot"
-    },
-    {
-      "source": "/providers/whatsapp",
-      "destination": "/channels/whatsapp"
     },
     {
       "source": "/sandbox",
@@ -601,10 +545,6 @@
       "destination": "/reference/device-models"
     },
     {
-      "source": "/discord",
-      "destination": "/channels/discord"
-    },
-    {
       "source": "/discovery",
       "destination": "/gateway/discovery"
     },
@@ -649,14 +589,6 @@
       "destination": "/automation/cron-jobs#gmail-pubsub-integration"
     },
     {
-      "source": "/grammy",
-      "destination": "/channels/telegram"
-    },
-    {
-      "source": "/channels/grammy",
-      "destination": "/channels/telegram"
-    },
-    {
       "source": "/channels/openclaw-weixin",
       "destination": "/channels/wechat"
     },
@@ -687,10 +619,6 @@
     {
       "source": "/images",
       "destination": "/nodes/images"
-    },
-    {
-      "source": "/imessage",
-      "destination": "/channels/imessage"
     },
     {
       "source": "/ios",
@@ -889,10 +817,6 @@
       "destination": "/start/showcase"
     },
     {
-      "source": "/signal",
-      "destination": "/channels/signal"
-    },
-    {
       "source": "/skills",
       "destination": "/tools/skills"
     },
@@ -909,10 +833,6 @@
       "destination": "/tools/skills-config"
     },
     {
-      "source": "/slack",
-      "destination": "/channels/slack"
-    },
-    {
       "source": "/slash-commands",
       "destination": "/tools/slash-commands"
     },
@@ -927,10 +847,6 @@
     {
       "source": "/talk",
       "destination": "/nodes/talk"
-    },
-    {
-      "source": "/telegram",
-      "destination": "/channels/telegram"
     },
     {
       "source": "/reference/templates/CLAUDE",
@@ -1007,10 +923,6 @@
     {
       "source": "/webhook",
       "destination": "/automation/cron-jobs#webhooks"
-    },
-    {
-      "source": "/whatsapp",
-      "destination": "/channels/whatsapp"
     },
     {
       "source": "/windows",
@@ -1503,40 +1415,6 @@
                 "group": "Mainstream messaging",
                 "pages": [
                   {
-                    "group": "Discord",
-                    "pages": [
-                      "channels/discord",
-                      "channels/discord/setup",
-                      "channels/discord/access-control",
-                      "channels/discord/messaging",
-                      "channels/discord/threads-and-sessions",
-                      "channels/discord/rich-messages",
-                      "channels/discord/events",
-                      "channels/discord/voice-channels",
-                      "channels/discord/voice-transcripts",
-                      "channels/discord/voice-follow",
-                      "channels/discord/troubleshooting",
-                      "channels/discord-activities"
-                    ]
-                  },
-                  "channels/googlechat",
-                  {
-                    "group": "iMessage",
-                    "pages": [
-                      "channels/imessage",
-                      "channels/imessage/setup",
-                      "channels/imessage/private-api",
-                      "channels/imessage/access-control",
-                      "channels/imessage/deployment",
-                      "channels/imessage/media",
-                      "channels/imessage/rich-messages",
-                      "channels/imessage/messaging",
-                      "channels/imessage/troubleshooting",
-                      "channels/imessage-from-bluebubbles",
-                      "announcements/bluebubbles-imessage"
-                    ]
-                  },
-                  {
                     "group": "Matrix",
                     "pages": [
                       "channels/matrix",
@@ -1552,56 +1430,7 @@
                       "channels/matrix-push-rules"
                     ]
                   },
-                  {
-                    "group": "Microsoft Teams",
-                    "pages": [
-                      "channels/msteams",
-                      "channels/msteams/setup",
-                      "channels/msteams/access-control",
-                      "channels/msteams/authentication",
-                      "channels/msteams/manifest-and-permissions",
-                      "channels/msteams/configuration",
-                      "channels/msteams/messaging",
-                      "channels/msteams/cards-and-actions",
-                      "channels/msteams/troubleshooting"
-                    ]
-                  },
-                  "channels/signal",
-                  {
-                    "group": "Slack",
-                    "pages": [
-                      "channels/slack",
-                      "channels/slack/setup",
-                      "channels/slack/transports",
-                      "channels/slack/enterprise-grid",
-                      "channels/slack/manifest-and-scopes",
-                      "channels/slack/access-control",
-                      "channels/slack/threads-and-sessions",
-                      "channels/slack/messaging",
-                      "channels/slack/media",
-                      "channels/slack/rich-messages",
-                      "channels/slack/events",
-                      "channels/slack/troubleshooting"
-                    ]
-                  },
-                  "channels/sms",
-                  {
-                    "group": "Telegram",
-                    "pages": [
-                      "channels/telegram",
-                      "channels/telegram/setup",
-                      "channels/telegram/access-control",
-                      "channels/telegram/messaging",
-                      "channels/telegram/threads-and-sessions",
-                      "channels/telegram/rich-messages",
-                      "channels/telegram/media",
-                      "channels/telegram/events",
-                      "channels/telegram/transports",
-                      "channels/telegram/mini-app",
-                      "channels/telegram/troubleshooting"
-                    ]
-                  },
-                  "channels/whatsapp"
+                  "channels/sms"
                 ]
               },
               {
@@ -1616,9 +1445,7 @@
                   "channels/nostr",
                   "channels/raft",
                   "channels/reef",
-                  "channels/synology-chat",
-                  "channels/tlon",
-                  "channels/twitch"
+                  "channels/synology-chat"
                 ]
               },
               {
@@ -1637,14 +1464,10 @@
                       "channels/feishu/troubleshooting"
                     ]
                   },
-                  "channels/line",
                   "channels/qqbot",
                   "channels/wechat",
                   "channels/wecom",
-                  "channels/yuanbao",
-                  "channels/zalo",
-                  "channels/zaloclawbot",
-                  "channels/zalouser"
+                  "channels/yuanbao"
                 ]
               },
               {

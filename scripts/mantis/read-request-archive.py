@@ -62,14 +62,10 @@ if mode == "bundle":
         os.chmod(directory, 0o755)
         for name in names:
             os.chmod(Path(directory) / name, 0o444)
-elif mode in ("evidence", "telegram-evidence", "telegram-qa-evidence"):
-    required = ({"qa-execution.json", "qa-result.json", "qa-observations.json"}
-                if mode == "telegram-qa-evidence" else
-                {"telegram-send.json", "provider-request.json", "telegram-reply.json"}
-                if mode == "telegram-evidence" else
-                {"observer.json", "chat-send.json", "final-reply.json", "final-reply.png"})
+elif mode == "evidence":
+    required = {"observer.json", "chat-send.json", "final-reply.json", "final-reply.png"}
     files = {}
-    diagnostic = {"telegram-failure.json"} if mode == "telegram-evidence" else set()
+    diagnostic = set()
     with zipfile.ZipFile(source) as archive:
         for entry in archive.infolist():
             name = entry.filename

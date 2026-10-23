@@ -5,18 +5,6 @@ import { createQaCrablineTransportAdapter } from "./crabline-transport.js";
 
 const PROVIDER_CASES = [
   {
-    channel: "telegram",
-    conversation: { id: "-1001234567890", kind: "group" },
-    senderId: "100001",
-    nativeMessageId: /^\d+$/u,
-  },
-  {
-    channel: "slack",
-    conversation: { id: "D12345678", kind: "direct" },
-    senderId: "U12345678",
-    nativeMessageId: /^\d+\.\d+$/u,
-  },
-  {
     channel: "matrix",
     conversation: { id: "main", kind: "group" },
     senderId: "driver",
@@ -76,67 +64,4 @@ describe("Crabline provider-native inbound message identity", () => {
       });
     },
   );
-
-  it("preserves Telegram message IDs repeated across independent chats", async () => {
-    await withTempDir("qa-crabline-colliding-message-ids-", async (outputDir) => {
-      const busState = createQaBusState();
-      const createTelegramTransport = async (name: string) =>
-        await createQaCrablineTransportAdapter({
-          outputDir: `${outputDir}/${name}`,
-          selection: {
-            capabilityMatrixPath: "crabline-channel-driver-capabilities.json",
-            channel: "telegram",
-            channelDriver: "crabline",
-            providerReadinessArtifactPath: "crabline-provider-readiness.json",
-          },
-          state: busState,
-        });
-      const firstTransport = await createTelegramTransport("first");
-
-      try {
-        const secondTransport = await createTelegramTransport("second");
-
-        try {
-          const first = await firstTransport.sendInbound({
-            conversation: { id: "-1001234567890", kind: "group" },
-            senderId: "100001",
-            text: "first Telegram chat",
-          });
-          const second = await secondTransport.sendInbound({
-            conversation: { id: "-1001234567891", kind: "group" },
-            senderId: "100001",
-            text: "second Telegram chat",
-          });
-          const snapshot = busState.getSnapshot();
-
-          expect(first.id).toBe(second.id);
-          expect(snapshot.messages.map((message) => message.conversation.id)).toEqual([
-            first.conversation.id,
-            second.conversation.id,
-          ]);
-          expect(snapshot.events).toEqual([
-            expect.objectContaining({
-              message: expect.objectContaining({
-                id: first.id,
-                conversation: expect.objectContaining({ id: first.conversation.id }),
-              }),
-            }),
-            expect.objectContaining({
-              message: expect.objectContaining({
-                id: second.id,
-                conversation: expect.objectContaining({ id: second.conversation.id }),
-              }),
-            }),
-          ]);
-          expect(() => busState.readMessage({ messageId: first.id })).toThrow(
-            `qa-bus message id is ambiguous for selected account: ${first.id}`,
-          );
-        } finally {
-          await secondTransport.cleanupAfterGatewayStop?.();
-        }
-      } finally {
-        await firstTransport.cleanupAfterGatewayStop?.();
-      }
-    });
-  });
 });

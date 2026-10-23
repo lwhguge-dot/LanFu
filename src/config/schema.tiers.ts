@@ -74,50 +74,12 @@ channels.*.accounts.*.refreshToken channels.*.accounts.*.secret channels.*.accou
 channels.*.accounts.*.webhookSecret channels.*.accounts.*.workspace
 channels.defaults.contextVisibility
 channels.clickclack.accounts.*.discussions.workspace channels.clickclack.discussions.workspace
-channels.defaults.groupPolicy channels.discord.dm.enabled channels.discord.guilds.*.channels.*.enabled
-channels.discord.guilds.*.channels.*.requireMention channels.discord.guilds.*.channels.*.roles
-channels.discord.guilds.*.channels.*.users channels.discord.guilds.*.requireMention
-channels.discord.guilds.*.roles channels.discord.guilds.*.users channels.discord.token
-channels.discord.voice.allowedChannels channels.discord.voice.realtime.toolPolicy
-channels.discord.activities.clientSecret channels.discord.pluralkit.token
-channels.discord.voice.model channels.discord.voice.realtime.model
-channels.discord.voice.tts.personas.*.providers.*.apiKey
-channels.discord.voice.tts.providers.*.apiKey
-channels.discord.accounts.*.activities.clientSecret channels.discord.accounts.*.pluralkit.token
-channels.discord.accounts.*.voice.model channels.discord.accounts.*.voice.realtime.model
-channels.discord.accounts.*.voice.tts.personas.*.providers.*.apiKey
-channels.discord.accounts.*.voice.tts.providers.*.apiKey
-channels.googlechat.audience channels.googlechat.audienceType channels.googlechat.dm.enabled
-channels.googlechat.groups.*.enabled channels.googlechat.groups.*.users
-channels.googlechat.requireMention channels.googlechat.serviceAccount
-channels.googlechat.serviceAccountFile channels.googlechat.accounts.*.serviceAccount
-channels.imessage.attachmentRoots channels.imessage.cliPath
-channels.imessage.groups.*.requireMention channels.imessage.remoteAttachmentRoots
-channels.imessage.service channels.irc.channels channels.irc.groups.*.allowFrom
+channels.defaults.groupPolicy channels.irc.channels channels.irc.groups.*.allowFrom
 channels.irc.groups.*.enabled channels.irc.groups.*.requireMention channels.irc.host
 channels.irc.nick channels.irc.nickserv.password channels.irc.password channels.irc.port
 channels.irc.tls channels.irc.accounts.*.nickserv.password channels.irc.accounts.*.port
-channels.msteams.appId channels.msteams.appPassword channels.msteams.requireMention
-channels.msteams.tenantId channels.msteams.webhook.port channels.qqbot.stt.apiKey
-channels.qqbot.stt.model channels.signal.account channels.signal.cliPath
-channels.signal.groups.*.requireMention channels.slack.appToken channels.slack.botToken
-channels.slack.channels.*.enabled channels.slack.channels.*.requireMention
-channels.slack.channels.*.users channels.slack.dm.enabled channels.slack.relay.authToken
-channels.slack.requireMention channels.slack.signingSecret channels.slack.userTokenReadOnly
-channels.slack.accounts.*.relay.authToken channels.slack.accounts.*.signingSecret
+channels.qqbot.stt.apiKey channels.qqbot.stt.model
 channels.sms.accounts.*.authToken channels.sms.authToken
-channels.telegram.botToken channels.telegram.direct.*.allowFrom channels.telegram.direct.*.dmPolicy
-channels.telegram.direct.*.enabled channels.telegram.groups.*.allowFrom
-channels.telegram.groups.*.enabled channels.telegram.groups.*.groupPolicy
-channels.telegram.groups.*.requireMention channels.telegram.groups.*.topics.*.allowFrom
-channels.telegram.groups.*.topics.*.enabled channels.telegram.groups.*.topics.*.groupPolicy
-channels.telegram.groups.*.topics.*.requireMention channels.telegram.webhookSecret
-channels.telegram.accounts.*.direct.*.dmPolicy
-channels.telegram.accounts.*.direct.*.topics.*.groupPolicy
-channels.telegram.accounts.*.groups.*.groupPolicy
-channels.telegram.accounts.*.groups.*.topics.*.groupPolicy
-channels.telegram.direct.*.topics.*.groupPolicy
-channels.whatsapp.groups.*.requireMention channels.whatsapp.selfChatMode
 cron.enabled env.vars gateway.auth.mode gateway.auth.password gateway.auth.token
 gateway.cliAgents.enabled
 gateway.auth.trustedProxy.allowUsers gateway.auth.trustedProxy.userHeader gateway.bind

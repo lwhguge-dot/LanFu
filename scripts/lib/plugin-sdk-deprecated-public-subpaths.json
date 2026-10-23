@@ -5,8 +5,6 @@
   "channel-reply-pipeline",
   "command-auth",
   "config-runtime",
-  "discord",
   "inbound-reply-dispatch",
-  "infra-runtime",
-  "telegram-account"
+  "infra-runtime"
 ]

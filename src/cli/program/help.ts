@@ -41,8 +41,8 @@ const EXAMPLES = [
     "Run one agent turn through the Gateway and optionally deliver the reply.",
   ],
   [
-    'lanfu message send --channel telegram --target @mychat --message "Hi"',
-    "Send via your Telegram bot.",
+    'lanfu message send --channel feishu --target @mychat --message "Hi"',
+    "Send via your Feishu bot.",
   ],
 ] as const;
 

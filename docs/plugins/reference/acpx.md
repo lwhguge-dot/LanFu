@@ -1,5 +1,5 @@
 ---
-summary: "OpenClaw ACP runtime backend with plugin-owned session and transport management."
+summary: "LanFu ACP runtime backend with plugin-owned session and transport management."
 read_when:
   - You are installing, configuring, or auditing the acpx plugin
 title: "ACPx plugin reference"
@@ -10,7 +10,7 @@ Run `pnpm plugins:inventory:gen` to rebuild it. Hand-written text survives only
 between the openclaw-plugin-reference:manual-start and
 openclaw-plugin-reference:manual-end comment markers. -->
 
-OpenClaw ACP runtime backend with plugin-owned session and transport management.
+LanFu ACP runtime backend with plugin-owned session and transport management.
 
 ## Distribution
 

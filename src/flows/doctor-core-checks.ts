@@ -62,8 +62,6 @@ const CODEX_SESSION_ROUTES_CHECK_ID = "core/doctor/codex-session-routes";
 const GATEWAY_DAEMON_CHECK_ID = "core/doctor/gateway-daemon";
 const GATEWAY_HEALTH_CHECK_ID = "core/doctor/gateway-health";
 const GATEWAY_SERVICES_EXTRA_CHECK_ID = "core/doctor/gateway-services/extra";
-const TELEGRAM_GENERAL_TOPIC_CONVERSATIONS_CHECK_ID =
-  "core/doctor/telegram-general-topic-conversations";
 const SKILL_WORKSHOP_TOOL_POLICY_CHECK_ID = "core/doctor/skill-workshop-tool-policy";
 const SKILL_WORKSHOP_RELOCATION_CHECK_ID = "core/doctor/skill-workshop-relocation";
 type CoreHealthCheckContext = HealthCheckContext & {
@@ -291,7 +289,7 @@ const commandOwnerCheck: HealthCheck = {
           "No command owner is configured. Owner-only commands (/diagnostics, /export-trajectory, /config, exec approvals) have no allowed sender.",
         path: "commands.ownerAllowFrom",
         fixHint:
-          "Set commands.ownerAllowFrom to your channel user id, e.g. `openclaw config set commands.ownerAllowFrom '[\"telegram:123456789\"]'`.",
+          "Set commands.ownerAllowFrom to your channel user id, e.g. `openclaw config set commands.ownerAllowFrom '[\"feishu:123456789\"]'`.",
       },
     ];
   },
@@ -807,29 +805,6 @@ const openAIOAuthTlsCheck: HealthCheck = {
   },
 };
 
-const legacyWhatsAppCrontabCheck: HealthCheck & { readonly defaultEnabled: false } = {
-  id: "core/doctor/legacy-whatsapp-crontab",
-  kind: "core",
-  description: "Legacy WhatsApp crontab health entries are detected as structured findings.",
-  source: "doctor",
-  defaultEnabled: false,
-  async detect() {
-    const { collectLegacyWhatsAppCrontabHealthWarning } =
-      await import("../commands/doctor/cron/index.js");
-    const warning = await collectLegacyWhatsAppCrontabHealthWarning();
-    if (!warning) {
-      return [];
-    }
-    return [
-      noteTextToFinding({
-        checkId: "core/doctor/legacy-whatsapp-crontab",
-        severity: "warning",
-        text: warning,
-      }),
-    ];
-  },
-};
-
 const legacyCronStoreCheck: DoctorHealthCheck = {
   id: "core/doctor/legacy-cron-store",
   kind: "core",
@@ -892,53 +867,6 @@ const codexSessionRoutesCheck: HealthCheck = {
         }),
     );
     return [...disabledPluginFindings, ...compatibilityFindings];
-  },
-};
-
-const telegramGeneralTopicConversationsCheck: HealthCheck = {
-  id: TELEGRAM_GENERAL_TOPIC_CONVERSATIONS_CHECK_ID,
-  kind: "core",
-  description: "Telegram General-topic conversation bindings use the canonical chat target.",
-  source: "doctor",
-  async detect(ctx) {
-    const { detectTelegramGeneralTopicConversationRepairs } =
-      await import("../commands/doctor-telegram-general-topic-conversations.js");
-    const repairs = detectTelegramGeneralTopicConversationRepairs({
-      cfg: ctx.cfg,
-      ...(ctx.env ? { env: ctx.env } : {}),
-    });
-    return repairs.map((repair) => ({
-      checkId: TELEGRAM_GENERAL_TOPIC_CONVERSATIONS_CHECK_ID,
-      severity: "warning" as const,
-      message: `Agent ${repair.agentId} has a stale Telegram General-topic conversation identity.`,
-      target: repair.agentId,
-      requirement: "One canonical chat-scoped conversation binding for Telegram General topic.",
-      fixHint: "Run `openclaw doctor --fix` to merge the stale topic-qualified identity.",
-    }));
-  },
-  async repair(ctx) {
-    const { repairTelegramGeneralTopicConversations } =
-      await import("../commands/doctor-telegram-general-topic-conversations.js");
-    const effect = {
-      kind: "state" as const,
-      action: ctx.dryRun ? "would-merge-stale-bindings" : "merge-stale-bindings",
-      target: "Telegram General topic conversations",
-      dryRunSafe: false,
-    };
-    if (ctx.dryRun) {
-      return {
-        changes: ["Would merge stale Telegram General-topic identities."],
-        effects: [effect],
-      };
-    }
-    const repaired = await repairTelegramGeneralTopicConversations({
-      cfg: ctx.cfg,
-      ...(ctx.env ? { env: ctx.env } : {}),
-    });
-    return {
-      changes: [`Merged ${repaired} stale Telegram General-topic conversation identity row(s).`],
-      effects: repaired > 0 ? [effect] : [],
-    };
   },
 };
 
@@ -1322,11 +1250,9 @@ function createConvertedWorkflowChecks(deps: CoreHealthCheckDeps): readonly Doct
     gatewayAuthCheck,
     legacyStateCheck,
     removedWorkspacesStateCheck,
-    legacyWhatsAppCrontabCheck,
     legacyCronStoreCheck,
     staleRuntimeBuildCheck,
     codexSessionRoutesCheck,
-    telegramGeneralTopicConversationsCheck,
     shellCompletionCheck,
     uiProtocolFreshnessCheck,
     gatewayServicesExtraCheck,

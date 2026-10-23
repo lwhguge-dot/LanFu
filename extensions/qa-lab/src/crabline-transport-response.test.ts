@@ -12,7 +12,7 @@ afterEach(() => {
 function createSelection() {
   return {
     capabilityMatrixPath: "crabline-channel-driver-capabilities.json",
-    channel: "telegram",
+    channel: "matrix",
     channelDriver: "crabline",
     providerReadinessArtifactPath: "crabline-provider-readiness.json",
   } as const satisfies OpenClawCrablineChannelDriverSelection;
@@ -41,8 +41,8 @@ describe("crabline transport responses", () => {
       try {
         await expect(
           transport.sendInbound({
-            conversation: { id: "-1001234567890", kind: "group" },
-            senderId: "100001",
+            conversation: { id: "main", kind: "group" },
+            senderId: "driver",
             senderName: "Alice",
             text: "Oversized response marker.",
           }),
@@ -76,12 +76,12 @@ describe("crabline transport responses", () => {
       try {
         await expect(
           transport.sendInbound({
-            conversation: { id: "-1001234567890", kind: "group" },
-            senderId: "100001",
+            conversation: { id: "main", kind: "group" },
+            senderId: "driver",
             senderName: "Alice",
-            text: "Telegram failure marker.",
+            text: "Matrix failure marker.",
           }),
-        ).rejects.toThrow("Crabline telegram inbound injection failed with HTTP 503");
+        ).rejects.toThrow("Crabline matrix inbound injection failed with HTTP 503");
         expect(cancel).toHaveBeenCalledOnce();
       } finally {
         await transport.cleanupAfterGatewayStop();

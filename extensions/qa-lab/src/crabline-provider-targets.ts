@@ -9,17 +9,6 @@ import type { QaBusInboundMessageInput } from "./runtime-api.js";
 
 const MATRIX_QA_SERVER_NAME = "matrix-qa.test";
 const MATRIX_QA_DRIVER_ID = `@driver:${MATRIX_QA_SERVER_NAME}`;
-const DISCORD_ID_PATTERN = /^\d{17,20}$/u;
-const DISCORD_ID_FLOOR = 100_000_000_000_000_000n;
-
-export function resolveDiscordQaId(value: string) {
-  const trimmed = value.trim();
-  if (DISCORD_ID_PATTERN.test(trimmed)) {
-    return trimmed;
-  }
-  const digest = BigInt(`0x${createHash("sha256").update(trimmed).digest("hex").slice(0, 16)}`);
-  return String(DISCORD_ID_FLOOR + (digest % DISCORD_ID_FLOOR));
-}
 
 function resolveMatrixQaSenderId(senderId: string) {
   return senderId === "driver"
@@ -99,35 +88,6 @@ function resolveMatrixQaText(text: string, botUserId: string) {
   );
 }
 
-function resolveDiscordQaText(text: string, botUserId: string) {
-  return text.replace(
-    /(^|[\s([{])@openclaw(?=$|[\s.,!?;)\]}])/gu,
-    (_match, prefix: string) => `${prefix}<@${botUserId}>`,
-  );
-}
-
-function resolveDiscordQaTarget(target: string) {
-  const normalized = target.trim();
-  if (normalized.startsWith("thread:")) {
-    if (normalized.startsWith("thread:/v1/")) {
-      const parsed = parseQaTarget(normalized);
-      const kind = parsed.chatType === "direct" ? "dm" : "group";
-      return `thread:/v1/${kind}/${resolveDiscordQaId(parsed.conversationId)}/${resolveDiscordQaId(parsed.threadId ?? "")}`;
-    }
-    const threadTarget = normalized.slice("thread:".length);
-    const separator = threadTarget.indexOf("/");
-    if (separator > 0) {
-      return `thread:${resolveDiscordQaId(threadTarget.slice(0, separator))}/${resolveDiscordQaId(threadTarget.slice(separator + 1))}`;
-    }
-  }
-  for (const prefix of ["channel:", "group:", "dm:", "user:"]) {
-    if (normalized.startsWith(prefix)) {
-      return `${prefix}${resolveDiscordQaId(normalized.slice(prefix.length))}`;
-    }
-  }
-  return resolveDiscordQaId(normalized);
-}
-
 export function createCrablineProviderInboundInput(
   adapter: StartedOpenClawCrablineCorrelatedAdapter,
   input: QaBusInboundMessageInput,
@@ -140,26 +100,15 @@ export function createCrablineProviderInboundInput(
       id:
         adapter.channel === "matrix"
           ? resolveMatrixQaConversationId(input.conversation.id)
-          : adapter.channel === "discord"
-            ? resolveDiscordQaId(input.conversation.id)
-            : input.conversation.id,
+          : input.conversation.id,
       kind,
     },
     senderId:
-      adapter.channel === "matrix"
-        ? resolveMatrixQaSenderId(input.senderId)
-        : adapter.channel === "discord"
-          ? resolveDiscordQaId(input.senderId)
-          : input.senderId,
+      adapter.channel === "matrix" ? resolveMatrixQaSenderId(input.senderId) : input.senderId,
     text:
       adapter.channel === "matrix" && adapter.manifest.provider === "matrix"
         ? resolveMatrixQaText(input.text, adapter.manifest.botUserId)
-        : adapter.channel === "discord" && adapter.manifest.provider === "discord"
-          ? resolveDiscordQaText(input.text, adapter.manifest.botUserId)
-          : input.text,
-    ...(input.threadId && adapter.channel === "discord"
-      ? { threadId: resolveDiscordQaId(input.threadId) }
-      : {}),
+        : input.text,
   };
 }
 
@@ -168,7 +117,7 @@ export function resolveCrablineStateConversation(params: {
   input: QaBusInboundMessageInput;
   providerInbound: OpenClawCrablineInbound;
 }) {
-  return params.adapter.channel === "matrix" || params.adapter.channel === "discord"
+  return params.adapter.channel === "matrix"
     ? params.input.conversation
     : params.providerInbound.stateConversation;
 }
@@ -179,13 +128,8 @@ export function createCrablineProviderDelivery(
   threadId?: string,
 ) {
   const { providerTargetKey, ...delivery } = adapter.createAgentDelivery({
-    target:
-      adapter.channel === "matrix"
-        ? resolveMatrixQaTarget(target)
-        : adapter.channel === "discord"
-          ? resolveDiscordQaTarget(target)
-          : target,
-    threadId: adapter.channel === "discord" && threadId ? resolveDiscordQaId(threadId) : threadId,
+    target: adapter.channel === "matrix" ? resolveMatrixQaTarget(target) : target,
+    threadId,
   });
   return { delivery, providerTargetKey };
 }

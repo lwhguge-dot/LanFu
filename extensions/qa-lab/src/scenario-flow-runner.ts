@@ -63,12 +63,6 @@ const qaFlowImportLoaders: Record<string, QaFlowImportLoader> = {
     import("./live-transports/matrix/scenarios/scenario-runtime-restart.js"),
   "./live-transports/matrix/scenarios/scenario-runtime-room.js": () =>
     import("./live-transports/matrix/scenarios/scenario-runtime-room.js"),
-  "./live-transports/discord/scenario-runtime.js": () =>
-    import("./live-transports/discord/scenario-runtime.js"),
-  "./live-transports/slack/scenario-runtime.js": () =>
-    import("./live-transports/slack/scenario-runtime.js"),
-  "./live-transports/whatsapp/scenario-runtime.js": () =>
-    import("./live-transports/whatsapp/scenario-runtime.js"),
   "./suite-artifacts.js": () => import("./suite-artifacts.js"),
   "./tool-search-gateway.fixture.js": () => import("./tool-search-gateway.fixture.js"),
 };

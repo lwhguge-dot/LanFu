@@ -3,7 +3,7 @@ import { describe, expect, it, vi } from "vitest";
 import { createQaBusState } from "./bus-state.js";
 import { createQaCrablineTransportAdapter } from "./crabline-transport.js";
 
-async function withTelegramCrablineTransport(
+async function withMatrixCrablineTransport(
   run: (transport: Awaited<ReturnType<typeof createQaCrablineTransportAdapter>>) => Promise<void>,
 ) {
   await withTempDir("qa-crabline-transport-", async (outputDir) => {
@@ -11,7 +11,7 @@ async function withTelegramCrablineTransport(
       outputDir,
       selection: {
         capabilityMatrixPath: "crabline-channel-driver-capabilities.json",
-        channel: "telegram",
+        channel: "matrix",
         channelDriver: "crabline",
         providerReadinessArtifactPath: "crabline-provider-readiness.json",
       },
@@ -27,7 +27,7 @@ async function withTelegramCrablineTransport(
 
 describe("Crabline transport readiness", () => {
   it("waits for the selected account to finish its channel readiness lifecycle", async () => {
-    await withTelegramCrablineTransport(async (transport) => {
+    await withMatrixCrablineTransport(async (transport) => {
       const statuses = [
         { accountId: "other", connected: true, lifecycle: "ready", running: true },
         {
@@ -56,7 +56,7 @@ describe("Crabline transport readiness", () => {
           running: true,
         },
       ];
-      const call = vi.fn(async () => ({ channelAccounts: { telegram: [statuses.shift()] } }));
+      const call = vi.fn(async () => ({ channelAccounts: { matrix: [statuses.shift()] } }));
 
       await transport.waitReady({ gateway: { call }, timeoutMs: 2_000, pollIntervalMs: 1 });
       expect(call).toHaveBeenCalledTimes(5);
@@ -64,16 +64,16 @@ describe("Crabline transport readiness", () => {
   });
 
   it("rejects a ready channel account belonging to another Crabline identity", async () => {
-    await withTelegramCrablineTransport(async (transport) => {
+    await withMatrixCrablineTransport(async (transport) => {
       const call = vi.fn().mockResolvedValue({
         channelAccounts: {
-          telegram: [{ accountId: "other", connected: true, lifecycle: "ready", running: true }],
+          matrix: [{ accountId: "other", connected: true, lifecycle: "ready", running: true }],
         },
       });
 
       await expect(
         transport.waitReady({ gateway: { call }, timeoutMs: 5, pollIntervalMs: 1 }),
-      ).rejects.toThrow('telegram account "default" not reported; available accounts: other');
+      ).rejects.toThrow('matrix account "default" not reported; available accounts: other');
     });
   });
 });

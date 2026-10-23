@@ -1,6 +1,5 @@
 import { isExperimentalClawsEnabled } from "../claws/experimental.js";
 import { shouldDeferConfiguredPluginInstallRepair } from "../commands/doctor/shared/update-phase.js";
-import { hasActiveGatewayExecCredential } from "./doctor-gateway-exec-credential.js";
 import { runCoreHealthFindingNote } from "./doctor-health-contribution-core.js";
 import {
   collectWriteConfigHealthFindings,
@@ -18,7 +17,6 @@ import {
   runSecurityHealth,
   runStartupChannelMaintenanceHealth,
   runWebFetchProxyHealth,
-  runWhatsappResponsivenessHealth,
 } from "./doctor-health-contribution-runners.gateway.js";
 import {
   collectMemorySearchHealthFindings,
@@ -375,42 +373,6 @@ export function resolveFinalDoctorHealthContributions(params: {
       label: "Gateway health",
       healthCheckIds: ["core/doctor/gateway-health"],
       run: params.runGatewayHealthChecks,
-    }),
-    createDoctorHealthContribution({
-      id: "doctor:whatsapp-responsiveness",
-      label: "WhatsApp responsiveness",
-      updateWork: { kind: "inspection", scope: "run" },
-      healthChecks: {
-        description: "Gateway pressure and local TUI observations when WhatsApp is enabled.",
-        defaultEnabled: false,
-        async detect(ctx) {
-          const { collectWhatsappResponsivenessHealthFindings } =
-            await import("../commands/doctor-whatsapp-responsiveness.js");
-          const { bindAgentToolGatewayRequest } =
-            await import("../agents/tools/in-process-gateway.js");
-          const requestGateway = bindAgentToolGatewayRequest({ hostedOnly: true });
-          let status: import("../status/summary.js").StatusSummary | undefined;
-          if (
-            !(
-              (await hasActiveGatewayExecCredential({ cfg: ctx.cfg })) &&
-              ctx.allowExecSecretRefs !== true
-            )
-          ) {
-            const request = {
-              method: "status",
-              params: { includeChannelSummary: false },
-              timeoutMs: 3000,
-              config: ctx.cfg,
-              deviceIdentity: null,
-            };
-            status = await requestGateway<import("../status/summary.js").StatusSummary>(
-              request,
-            ).catch(() => undefined);
-          }
-          return collectWhatsappResponsivenessHealthFindings({ cfg: ctx.cfg, status });
-        },
-      },
-      run: runWhatsappResponsivenessHealth,
     }),
     createDoctorHealthContribution({
       id: "doctor:memory-search",

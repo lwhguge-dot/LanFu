@@ -136,15 +136,6 @@ export async function runOpenAIOAuthTlsHealth(ctx: DoctorHealthFlowContext): Pro
   await noteOpenAIOAuthTlsPrerequisites({ cfg: ctx.cfg, deep: ctx.options.deep === true });
 }
 
-export async function runWhatsappResponsivenessHealth(ctx: DoctorHealthFlowContext): Promise<void> {
-  const { noteWhatsappResponsivenessHealth } =
-    await import("../commands/doctor-whatsapp-responsiveness.js");
-  noteWhatsappResponsivenessHealth({
-    cfg: ctx.cfg,
-    status: ctx.gatewayStatus,
-  });
-}
-
 export async function runDevicePairingHealth(ctx: DoctorHealthFlowContext): Promise<void> {
   const { noteDevicePairingHealth } = await import("../commands/doctor-device-pairing.js");
   await noteDevicePairingHealth({ cfg: ctx.cfg, healthOk: ctx.healthOk ?? false, env: ctx.env });

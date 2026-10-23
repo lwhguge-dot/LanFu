@@ -1,5 +1,5 @@
 ---
-summary: "Advertise the local OpenClaw gateway over Bonjour/mDNS."
+summary: "Advertise the local LanFu gateway over Bonjour/mDNS."
 read_when:
   - You are installing, configuring, or auditing the bonjour plugin
 title: "Bonjour plugin reference"
@@ -10,7 +10,7 @@ Run `pnpm plugins:inventory:gen` to rebuild it. Hand-written text survives only
 between the openclaw-plugin-reference:manual-start and
 openclaw-plugin-reference:manual-end comment markers. -->
 
-Advertise the local OpenClaw gateway over Bonjour/mDNS.
+Advertise the local LanFu gateway over Bonjour/mDNS.
 
 ## Distribution
 
