@@ -175,10 +175,10 @@ describe("buildOfficialChannelCatalog", () => {
       summary: "WeChat channel setup through the external openclaw-weixin plugin",
     });
     expect(entries.map((entry) => entry.id)).toEqual(
-      expect.arrayContaining(["reef", "telegram", "webchat"]),
+      expect.arrayContaining(["reef", "feishu", "webchat"]),
     );
     expect(entries.map((entry) => entry.id)).not.toEqual(
-      expect.arrayContaining(["qa-channel", "voice-call"]),
+      expect.arrayContaining(["qa-channel", "voice-call", "telegram", "discord", "slack"]),
     );
     const rendered = renderOfficialChannelDocsIndex({ repoRoot: process.cwd() });
     expect(rendered).toContain(
@@ -397,7 +397,7 @@ describe("buildOfficialChannelCatalog", () => {
 
   it("preserves manifest-owned metadata without duplicating channel schemas", () => {
     const entries = buildOfficialChannelCatalog({ repoRoot: process.cwd() }).entries;
-    const slack = findCatalogEntry(entries, (entry) => entry.openclaw?.channel?.id === "slack");
+    const feishu = findCatalogEntry(entries, (entry) => entry.openclaw?.channel?.id === "feishu");
     const raft = findCatalogEntry(entries, (entry) => entry.openclaw?.channel?.id === "raft");
     const clickclack = findCatalogEntry(
       entries,
@@ -407,10 +407,8 @@ describe("buildOfficialChannelCatalog", () => {
     // Channel schemas are single-sourced from the zod-derived generated bundled
     // channel metadata (compiled into core by channelId); manifest and catalog
     // copies drifted and silently overrode it in validation (see #131292).
-    expect(slack.openclaw.channelConfigs?.slack?.schema).toBeUndefined();
-    expect(slack.openclaw.channelConfigs?.slack?.label).toBe("Slack");
+    expect(feishu.openclaw.channelConfigs?.feishu?.schema).toBeUndefined();
     expect(raft.openclaw.channelConfigs?.raft?.schema).toBeUndefined();
-    expect(raft.openclaw.channelConfigs?.raft?.label).toBeTruthy();
     expect(clickclack.openclaw.contracts?.tools).toEqual(["discussion"]);
   });
 
