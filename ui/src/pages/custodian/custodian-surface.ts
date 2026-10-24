@@ -8,7 +8,7 @@ import { markdownBlocks } from "../../components/markdown-blocks.ts";
 import { handleMarkdownCodeBlockClick } from "../../components/markdown-code-blocks.ts";
 import { handleMarkdownTableInteraction } from "../../components/markdown-tables.ts";
 import { renderPanelRefreshStatus } from "../../components/panel-refresh-status.ts";
-import "../../components/openclaw-mascot.ts";
+import "../../components/lanfu-mark.ts";
 import { t } from "../../i18n/index.ts";
 import { registerPluginManagementEnglish } from "../../i18n/locales/en-plugin-management.ts";
 import { OpenClawLightDomElement } from "../../lit/openclaw-element.ts";
@@ -162,7 +162,7 @@ class CustodianSurface extends OpenClawLightDomElement {
         >
           ${alertCard}
           <div class="custodian__setup-state" role="alert">
-            <openclaw-mascot mood="idle" .size=${this.compact ? 72 : 96}></openclaw-mascot>
+            <lanfu-mark mood="idle" .size=${this.compact ? 72 : 96}></lanfu-mark>
             <h2>${t("modelSetup.required.title")}</h2>
             <p>${t("modelSetup.required.body")}</p>
             <div class="custodian__setup-actions">
@@ -290,7 +290,7 @@ class CustodianSurface extends OpenClawLightDomElement {
             store.sending
               ? html`<div class="chat-group assistant custodian__thinking-row" role="status">
                   <div class="chat-avatar assistant custodian__mascot-avatar" aria-hidden="true">
-                    <openclaw-mascot mood="thinking" .size=${26}></openclaw-mascot>
+                    <lanfu-mark mood="thinking" .size=${26}></lanfu-mark>
                   </div>
                   <div class="chat-group-messages custodian__thinking">
                     <span></span><span></span><span></span>

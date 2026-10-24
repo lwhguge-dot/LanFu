@@ -423,10 +423,10 @@ export class OpenClawAssistantPanel extends OpenClawLightDomElement {
         ${this.dockLayout.renderResizer("assistant-panel", t("assistantPanel.resize"))}
         <header class="rail-header assistant-panel-header" @mousedown=${beginNativeWindowDrag}>
           <div class="assistant-panel-title">
-            <openclaw-mascot
+            <lanfu-mark
               .mood=${this.destination === "custodian" && this.store?.sending ? "thinking" : "idle"}
               .size=${16}
-            ></openclaw-mascot>
+            ></lanfu-mark>
             ${(["home", "custodian"] as const).map((destination) =>
               (destination === "home" ? this.homeAvailable : this.custodianAvailable)
                 ? html`<button

@@ -701,7 +701,7 @@ describe("assistant panel", () => {
 
     expect(
       (
-        panel.querySelector(".assistant-panel-title openclaw-mascot") as HTMLElement & {
+        panel.querySelector(".assistant-panel-title lanfu-mark") as HTMLElement & {
           mood: string;
         }
       ).mood,

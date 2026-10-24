@@ -13,12 +13,12 @@ const LANFU_MARK_SRC = "/lanfu-mark.png";
  * of the public component contract so existing surfaces can migrate without
  * changing their templates.
  */
-class OpenClawMascot extends LitElement {
+class LanFuMark extends LitElement {
   static override styles = css`
     :host {
       display: inline-block;
-      width: var(--openclaw-mascot-size, 120px);
-      height: var(--openclaw-mascot-size, 120px);
+      width: var(--lanfu-mark-size, 120px);
+      height: var(--lanfu-mark-size, 120px);
       overflow: visible;
       contain: layout style;
       pointer-events: none;
@@ -26,8 +26,8 @@ class OpenClawMascot extends LitElement {
     }
 
     img,
-    .openclaw-mascot--neutral,
-    .openclaw-mascot--neutral svg {
+    .lanfu-mark--neutral,
+    .lanfu-mark--neutral svg {
       display: block;
       width: 100%;
       height: 100%;
@@ -65,7 +65,7 @@ class OpenClawMascot extends LitElement {
 
   protected override updated(changed: PropertyValues<this>): void {
     if (changed.has("size")) {
-      this.style.setProperty("--openclaw-mascot-size", `${this.resolvedSize}px`);
+      this.style.setProperty("--lanfu-mark-size", `${this.resolvedSize}px`);
     }
   }
 
@@ -76,7 +76,7 @@ class OpenClawMascot extends LitElement {
 
   override render() {
     return currentThemeBranding().mascot === "none"
-      ? html`<span class="openclaw-mascot--neutral">${neutralMark}</span>`
+      ? html`<span class="lanfu-mark--neutral">${neutralMark}</span>`
       : html`<img src=${LANFU_MARK_SRC} alt="" draggable="false" />`;
   }
 
@@ -85,6 +85,6 @@ class OpenClawMascot extends LitElement {
   }
 }
 
-if (!customElements.get("openclaw-mascot")) {
-  customElements.define("openclaw-mascot", OpenClawMascot);
+if (!customElements.get("lanfu-mark")) {
+  customElements.define("lanfu-mark", LanFuMark);
 }

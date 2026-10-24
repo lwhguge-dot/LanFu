@@ -248,7 +248,7 @@ describe("dreaming view", () => {
       buildProps({ dreamingOf: "reindexing old chats\u2026", onViewStateChange }),
     );
 
-    expectElement(container, ".dreams__lobster openclaw-mascot");
+    expectElement(container, ".dreams__lobster lanfu-mark");
 
     // The sleeper is the LanFu mascot in sleepy mood; eye state lives inside
     // the component, so the cameo presence assertion above covers it.

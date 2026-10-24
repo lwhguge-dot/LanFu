@@ -1,6 +1,6 @@
 import { html, nothing } from "lit";
 import type { DoctorMemoryStatusPayload } from "../../../../src/gateway/server-methods/doctor.ts";
-import "../../components/openclaw-mascot.ts";
+import "../../components/lanfu-mark.ts";
 import {
   renderSettingsNavRow,
   renderSettingsRow,
@@ -92,7 +92,7 @@ function renderHero(props: MemoryOverviewProps) {
   return html`
     <section class="memory-overview__hero ${off ? "memory-overview__hero--sleeping" : ""}">
       <div class="memory-overview__lobster">
-        <openclaw-mascot .size=${96}></openclaw-mascot>
+        <lanfu-mark .size=${96}></lanfu-mark>
       </div>
       <div class="memory-overview__hero-copy">
         <h2>${headline}</h2>

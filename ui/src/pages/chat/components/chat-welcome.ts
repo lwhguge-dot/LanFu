@@ -7,7 +7,7 @@ import type {
 } from "../../../api/types.ts";
 import { renderAgentIdentityAvatar } from "../../../components/identity-avatar-view.ts";
 import { t } from "../../../i18n/index.ts";
-import "../../../components/openclaw-mascot.ts";
+import "../../../components/lanfu-mark.ts";
 import { registerCommandPaletteEnglish } from "../../../i18n/locales/en-command-palette.ts";
 import { resolveAgentTextAvatar } from "../../../lib/agents/display.ts";
 import {
@@ -121,7 +121,7 @@ function selectWelcomeRecentSessions(
 function renderWelcomeClawd() {
   return html`
     <div class="agent-chat__welcome-clawd" aria-hidden="true">
-      <openclaw-mascot mood="idle" .size=${112}></openclaw-mascot>
+      <lanfu-mark mood="idle" .size=${112}></lanfu-mark>
     </div>
   `;
 }

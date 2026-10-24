@@ -98,7 +98,7 @@ describe("renderMemoryOverview", () => {
 
     expect(container.textContent).toContain("Memory is awake");
     expect(container.textContent).toContain("memory-core · hybrid search");
-    expect(container.querySelector(".memory-overview__lobster openclaw-mascot")).not.toBeNull();
+    expect(container.querySelector(".memory-overview__lobster lanfu-mark")).not.toBeNull();
     expect(container.textContent).toContain("Sleep schedule");
     expect(container.textContent).toContain("Europe/Vienna");
     expect(container.textContent).toContain("Promoted today");
@@ -122,7 +122,7 @@ describe("renderMemoryOverview", () => {
     expect(container.textContent).toContain("Memory is hibernating");
     expect(container.textContent).toContain("Open Settings");
     expect(container.querySelector(".memory-overview__hero--sleeping")).not.toBeNull();
-    expect(container.querySelector(".memory-overview__lobster openclaw-mascot")).not.toBeNull();
+    expect(container.querySelector(".memory-overview__lobster lanfu-mark")).not.toBeNull();
     expect(container.querySelector(".lob-reading-book")).toBeNull();
   });
 

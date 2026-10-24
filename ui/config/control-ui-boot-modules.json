@@ -1362,7 +1362,7 @@
     "ui/src/components/modal-dialog.ts",
     "ui/src/components/neutral-mark.ts",
     "ui/src/components/new-session-link.ts",
-    "ui/src/components/openclaw-mascot.ts",
+    "ui/src/components/lanfu-mark.ts",
     "ui/src/components/panel-empty-state.ts",
     "ui/src/components/panel-loading-skeleton.ts",
     "ui/src/components/panel-refresh-status.ts",

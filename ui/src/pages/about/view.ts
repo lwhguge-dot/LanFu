@@ -1,7 +1,7 @@
 import { html, nothing, type TemplateResult } from "lit";
 import type { ControlUiBuildInfo } from "../../build-info.ts";
 import { icons } from "../../components/icons.ts";
-import "../../components/openclaw-mascot.ts";
+import "../../components/lanfu-mark.ts";
 import { currentThemeBranding } from "../../components/neutral-mark.ts";
 import {
   renderSettingsPage,
@@ -136,11 +136,7 @@ function renderHero(props: AboutProps) {
               aria-label=${t("aboutPage.waveHello")}
               @click=${props.onPokeClawd}
             >
-              <openclaw-mascot
-                mood="idle"
-                .tease=${props.clawdWaving}
-                .size=${150}
-              ></openclaw-mascot>
+              <lanfu-mark mood="idle" .tease=${props.clawdWaving} .size=${150}></lanfu-mark>
             </button>`
       }
       <h2 class="about-hero__name">${t("aboutPage.productName")}</h2>

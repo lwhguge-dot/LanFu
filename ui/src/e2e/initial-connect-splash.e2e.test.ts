@@ -177,7 +177,7 @@ describeControlUiE2e("Control UI initial connect splash E2E", () => {
     const skeleton = splash.locator(".loading-skeleton");
     await skeleton.waitFor();
     expect(await splash.getAttribute("aria-busy")).toBeNull();
-    expect(await splash.locator("openclaw-mascot").count()).toBe(0);
+    expect(await splash.locator("lanfu-mark").count()).toBe(0);
     expect(await page.getByText("Loading panel", { exact: true }).count()).toBe(0);
     expect(await page.locator("openclaw-app-sidebar").count()).toBe(0);
     expect(await page.locator("openclaw-login-gate").count()).toBe(0);
@@ -249,7 +249,7 @@ describeControlUiE2e("Control UI initial connect splash E2E", () => {
       const skeleton = loadingState.locator(".loading-skeleton");
       await skeleton.waitFor();
       expect(await loadingState.getAttribute("aria-busy")).toBeNull();
-      expect(await loadingState.locator("openclaw-mascot").count()).toBe(0);
+      expect(await loadingState.locator("lanfu-mark").count()).toBe(0);
       await captureProof(page, "03-pending-chat-shimmer", [
         skeleton.locator(".loading-skeleton__composer"),
       ]);

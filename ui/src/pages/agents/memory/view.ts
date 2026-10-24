@@ -6,7 +6,7 @@ import { unsafeHTML } from "lit/directives/unsafe-html.js";
 import { renderHubTabs } from "../../../components/hub-tabs.ts";
 import { toSanitizedMarkdownHtml } from "../../../components/markdown.ts";
 import "../../../components/modal-dialog.ts";
-import "../../../components/openclaw-mascot.ts";
+import "../../../components/lanfu-mark.ts";
 import { i18n, t } from "../../../i18n/index.ts";
 import { registerDreamingEnglish } from "../../../i18n/locales/en-dreaming.ts";
 import { registerSettingsEnglish } from "../../../i18n/locales/en-settings.ts";
@@ -264,7 +264,7 @@ const STARS: {
 // mascot identity carries across surfaces.
 function renderDreamsCameo() {
   return html`
-    <div class="dreams__lobster"><openclaw-mascot mood="sleepy" .size=${72}></openclaw-mascot></div>
+    <div class="dreams__lobster"><lanfu-mark mood="sleepy" .size=${72}></lanfu-mark></div>
   `;
 }
 
