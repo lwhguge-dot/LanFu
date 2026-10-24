@@ -81,12 +81,12 @@ describe("wizard i18n", () => {
   });
 
   it("creates scoped setup translators without exporting a generic SDK t helper", () => {
-    const telegramT = createSetupTranslator({
-      keyPrefix: "wizard.telegram",
+    const feishuT = createSetupTranslator({
+      keyPrefix: "wizard.feishu",
       locale: "zh-CN",
     });
-    expect(telegramT("botToken")).toBe("Telegram bot token");
-    expect(telegramT("wizard.gateway.port")).toBe("Gateway 端口");
+    expect(feishuT("allowFromPrompt")).toBe("Feishu allowFrom（用户 open_id）");
+    expect(feishuT("wizard.gateway.port")).toBe("Gateway 端口");
   });
 
   it("keeps shipped locale keys aligned with English", () => {

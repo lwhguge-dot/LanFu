@@ -133,7 +133,11 @@ try {
 Say "正在预置网关连接…"
 $shellToken = $null
 try {
-  $cfgPath = Join-Path $stateDir "openclaw.json"
+  $cfgPath = Join-Path $stateDir "lanfu.json"
+  if (-not (Test-Path $cfgPath)) {
+    $legacyCfg = Join-Path $stateDir "openclaw.json"
+    if (Test-Path $legacyCfg) { $cfgPath = $legacyCfg }
+  }
   $cfg = $null
   if (Test-Path $cfgPath) {
     try { $cfg = Get-Content $cfgPath -Raw -Encoding UTF8 | ConvertFrom-Json } catch { $cfg = $null }
@@ -163,7 +167,11 @@ try {
 
 # ---- 1d. 公司模型预置（仅缺失时；密钥为公司 vLLM 接受的占位值，非真实凭据）----
 try {
-  $cfgPath = Join-Path $stateDir "openclaw.json"
+  $cfgPath = Join-Path $stateDir "lanfu.json"
+  if (-not (Test-Path $cfgPath)) {
+    $legacyCfg = Join-Path $stateDir "openclaw.json"
+    if (Test-Path $legacyCfg) { $cfgPath = $legacyCfg }
+  }
   if (Test-Path $cfgPath) {
     $cfg = $null
     try { $cfg = Get-Content $cfgPath -Raw -Encoding UTF8 | ConvertFrom-Json } catch { $cfg = $null }

@@ -17,7 +17,7 @@ export type PluginsConfig = PluginsSchemaInput & {
   /**
    * Internal transient carrier for plugin install records during command flows.
    * This is intentionally omitted from the config schema and must not be
-   * persisted to openclaw.json.
+   * persisted to lanfu.json.
    */
   installs?: Record<string, PluginInstallRecord>;
 };

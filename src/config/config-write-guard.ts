@@ -13,7 +13,7 @@ export class ConfigReadOnlyError extends Error {
   constructor(params: { configPath?: string } = {}) {
     super(
       [
-        "Config is externally managed (`OPENCLAW_CONFIG_READONLY=1`), so LanFu treats openclaw.json as immutable.",
+        "Config is externally managed (`OPENCLAW_CONFIG_READONLY=1`), so LanFu treats lanfu.json as immutable.",
         ...(params.configPath ? [`Config path: ${params.configPath}`] : []),
         "Edit the config in your external deployment source, then redeploy or restart LanFu as needed.",
       ].join("\n"),
@@ -35,10 +35,10 @@ export class NixModeConfigMutationError extends Error {
 /** Build the operator-facing immutable-config message for Nix-managed installs. */
 function formatNixModeConfigMutationMessage(params: { configPath?: string } = {}): string {
   return [
-    "Config is managed by Nix (`OPENCLAW_NIX_MODE=1`), so LanFu treats openclaw.json as immutable.",
+    "Config is managed by Nix (`OPENCLAW_NIX_MODE=1`), so LanFu treats lanfu.json as immutable.",
     "This usually means nix-openclaw, the first-party Nix distribution, or another Nix-managed package set this mode.",
     ...(params.configPath ? [`Config path: ${params.configPath}`] : []),
-    "Do not run setup, onboarding, openclaw update, plugin install/update/uninstall/enable, doctor repair/token-generation, or config set against this file.",
+    "Do not run setup, onboarding, lanfu update, plugin install/update/uninstall/enable, doctor repair/token-generation, or config set against this file.",
     "Edit the Nix source for this install instead. For nix-openclaw, edit `programs.openclaw.config` or `instances.<name>.config`, then rebuild with Home Manager or NixOS.",
     `Agent-first Nix setup: ${NIX_OPENCLAW_AGENT_FIRST_URL}`,
     `LanFu Nix overview: ${NIX_OVERVIEW_URL}`,

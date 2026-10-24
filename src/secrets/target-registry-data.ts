@@ -29,7 +29,7 @@ function createPluginOpenClawConfigSecretTargetEntry(
   return {
     id: pathPattern,
     targetType: pathPattern,
-    configFile: "openclaw.json",
+    configFile: "lanfu.json",
     pathPattern,
     pathPatternSegments,
     secretShape: SECRET_INPUT_SHAPE,
@@ -141,7 +141,7 @@ const CORE_SECRET_TARGET_REGISTRY: SecretTargetRegistryEntry[] = [
   {
     id: "memory.search.remote.apiKey",
     targetType: "memory.search.remote.apiKey",
-    configFile: "openclaw.json",
+    configFile: "lanfu.json",
     pathPattern: "memory.search.remote.apiKey",
     secretShape: SECRET_INPUT_SHAPE,
     expectedResolvedValue: "string",
@@ -152,7 +152,7 @@ const CORE_SECRET_TARGET_REGISTRY: SecretTargetRegistryEntry[] = [
   {
     id: "agents.entries.*.memory.search.remote.apiKey",
     targetType: "agents.entries.*.memory.search.remote.apiKey",
-    configFile: "openclaw.json",
+    configFile: "lanfu.json",
     pathPattern: "agents.entries.*.memory.search.remote.apiKey",
     secretShape: SECRET_INPUT_SHAPE,
     expectedResolvedValue: "string",
@@ -163,7 +163,7 @@ const CORE_SECRET_TARGET_REGISTRY: SecretTargetRegistryEntry[] = [
   {
     id: "cron.webhookToken",
     targetType: "cron.webhookToken",
-    configFile: "openclaw.json",
+    configFile: "lanfu.json",
     pathPattern: "cron.webhookToken",
     secretShape: SECRET_INPUT_SHAPE,
     expectedResolvedValue: "string",
@@ -174,7 +174,7 @@ const CORE_SECRET_TARGET_REGISTRY: SecretTargetRegistryEntry[] = [
   {
     id: "gateway.auth.token",
     targetType: "gateway.auth.token",
-    configFile: "openclaw.json",
+    configFile: "lanfu.json",
     pathPattern: "gateway.auth.token",
     secretShape: SECRET_INPUT_SHAPE,
     expectedResolvedValue: "string",
@@ -185,7 +185,7 @@ const CORE_SECRET_TARGET_REGISTRY: SecretTargetRegistryEntry[] = [
   {
     id: "gateway.auth.password",
     targetType: "gateway.auth.password",
-    configFile: "openclaw.json",
+    configFile: "lanfu.json",
     pathPattern: "gateway.auth.password",
     secretShape: SECRET_INPUT_SHAPE,
     expectedResolvedValue: "string",
@@ -196,7 +196,7 @@ const CORE_SECRET_TARGET_REGISTRY: SecretTargetRegistryEntry[] = [
   {
     id: "gateway.remote.password",
     targetType: "gateway.remote.password",
-    configFile: "openclaw.json",
+    configFile: "lanfu.json",
     pathPattern: "gateway.remote.password",
     secretShape: SECRET_INPUT_SHAPE,
     expectedResolvedValue: "string",
@@ -207,7 +207,7 @@ const CORE_SECRET_TARGET_REGISTRY: SecretTargetRegistryEntry[] = [
   {
     id: "gateway.remote.token",
     targetType: "gateway.remote.token",
-    configFile: "openclaw.json",
+    configFile: "lanfu.json",
     pathPattern: "gateway.remote.token",
     secretShape: SECRET_INPUT_SHAPE,
     expectedResolvedValue: "string",
@@ -221,7 +221,7 @@ const CORE_SECRET_TARGET_REGISTRY: SecretTargetRegistryEntry[] = [
       return {
         id: path,
         targetType: path,
-        configFile: "openclaw.json",
+        configFile: "lanfu.json",
         pathPattern: path,
         secretShape: SECRET_INPUT_SHAPE,
         expectedResolvedValue: "string",
@@ -249,7 +249,7 @@ const CORE_SECRET_TARGET_REGISTRY: SecretTargetRegistryEntry[] = [
         .filter((segment) => segment !== "*")
         .join("."),
       targetTypeAliases: [pathPattern],
-      configFile: "openclaw.json",
+      configFile: "lanfu.json",
       pathPattern,
       secretShape: SECRET_INPUT_SHAPE,
       expectedResolvedValue: "string",
@@ -267,7 +267,7 @@ const CORE_SECRET_TARGET_REGISTRY: SecretTargetRegistryEntry[] = [
     id: "skills.entries.*.apiKey",
     targetType: "skills.entries.apiKey",
     targetTypeAliases: ["skills.entries.*.apiKey"],
-    configFile: "openclaw.json",
+    configFile: "lanfu.json",
     pathPattern: "skills.entries.*.apiKey",
     secretShape: SECRET_INPUT_SHAPE,
     expectedResolvedValue: "string",
@@ -278,7 +278,7 @@ const CORE_SECRET_TARGET_REGISTRY: SecretTargetRegistryEntry[] = [
   {
     id: "talk.providers.*.apiKey",
     targetType: "talk.providers.*.apiKey",
-    configFile: "openclaw.json",
+    configFile: "lanfu.json",
     pathPattern: "talk.providers.*.apiKey",
     secretShape: SECRET_INPUT_SHAPE,
     expectedResolvedValue: "string",
@@ -290,7 +290,7 @@ const CORE_SECRET_TARGET_REGISTRY: SecretTargetRegistryEntry[] = [
   {
     id: "talk.realtime.providers.*.apiKey",
     targetType: "talk.realtime.providers.*.apiKey",
-    configFile: "openclaw.json",
+    configFile: "lanfu.json",
     pathPattern: "talk.realtime.providers.*.apiKey",
     secretShape: SECRET_INPUT_SHAPE,
     expectedResolvedValue: "string",

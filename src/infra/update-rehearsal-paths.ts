@@ -16,7 +16,7 @@ export function buildUpdateRehearsalPathEnv(root: string): NodeJS.ProcessEnv {
     XDG_STATE_HOME: path.join(root, "state"),
     OPENCLAW_HOME: root,
     OPENCLAW_STATE_DIR: root,
-    OPENCLAW_CONFIG_PATH: path.join(root, "openclaw.json"),
+    OPENCLAW_CONFIG_PATH: path.join(root, "lanfu.json"),
     OPENCLAW_WORKSPACE_DIR: path.join(root, "workspace"),
     OPENCLAW_SKIP_CHANNELS: "1",
     OPENCLAW_SKIP_PROVIDERS: "1",

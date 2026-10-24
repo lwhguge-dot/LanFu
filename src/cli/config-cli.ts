@@ -223,7 +223,7 @@ async function runConfigSchema(opts: { runtime?: RuntimeEnv } = {}) {
 
 async function runConfigValidate(opts: { json?: boolean; runtime?: RuntimeEnv } = {}) {
   const runtime = opts.runtime ?? defaultRuntime;
-  let outputPath = CONFIG_PATH ?? "openclaw.json";
+  let outputPath = CONFIG_PATH ?? "lanfu.json";
   try {
     const { readConfigFileSnapshotWithPluginMetadata } = await import("../config/config.js");
     const { formatInvalidConfigRepairHint, finishConfigValidationForCli } =
@@ -346,7 +346,7 @@ export function registerConfigCli(program: Command) {
     )
     .option(
       "--dry-run",
-      "Validate changes without writing openclaw.json (checks run in builder/json/batch modes; exec SecretRefs are skipped unless --allow-exec is set)",
+      "Validate changes without writing lanfu.json (checks run in builder/json/batch modes; exec SecretRefs are skipped unless --allow-exec is set)",
       false,
     )
     .option(
@@ -415,7 +415,7 @@ export function registerConfigCli(program: Command) {
     .option("--stdin", "Read a JSON5 config patch object from stdin", false)
     .option(
       "--dry-run",
-      "Validate changes without writing openclaw.json (checks schema and SecretRef resolvability; exec SecretRefs are skipped unless --allow-exec is set)",
+      "Validate changes without writing lanfu.json (checks schema and SecretRef resolvability; exec SecretRefs are skipped unless --allow-exec is set)",
       false,
     )
     .option(
@@ -452,7 +452,7 @@ export function registerConfigCli(program: Command) {
     .action((opts: { json?: boolean }) => runConfigFile(opts));
   cmd
     .command("schema")
-    .description("Print the JSON schema for openclaw.json")
+    .description("Print the JSON schema for lanfu.json")
     .option("--json", "Output JSON", false)
     .action(runConfigSchema);
   cmd

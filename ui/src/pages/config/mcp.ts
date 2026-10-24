@@ -53,10 +53,10 @@ export function renderMcp(props: McpViewProps) {
           <div class="settings-group">
             <div class="settings-row settings-row--stacked">
               <div class="mcp-command-card__grid">
-                <code>openclaw mcp status --verbose</code>
-                <code>openclaw mcp doctor --probe</code>
-                <code>openclaw mcp login &lt;name&gt;</code>
-                <code>openclaw mcp reload</code>
+                <code>lanfu mcp status --verbose</code>
+                <code>lanfu mcp doctor --probe</code>
+                <code>lanfu mcp login &lt;name&gt;</code>
+                <code>lanfu mcp reload</code>
               </div>
             </div>
           </div>

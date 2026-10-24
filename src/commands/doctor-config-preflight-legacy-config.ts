@@ -96,7 +96,7 @@ export async function prepareDoctorConfigRecovery(params: {
         : null;
     let configRepaired = false;
     if (!activeConfigRepair && (await recoverConfigFromJsonRootSuffix(snapshot))) {
-      note("Removed non-JSON prefix from openclaw.json.", "Config");
+      note("Removed non-JSON prefix from lanfu.json.", "Config");
       configRepaired = true;
     } else if (
       !activeConfigRepair &&
@@ -104,10 +104,7 @@ export async function prepareDoctorConfigRecovery(params: {
       !pendingPluginInstallConfig &&
       (await recoverConfigFromLastKnownGood({ snapshot, reason: "doctor-invalid-config" }))
     ) {
-      note(
-        "Restored openclaw.json from last-known-good; original saved as .clobbered.*.",
-        "Config",
-      );
+      note("Restored lanfu.json from last-known-good; original saved as .clobbered.*.", "Config");
       configRepaired = true;
     }
     if (configRepaired) {

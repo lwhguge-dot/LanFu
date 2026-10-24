@@ -38,10 +38,13 @@ describe("entry root version fast path", () => {
         output,
         exit,
         resolveVersion,
+        // Points the ambient package.json scan at a fixture location without
+        // lanfu.productVersion so the expected line stays deterministic.
+        moduleUrl: "file:///vitest-version-fixture/entry.js",
       }),
     ).toBe(true);
     await taggedExit.promise;
-    expect(output).toHaveBeenCalledWith("LanFu 9.9.9-test (abc1234)");
+    expect(output).toHaveBeenCalledWith("LanFu 9.9.9-test, abc1234");
     expect(exit).toHaveBeenCalledWith(0);
 
     output.mockClear();
@@ -56,6 +59,7 @@ describe("entry root version fast path", () => {
         output,
         exit,
         resolveVersion,
+        moduleUrl: "file:///vitest-version-fixture/entry.js",
       }),
     ).toBe(true);
     await plainExit.promise;

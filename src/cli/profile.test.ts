@@ -286,7 +286,7 @@ describe("applyCliProfileEnv", () => {
     const expectedStateDir = path.join(path.resolve("/home/peter"), ".openclaw-dev");
     expect(env.OPENCLAW_PROFILE).toBe("dev");
     expect(env.OPENCLAW_STATE_DIR).toBe(expectedStateDir);
-    expect(env.OPENCLAW_CONFIG_PATH).toBe(path.join(expectedStateDir, "openclaw.json"));
+    expect(env.OPENCLAW_CONFIG_PATH).toBe(path.join(expectedStateDir, "lanfu.json"));
     expect(env.OPENCLAW_GATEWAY_PORT).toBe("19001");
   });
 
@@ -304,7 +304,7 @@ describe("applyCliProfileEnv", () => {
     expect(env.OPENCLAW_PROFILE).toBe("dev");
     expect(env.OPENCLAW_STATE_DIR).toBe("/custom");
     expect(env.OPENCLAW_GATEWAY_PORT).toBe("19099");
-    expect(env.OPENCLAW_CONFIG_PATH).toBe(path.join("/custom", "openclaw.json"));
+    expect(env.OPENCLAW_CONFIG_PATH).toBe(path.join("/custom", "lanfu.json"));
   });
 
   it.each([
@@ -434,7 +434,7 @@ describe("applyCliProfileEnv", () => {
       const expectedStateDir = path.join(path.resolve("/home/peter"), ".openclaw-work");
       expect(env.OPENCLAW_PROFILE).toBe("work");
       expect(env.OPENCLAW_STATE_DIR).toBe(expectedStateDir);
-      expect(env.OPENCLAW_CONFIG_PATH).toBe(path.join(expectedStateDir, "openclaw.json"));
+      expect(env.OPENCLAW_CONFIG_PATH).toBe(path.join(expectedStateDir, "lanfu.json"));
     },
   );
 
@@ -460,7 +460,7 @@ describe("applyCliProfileEnv", () => {
         OPENCLAW_CONFIG_PATH: "/home/peter/.openclaw-main/openclaw.json",
         OPENCLAW_LAUNCHD_LABEL: "ai.openclaw.main",
         OPENCLAW_SYSTEMD_UNIT: systemdUnit,
-        OPENCLAW_WINDOWS_TASK_NAME: "OpenClaw Gateway (main)",
+        OPENCLAW_WINDOWS_TASK_NAME: "LanFu Gateway (main)",
       };
 
       applyCliProfileEnv({ profile: "work", env, homedir: () => "/home/peter" });
@@ -504,7 +504,7 @@ describe("applyCliProfileEnv", () => {
       const expectedStateDir = `/home/peter/.openclaw-${selectedProfile}`;
       expect(env.OPENCLAW_PROFILE).toBe(selectedProfile);
       expect(env.OPENCLAW_STATE_DIR).toBe(expectedStateDir);
-      expect(env.OPENCLAW_CONFIG_PATH).toBe(path.join(expectedStateDir, "openclaw.json"));
+      expect(env.OPENCLAW_CONFIG_PATH).toBe(path.join(expectedStateDir, "lanfu.json"));
     },
   );
 
@@ -552,7 +552,7 @@ describe("applyCliProfileEnv", () => {
       const expectedStateDir = "/home/peter/.openclaw-work";
       expect(env.OPENCLAW_PROFILE).toBe("work");
       expect(env.OPENCLAW_STATE_DIR).toBe(expectedStateDir);
-      expect(env.OPENCLAW_CONFIG_PATH).toBe(path.join(expectedStateDir, "openclaw.json"));
+      expect(env.OPENCLAW_CONFIG_PATH).toBe(path.join(expectedStateDir, "lanfu.json"));
     },
   );
 
@@ -569,9 +569,7 @@ describe("applyCliProfileEnv", () => {
 
     const resolvedHome = path.resolve("/srv/openclaw-home");
     expect(env.OPENCLAW_STATE_DIR).toBe(path.join(resolvedHome, ".openclaw-work"));
-    expect(env.OPENCLAW_CONFIG_PATH).toBe(
-      path.join(resolvedHome, ".openclaw-work", "openclaw.json"),
-    );
+    expect(env.OPENCLAW_CONFIG_PATH).toBe(path.join(resolvedHome, ".openclaw-work", "lanfu.json"));
   });
 });
 

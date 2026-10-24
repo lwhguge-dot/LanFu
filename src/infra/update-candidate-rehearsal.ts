@@ -196,7 +196,7 @@ export async function prepareUpdateCandidateRehearsal(params: {
     workerEnv,
   });
   const env = workerEnv(tempDir);
-  const configPath = path.join(tempDir, "openclaw.json");
+  const configPath = path.join(tempDir, "lanfu.json");
   const workspaceDir = path.join(tempDir, "workspace");
   const cleanup = async () => {
     for (const directory of cleanupDirectories) {

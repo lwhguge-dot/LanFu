@@ -128,7 +128,7 @@ const enSettings = {
       secret: "Gateway secret",
       secretPlaceholder: "Paste the token or type the password",
       setupCodeHint:
-        "This is a device setup code for the LanFu mobile app, not the Gateway secret. Paste it in the app's Gateway settings instead; the Gateway secret comes from openclaw gateway auth-token --show on the Gateway host.",
+        "This is a device setup code for the LanFu mobile app, not the Gateway secret. Paste it in the app's Gateway settings instead; the Gateway secret comes from lanfu gateway auth-token --show on the Gateway host.",
       secretHint: "Tokens are saved for this tab after connecting. Passwords are never stored.",
       tokenHint: "This Gateway expects its token. Saved for this tab after connecting.",
       passwordHint: "This Gateway expects its password. Passwords are never stored.",
@@ -175,7 +175,7 @@ const enSettings = {
       retiring: "Retiring",
       retirementPending: "Checkpoint deletion pending",
       retirementHint:
-        "Checkpoint {checkpoint} is awaiting deletion. Cleanup retries during the next warm-image capture or worker teardown. Inspect openclaw crabbox warm-images --json and resolve provider deletion errors if it remains pending.",
+        "Checkpoint {checkpoint} is awaiting deletion. Cleanup retries during the next warm-image capture or worker teardown. Inspect lanfu crabbox warm-images --json and resolve provider deletion errors if it remains pending.",
       scrubbing: "Building: scrubbing",
       creating: "Building: creating",
       uncertain: "Paused: uncertain",
@@ -273,7 +273,7 @@ const enSettings = {
       recoveryChanged: "The Gateway connection changed. Refresh snapshots and try recovery again.",
       migration: "Needs migration",
       migrationHint:
-        "Run openclaw doctor --fix and follow its provider-cleanup recovery instructions before provisioning workers.",
+        "Run lanfu doctor --fix and follow its provider-cleanup recovery instructions before provisioning workers.",
     },
     intro: "Run agent sessions on ephemeral cloud machines instead of this gateway.",
     sectionTitle: "Profiles",
@@ -797,7 +797,7 @@ const enSettings = {
       chromeExtensionTabsHint:
         "A connected extension does not mean eligible tabs are available. Check tabs on this host and profile in the browser tools; an empty list is different from a disconnected extension.",
       chromeExtensionFailed:
-        "Setup could not finish. Check the LanFu CLI on this device with openclaw browser extension setup, then try again.",
+        "Setup could not finish. Check the LanFu CLI on this device with lanfu browser extension setup, then try again.",
       chromeExtensionPhases: {
         inspection_required: "Setup required on this device.",
         preparing: "Preparing Chrome on this device.",

@@ -150,7 +150,7 @@ export async function prepareNodeRuntimeUpdate(params: {
           ...process.env,
           // Lifecycle work must not select an operator's live state or config.
           OPENCLAW_STATE_DIR: path.join(workspace, "state"),
-          OPENCLAW_CONFIG_PATH: path.join(workspace, "openclaw.json"),
+          OPENCLAW_CONFIG_PATH: path.join(workspace, "lanfu.json"),
         });
         const runCommand: CommandRunner = async (argv, options) => {
           assertCurrent();

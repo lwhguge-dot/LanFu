@@ -107,14 +107,18 @@ export function applyCliProfileEnv(params: {
       homedir,
     }) === inheritedProfileStateDir,
   );
+  const inheritedConfigHomePath = existingConfigPath
+    ? resolveHomeRelativePath(existingConfigPath, {
+        env: env as NodeJS.ProcessEnv,
+        homedir,
+      })
+    : undefined;
   const replacesInheritedProfileConfig = Boolean(
     switchesInheritedProfile &&
     (!existingStateDir || switchesInheritedProfileState) &&
-    existingConfigPath &&
-    resolveHomeRelativePath(existingConfigPath, {
-      env: env as NodeJS.ProcessEnv,
-      homedir,
-    }) === path.join(inheritedProfileStateDir, "openclaw.json"),
+    inheritedConfigHomePath !== undefined &&
+    (inheritedConfigHomePath === path.join(inheritedProfileStateDir, "lanfu.json") ||
+      inheritedConfigHomePath === path.join(inheritedProfileStateDir, "openclaw.json")),
   );
   const inheritedManagedServiceSelectors =
     switchesInheritedProfile &&
@@ -143,7 +147,7 @@ export function applyCliProfileEnv(params: {
     !inheritedManagedServiceSelectors &&
     (!existingConfigPath || replacesInheritedProfileConfig)
   ) {
-    env.OPENCLAW_CONFIG_PATH = path.join(stateDir, "openclaw.json");
+    env.OPENCLAW_CONFIG_PATH = path.join(stateDir, "lanfu.json");
   }
 
   if (switchesInheritedProfile && !inheritedManagedServiceSelectors) {

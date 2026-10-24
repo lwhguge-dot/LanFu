@@ -169,8 +169,8 @@ export function warnWhenAllowlistIsOpen(params: {
     .join(", ");
   // Skip the snippet when truncated: a previewed-only allowlist would silently disable the rest
   const remediation = truncated
-    ? "Run 'openclaw plugins list --enabled --verbose' to enumerate every discovered plugin id, inspect trusted ids with 'openclaw plugins inspect <id>', and add the ones you trust to plugins.allow in openclaw.json."
-    : `To trust them explicitly, set plugins.allow in openclaw.json (e.g. "plugins": { "allow": [${autoDiscoverable
+    ? "Run 'lanfu plugins list --enabled --verbose' to enumerate every discovered plugin id, inspect trusted ids with 'lanfu plugins inspect <id>', and add the ones you trust to plugins.allow in lanfu.json."
+    : `To trust them explicitly, set plugins.allow in lanfu.json (e.g. "plugins": { "allow": [${autoDiscoverable
         .map((entry) => JSON.stringify(entry.id))
         .join(
           ", ",

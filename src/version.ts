@@ -110,7 +110,7 @@ export function formatProductVersionLine(params: {
   const suffix = params.commit ? `, ${params.commit}` : "";
   const product = normalizeOptionalString(params.productVersion ?? undefined);
   if (product && product !== params.version) {
-    return `LanFu ${product} (OpenClaw ${params.version}${suffix})`;
+    return `LanFu ${product} (core ${params.version}${suffix})`;
   }
   return `LanFu ${params.version}${suffix}`;
 }

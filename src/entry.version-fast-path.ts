@@ -28,7 +28,7 @@ export function tryHandleRootVersionFastPath(
     deps.onError ??
     (async (error: unknown) => {
       const detail = error instanceof Error ? (error.stack ?? error.message) : String(error);
-      const message = `[openclaw] Failed to resolve version: ${detail}\n`;
+      const message = `[lanfu] Failed to resolve version: ${detail}\n`;
       try {
         const [{ loadCliDotEnv }, { formatConsoleDiagnosticBlock }] = await Promise.all([
           import("./cli/dotenv.js"),

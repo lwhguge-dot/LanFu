@@ -38,24 +38,12 @@ Source generation fails if a present channel secret-contract artifact cannot loa
 - `channels.buzz.privateKey`
 - `channels.clickclack.accounts.*.token`
 - `channels.clickclack.token`
-- `channels.discord.accounts.*.pluralkit.token`
-- `channels.discord.accounts.*.token`
-- `channels.discord.accounts.*.voice.realtime.providers.*.apiKey`
-- `channels.discord.accounts.*.voice.tts.personas.*.providers.*.apiKey`
-- `channels.discord.accounts.*.voice.tts.providers.*.apiKey`
-- `channels.discord.pluralkit.token`
-- `channels.discord.token`
-- `channels.discord.voice.realtime.providers.*.apiKey`
-- `channels.discord.voice.tts.personas.*.providers.*.apiKey`
-- `channels.discord.voice.tts.providers.*.apiKey`
 - `channels.feishu.accounts.*.appSecret`
 - `channels.feishu.accounts.*.encryptKey`
 - `channels.feishu.accounts.*.verificationToken`
 - `channels.feishu.appSecret`
 - `channels.feishu.encryptKey`
 - `channels.feishu.verificationToken`
-- `channels.googlechat.accounts.*.serviceAccount`
-- `channels.googlechat.serviceAccount`
 - `channels.irc.accounts.*.nickserv.password`
 - `channels.irc.accounts.*.password`
 - `channels.irc.nickserv.password`
@@ -66,7 +54,6 @@ Source generation fails if a present channel secret-contract artifact cannot loa
 - `channels.matrix.password`
 - `channels.mattermost.accounts.*.botToken`
 - `channels.mattermost.botToken`
-- `channels.msteams.appPassword`
 - `channels.nextcloud-talk.accounts.*.apiPassword`
 - `channels.nextcloud-talk.accounts.*.botSecret`
 - `channels.nextcloud-talk.apiPassword`
@@ -74,26 +61,8 @@ Source generation fails if a present channel secret-contract artifact cannot loa
 - `channels.nostr.privateKey`
 - `channels.qqbot.accounts.*.clientSecret`
 - `channels.qqbot.clientSecret`
-- `channels.slack.accounts.*.appToken`
-- `channels.slack.accounts.*.botToken`
-- `channels.slack.accounts.*.relay.authToken`
-- `channels.slack.accounts.*.signingSecret`
-- `channels.slack.accounts.*.userToken`
-- `channels.slack.appToken`
-- `channels.slack.botToken`
-- `channels.slack.relay.authToken`
-- `channels.slack.signingSecret`
-- `channels.slack.userToken`
 - `channels.sms.accounts.*.authToken`
 - `channels.sms.authToken`
-- `channels.telegram.accounts.*.botToken`
-- `channels.telegram.accounts.*.webhookSecret`
-- `channels.telegram.botToken`
-- `channels.telegram.webhookSecret`
-- `channels.zalo.accounts.*.botToken`
-- `channels.zalo.accounts.*.webhookSecret`
-- `channels.zalo.botToken`
-- `channels.zalo.webhookSecret`
 
 #### `cron`
 
@@ -156,6 +125,11 @@ Source generation fails if a present channel secret-contract artifact cannot loa
 - `plugins.entries.webhooks.config.routes.*.secret`
 - `plugins.entries.xai.config.webSearch.apiKey`
 
+#### `profiles`
+
+- `profiles.*.keyRef`
+- `profiles.*.tokenRef`
+
 #### `skills`
 
 - `skills.entries.*.apiKey`
@@ -169,11 +143,6 @@ Source generation fails if a present channel secret-contract artifact cannot loa
 
 - `tts.personas.*.providers.*.apiKey`
 - `tts.providers.*.apiKey`
-
-### SQLite auth-profile targets (`secrets configure` + `secrets apply` + `secrets audit`)
-
-- `profiles.*.keyRef` (`type: "api_key"`; unsupported when `auth.profiles.<id>.mode = "oauth"`)
-- `profiles.*.tokenRef` (`type: "token"`; unsupported when `auth.profiles.<id>.mode = "oauth"`)
 
 [//]: # "secretref-supported-list-end"
 
@@ -207,14 +176,10 @@ These credentials are minted, rotated, session-bearing, or OAuth-durable classes
 
 [//]: # "secretref-unsupported-list-start"
 
-- `hooks.token`
+- `auth-profiles.oauth.*`
 - `hooks.gmail.pushToken`
 - `hooks.mappings[].sessionKey`
-- `auth-profiles.oauth.*`
-- `channels.discord.accounts.*.threadBindings.webhookToken`
-- `channels.discord.threadBindings.webhookToken`
-- `channels.whatsapp.accounts.*.creds.json`
-- `channels.whatsapp.creds.json`
+- `hooks.token`
 
 [//]: # "secretref-unsupported-list-end"
 

@@ -29,8 +29,8 @@ export let isNixMode = resolveIsNixMode();
 export function resolveIsConfigReadOnly(env: NodeJS.ProcessEnv = process.env): boolean {
   return env.OPENCLAW_CONFIG_READONLY === "1" || resolveIsNixMode(env);
 }
-const CONFIG_FILENAME = "openclaw.json";
-const LEGACY_CONFIG_FILENAMES = ["clawdbot.json"] as const;
+const CONFIG_FILENAME = "lanfu.json";
+const LEGACY_CONFIG_FILENAMES = ["openclaw.json", "clawdbot.json"] as const;
 
 /** True when the root CLI selected a non-default isolated profile. */
 export function isNamedProfile(env: NodeJS.ProcessEnv = process.env): boolean {
@@ -186,7 +186,7 @@ function resolveUserPath(
  *
  * Returns an empty array when the var is unset or contains no usable entries,
  * preserving the historical behavior where `$include` is confined to the
- * directory containing `openclaw.json`.
+ * directory containing `lanfu.json`.
  */
 export function resolveIncludeRoots(
   env: NodeJS.ProcessEnv = process.env,
@@ -221,7 +221,7 @@ export let STATE_DIR = resolveStateDir();
 /**
  * Config file path (JSON or JSON5).
  * Can be overridden via OPENCLAW_CONFIG_PATH.
- * Default: ~/.openclaw/openclaw.json (or $OPENCLAW_STATE_DIR/openclaw.json)
+ * Default: ~/.lanfu/lanfu.json (or $OPENCLAW_STATE_DIR/lanfu.json)
  */
 export function resolveCanonicalConfigPath(
   env: NodeJS.ProcessEnv = process.env,
@@ -246,9 +246,6 @@ export function resolveConfigPathCandidate(
   if (override) {
     // Explicit selection is independent of existence, including during bootstrap.
     return resolveUserPath(override, env, homedir);
-  }
-  if (isFastTestRuntimeEnv(env)) {
-    return resolveCanonicalConfigPath(env, resolveStateDir(env, homedir));
   }
   const candidates = resolveDefaultConfigCandidates(env, homedir);
   const existing = candidates.find((candidate) => {
@@ -277,9 +274,6 @@ export function resolveConfigPath(
     return resolveUserPath(override, env, homedir);
   }
   const selectedStateDir = stateDir ?? resolveStateDir(env, envHomedir(env));
-  if (isFastTestRuntimeEnv(env)) {
-    return path.join(selectedStateDir, CONFIG_FILENAME);
-  }
   const stateOverride = env.OPENCLAW_STATE_DIR?.trim();
   const candidates = [
     path.join(selectedStateDir, CONFIG_FILENAME),
@@ -321,7 +315,40 @@ export function pinRuntimePaths(env: NodeJS.ProcessEnv = process.env): {
   isNixMode = resolveIsNixMode(env);
   STATE_DIR = resolveStateDir(env);
   CONFIG_PATH = resolveConfigPathCandidate(env);
+  migrateLegacyConfigFileInPlace(env);
   return { configPath: CONFIG_PATH, stateDir: STATE_DIR };
+}
+
+/**
+ * Physically renames a legacy config file (openclaw.json / clawdbot.json) to
+ * lanfu.json once, so users never see the legacy name after first launch.
+ * Skipped for tests, explicit config overrides, and read-only/externally
+ * managed configs; when both files exist, lanfu.json wins and the legacy
+ * file is left untouched.
+ */
+function migrateLegacyConfigFileInPlace(env: NodeJS.ProcessEnv): void {
+  if (
+    isFastTestRuntimeEnv(env) ||
+    env.OPENCLAW_CONFIG_PATH?.trim() ||
+    resolveIsConfigReadOnly(env)
+  ) {
+    return;
+  }
+  const legacyNames = LEGACY_CONFIG_FILENAMES.filter((name) => path.basename(CONFIG_PATH) === name);
+  if (legacyNames.length === 0) {
+    return;
+  }
+  const target = path.join(path.dirname(CONFIG_PATH), CONFIG_FILENAME);
+  try {
+    if (fs.existsSync(target) || !fs.existsSync(CONFIG_PATH)) {
+      return;
+    }
+    fs.renameSync(CONFIG_PATH, target);
+    CONFIG_PATH = target;
+  } catch {
+    // Rename failures (permissions, junction edge cases) fall back to reading
+    // the legacy file in place via the existing candidate resolution.
+  }
 }
 
 export function captureRuntimeStateEnvironment(): NodeJS.ProcessEnv {

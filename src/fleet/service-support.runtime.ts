@@ -32,7 +32,7 @@ import {
   type FleetCellRecord,
 } from "./registry.js";
 
-const CELL_CONFIG_FILENAME = "openclaw.json";
+const CELL_CONFIG_FILENAME = "lanfu.json";
 const HEALTH_TIMEOUT_MS = 1_000;
 const CELL_CONFIG_MAX_BYTES = 4 * 1024 * 1024;
 const FLEET_OPERATION_HEARTBEAT_MS = 60_000;

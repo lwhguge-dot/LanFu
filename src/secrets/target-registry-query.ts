@@ -87,7 +87,7 @@ function buildConfigTargetIdIndex(
 function compileSecretTargetRegistryState(registry: SecretTargetRegistryEntry[]) {
   const compiledSecretTargetRegistry = registry.map(compileTargetRegistryEntry);
   const openClawCompiledSecretTargets = compiledSecretTargetRegistry.filter(
-    (entry) => entry.configFile === "openclaw.json",
+    (entry) => entry.configFile === "lanfu.json",
   );
   const authProfilesCompiledSecretTargets = compiledSecretTargetRegistry.filter(
     (entry) => entry.configFile === "auth-profile-store",
@@ -129,7 +129,7 @@ function getCompiledCoreOpenClawTargetState() {
   }
   const compiledCoreSecretTargets = getCoreSecretTargetRegistry().map(compileTargetRegistryEntry);
   const openClawCompiledSecretTargets = compiledCoreSecretTargets.filter(
-    (entry) => entry.configFile === "openclaw.json",
+    (entry) => entry.configFile === "lanfu.json",
   );
   compiledCoreOpenClawTargetState = {
     knownTargetIds: new Set(compiledCoreSecretTargets.map((entry) => entry.id)),
@@ -175,7 +175,7 @@ function getCompiledChannelOpenClawTargets(
       config: {} as OpenClawConfig,
       env: process.env,
     })
-      ?.secretTargetRegistryEntries?.filter((entry) => entry.configFile === "openclaw.json")
+      ?.secretTargetRegistryEntries?.filter((entry) => entry.configFile === "lanfu.json")
       .map(compileTargetRegistryEntry) ?? null;
   compiledChannelOpenClawTargets.set(normalizedChannelId, compiledEntries);
   return compiledEntries;
@@ -218,7 +218,7 @@ function getConfiguredChannelOpenClawTargets(
     }
     entries.push(
       ...(contract.secretTargetRegistryEntries
-        ?.filter((entry) => entry.configFile === "openclaw.json")
+        ?.filter((entry) => entry.configFile === "lanfu.json")
         .map(compileTargetRegistryEntry) ?? []),
     );
   }
@@ -446,7 +446,7 @@ export function resolveSecretPlanTargetByPathCore(params: {
   pathSegments: string[];
   pathTokens?: readonly ConcreteConfigPathSegment[];
 }): ResolvedPlanTarget | null {
-  if (params.configFile === "openclaw.json") {
+  if (params.configFile === "lanfu.json") {
     return resolveConfigSecretTargetByPath(params.pathSegments, params.pathTokens);
   }
   return resolvePlanTargetAgainstEntries(
@@ -456,7 +456,7 @@ export function resolveSecretPlanTargetByPathCore(params: {
 }
 
 /**
- * Resolves an openclaw.json config path to the matching plan-capable secrets target.
+ * Resolves a lanfu.json config path to the matching plan-capable secrets target.
  */
 export function resolveConfigSecretTargetByPath(
   pathSegments: string[],
@@ -485,7 +485,7 @@ export function resolveConfigSecretTargetByPath(
   );
 }
 
-/** Discovers configured secret-bearing values in openclaw.json. */
+/** Discovers configured secret-bearing values in lanfu.json. */
 export function discoverConfigSecretTargets(
   config: OpenClawConfig,
   options: {
@@ -497,7 +497,7 @@ export function discoverConfigSecretTargets(
 }
 
 /**
- * Discovers configured openclaw.json targets, optionally limited to selected registry ids.
+ * Discovers configured lanfu.json targets, optionally limited to selected registry ids.
  */
 export function discoverConfigSecretTargetsByIds(
   config: OpenClawConfig,

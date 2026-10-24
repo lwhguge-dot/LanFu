@@ -77,7 +77,7 @@ async function withFreshUpdateArtifact<T>(
       Object.assign(env, {
         OPENCLAW_HOME: home,
         OPENCLAW_STATE_DIR: state,
-        OPENCLAW_CONFIG_PATH: path.join(state, "openclaw.json"),
+        OPENCLAW_CONFIG_PATH: path.join(state, "lanfu.json"),
         TMPDIR: tmp,
         TMP: tmp,
         TEMP: tmp,

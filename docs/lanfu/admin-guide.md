@@ -15,7 +15,7 @@ LanFu-Setup-x64.exe /VERYSILENT /SUPPRESSMSGBOXES /NORESTART /NOCANCEL /LOG=%TEM
 - 安装位置：
   - 桌面端：`%LOCALAPPDATA%\LanFu\`（LanFu.exe）
   - 网关运行时：`%LOCALAPPDATA%\Programs\LanFu\`（app/、runtime/、lanfu.cmd、ensure-gateway.ps1、approve-pairing.ps1）
-  - 用户数据：`%USERPROFILE%\.lanfu\`（openclaw.json、agents/main、state/openclaw.sqlite、workspace）
+  - 用户数据：`%USERPROFILE%\.lanfu\`（lanfu.json、agents/main、state/openclaw.sqlite、workspace；0.4.33 起配置文件由 openclaw.json 更名为 lanfu.json，老文件在网关首次启动时自动改名迁移）
 - 首次启动：网关通常 **2 分钟内**就绪（安装后首次 2–4 分钟，由 240 秒窗口兜底），随后应用自动连接、身份与配对自动完成。
 - 未签名安装包可能触发 SmartScreen：选「更多信息 → 仍要运行」。
 
@@ -70,7 +70,7 @@ LanFu-Setup-x64.exe /VERYSILENT /SUPPRESSMSGBOXES /NORESTART /NOCANCEL /LOG=%TEM
 
 - 安装包未做代码签名（当前决定）；只从公司 GitHub Release 分发。
 - 更新检查使用构建时注入的**只读** GitHub token；如需轮换：在 GitHub 生成只读 fine-grained PAT（仅本仓库 contents: read），更新仓库 Actions secret `LANFU_UPDATE_TOKEN`，再发一版即可（旧版本内嵌旧 token，需升级后生效）。
-- 不要把 `.lanfu\openclaw.json`、日志或诊断包随意外发（可能含会话/令牌信息，诊断导出会脱敏但请复核）。
+- 不要把 `.lanfu\lanfu.json`、日志或诊断包随意外发（可能含会话/令牌信息，诊断导出会脱敏但请复核）。
 
 ## 8. 发布（管理员/维护者）
 

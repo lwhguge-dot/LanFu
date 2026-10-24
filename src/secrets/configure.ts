@@ -268,7 +268,7 @@ async function promptOptionalPositiveInt(params: {
 }
 
 function configureCandidateKey(candidate: {
-  configFile: "openclaw.json" | "auth-profile-store";
+  configFile: "lanfu.json" | "auth-profile-store";
   path: string;
   agentId?: string;
 }): string {
@@ -914,7 +914,7 @@ export async function runSecretsConfigureInteractive(
         hint: [
           // Auth profiles live in the agent's SQLite store; naming the retired
           // JSON file here sent operators looking for a file that no longer exists.
-          candidate.configFile === "auth-profile-store" ? "auth profile store" : "openclaw.json",
+          candidate.configFile === "auth-profile-store" ? "auth profile store" : "lanfu.json",
           candidate.isDerived === true ? "derived" : undefined,
         ]
           .filter(Boolean)

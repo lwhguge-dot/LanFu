@@ -18,7 +18,7 @@
    这样会拉取 win32 原生包（`@lancedb/lancedb-win32-x64-msvc`、`@openclaw/fs-safe-win32-x64-msvc`、`@lydell/node-pty-win32-x64`、`@trycua/cua-driver-win32-x64-msvc`、`@koromix/koffi-win32-x64` 等），产物体积约 590MB。
 3. **随身 Node**：使用固定版本 `node-v24.19.0-win-x64`，解压后约 101MB。
 4. **安装器**：Inno Setup 6 `ISCC.exe` 编译 `packaging/windows/LanFu.iss`，产出 `LanFu-Setup-x64.exe`（本次 149MB）。
-5. **实装验证（本机 Windows）**：静默安装 `/VERYSILENT` 成功；安装到 `%LOCALAPPDATA%\Programs\LanFu`；首次运行写入 `%USERPROFILE%\.lanfu\openclaw.json`（gateway.mode=local、公司 vLLM provider、随机 token）；`runtime\node.exe app\openclaw.mjs gateway --port 18789` **可以启动并返回 HTTP 200**。
+5. **实装验证（本机 Windows）**：静默安装 `/VERYSILENT` 成功；安装到 `%LOCALAPPDATA%\Programs\LanFu`；首次运行写入 `%USERPROFILE%\.lanfu\lanfu.json`（gateway.mode=local、公司 vLLM provider、随机 token）；`runtime\node.exe app\openclaw.mjs gateway --port 18789` **可以启动并返回 HTTP 200**。
 
 ## 必须解决的问题（按优先级）
 

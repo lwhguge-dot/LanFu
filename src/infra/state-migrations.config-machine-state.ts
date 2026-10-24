@@ -1,4 +1,4 @@
-// Imports machine-owned openclaw.json values into the shared SQLite state store.
+// Imports machine-owned lanfu.json values into the shared SQLite state store.
 import { asOptionalRecord } from "@openclaw/normalization-core/record-coerce";
 import type { OpenClawConfig } from "../config/types.openclaw.js";
 import { compareOpenClawVersions } from "../config/version.js";

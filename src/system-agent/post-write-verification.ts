@@ -16,7 +16,7 @@ export async function verifyConfigAfterSystemAgentWrite(
     const { readConfigFileSnapshot } = await import("../config/config.js");
     const snapshot = await readConfigFileSnapshot();
     if (!snapshot.exists) {
-      return unavailable("openclaw.json was not found");
+      return unavailable("lanfu.json was not found");
     }
     if (snapshot.valid) {
       return null;
@@ -27,7 +27,7 @@ export async function verifyConfigAfterSystemAgentWrite(
     );
     issuesText = issues.length > 0 ? issues.join("\n") : "unknown validation failure";
   } catch {
-    return unavailable("openclaw.json could not be read");
+    return unavailable("lanfu.json could not be read");
   }
   return await resolveConfigWriteRepair(issuesText, resolveRepair, true);
 }
@@ -38,7 +38,7 @@ export async function resolveConfigWriteRepair(
   applied = false,
 ): Promise<string> {
   const notice = applied
-    ? `⚠ openclaw.json failed validation after that write:\n${issuesText}`
+    ? `⚠ lanfu.json failed validation after that write:\n${issuesText}`
     : `The config write failed; proposing a fix.\n${issuesText}`;
   let recovery: { text: string };
   try {

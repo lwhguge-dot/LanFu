@@ -68,7 +68,7 @@ export async function createWorkerRuntimeEnvironment(sessionId: string) {
         : "transport-only",
   });
   process.env.OPENCLAW_STATE_DIR = stateDir;
-  process.env.OPENCLAW_CONFIG_PATH = path.join(stateDir, "openclaw.json");
+  process.env.OPENCLAW_CONFIG_PATH = path.join(stateDir, "lanfu.json");
   let closing: Promise<void> | undefined;
   return {
     stateDir,

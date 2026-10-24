@@ -224,7 +224,7 @@ describe("config io write", () => {
     expect(warnMessages(warn).join("\n")).toContain(expected);
   };
 
-  const configPathForHome = (home: string, fileName = "openclaw.json") =>
+  const configPathForHome = (home: string, fileName = "lanfu.json") =>
     path.join(home, ".openclaw", fileName);
 
   const formatConfig = (config: unknown) => `${JSON.stringify(config, null, 2)}\n`;
@@ -729,7 +729,7 @@ describe("config io write", () => {
         env,
       });
 
-      expect(io.configPath).toBe(path.join(overrideDir, "openclaw.json"));
+      expect(io.configPath).toBe(path.join(overrideDir, "lanfu.json"));
 
       await io.writeConfigFile({
         agents: { entries: { main: { default: true } } },
@@ -743,7 +743,7 @@ describe("config io write", () => {
       expect(livePersisted.gateway).toEqual({ mode: "local", port: 18789 });
 
       const overridePersisted = JSON.parse(
-        await fs.readFile(path.join(overrideDir, "openclaw.json"), "utf-8"),
+        await fs.readFile(path.join(overrideDir, "lanfu.json"), "utf-8"),
       ) as {
         session?: { store?: unknown };
       };

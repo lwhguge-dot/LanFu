@@ -10,7 +10,7 @@ export const finalConfigValidationCheck: DoctorHealthCheck = {
   id: FINAL_CONFIG_VALIDATION_CHECK_ID,
   updateReadiness: "post-plugin",
   kind: "core",
-  description: "Active openclaw.jsonc parses and conforms to the config schema.",
+  description: "Active lanfu.json parses and conforms to the config schema.",
   source: "doctor",
   async detect(ctx: DoctorHealthCheckContext) {
     let snap = ctx.mode === "lint" ? ctx.lintConfigSnapshot : undefined;

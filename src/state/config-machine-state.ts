@@ -1,4 +1,4 @@
-// Machine-owned values retired from openclaw.json live in the shared state database.
+// Machine-owned values retired from lanfu.json live in the shared state database.
 import type { DatabaseSync } from "node:sqlite";
 import { executeSqliteQueryTakeFirstSync, getNodeSqliteKysely } from "../infra/kysely-sync.js";
 import type { OpenClawStateDatabaseOptions } from "./openclaw-state-db-contract.js";

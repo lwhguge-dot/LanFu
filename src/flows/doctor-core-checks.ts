@@ -243,7 +243,7 @@ const defaultCoreHealthCheckDeps: CoreHealthCheckDeps = {
 const gatewayConfigCheck: HealthCheck = {
   id: "core/doctor/gateway-config",
   kind: "core",
-  description: "openclaw.jsonc gateway block is set and unambiguous.",
+  description: "lanfu.json gateway block is set and unambiguous.",
   source: "doctor",
   async detect(ctx) {
     const findings: HealthFinding[] = [];

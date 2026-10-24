@@ -319,7 +319,7 @@ function attachConfigIssueDiagnostics(
   const sourceFile =
     typeof params.configPath === "string" && params.configPath.trim()
       ? path.basename(params.configPath)
-      : "openclaw.json";
+      : "lanfu.json";
   return issues.map((issue) => {
     const segments = issue.pathSegments;
     if (!segments || segments.length === 0) {

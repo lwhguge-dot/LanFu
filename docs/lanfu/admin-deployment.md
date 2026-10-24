@@ -6,7 +6,7 @@ LanFu 是员工各自安装、各自使用的公司版 AI 助手。它不是集�
 
 ## 默认配置（安装时自动写入）
 
-首次运行时安装脚本会写入 %USERPROFILE%\.lanfu\openclaw.json（Linux 为 ~/.lanfu/openclaw.json），要点：
+首次运行时安装脚本会写入 %USERPROFILE%\.lanfu\lanfu.json（Linux 为 ~/.lanfu/lanfu.json；旧版安装留下的 openclaw.json 会在网关首次启动时自动改名为 lanfu.json），要点：
 
 | 键                            | 值                            | 说明                           |
 | ----------------------------- | ----------------------------- | ------------------------------ |

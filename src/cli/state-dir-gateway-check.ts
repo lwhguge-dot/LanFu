@@ -76,7 +76,7 @@ export function compareCliGatewayStateDirs(params: {
   const cliConfigPath = resolveIdentityPathViaExistingAncestorSync(params.cliConfigPath);
   const gatewayStateDir = resolveIdentityPathViaExistingAncestorSync(params.gatewayStateDir);
   const gatewayConfigPath = resolveIdentityPathViaExistingAncestorSync(
-    params.gatewayConfigPath ?? path.join(gatewayStateDir, "openclaw.json"),
+    params.gatewayConfigPath ?? path.join(gatewayStateDir, "lanfu.json"),
   );
   const differences = [
     cliStateDir !== gatewayStateDir &&

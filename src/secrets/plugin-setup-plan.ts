@@ -94,7 +94,7 @@ function createPluginConfigSecretTarget(params: {
     throw new Error(`Invalid --target config path: ${params.path}`);
   }
   const resolved = resolveSecretPlanTargetByPathCore({
-    configFile: params.agentId ? "auth-profile-store" : "openclaw.json",
+    configFile: params.agentId ? "auth-profile-store" : "lanfu.json",
     pathSegments,
     pathTokens: parsedPath,
   });

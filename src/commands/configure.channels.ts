@@ -67,7 +67,7 @@ function compareChannelRemovalChoices(
   );
 }
 
-/** Prompt for configured channel sections to remove from openclaw.json. */
+/** Prompt for configured channel sections to remove from lanfu.json. */
 export async function removeChannelConfigWizard(
   cfg: OpenClawConfig,
   runtime: RuntimeEnv,
@@ -79,8 +79,8 @@ export async function removeChannelConfigWizard(
     if (configured.length === 0) {
       note(
         [
-          "No channel config found in openclaw.json.",
-          `Tip: \`${formatCliCommand("openclaw channels status")}\` shows what is configured and enabled.`,
+          "No channel config found in lanfu.json.",
+          `Tip: \`${formatCliCommand("lanfu channels status")}\` shows what is configured and enabled.`,
         ].join("\n"),
         "Remove channel",
       );

@@ -185,11 +185,11 @@ export function resolveLoginFailureFeedback(
       // `approve --latest` only previews the newest pending request and prints the
       // exact approve command; without a request id the steps say to run that too.
       primaryCommand: pairing.requestId
-        ? `openclaw devices approve ${pairing.requestId}`
-        : "openclaw devices approve --latest",
+        ? `lanfu devices approve ${pairing.requestId}`
+        : "lanfu devices approve --latest",
       stepKeys: [
         ...(pairing.requestId ? [] : ["login.failure.pairing.stepLatest"]),
-        { key: "login.failure.pairing.stepDashboard", commands: ["openclaw dashboard"] },
+        { key: "login.failure.pairing.stepDashboard", commands: ["lanfu dashboard"] },
         ...(params.reconnectPending ? [] : ["login.failure.pairing.stepReconnect"]),
       ],
       stepParams: { host },
@@ -250,7 +250,7 @@ export function resolveLoginFailureFeedback(
       summaryKey: "login.failure.protocol.summary",
       refreshAction: { label: t("login.failure.protocol.refresh") },
       stepKeys: [
-        { key: "login.failure.protocol.stepDashboard", commands: ["openclaw dashboard"] },
+        { key: "login.failure.protocol.stepDashboard", commands: ["lanfu dashboard"] },
         { key: "login.failure.protocol.stepDevUi", commands: ["pnpm ui:dev"] },
         "login.failure.protocol.stepRestart",
       ],
@@ -288,11 +288,11 @@ export function resolveLoginFailureFeedback(
         : [
             {
               key: "login.failure.authRequired.stepPaste",
-              commands: ["openclaw gateway auth-token --show"],
+              commands: ["lanfu gateway auth-token --show"],
             },
             {
               key: "login.failure.authRequired.stepGenerate",
-              commands: ["openclaw doctor --generate-gateway-token"],
+              commands: ["lanfu doctor --generate-gateway-token"],
             },
             "login.failure.authRequired.stepConnect",
           ],
@@ -321,7 +321,7 @@ export function resolveLoginFailureFeedback(
         : [
             {
               key: "login.failure.authFailed.stepDashboard",
-              commands: ["openclaw dashboard --no-open", "openclaw gateway auth-token --show"],
+              commands: ["lanfu dashboard --no-open", "lanfu gateway auth-token --show"],
             },
             "login.failure.authFailed.stepReplace",
           ],
@@ -340,12 +340,12 @@ export function resolveLoginFailureFeedback(
     stepKeys: [
       {
         key: "login.failure.network.stepGateway",
-        commands: ["openclaw status", "openclaw gateway run"],
+        commands: ["lanfu status", "lanfu gateway run"],
       },
       "login.failure.network.stepUrl",
       {
         key: "login.failure.network.stepDashboard",
-        commands: ["openclaw dashboard --no-open"],
+        commands: ["lanfu dashboard --no-open"],
       },
     ],
     stepParams: { host },

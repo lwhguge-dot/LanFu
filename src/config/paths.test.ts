@@ -168,7 +168,7 @@ describe("default install identity", () => {
             HOME: home,
             OPENCLAW_PROFILE: "work",
             OPENCLAW_STATE_DIR: profileStateDir,
-            OPENCLAW_CONFIG_PATH: path.join(profileStateDir, "openclaw.json"),
+            OPENCLAW_CONFIG_PATH: path.join(profileStateDir, "lanfu.json"),
           },
           () => home,
         ),
@@ -196,7 +196,7 @@ describe("default install identity", () => {
       ).toBe(false);
 
       await fs.mkdir(profileStateDir, { recursive: true });
-      await fs.writeFile(path.join(profileStateDir, "openclaw.json"), "{}");
+      await fs.writeFile(path.join(profileStateDir, "lanfu.json"), "{}");
       expect(
         isDefaultInstallIdentity(
           {
@@ -597,7 +597,7 @@ describe("state + config path candidates", () => {
       const overrideDir = path.join(root, "override");
       const env = { OPENCLAW_STATE_DIR: overrideDir };
       const resolved = resolveConfigPath(env, overrideDir, () => root);
-      expect(resolved).toBe(path.join(overrideDir, "openclaw.json"));
+      expect(resolved).toBe(path.join(overrideDir, "lanfu.json"));
     });
   });
 });

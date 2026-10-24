@@ -266,7 +266,7 @@ export const systemAgentHandlers: GatewayRequestHandlers = {
                 );
               }
               // Match the classic wizard: mutate the authored shape, not runtimeConfig,
-              // so setup never writes resolved runtime defaults into openclaw.json.
+              // so setup never writes resolved runtime defaults into lanfu.json.
               const baseConfig = snapshot.exists ? snapshot.sourceConfig : {};
               const workspaceDir = params.workspace?.trim()
                 ? resolveUserPath(params.workspace.trim())

@@ -223,7 +223,7 @@ class McpServersCard extends OpenClawLightDomElement {
   }
 
   private renderRow(server: McpServerSummary): TemplateResult {
-    const command = `openclaw mcp ${server.auth === "oauth" ? "login" : "probe"} ${quoteShellArg(
+    const command = `lanfu mcp ${server.auth === "oauth" ? "login" : "probe"} ${quoteShellArg(
       server.name,
     )}`;
     const meta = [
