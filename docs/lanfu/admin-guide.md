@@ -25,7 +25,7 @@ LanFu-Setup-x64.exe /VERYSILENT /SUPPRESSMSGBOXES /NORESTART /NOCANCEL /LOG=%TEM
 - 升级自动清理旧 `dist` 缓存与旧 Node 工具链，安装目录不会随更新膨胀。
 - 手动升级：从 GitHub Release 下载最新 `LanFu-Setup-x64.exe`，静默参数同上覆盖安装即可（会保留用户数据）。
 - 更新失败排查：
-  - 日志：`%LOCALAPPDATA%\LanFu\openclaw-tray.log`（搜索 `Verifying downloaded installer integrity` / `Integrity check failed`）；
+  - 日志：`%LOCALAPPDATA%\LanFu\lanfu-tray.log`（搜索 `Verifying downloaded installer integrity` / `Integrity check failed`；0.4.30 及之前版本文件名为 `openclaw-tray.log`）；
   - 网络受限时可用代理/手动下载；
   - 完整性失败时按提示从 Release 页手动下载安装。
 
@@ -48,7 +48,7 @@ LanFu-Setup-x64.exe /VERYSILENT /SUPPRESSMSGBOXES /NORESTART /NOCANCEL /LOG=%TEM
 
 | 文件                                                 | 用途                         |
 | ---------------------------------------------------- | ---------------------------- |
-| `%LOCALAPPDATA%\LanFu\openclaw-tray.log`             | 桌面端（更新/连接/UI）主日志 |
+| `%LOCALAPPDATA%\LanFu\lanfu-tray.log`                | 桌面端（更新/连接/UI）主日志 |
 | `%TEMP%\lanfu-gateway-watchdog.log`                  | 网关启动/重试/就绪记录       |
 | `%TEMP%\lanfu-gateway-stdout.log` / `stderr.log`     | 网关进程输出                 |
 | `%TEMP%\lanfu-pairing.log`                           | 配对与身份自愈               |
