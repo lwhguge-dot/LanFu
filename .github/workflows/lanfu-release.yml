@@ -447,12 +447,18 @@ jobs:
           # only migrates while .lanfu is absent), its token preserved, and the company
           # model seeded on top. Model/channel edits beyond the seed stay the employee's.
           Step "checking the legacy migration ran"
-          $gatewayConfig = Join-Path $env:USERPROFILE ".lanfu\openclaw.json"
+          $gatewayConfig = Join-Path $env:USERPROFILE ".lanfu\lanfu.json"
           if (-not (Test-Path (Join-Path $env:USERPROFILE ".lanfu\state\marker.txt"))) { Fail "legacy state files were not migrated into .lanfu" }
           # The migration renames .openclaw into .lanfu and leaves a junction at
           # the old path, so the legacy location must still resolve.
           if (-not (Test-Path (Join-Path $legacyDir "state\marker.txt"))) { Fail "the legacy .openclaw path no longer resolves after migration" }
           Step "legacy state migrated, legacy path still resolves"
+
+          Step "checking the config-file rename migration"
+          # 0.4.33: the gateway physically renames the legacy openclaw.json to
+          # lanfu.json on first startup, so the old name must be gone once ready.
+          if (Test-Path (Join-Path $env:USERPROFILE ".lanfu\openclaw.json")) { Fail "legacy openclaw.json still exists; the gateway rename migration did not run" }
+          Step "config file renamed openclaw.json -> lanfu.json"
 
           Step "checking the installer pre-wired the connection"
           if (-not (Test-Path $gatewayConfig)) { Fail "gateway config missing" }
