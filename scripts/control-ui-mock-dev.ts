@@ -3773,6 +3773,7 @@ try {
         dirty: null,
         release: false,
         buildId: scenario.serverBuildId,
+        productVersion: "0.4.34",
       }),
     },
     logLevel: "error",

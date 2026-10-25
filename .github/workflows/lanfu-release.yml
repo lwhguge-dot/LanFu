@@ -90,19 +90,11 @@ jobs:
           node-version: ${{ env.NODE_RUNTIME_VERSION }}
           cache: pnpm
       # The app reads lanfu.productVersion from package.json at RUNTIME (see
-      # src/version.ts), and the staging steps copy that package.json into the
-      # installer. Stamp the tag version here so the installer, the shell and the
-      # about page all agree; otherwise the app keeps showing whatever the last
-      # manual bump wrote (it said 0.1.1 through the 0.4.x line).
+      # src/version.ts). Stamp the tag version here so the built dist provenance
+      # agrees with it; every staging job re-stamps its own fresh checkout via
+      # scripts/stamp-product-version.mjs.
       - name: Stamp the LanFu product version
-        run: |
-          node -e '
-            const fs = require("fs");
-            const pkg = JSON.parse(fs.readFileSync("package.json", "utf8"));
-            pkg.lanfu = Object.assign({}, pkg.lanfu, { productVersion: process.argv[1] });
-            fs.writeFileSync("package.json", JSON.stringify(pkg, null, 2) + "\n");
-            console.log("stamped productVersion:", process.argv[1]);
-          ' "${{ needs.resolve.outputs.version }}"
+        run: node scripts/stamp-product-version.mjs "${{ needs.resolve.outputs.version }}"
       - run: pnpm install --frozen-lockfile
       - name: Build dist and Control UI
         run: pnpm build
@@ -163,6 +155,12 @@ jobs:
           Write-Output "workspace switched to hoisted"
       - name: Install flat production dependencies
         run: pnpm install --prod --frozen-lockfile --ignore-scripts
+      # Each staging job checks out the repo itself, so the build job's stamp
+      # does not carry over; without this the installer ships the stale manual
+      # bump (0.4.29 shipped as the banner product version through 0.4.33).
+      - name: Stamp the LanFu product version
+        shell: pwsh
+        run: node scripts/stamp-product-version.mjs "${{ needs.resolve.outputs.version }}"
       - name: Stage the application tree
         shell: pwsh
         run: |
@@ -460,6 +458,20 @@ jobs:
           if (Test-Path (Join-Path $env:USERPROFILE ".lanfu\openclaw.json")) { Fail "legacy openclaw.json still exists; the gateway rename migration did not run" }
           Step "config file renamed openclaw.json -> lanfu.json"
 
+          Step "checking the CLI version banner"
+          # 0.4.34: the launcher fast path must agree with the stamped product
+          # version and the core upstream label; a stale manual bump or the
+          # upstream brand here means the staging stamp regressed.
+          $bannerFile = Join-Path $env:TEMP "lanfu-version.txt"
+          Remove-Item $bannerFile -Force -ErrorAction SilentlyContinue
+          $null = & (Join-Path $env:SystemRoot "System32\cmd.exe") /c ('"' + (Join-Path $root "lanfu.cmd") + '" --version > "' + $bannerFile + '" 2>nul')
+          $banner = if (Test-Path $bannerFile) { (Get-Content $bannerFile -Raw -Encoding UTF8).Trim() } else { "" }
+          Write-Output ("[smoke] banner: " + $banner)
+          $expectedBanner = "LanFu ${{ needs.resolve.outputs.version }} (core "
+          if (-not $banner.StartsWith($expectedBanner)) { Fail "CLI banner is '$banner'; expected it to start with '$expectedBanner'" }
+          if ($banner -match "OpenClaw") { Fail "CLI banner still shows the upstream brand: '$banner'" }
+          Step "CLI banner shows LanFu <version> (core ...)"
+
           Step "checking the installer pre-wired the connection"
           if (-not (Test-Path $gatewayConfig)) { Fail "gateway config missing" }
           $cfg = Get-Content $gatewayConfig -Raw | ConvertFrom-Json
@@ -624,6 +636,8 @@ jobs:
           grep -q 'allowUnusedPatches' pnpm-workspace.yaml || echo 'allowUnusedPatches: true' >> pnpm-workspace.yaml
       - name: Install flat production dependencies
         run: pnpm install --prod --frozen-lockfile --ignore-scripts
+      - name: Stamp the LanFu product version
+        run: node scripts/stamp-product-version.mjs "${{ needs.resolve.outputs.version }}"
       - name: Stage the application tree
         run: |
           mkdir -p release/app

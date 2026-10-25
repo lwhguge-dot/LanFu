@@ -120,6 +120,7 @@ describe("Control UI build info", () => {
       dirty: null,
       release: false,
       buildId: "dev",
+      productVersion: null,
     });
   });
 

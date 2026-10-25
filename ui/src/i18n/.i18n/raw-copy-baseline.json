@@ -377,35 +377,35 @@
       "kind": "html-text",
       "name": "text",
       "path": "ui/src/pages/config/mcp.ts",
-      "text": "openclaw mcp doctor --probe"
+      "text": "lanfu mcp doctor --probe"
     },
     {
       "count": 1,
       "kind": "html-text",
       "name": "text",
       "path": "ui/src/pages/config/mcp.ts",
-      "text": "openclaw mcp login &lt;name&gt;"
+      "text": "lanfu mcp login &lt;name&gt;"
     },
     {
       "count": 1,
       "kind": "html-text",
       "name": "text",
       "path": "ui/src/pages/config/mcp.ts",
-      "text": "openclaw mcp reload"
+      "text": "lanfu mcp reload"
     },
     {
       "count": 1,
       "kind": "html-text",
       "name": "text",
       "path": "ui/src/pages/config/mcp.ts",
-      "text": "openclaw mcp status --verbose"
+      "text": "lanfu mcp status --verbose"
     },
     {
       "count": 1,
       "kind": "html-text",
       "name": "text",
       "path": "ui/src/pages/config/updates.ts",
-      "text": "openclaw triage"
+      "text": "lanfu triage"
     },
     {
       "count": 1,
@@ -454,7 +454,7 @@
       "kind": "html-text",
       "name": "text",
       "path": "ui/src/pages/debug/view.ts",
-      "text": "openclaw security audit --deep"
+      "text": "lanfu security audit --deep"
     },
     {
       "count": 1,
@@ -468,21 +468,21 @@
       "kind": "html-text",
       "name": "text",
       "path": "ui/src/pages/new-session/cloud-target.ts",
-      "text": "openclaw connect --service --session-host"
+      "text": "lanfu connect --service --session-host"
     },
     {
       "count": 1,
       "kind": "html-text",
       "name": "text",
       "path": "ui/src/pages/new-session/cloud-target.ts",
-      "text": "openclaw node restart"
+      "text": "lanfu node restart"
     },
     {
       "count": 1,
       "kind": "html-text",
       "name": "text",
       "path": "ui/src/pages/new-session/cloud-target.ts",
-      "text": "openclaw update"
+      "text": "lanfu update"
     },
     {
       "count": 1,

@@ -68,6 +68,8 @@ export function normalizeControlUiBuildInfo(value: unknown): ControlUiBuildInfo 
     commitAt: normalizeControlUiBuildTimestamp(record.commitAt),
     branch: normalizeControlUiBranch(record.branch),
     dirty: typeof record.dirty === "boolean" ? record.dirty : null,
+    // Advisory identity only: never part of the build id derivation above.
+    productVersion: normalizeNullableString(record.productVersion),
     buildId: normalizeControlUiBuildId(record.buildId ?? deriveControlUiBuildId(metadata)),
   };
 }

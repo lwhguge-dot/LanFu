@@ -159,6 +159,17 @@ function readPackageVersion(): string | null {
   }
 }
 
+function readLanfuProductVersion(): string | null {
+  try {
+    const raw = fs.readFileSync(path.join(repoRoot, "package.json"), "utf8");
+    const parsed = JSON.parse(raw) as { lanfu?: { productVersion?: unknown } };
+    const value = parsed.lanfu?.productVersion;
+    return typeof value === "string" && value.trim() ? value.trim() : null;
+  } catch {
+    return null;
+  }
+}
+
 function readGit(args: string[]): string {
   return execFileSync("git", ["--no-optional-locks", "-C", repoRoot, ...args], {
     encoding: "utf8",
@@ -210,6 +221,7 @@ function readGitDirty(): boolean | null {
 type ControlUiBuildInfoSources = {
   env?: NodeJS.ProcessEnv;
   readPackageVersion?: () => string | null;
+  readLanfuProductVersion?: () => string | null;
   readGitCommit?: () => string | null;
   readGitCommitTimestamp?: (commit: string) => string | null;
   readGitBranch?: () => string | null;
@@ -233,6 +245,7 @@ export function resolveControlUiBuildInfo(
 ): ControlUiBuildInfo {
   const env = sources.env ?? process.env;
   const version = (sources.readPackageVersion ?? readPackageVersion)();
+  const productVersion = (sources.readLanfuProductVersion ?? readLanfuProductVersion)();
   const explicitCommitSource = [
     { name: "GIT_COMMIT", value: env.GIT_COMMIT?.trim() },
     { name: "GIT_SHA", value: env.GIT_SHA?.trim() },
@@ -291,6 +304,7 @@ export function resolveControlUiBuildInfo(
     commitAt,
     branch,
     dirty,
+    productVersion,
     buildId: normalizeControlUiBuildInfo(
       explicitBuildId ? { ...metadata, buildId: explicitBuildId } : metadata,
     ).buildId,

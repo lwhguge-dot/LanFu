@@ -7,4 +7,7 @@ export type ControlUiBuildInfo = Readonly<{
   dirty: boolean | null;
   release: boolean;
   buildId: string;
+  /** LanFu product version (lanfu.productVersion) stamped at packaging time.
+   * Advisory identity for the About page; excluded from the build id. */
+  productVersion?: string | null;
 }>;

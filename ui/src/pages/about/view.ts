@@ -142,9 +142,9 @@ function renderHero(props: AboutProps) {
       <h2 class="about-hero__name">${t("aboutPage.productName")}</h2>
       <p class="about-hero__tagline">${t("aboutPage.tagline")}</p>
       ${
-        props.buildInfo.version
+        props.buildInfo.productVersion
           ? html`<code class="about-hero__version" dir="ltr"
-              >v${t("aboutPage.productVersion")}</code
+              >v${props.buildInfo.productVersion}</code
             >`
           : nothing
       }

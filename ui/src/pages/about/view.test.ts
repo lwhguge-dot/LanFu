@@ -23,6 +23,7 @@ function createProps(overrides: Partial<AboutProps> = {}): AboutProps {
       dirty: true,
       release: false,
       buildId: "test",
+      productVersion: "0.4.34",
     },
     gatewayVersion: "2026.7.9",
     copyState: "idle",
@@ -46,7 +47,7 @@ describe("renderAbout", () => {
 
     const hero = container.querySelector(".about-hero");
     expect(hero?.querySelector(".about-hero__name")?.textContent).toBe("LanFu");
-    expect(hero?.querySelector(".about-hero__version")?.textContent).toBe("v0.1.1");
+    expect(hero?.querySelector(".about-hero__version")?.textContent).toBe("v0.4.34");
     expect(hero?.querySelector(".about-hero__clawd lanfu-mark")).not.toBeNull();
 
     const clawd = hero?.querySelector<HTMLButtonElement>(".about-hero__clawd");

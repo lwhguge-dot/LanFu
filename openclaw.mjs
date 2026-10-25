@@ -467,7 +467,7 @@ function tryOutputLauncherVersion(argv) {
     const product = resolveLauncherProductVersion();
     const label = product && product !== version ? product : version;
     const upstream =
-      product && product !== version ? ` (OpenClaw ${version}${commit ? `, ${commit}` : ""})` : "";
+      product && product !== version ? ` (core ${version}${commit ? `, ${commit}` : ""})` : "";
     const detail = upstream || (commit ? ` (${commit})` : "");
     process.stdout.write(`LanFu ${label}${detail}\n`);
     return true;

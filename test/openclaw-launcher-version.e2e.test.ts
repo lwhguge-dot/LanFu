@@ -15,6 +15,7 @@ type LauncherVersionFixtureOptions = {
   checkout?: "directory" | "linked";
   packageCommit?: string;
   pendingLifecycle?: "complete" | "fail";
+  productVersion?: string;
 };
 
 async function makeLauncherVersionFixture(
@@ -64,6 +65,7 @@ async function makeLauncherVersionFixture(
     JSON.stringify({
       name: "openclaw",
       version: packageVersion,
+      ...(options.productVersion ? { lanfu: { productVersion: options.productVersion } } : {}),
       ...(options.packageCommit ? { gitHead: options.packageCommit } : {}),
     }),
   );
@@ -146,7 +148,7 @@ describe("openclaw launcher version provenance", () => {
       const result = runLauncherVersion(fixtureRoot);
 
       expect(result.status).toBe(0);
-      expect(result.stdout).toBe(`OpenClaw ${packageVersion} (${buildCommit.slice(0, 7)})\n`);
+      expect(result.stdout).toBe(`LanFu ${packageVersion} (${buildCommit.slice(0, 7)})\n`);
       expect(result.stderr).toBe("");
     },
   );
@@ -159,7 +161,7 @@ describe("openclaw launcher version provenance", () => {
       const result = runLauncherVersion(fixtureRoot);
 
       expect(result.status).toBe(0);
-      expect(result.stdout).toBe(`OpenClaw ${packageVersion} (${checkoutCommit.slice(0, 7)})\n`);
+      expect(result.stdout).toBe(`LanFu ${packageVersion} (${checkoutCommit.slice(0, 7)})\n`);
       expect(result.stderr).toBe("");
     },
   );
@@ -175,7 +177,25 @@ describe("openclaw launcher version provenance", () => {
     const result = runLauncherVersion(fixtureRoot);
 
     expect(result.status).toBe(0);
-    expect(result.stdout).toBe(`OpenClaw 2026.8.1 (${buildCommit.slice(0, 7)})\n`);
+    expect(result.stdout).toBe(`LanFu 2026.8.1 (${buildCommit.slice(0, 7)})\n`);
+    expect(result.stderr).toBe("");
+  });
+
+  it("labels the core version when a LanFu product version is stamped", async () => {
+    const fixtureRoot = await makeLauncherVersionFixture(fixtureRoots, {
+      buildCommit,
+      productVersion: "0.5.0-test",
+    });
+
+    // Packaged installs stamp lanfu.productVersion (scripts/stamp-product-version.mjs);
+    // the fast path must show the product version and the core upstream, matching
+    // the dist formatter in src/version.ts.
+    const result = runLauncherVersion(fixtureRoot);
+
+    expect(result.status).toBe(0);
+    expect(result.stdout).toBe(
+      `LanFu 0.5.0-test (core ${packageVersion}, ${buildCommit.slice(0, 7)})\n`,
+    );
     expect(result.stderr).toBe("");
   });
 
@@ -187,7 +207,7 @@ describe("openclaw launcher version provenance", () => {
       const result = runLauncherVersion(fixtureRoot, { flag });
 
       expect(result.status).toBe(0);
-      expect(result.stdout).toBe(`OpenClaw ${packageVersion} (${buildCommit.slice(0, 7)})\n`);
+      expect(result.stdout).toBe(`LanFu ${packageVersion} (${buildCommit.slice(0, 7)})\n`);
       expect(result.stderr).toBe("");
     },
   );
@@ -201,7 +221,7 @@ describe("openclaw launcher version provenance", () => {
     const result = runLauncherVersion(fixtureRoot);
 
     expect(result.status, result.stderr).toBe(0);
-    expect(result.stdout).toBe(`OpenClaw ${packageVersion} (${buildCommit.slice(0, 7)})\n`);
+    expect(result.stdout).toBe(`LanFu ${packageVersion} (${buildCommit.slice(0, 7)})\n`);
     await expect(
       fs.access(path.join(fixtureRoot, ".openclaw-lifecycle-pending")),
     ).rejects.toHaveProperty("code", "ENOENT");
@@ -264,7 +284,7 @@ describe("openclaw launcher version provenance", () => {
     const result = runLauncherVersion(fixtureRoot);
 
     expect(result.status).toBe(0);
-    expect(result.stdout).toBe(`OpenClaw ${packageVersion} (${checkoutCommit.slice(0, 7)})\n`);
+    expect(result.stdout).toBe(`LanFu ${packageVersion} (${checkoutCommit.slice(0, 7)})\n`);
     expect(result.stderr).toBe("");
   });
 
