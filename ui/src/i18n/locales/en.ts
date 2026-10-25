@@ -2578,7 +2578,7 @@ export const en: TranslationMap & {
   aboutPage: {
     productName: "LanFu",
     tagline: "Your personal AI assistant, running on your own devices.",
-    upstream: "Built on core 2026.9.6",
+    upstream: "Built on core {version}",
     waveHello: "Wave hello to LanFu",
     linksLabel: "Community and resources",
     linkWebsite: "Website",

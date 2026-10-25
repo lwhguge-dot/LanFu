@@ -593,9 +593,15 @@ jobs:
           $distRoot = Join-Path $root "app\dist"
           $filesBefore = (Get-ChildItem $distRoot -Recurse -File | Measure-Object).Count
           $chunksBefore = (Get-ChildItem $distRoot -Recurse -File -Filter "official-external-provider-catalog-*.mjs" | Measure-Object).Count
+          # 0.4.35: seed a fake Inno orphan before the reinstall; [InstallDelete]
+          # must remove it (a real machine accumulated a 92.8MB is-*.tmp in runtime
+          # because upgrades never cleaned Inno's interrupted-extraction leftovers).
+          $innoOrphan = Join-Path $root "runtime\is-SMOKETEST.tmp"
+          "smoke-orphan" | Set-Content $innoOrphan
           $proc2 = Start-Process -FilePath $setup -ArgumentList @("/VERYSILENT","/SUPPRESSMSGBOXES","/NORESTART","/NOCANCEL","/LOG=$setupLog") -PassThru
           if (-not $proc2.WaitForExit(1800000)) { try { $proc2.Kill() } catch { }; Fail "second installer run did not finish within 30 minutes" }
           if ($proc2.ExitCode -ne 0) { Fail "second installer returned $($proc2.ExitCode)" }
+          if (Test-Path $innoOrphan) { Fail "runtime is-*.tmp orphan survived the reinstall; [InstallDelete] cleanup regressed" }
           $filesAfter = (Get-ChildItem $distRoot -Recurse -File | Measure-Object).Count
           $chunksAfter = (Get-ChildItem $distRoot -Recurse -File -Filter "official-external-provider-catalog-*.mjs" | Measure-Object).Count
           Write-Output ("[smoke] dist files $filesBefore -> $filesAfter; catalog chunk copies $chunksBefore -> $chunksAfter")

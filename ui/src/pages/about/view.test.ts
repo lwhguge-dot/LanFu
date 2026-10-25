@@ -48,6 +48,10 @@ describe("renderAbout", () => {
     const hero = container.querySelector(".about-hero");
     expect(hero?.querySelector(".about-hero__name")?.textContent).toBe("LanFu");
     expect(hero?.querySelector(".about-hero__version")?.textContent).toBe("v0.4.34");
+    // The upstream line must come from build identity, not a hardcoded version string.
+    expect(hero?.querySelector(".about-hero__upstream")?.textContent).toBe(
+      "Built on core 2026.7.10",
+    );
     expect(hero?.querySelector(".about-hero__clawd lanfu-mark")).not.toBeNull();
 
     const clawd = hero?.querySelector<HTMLButtonElement>(".about-hero__clawd");

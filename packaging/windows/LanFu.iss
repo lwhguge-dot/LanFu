@@ -87,6 +87,11 @@ Type: files; Name: "{app}\runtime\CHANGELOG.md"
 Type: files; Name: "{app}\runtime\README.md"
 ; 旧版本曾经在 {app} 根留下 ensure-gateway.ps1 的 .bak 备份。
 Type: files; Name: "{app}\*.bak"
+; 0.4.35 起：Inno 自身解包中断留下的 is-*.tmp 孤儿（0.4.25/26 时代某次升级在
+; runtime 下遗留 92.8MB is-R1VPJVHEMY.tmp，升级安装从不清理）。node.exe 本体不匹配
+; is-*.tmp 模式，删除是安全的。
+Type: files; Name: "{app}\runtime\is-*.tmp"
+Type: files; Name: "{app}\is-*.tmp"
 ; 0.4.27 起桌面端不再打包 WPF/WinForms 程序集；升级时清掉旧版本残留（约 51MB），
 ; 否则老机器会继续占着这些文件（新装已经不带）。
 Type: files; Name: "{localappdata}\LanFu\PresentationFramework.dll"

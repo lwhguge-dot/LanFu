@@ -148,7 +148,9 @@ function renderHero(props: AboutProps) {
             >`
           : nothing
       }
-      <p class="about-hero__upstream">${t("aboutPage.upstream")}</p>
+      <p class="about-hero__upstream">
+        ${t("aboutPage.upstream", { version: props.buildInfo.version ?? "" })}
+      </p>
       <nav class="about-hero__links" aria-label=${t("aboutPage.linksLabel")}>
         ${ABOUT_LINKS.map(
           (link) => html`
