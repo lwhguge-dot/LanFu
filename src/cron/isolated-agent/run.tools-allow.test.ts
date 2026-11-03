@@ -21,7 +21,7 @@ import {
 } from "./run.test-harness.js";
 
 const MISSING_WEB_SEARCH_PROVIDER_DIAGNOSTIC_MESSAGE =
-  "web_search tool requested in toolsAllow but no web search provider is selected. Configure one with: openclaw configure --section web, or set tools.web.search.provider.";
+  "web_search tool requested in toolsAllow but no web search provider is selected. Configure one with: lanfu configure --section web, or set tools.web.search.provider.";
 
 const RUN_TOOLS_ALLOW_TIMEOUT_MS = 300_000;
 
@@ -273,9 +273,7 @@ describe("runCronIsolatedAgentTurn toolsAllow passthrough", () => {
       expect(result).toMatchObject({
         status: "error",
         admissionDisposition: "rejected",
-        error: expect.stringContaining(
-          "openclaw automations edit tools-allow --tools exec,process",
-        ),
+        error: expect.stringContaining("lanfu automations edit tools-allow --tools exec,process"),
         diagnostics: {
           summary: expect.stringContaining("No command was executed"),
           entries: [expect.objectContaining({ source: "cron-preflight", severity: "error" })],

@@ -41,7 +41,7 @@ async function runNonInteractiveMigrationImport(params: {
     rejectOnboardingOption(
       params.opts,
       params.runtime,
-      `--import-from is required for non-interactive migration import. Run ${formatCliCommand("openclaw migrate list")} to choose a provider.`,
+      `--import-from is required for non-interactive migration import. Run ${formatCliCommand("lanfu migrate list")} to choose a provider.`,
     );
     return;
   }
@@ -65,7 +65,7 @@ async function runNonInteractiveMigrationImport(params: {
       const snapshot = await readConfigFileSnapshot();
       if (!snapshot.valid) {
         throw new Error(
-          "Migration target config became invalid. Run `openclaw doctor --fix` to apply supported repairs.",
+          "Migration target config became invalid. Run `lanfu doctor --fix` to apply supported repairs.",
         );
       }
       return snapshot.exists ? (snapshot.sourceConfig ?? snapshot.config) : {};
@@ -74,7 +74,7 @@ async function runNonInteractiveMigrationImport(params: {
       const latest = await readConfigFileSnapshot();
       if (!latest.valid) {
         throw new Error(
-          "Migration target config became invalid. Run `openclaw doctor --fix` to apply supported repairs.",
+          "Migration target config became invalid. Run `lanfu doctor --fix` to apply supported repairs.",
         );
       }
       const latestConfig = latest.exists ? (latest.sourceConfig ?? latest.config) : {};
@@ -105,7 +105,7 @@ async function runNonInteractiveSetupExclusive(opts: OnboardOptions, runtime: Ru
     rejectOnboardingOption(
       opts,
       runtime,
-      `Config invalid. Run \`${formatCliCommand("openclaw doctor --fix")}\` to apply supported repairs, then re-run setup.`,
+      `Config invalid. Run \`${formatCliCommand("lanfu doctor --fix")}\` to apply supported repairs, then re-run setup.`,
     );
     return;
   }
@@ -120,7 +120,7 @@ async function runNonInteractiveSetupExclusive(opts: OnboardOptions, runtime: Ru
     rejectOnboardingOption(
       opts,
       runtime,
-      `Invalid --mode "${String(mode)}". Use "local" or "remote", or run ${formatCliCommand("openclaw onboard")} for interactive setup.`,
+      `Invalid --mode "${String(mode)}". Use "local" or "remote", or run ${formatCliCommand("lanfu onboard")} for interactive setup.`,
     );
     return;
   }

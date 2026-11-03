@@ -113,7 +113,7 @@ export async function prepareDoctorConfigRecovery(params: {
     }
     if (!snapshot.valid && typeof snapshot.raw === "string" && !parseConfigJson5(snapshot.raw).ok) {
       throw new Error(
-        `Config at ${snapshot.path} is not parseable and cannot be repaired automatically. The file remains unchanged. Inspect the exact parse error with ${formatCliCommand("openclaw config validate")}, then hand-edit the file; or move it aside and run ${formatCliCommand("openclaw onboard")} to generate a fresh config.`,
+        `Config at ${snapshot.path} is not parseable and cannot be repaired automatically. The file remains unchanged. Inspect the exact parse error with ${formatCliCommand("lanfu config validate")}, then hand-edit the file; or move it aside and run ${formatCliCommand("lanfu onboard")} to generate a fresh config.`,
       );
     }
   }

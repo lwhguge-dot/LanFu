@@ -860,7 +860,7 @@ async function requireLegacyStartupRefusal(inst: OpenClawTestInstance, context: 
     !message.startsWith("gateway exited before readiness (code=78 signal=null)") ||
     !message.includes("Gateway failed to start: Legacy session store requires migration:") ||
     !message.includes(path.join(context.legacySessionsDir, "sessions.json")) ||
-    !message.includes('Run "openclaw doctor --fix"')
+    !message.includes('Run "lanfu doctor --fix"')
   ) {
     throw new Error(
       `expected legacy session migration refusal, got: ${message || "ready Gateway"}`,

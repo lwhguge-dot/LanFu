@@ -393,7 +393,7 @@ describe.each(["repair", "finalize"])("update %s process output", (command) => {
           expect(triageIndex, failure).toBeGreaterThan(result.stdout.indexOf(terminal));
           expect(promptIndex, failure).toBeGreaterThan(triageIndex);
           expect(guidanceIndex, failure).toBeGreaterThan(promptIndex);
-          expect(result.stdout.trimEnd().endsWith("openclaw triage --run"), failure).toBe(true);
+          expect(result.stdout.trimEnd().endsWith("lanfu triage --run"), failure).toBe(true);
         } else {
           expect(result.stdout.trimEnd().endsWith(terminal), failure).toBe(true);
         }
@@ -454,7 +454,7 @@ describe.each(["repair", "finalize"])("update %s process output", (command) => {
           channelsReady: run.verification.channelsReady,
         }).toEqual({ port: address.port, readyz: false, settled: false, channelsReady: false });
       } else if (scenario === "doctor-warning") {
-        const warning = "Optional probe failed; run openclaw doctor after updating.";
+        const warning = "Optional probe failed; run lanfu doctor after updating.";
         expect(output).toMatchObject({
           status: "warning",
           postUpdate: { doctor: { status: "warning", warnings: [warning] } },

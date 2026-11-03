@@ -111,7 +111,7 @@ export function createManagedHandoffLeaseStore(
     const payload = parseManagedHandoffLeasePayload(value.payload_json);
     if (!payload || !text.safeParse(value.owner).success) {
       throw new Error(
-        "existing managed handoff lease is incompatible; retain diagnostics and run openclaw triage manually",
+        "existing managed handoff lease is incompatible; retain diagnostics and run lanfu triage manually",
       );
     }
     return {

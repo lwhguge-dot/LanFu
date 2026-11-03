@@ -13,7 +13,7 @@ export function validateSystemAgentPluginInstallSpec(spec: string): string | nul
     return "LanFu plugin install accepts npm or ClawHub package specs only.";
   }
   if (!isOpenClawTrustedPluginInstallSpec(trimmed)) {
-    return "LanFu installs only ClawHub, bundled, or official-catalog plugins. Use `openclaw plugins install <spec>` in a trusted shell to review an arbitrary executable source.";
+    return "LanFu installs only ClawHub, bundled, or official-catalog plugins. Use `lanfu plugins install <spec>` in a trusted shell to review an arbitrary executable source.";
   }
   return null;
 }

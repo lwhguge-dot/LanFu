@@ -529,7 +529,7 @@ export async function runLegacyMigrationPlans(
               incompleteSources.add(plan.sourcePath);
               warnings.push(
                 ...cleanupWarnings.map(
-                  (warning) => `Run openclaw doctor --fix to retry legacy cleanup. ${warning}`,
+                  (warning) => `Run lanfu doctor --fix to retry legacy cleanup. ${warning}`,
                 ),
               );
             } else {

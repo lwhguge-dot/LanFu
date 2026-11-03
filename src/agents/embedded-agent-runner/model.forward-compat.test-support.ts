@@ -67,6 +67,6 @@ export function expectUnknownModelErrorResult(
 ) {
   expect(result.model).toBeUndefined();
   expect(result.error).toBe(
-    `Unknown model: ${provider}/${id}. Run \`openclaw models list --refresh --provider ${provider}\` to inspect this provider's model choices, then retry with a model supported by your account.`,
+    `Unknown model: ${provider}/${id}. Run \`lanfu models list --refresh --provider ${provider}\` to inspect this provider's model choices, then retry with a model supported by your account.`,
   );
 }

@@ -158,30 +158,30 @@ describe("cli json stdout contract", () => {
     {
       name: "account validation in human mode",
       args: ["channels", "capabilities", "--account", "ghost"],
-      message: "--account requires a specific --channel. Run openclaw channels list to choose one.",
+      message: "--account requires a specific --channel. Run lanfu channels list to choose one.",
       human: true,
     },
     {
       name: "account validation with JSON before its option",
       args: ["channels", "capabilities", "--json", "--account", "ghost"],
-      message: "--account requires a specific --channel. Run openclaw channels list to choose one.",
+      message: "--account requires a specific --channel. Run lanfu channels list to choose one.",
     },
     {
       name: "target validation with JSON after its option and explicit Commander routing",
       args: ["channels", "capabilities", "--target", "channel:1", "--json"],
-      message: "--target requires a specific --channel. Run openclaw channels list to choose one.",
+      message: "--target requires a specific --channel. Run lanfu channels list to choose one.",
       commander: true,
     },
     {
       name: "unknown channel validation with JSON before its option",
       args: ["channels", "capabilities", "--json", "--channel", "definitely-not-a-channel"],
       message:
-        'Unknown channel "definitely-not-a-channel". Run `openclaw channels list --all` to see configured and installable channels.',
+        'Unknown channel "definitely-not-a-channel". Run `lanfu channels list --all` to see configured and installable channels.',
     },
     {
       name: "account validation through dual-TTY finalization",
       args: ["channels", "capabilities", "--account", "ghost", "--json"],
-      message: "--account requires a specific --channel. Run openclaw channels list to choose one.",
+      message: "--account requires a specific --channel. Run lanfu channels list to choose one.",
       tty: true,
     },
   ])(
@@ -570,25 +570,25 @@ describe("cli json stdout contract", () => {
       name: "unknown root",
       args: ["pairng"],
       diagnostic: 'OpenClaw does not know the command "pairng".',
-      suggestion: "openclaw pairing",
+      suggestion: "lanfu pairing",
     },
     {
       name: "unknown nested command",
       args: ["sessions", "lst"],
       diagnostic: 'OpenClaw sessions has no command "lst".',
-      suggestion: "openclaw sessions list",
+      suggestion: "lanfu sessions list",
     },
     {
       name: "unknown nested command with a later argument",
       args: ["config", "gett", "gateway.port"],
       diagnostic: 'OpenClaw config has no command "gett".',
-      suggestion: "openclaw config get",
+      suggestion: "lanfu config get",
     },
     {
       name: "unknown root before help",
       args: ["pairng", "--help"],
       diagnostic: 'OpenClaw does not know the command "pairng".',
-      suggestion: "openclaw pairing",
+      suggestion: "lanfu pairing",
     },
   ])("renders $name as actionable guidance", async (testCase) => {
     await withTempHome(
@@ -604,7 +604,7 @@ describe("cli json stdout contract", () => {
         expect(result.stderr).not.toContain("The CLI command failed.");
         expect(result.stderr).not.toContain("Could not start the CLI.");
         expect(result.stderr).not.toContain("OPENCLAW_DEBUG");
-        expect(result.stderr).not.toContain("openclaw doctor");
+        expect(result.stderr).not.toContain("lanfu doctor");
         if (testCase.args.includes("--help")) {
           expect(result.stdout).not.toContain("Usage: openclaw [options] [command]");
         }
@@ -618,13 +618,13 @@ describe("cli json stdout contract", () => {
       name: "unknown root",
       args: ["pairng", "--json"],
       diagnostic: 'OpenClaw does not know the command "pairng".',
-      suggestion: "openclaw pairing",
+      suggestion: "lanfu pairing",
     },
     {
       name: "unknown nested command",
       args: ["sessions", "lst", "--json"],
       diagnostic: 'OpenClaw sessions has no command "lst".',
-      suggestion: "openclaw sessions list",
+      suggestion: "lanfu sessions list",
     },
   ])("reports $name once with structured JSON guidance", async (testCase) => {
     await withTempHome(
@@ -642,7 +642,7 @@ describe("cli json stdout contract", () => {
         expect(payload.error.message).not.toMatch(/^error:/i);
         expect(payload.error.message).toContain(`Did you mean this?\n  ${testCase.suggestion}`);
         expect(payload.error.message).not.toContain("OPENCLAW_DEBUG");
-        expect(payload.error.message).not.toContain("openclaw doctor");
+        expect(payload.error.message).not.toContain("lanfu doctor");
         expect(result.stderr).toContain(testCase.diagnostic);
         expect(result.stderr).toContain(`Did you mean this?\n  ${testCase.suggestion}`);
         expect(result.stderr.split(testCase.diagnostic)).toHaveLength(2);
@@ -650,7 +650,7 @@ describe("cli json stdout contract", () => {
         expect(result.stderr).not.toContain("The CLI command failed.");
         expect(result.stderr).not.toContain("Could not start the CLI.");
         expect(result.stderr).not.toContain("OPENCLAW_DEBUG");
-        expect(result.stderr).not.toContain("openclaw doctor");
+        expect(result.stderr).not.toContain("lanfu doctor");
       },
       { prefix: "openclaw-unknown-command-json-e2e-" },
     );

@@ -36,7 +36,7 @@ export function wrapPluginStateError(
         "\nThe state database uses a newer schema. Run a LanFu build that supports it.";
     } else if (error instanceof Error && isTerminalSqliteIntegrityError(error)) {
       publicMessage +=
-        "\nDatabase integrity verification failed. Restore or repair the state database, then run openclaw doctor --fix.";
+        "\nDatabase integrity verification failed. Restore or repair the state database, then run lanfu doctor --fix.";
     }
   }
   return createPluginStateError({

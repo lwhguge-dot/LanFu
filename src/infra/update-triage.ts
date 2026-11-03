@@ -63,7 +63,7 @@ const triageReportPathsSchema = z.object({
   bundleError: z.string().max(1024).nullish(),
 });
 const TRIAGE_OUTPUT_HINT =
-  "See the Gateway host command output for saved diagnostics and the installation-specific openclaw triage command.";
+  "See the Gateway host command output for saved diagnostics and the installation-specific lanfu triage command.";
 
 /** Capture the interactive handoff before replacement; invoke it after native cleanup releases. */
 export async function prepareUpdateFailureTriage(params: {
@@ -246,7 +246,7 @@ async function runPreparedUpdateFailureTriage(
     const reason = scrubDoctorErrorMessage(redactSupportString(detail, redaction));
     const message = `Triage could not complete: ${reason}`;
     const command = formatInstallationTargetCommand(
-      ["openclaw", "triage", ...(contextPath ? ["--update-result", contextPath] : [])],
+      ["lanfu", "triage", ...(contextPath ? ["--update-result", contextPath] : [])],
       installationTarget,
       { env: targetEnv },
     );

@@ -1,4 +1,4 @@
-// Commander wiring for `openclaw update`, its status/finalize subcommands, and help text.
+// Commander wiring for `lanfu update`, its status/finalize subcommands, and help text.
 import type { Command } from "commander";
 import { formatDocsLink } from "../../packages/terminal-core/src/links.js";
 import { theme } from "../../packages/terminal-core/src/theme.js";
@@ -71,12 +71,12 @@ function createUpdateLeafAction(
     try {
       if (inheritOptionFromParent<boolean>(command, "reapplyLocalOverrides")) {
         throw new Error(
-          `--reapply-local-overrides is not supported for openclaw update ${command.name()}. Use it with openclaw update.`,
+          `--reapply-local-overrides is not supported for lanfu update ${command.name()}. Use it with lanfu update.`,
         );
       }
       if (!options.supportsDryRun && inheritOptionFromParent<boolean>(command, "dryRun")) {
         throw new Error(
-          `--dry-run is not supported for \`openclaw update ${command.name()}\`. Run \`openclaw update --dry-run\` instead.`,
+          `--dry-run is not supported for \`lanfu update ${command.name()}\`. Run \`lanfu update --dry-run\` instead.`,
         );
       }
       await action(opts, command);
@@ -100,13 +100,13 @@ function registerUpdateFinalizationCommand(update: Command, name: string, hidden
       "after",
       () =>
         `\n${theme.heading("Examples:")}\n${formatHelpExamples([
-          ["openclaw update repair", "Reconcile abandoned runs or repair post-update state."],
+          ["lanfu update repair", "Reconcile abandoned runs or repair post-update state."],
           [
-            "openclaw update repair --accept-capabilities",
+            "lanfu update repair --accept-capabilities",
             "Accept reviewed plugin capability changes during repair.",
           ],
-          ["openclaw update repair --channel beta", "Repair against the beta update channel."],
-          ["openclaw update repair --json", "JSON output for automation."],
+          ["lanfu update repair --channel beta", "Repair against the beta update channel."],
+          ["lanfu update repair --json", "JSON output for automation."],
         ])}\n\n${theme.heading("Notes:")}\n${theme.muted(
           "- Reconciles abandoned runs when the Gateway is healthy; otherwise repairs post-update state",
         )}\n${theme.muted("- Runs Doctor repair and plugin convergence; repair restores only a service it stops")}\n\n${theme.muted(
@@ -147,22 +147,19 @@ export function registerUpdateCli(program: Command) {
   update
     .addHelpText("after", () => {
       const examples = [
-        ["openclaw update", "Update a source checkout (git)"],
-        [
-          "openclaw update --channel extended-stable",
-          "Switch to the monthly supported npm channel",
-        ],
-        ["openclaw update --channel beta", "Switch to beta channel (git + npm)"],
-        ["openclaw update --channel dev", "Switch to dev channel (git + npm)"],
-        ["openclaw update --tag beta", "One-off update to a dist-tag or version"],
-        ["openclaw update --dry-run", "Preview actions without changing anything"],
-        ["openclaw update --no-restart", "Update without restarting the service"],
-        ["openclaw update --json", "Output result as JSON"],
-        ["openclaw update --yes", "Non-interactive (accept downgrade prompts)"],
-        ["openclaw update --accept-capabilities", "Accept reviewed plugin capability changes"],
-        ["openclaw update repair", "Repair stranded post-update plugin state"],
-        ["openclaw update wizard", "Interactive update wizard"],
-        ["openclaw --update", "Shorthand for openclaw update"],
+        ["lanfu update", "Update a source checkout (git)"],
+        ["lanfu update --channel extended-stable", "Switch to the monthly supported npm channel"],
+        ["lanfu update --channel beta", "Switch to beta channel (git + npm)"],
+        ["lanfu update --channel dev", "Switch to dev channel (git + npm)"],
+        ["lanfu update --tag beta", "One-off update to a dist-tag or version"],
+        ["lanfu update --dry-run", "Preview actions without changing anything"],
+        ["lanfu update --no-restart", "Update without restarting the service"],
+        ["lanfu update --json", "Output result as JSON"],
+        ["lanfu update --yes", "Non-interactive (accept downgrade prompts)"],
+        ["lanfu update --accept-capabilities", "Accept reviewed plugin capability changes"],
+        ["lanfu update repair", "Repair stranded post-update plugin state"],
+        ["lanfu update wizard", "Interactive update wizard"],
+        ["lanfu --update", "Shorthand for lanfu update"],
       ] as const;
       const fmtExamples = examples
         .map(([cmd, desc]) => `  ${theme.command(cmd)} ${theme.muted(`# ${desc}`)}`)
@@ -174,7 +171,7 @@ ${theme.heading("What this does:")}
 
 ${theme.heading("Switch channels:")}
   - Use --channel stable|extended-stable|beta|dev to persist the update channel in config
-  - Run openclaw update status to see the active channel and source
+  - Run lanfu update status to see the active channel and source
   - Use --tag <dist-tag|version|spec> for a one-off package update without persisting
   - Use --channel dev for the moving GitHub main checkout; package installs reject --tag main
 
@@ -230,7 +227,7 @@ ${theme.heading("Notes:")}
               update.getOptionValueSource(key) !== "default"
             ) {
               throw new Error(
-                `--${key === "restart" ? "no-restart" : key === "acceptCapabilities" ? "accept-capabilities" : key} is not supported for openclaw update cleanup.`,
+                `--${key === "restart" ? "no-restart" : key === "acceptCapabilities" ? "accept-capabilities" : key} is not supported for lanfu update cleanup.`,
               );
             }
           }
@@ -300,9 +297,9 @@ ${theme.heading("Notes:")}
       "after",
       () =>
         `\n${theme.heading("Examples:")}\n${formatHelpExamples([
-          ["openclaw update status", "Show channel + version status."],
-          ["openclaw update status --json", "JSON output."],
-          ["openclaw update status --timeout 10", "Custom timeout."],
+          ["lanfu update status", "Show channel + version status."],
+          ["lanfu update status --json", "JSON output."],
+          ["lanfu update status --timeout 10", "Custom timeout."],
         ])}\n\n${theme.heading("Notes:")}\n${theme.muted(
           "- Shows current update channel (stable/extended-stable/beta/dev) and source",
         )}\n${theme.muted("- Includes git tag/branch/SHA for source checkouts")}\n\n${theme.muted(

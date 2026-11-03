@@ -416,7 +416,7 @@ export async function preflightOpenClawDatabaseSchemas(
           );
           if (blockingIssues.length > 0) {
             throw new Error(
-              `LanFu state database ${statePath} requires repair: ${blockingIssues.map((issue) => issue.message).join("; ")}; run openclaw doctor --fix.`,
+              `LanFu state database ${statePath} requires repair: ${blockingIssues.map((issue) => issue.message).join("; ")}; run lanfu doctor --fix.`,
             );
           }
         } else {

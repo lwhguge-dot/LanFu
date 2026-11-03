@@ -468,7 +468,7 @@ describe("node worker launch adapter", () => {
         getTransport: () => transportWith(invoke, async () => [node]),
       });
 
-      await expect(adapter.launch(launchRequest())).rejects.toThrow("openclaw update");
+      await expect(adapter.launch(launchRequest())).rejects.toThrow("lanfu update");
       expect(invoke).not.toHaveBeenCalled();
     },
   );

@@ -504,7 +504,7 @@ describe("system agent operations", () => {
       status: "error" as const,
       reason: "legacy-session-migration-required" as const,
       agentId: "main",
-      message: "Run openclaw doctor --fix before creating main.",
+      message: "Run lanfu doctor --fix before creating main.",
     }));
 
     await expect(
@@ -930,6 +930,6 @@ describe("system agent operations", () => {
     });
     expect(runPluginUninstall).not.toHaveBeenCalled();
     expect(lines.join("\n")).toContain("could remove the provider behind");
-    expect(lines.join("\n")).toContain("openclaw plugins uninstall openclaw-demo");
+    expect(lines.join("\n")).toContain("lanfu plugins uninstall openclaw-demo");
   });
 });

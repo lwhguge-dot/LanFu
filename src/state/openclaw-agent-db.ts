@@ -415,7 +415,7 @@ function* openOpenClawAgentDatabaseSteps(
     openedDatabase = database;
     if (hasAgentDatabaseMaintenanceAuthority()) {
       throw new Error(
-        "Agent database maintenance is in progress; retry after openclaw doctor --fix completes.",
+        "Agent database maintenance is in progress; retry after lanfu doctor --fix completes.",
       );
     }
     const cleanup = registerAgentDeletionDatabaseCleanup(database, databaseOptions);

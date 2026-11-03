@@ -322,7 +322,7 @@ it("leaves a progressing Gateway running and warns after the readiness cap", asy
   await expect(maintenance!.finish({})).resolves.toBeUndefined();
 
   const warning = expect.stringMatching(
-    /still starting after 300s.*startup migration.*openclaw gateway status --deep/,
+    /still starting after 300s.*startup migration.*lanfu gateway status --deep/,
   );
   expect(maintenance!.warnings).toContainEqual(warning);
   expect(boundary.log).toHaveBeenCalledWith(warning);
@@ -828,7 +828,7 @@ it.each([false, true])(
       await expect(begin()).rejects.toThrow(/gateway-lifecycle/);
       expect(elapsed).toBe(GATEWAY_SERVICE_STOP_TIMEOUT_MS);
       expect(boundary.log).toHaveBeenCalledWith(
-        expect.stringMatching(/Warning:.*gateway-lifecycle.*openclaw doctor --fix/),
+        expect.stringMatching(/Warning:.*gateway-lifecycle.*lanfu doctor --fix/),
       );
     } else {
       const maintenance = await begin();

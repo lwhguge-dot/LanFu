@@ -112,7 +112,7 @@ export function registerManagedUpdateHandoffTriageTests(
       expect(sentinel).toMatchObject({
         payload: {
           status: "error",
-          doctorHint: expect.stringContaining("openclaw triage"),
+          doctorHint: expect.stringContaining("lanfu triage"),
           stats: {
             reason: "global-install-failed",
             steps: [expect.objectContaining({ name: "service-restore", log: { exitCode: 0 } })],

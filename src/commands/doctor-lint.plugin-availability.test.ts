@@ -116,7 +116,7 @@ describe("Doctor lint plugin availability", () => {
                   message: expect.stringContaining("unavailable"),
                 }),
               ]);
-              expect(JSON.stringify(output.warnings)).toContain("openclaw doctor --fix");
+              expect(JSON.stringify(output.warnings)).toContain("lanfu doctor --fix");
             }
             if (getHealthCheck("codex/managed-app-server")) {
               const probesBefore = fs.readFileSync(path.join(root, "probes"), {

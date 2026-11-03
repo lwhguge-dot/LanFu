@@ -249,7 +249,7 @@ export function validateToolPluginProject(params: {
     existingManifest: params.manifest,
   });
   if (!jsonSchemaValuesEqual(params.manifest, expectedManifest)) {
-    errors.push("openclaw.plugin.json generated metadata is stale. Run openclaw plugins build.");
+    errors.push("openclaw.plugin.json generated metadata is stale. Run lanfu plugins build.");
   }
   if (params.manifest.id !== params.metadata.id) {
     errors.push(
@@ -322,7 +322,7 @@ export async function runPluginsBuildCommand(opts: PluginsBuildOptions): Promise
       !jsonSchemaValuesEqual(currentManifest, manifest) ||
       !jsonSchemaValuesEqual(currentPackage, nextPackageManifest)
     ) {
-      defaultRuntime.error("Generated plugin metadata is out of date. Run openclaw plugins build.");
+      defaultRuntime.error("Generated plugin metadata is out of date. Run lanfu plugins build.");
       return defaultRuntime.exit(1);
     }
     defaultRuntime.log("Plugin metadata is up to date.");
@@ -366,7 +366,7 @@ export async function collectPluginsValidationResult(
   if (browserSource) {
     const declaration = await buildPluginControlUi({ rootDir, source: browserSource, check: true });
     if (!jsonSchemaValuesEqual(manifest.controlUi, declaration)) {
-      errors.push("Control UI manifest is stale. Run openclaw plugins build.");
+      errors.push("Control UI manifest is stale. Run lanfu plugins build.");
     }
   }
   if (errors.length > 0) {

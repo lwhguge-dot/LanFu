@@ -116,7 +116,7 @@ it.each([false, true])(
       const pending = {
         pluginId: "unavailable-fixture",
         reason: "Synthetic migration owner is unavailable",
-        command: "openclaw doctor --fix",
+        command: "lanfu doctor --fix",
         requiresStateMigration: true as const,
         configPaths: [["legacyFixture"]],
         validationExcludedPaths: [["legacyFixture"]],

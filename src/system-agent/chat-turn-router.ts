@@ -448,7 +448,7 @@ export class ChatTurnRouter {
         text:
           this.options.surface === "gateway"
             ? "Opening Settings → Profile → Connected accounts. Check the Gateway, person, and Personal scope, then sign in or select a saved account. Nothing has changed yet; never paste credentials into this conversation."
-            : "Run `openclaw models accounts list` to see your personal accounts, or `openclaw models accounts login <provider>` for protected sign-in. Check the Gateway and person shown before signing in. You can also use Settings → Profile → Connected accounts in the Control UI. Nothing has changed; never paste credentials into this conversation.",
+            : "Run `lanfu models accounts list` to see your personal accounts, or `lanfu models accounts login <provider>` for protected sign-in. Check the Gateway and person shown before signing in. You can also use Settings → Profile → Connected accounts in the Control UI. Nothing has changed; never paste credentials into this conversation.",
         action: "none",
         ...(this.options.surface === "gateway" ? { handoff: recordedOperation } : {}),
       };
@@ -457,13 +457,13 @@ export class ChatTurnRouter {
       this.clearPendingProposals();
       if (this.options.surface === "gateway") {
         return {
-          text: "Open Settings to change your model or connect a channel. To change providers from a shell, run `openclaw onboard` on the machine running LanFu.",
+          text: "Open Settings to change your model or connect a channel. To change providers from a shell, run `lanfu onboard` on the machine running LanFu.",
           action: "none",
         };
       }
       if (!["channels", "search", "gateway"].includes(recordedOperation.target)) {
         return {
-          text: "Setup can replace the inference route powering this session. Exit LanFu and run `openclaw onboard`; it saves only a route that passes a live test. Then start LanFu again.",
+          text: "Setup can replace the inference route powering this session. Exit LanFu and run `lanfu onboard`; it saves only a route that passes a live test. Then start LanFu again.",
           action: "none",
         };
       }
@@ -631,7 +631,7 @@ export class ChatTurnRouter {
     return operation?.kind === "model-setup"
       ? [
           "No usable inference route is configured, so LanFu cannot continue.",
-          "Run `openclaw onboard` on the machine running LanFu; it saves only a route that passes a live test.",
+          "Run `lanfu onboard` on the machine running LanFu; it saves only a route that passes a live test.",
         ].join("\n")
       : null;
   }

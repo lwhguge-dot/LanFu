@@ -265,7 +265,7 @@ describe("plugin inventory install health", () => {
               level: "error",
               code: "plugin-verification",
               message: expect.stringContaining("install incomplete"),
-              fixHint: `Run \`openclaw plugins install ${expectedInstallTarget} --force\` to reinstall the plugin.`,
+              fixHint: `Run \`lanfu plugins install ${expectedInstallTarget} --force\` to reinstall the plugin.`,
             }),
           );
           expect.soft(report.diagnostics).not.toContainEqual(

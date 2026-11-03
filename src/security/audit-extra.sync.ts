@@ -148,7 +148,7 @@ function formatHooksTokenReuseRemediation(reuse: GatewayAuthSharedSecretReuse): 
   if (reuse.source === "override") {
     return "Rotate hooks.token or the runtime Gateway shared-secret auth value used for this audit; doctor can only repair reuse that is present in persisted config or process env.";
   }
-  return `Run ${formatCliCommand("openclaw doctor --fix")} to rotate a persisted hooks.token, then update external hook senders to use the new hook token.`;
+  return `Run ${formatCliCommand("lanfu doctor --fix")} to rotate a persisted hooks.token, then update external hook senders to use the new hook token.`;
 }
 
 function hasResolvedGatewayHttpAuth(auth: ResolvedGatewayAuth): boolean {

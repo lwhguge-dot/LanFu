@@ -345,7 +345,7 @@ describe("transcripts read actions", () => {
     }
     expect(text.text.length).toBeLessThanOrEqual(12000);
     expect(text.text).toContain(
-      `[truncated; run openclaw transcripts show ${transcriptSessionSelector(session)} for the full notes]`,
+      `[truncated; run lanfu transcripts show ${transcriptSessionSelector(session)} for the full notes]`,
     );
     await expect(
       readThroughCatalog({ action: "show", sessionId: "meeting" }),

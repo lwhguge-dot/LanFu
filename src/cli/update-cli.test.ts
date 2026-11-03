@@ -339,7 +339,7 @@ vi.mock("../config/config.js", () => {
         throw new Error(
           [
             "Config is managed by Nix (`OPENCLAW_NIX_MODE=1`), so LanFu treats openclaw.json as immutable.",
-            "Do not run setup, onboarding, openclaw update, plugin install/update/uninstall/enable, doctor repair/token-generation, or config set against this file.",
+            "Do not run setup, onboarding, lanfu update, plugin install/update/uninstall/enable, doctor repair/token-generation, or config set against this file.",
             "Agent-first Nix setup: https://github.com/openclaw/nix-openclaw#quick-start",
             "LanFu Nix overview: https://docs.openclaw.ai/install/nix",
           ].join("\n"),
@@ -1590,7 +1590,7 @@ describe("update-cli", () => {
         steps: [
           {
             name: "candidate-gateway-startup",
-            command: "openclaw gateway",
+            command: "lanfu gateway",
             cwd: "/candidate",
             durationMs: 1,
             exitCode: 0,
@@ -2385,7 +2385,7 @@ describe("update-cli", () => {
 
     const logOutput = getLogOutput();
     expect(logOutput).toContain("timed out after 30s");
-    expect(logOutput).toContain("openclaw completion --write-state");
+    expect(logOutput).toContain("lanfu completion --write-state");
   });
 
   it("keeps update completion refresh best-effort when profile install fails", async () => {
@@ -2905,7 +2905,7 @@ describe("update-cli", () => {
                   reason: "missing-extension-entry: ./dist/index.js",
                   message:
                     'Plugin "demo" failed post-core payload smoke check (missing-extension-entry): ./dist/index.js',
-                  guidance: ["Run openclaw update repair to retry post-update plugin repair."],
+                  guidance: ["Run lanfu update repair to retry post-update plugin repair."],
                 },
               ],
               sync: {
@@ -3910,14 +3910,14 @@ describe("update-cli", () => {
         : [repairWarning];
       const reportedRepairWarning = {
         ...repairWarning,
-        message: "Plugin updates could not complete. Run `openclaw update repair` to retry.",
-        guidance: ["openclaw update repair"],
+        message: "Plugin updates could not complete. Run `lanfu update repair` to retry.",
+        guidance: ["lanfu update repair"],
       };
       const reportedSmokeWarning = {
         ...smokeWarning,
         message:
-          'Plugin "reporting-fixture" could not be loaded. Run `openclaw doctor --fix` to check and repair the load problem.',
-        guidance: ["openclaw doctor --fix"],
+          'Plugin "reporting-fixture" could not be loaded. Run `lanfu doctor --fix` to check and repair the load problem.',
+        guidance: ["lanfu doctor --fix"],
       };
       mockPostCoreConvergenceOnce(runPostCorePluginConvergenceSpy, {
         warnings,
@@ -4000,7 +4000,7 @@ describe("update-cli", () => {
     mockFileBackedPathExists();
     const message =
       "discord is pinned to @openclaw/discord@2026.9.2 (installed 2026.9.2); " +
-      "registry latest resolves to 2026.9.3. Pass `openclaw plugins update " +
+      "registry latest resolves to 2026.9.3. Pass `lanfu plugins update " +
       "@openclaw/discord@latest` to replace this version pin.";
     const records: Record<string, PluginInstallRecord> = {
       discord: { source: "npm", spec: "@openclaw/discord@2026.9.2", installPath, ...fields },
@@ -4558,7 +4558,7 @@ describe("update-cli", () => {
     ]);
     expect(jsonOutput?.postUpdate?.plugins?.status).toBe("warning");
     expect(pluginWarning(jsonOutput)?.pluginId).toBe("demo");
-    expect(pluginWarning(jsonOutput)?.guidance).toEqual(["openclaw plugins update demo"]);
+    expect(pluginWarning(jsonOutput)?.guidance).toEqual(["lanfu plugins update demo"]);
     expect(pluginWarning(jsonOutput)?.reason).toContain("npm package integrity drift");
     expect(jsonOutput?.postUpdate?.plugins?.npm.outcomes[0]?.status).toBe("error");
     expect(jsonOutput?.postUpdate?.plugins?.npm.outcomes[0]?.message).toContain(
@@ -4706,7 +4706,7 @@ describe("update-cli", () => {
     const output = getLogOutput();
     const trustWarningOccurrences = output.split(trustWarning).length - 1;
     expect(trustWarningOccurrences).toBe(1);
-    expect(output).toContain("openclaw plugins update demo");
+    expect(output).toContain("lanfu plugins update demo");
   });
 
   it("detects missing plugin payloads from persisted records before npm updates", async () => {
@@ -4745,8 +4745,8 @@ describe("update-cli", () => {
     expect(pluginWarning(jsonOutput)?.reason).toContain("package.json is missing");
     expect(pluginWarning(jsonOutput)).toMatchObject({
       message:
-        'Plugin "demo" could not be loaded. Run `openclaw doctor --fix` to check and repair the load problem.',
-      guidance: ["openclaw doctor --fix"],
+        'Plugin "demo" could not be loaded. Run `lanfu doctor --fix` to check and repair the load problem.',
+      guidance: ["lanfu doctor --fix"],
     });
     expect(pluginOutcome(jsonOutput)?.pluginId).toBe("demo");
     expect(pluginOutcome(jsonOutput)?.status).toBe("error");
@@ -4768,7 +4768,7 @@ describe("update-cli", () => {
     expect(getErrorOutput()).not.toContain("Update failed during plugin post-update sync.");
     const logs = getLogOutput();
     expect(logs).toContain('Plugin "demo" could not be updated.');
-    expect(logs).toContain("openclaw plugins update demo");
+    expect(logs).toContain("lanfu plugins update demo");
   });
 
   it("marks disabled-after-failure plugin skips as post-update warnings", async () => {
@@ -4794,7 +4794,7 @@ describe("update-cli", () => {
     const jsonOutput = lastWriteJsonCall() as UpdateRunResult | undefined;
     expect(jsonOutput?.postUpdate?.plugins?.status).toBe("warning");
     expect(pluginWarning(jsonOutput)?.pluginId).toBe("demo");
-    expect(pluginWarning(jsonOutput)?.guidance).toEqual(["openclaw plugins update demo"]);
+    expect(pluginWarning(jsonOutput)?.guidance).toEqual(["lanfu plugins update demo"]);
     expect(pluginOutcome(jsonOutput)?.pluginId).toBe("demo");
     expect(pluginOutcome(jsonOutput)?.status).toBe("skipped");
   });
@@ -4808,7 +4808,7 @@ describe("update-cli", () => {
     "reports unavailable retained plugin targets without failing core ($json, repaired=$repaired, version=$version)",
     async ({ json, repaired, version }) => {
       const message =
-        'Retained plugin "demo" at 1.0.0: requested @example/demo@2.0.0 for core 9999.0.0 could not be resolved: No matching version found. Run `openclaw plugins update demo` when the package or registry is available.';
+        'Retained plugin "demo" at 1.0.0: requested @example/demo@2.0.0 for core 9999.0.0 could not be resolved: No matching version found. Run `lanfu plugins update demo` when the package or registry is available.';
       const installPath = createCaseDir("unavailable-target");
       await fs.mkdir(installPath, { recursive: true });
       await writeJsonFixture(path.join(installPath, "package.json"), {
@@ -4932,7 +4932,7 @@ describe("update-cli", () => {
     expect(pluginOutcome(jsonOutput)?.message).toContain(
       "Existing installed plugin left unchanged",
     );
-    expect(pluginWarning(jsonOutput)?.guidance).toEqual(["openclaw plugins update demo"]);
+    expect(pluginWarning(jsonOutput)?.guidance).toEqual(["lanfu plugins update demo"]);
   });
 
   it.each([
@@ -4976,10 +4976,10 @@ describe("update-cli", () => {
                     pluginId: "demo",
                     reason: "Failed to update demo: registry timeout",
                     message:
-                      'Plugin "demo" could not be processed after the core update: Failed to update demo: registry timeout Run openclaw update repair to retry post-update plugin repair. Run openclaw plugins inspect demo --runtime --json for details.',
+                      'Plugin "demo" could not be processed after the core update: Failed to update demo: registry timeout Run lanfu update repair to retry post-update plugin repair. Run lanfu plugins inspect demo --runtime --json for details.',
                     guidance: [
-                      "Run openclaw update repair to retry post-update plugin repair.",
-                      "Run openclaw plugins inspect demo --runtime --json for details.",
+                      "Run lanfu update repair to retry post-update plugin repair.",
+                      "Run lanfu plugins inspect demo --runtime --json for details.",
                     ],
                   },
                 ],
@@ -5020,7 +5020,7 @@ describe("update-cli", () => {
     expect(jsonOutput?.status).toBe("ok");
     expect(jsonOutput?.reason).toBeUndefined();
     expect(jsonOutput?.postUpdate?.plugins?.warnings?.[0]?.guidance).toContain(
-      "Run openclaw update repair to retry post-update plugin repair.",
+      "Run lanfu update repair to retry post-update plugin repair.",
     );
     expect(jsonOutput?.postUpdate?.plugins?.npm.outcomes[0]?.message).toContain("registry timeout");
   });
@@ -5810,7 +5810,7 @@ describe("update-cli", () => {
     expectNoSideEffects(databasePreflightMocks.preflightOpenClawDatabaseSchemas, serviceStop);
     expect(packageInstallCommandCall()?.[0]).toBeUndefined();
     expect(getLogOutput()).toContain("The registry package metadata could not be read.");
-    expect(getLogOutput()).toContain("retry openclaw update --tag <published-version>");
+    expect(getLogOutput()).toContain("retry lanfu update --tag <published-version>");
     expect(getLogOutput()).toContain(
       "Could not inspect exact package target openclaw@9999.0.0: registry timeout.",
     );
@@ -6533,7 +6533,7 @@ describe("update-cli", () => {
           pluginId: "demo",
           reason: "plugin smoke failed",
           message: "plugin smoke failed",
-          guidance: ["Run openclaw update repair."],
+          guidance: ["Run lanfu update repair."],
         },
       ],
       errored: true,
@@ -6735,7 +6735,7 @@ describe("update-cli", () => {
         handoffId: "current-artifact-handoff",
         installRoot: root,
         logPath: "/tmp/current-artifact-handoff.log",
-        command: "openclaw update --yes",
+        command: "lanfu update --yes",
         pid: 12345,
       });
       managedUpdateHandoff.transfer.mockResolvedValue(true);
@@ -6866,7 +6866,7 @@ describe("update-cli", () => {
       };
       loadInstalledPluginIndexInstallRecords.mockResolvedValue(records);
       const message =
-        "discord is pinned to @openclaw/discord@2026.9.2 (installed 2026.9.2); registry latest resolves to 2026.9.3. Pass `openclaw plugins update @openclaw/discord@latest` to replace this version pin.";
+        "discord is pinned to @openclaw/discord@2026.9.2 (installed 2026.9.2); registry latest resolves to 2026.9.3. Pass `lanfu plugins update @openclaw/discord@latest` to replace this version pin.";
       mockNpmPluginOutcomes(
         [
           {
@@ -7208,7 +7208,7 @@ describe("update-cli", () => {
   const packageUpdateInGatewayMessage = [
     "Package updates cannot run from inside the gateway service process.",
     "That path replaces the active LanFu dist tree while the live gateway may still lazy-load old chunks.",
-    "Run `openclaw update` from a terminal outside the gateway service.",
+    "Run `lanfu update` from a terminal outside the gateway service.",
   ].join("\n");
 
   it("allows package updates from inherited gateway service env when the managed gateway is not running", async () => {
@@ -7414,7 +7414,7 @@ describe("update-cli", () => {
         handoffId: "test-handoff",
         installRoot: root,
         logPath: "/tmp/update-handoff/handoff.log",
-        command: "openclaw update --yes",
+        command: "lanfu update --yes",
         pid: 12345,
       });
       managedUpdateHandoff.transfer.mockResolvedValue(true);
@@ -7458,7 +7458,7 @@ describe("update-cli", () => {
           }),
         ],
       });
-      expect(JSON.stringify(lastWriteJsonCall())).toContain("openclaw update status");
+      expect(JSON.stringify(lastWriteJsonCall())).toContain("lanfu update status");
     },
   );
 
@@ -7684,7 +7684,7 @@ describe("update-cli", () => {
       expect(cleanupStaleManagedServiceUpdateHandoffs).not.toHaveBeenCalled();
     }
     expect(defaultRuntime.exit).not.toHaveBeenCalled();
-    expect(getErrorOutput()).toContain("openclaw update --channel dev");
+    expect(getErrorOutput()).toContain("lanfu update --channel dev");
   });
 
   it("fails package updates when the installed correction version does not match the requested target", async () => {
@@ -8224,7 +8224,7 @@ describe("update-cli", () => {
         warnings: [
           exitCode === 0
             ? warning
-            : `${warning}\nRun openclaw doctor --fix to finish deferred repairs.`,
+            : `${warning}\nRun lanfu doctor --fix to finish deferred repairs.`,
         ],
       });
       expect(doctorStep?.advisory?.message).not.toContain("gateway restart");
@@ -8465,7 +8465,7 @@ describe("update-cli", () => {
           steps: [
             {
               name: "candidate-gateway-startup",
-              command: "openclaw gateway",
+              command: "lanfu gateway",
               cwd: root,
               durationMs: 1,
               exitCode: valid ? 0 : 1,
@@ -8615,7 +8615,7 @@ describe("update-cli", () => {
         steps: [
           {
             name: "candidate-gateway-startup",
-            command: "openclaw gateway",
+            command: "lanfu gateway",
             cwd: options.root,
             durationMs: 1,
             exitCode: 0,
@@ -8646,7 +8646,7 @@ describe("update-cli", () => {
         steps: [
           {
             name: "candidate-gateway-startup",
-            command: "openclaw gateway",
+            command: "lanfu gateway",
             cwd: root,
             durationMs: 1,
             exitCode: 0,
@@ -12612,7 +12612,7 @@ describe("update-cli", () => {
     expect(logs).toContain(
       "Local changes prevented this update before installation. Your checkout was preserved.",
     );
-    expect(logs).toContain("Commit your changes and retry, or run `openclaw triage` for help.");
+    expect(logs).toContain("Commit your changes and retry, or run `lanfu triage` for help.");
     expect(listUpdateRuns({ limit: 1 })[0]?.origin.nextAction).toContain(
       "Commit your changes and retry",
     );
@@ -13124,7 +13124,7 @@ describe("update-cli", () => {
                   pluginId: "telegram",
                   reason: "failed to load plugin dependency: ENOSPC",
                   message: expect.stringContaining("could not be loaded"),
-                  guidance: ["openclaw doctor --fix"],
+                  guidance: ["lanfu doctor --fix"],
                 }),
               ]),
             },
@@ -13133,7 +13133,7 @@ describe("update-cli", () => {
       } else {
         expect(getLogOutput()).toContain("Gateway: restarted and verified.");
         expect(getLogOutput()).toContain('Plugin "telegram" could not be loaded.');
-        expect(getLogOutput()).toContain("openclaw doctor --fix");
+        expect(getLogOutput()).toContain("lanfu doctor --fix");
         expect(getLogOutput()).not.toContain("failed to load plugin dependency: ENOSPC");
       }
     },
@@ -13796,7 +13796,7 @@ describe("update-cli", () => {
       run: async () => await updateWizardCommand({}),
       requireTty: false,
       expectedError:
-        "Update wizard requires a TTY. Use `openclaw update --channel <stable|extended-stable|beta|dev>` instead.",
+        "Update wizard requires a TTY. Use `lanfu update --channel <stable|extended-stable|beta|dev>` instead.",
     },
   ] as const)(
     "validates update command invocation errors: $name",

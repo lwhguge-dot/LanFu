@@ -240,7 +240,7 @@ export async function updateRepairCommand(opts: UpdateFinalizeOptions): Promise<
     currentHistory.incomplete
   ) {
     throw new Error(
-      `Update history changed during inspection and now needs post-core maintenance. Retry ${formatCliCommand("openclaw update repair", env)}; if the managed Gateway cannot stop, run ${formatCliCommand("openclaw gateway stop", env)} first.`,
+      `Update history changed during inspection and now needs post-core maintenance. Retry ${formatCliCommand("lanfu update repair", env)}; if the managed Gateway cannot stop, run ${formatCliCommand("lanfu gateway stop", env)} first.`,
     );
   }
   const reconciled = activeRuns.length

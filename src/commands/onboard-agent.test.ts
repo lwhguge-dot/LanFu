@@ -170,7 +170,7 @@ describe("onboarding main-agent creation", () => {
     mocks.migrateLegacyMainSessionKeys.mockResolvedValueOnce({
       armed: true,
       complete: true,
-      warnings: ["retained legacy main sessions require repair; run openclaw doctor --fix"],
+      warnings: ["retained legacy main sessions require repair; run lanfu doctor --fix"],
     });
 
     const result = await ensureOnboardingAgent({
@@ -181,7 +181,7 @@ describe("onboarding main-agent creation", () => {
 
     expect(result.sessionMigrationWarnings).toEqual([
       expect.stringContaining(
-        "retained legacy main sessions require repair; run openclaw doctor --fix",
+        "retained legacy main sessions require repair; run lanfu doctor --fix",
       ),
     ]);
   });

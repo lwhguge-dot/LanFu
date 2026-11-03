@@ -54,15 +54,13 @@ export function applyPostPluginConfigValidation(
               .filter(Boolean)
               .join("; "),
             message: "Config validation could not complete; refusing to restart.",
-            guidance: [
-              "Resolve the validation command failure, then rerun `openclaw update repair`.",
-            ],
+            guidance: ["Resolve the validation command failure, then rerun `lanfu update repair`."],
           }
         : {
             reason: "Config remained invalid after updated plugin migrations.",
             message:
               "Post-update plugin migration did not produce a valid config; refusing to restart.",
-            guidance: ["Run `openclaw doctor --fix`, then rerun `openclaw update repair`."],
+            guidance: ["Run `lanfu doctor --fix`, then rerun `lanfu update repair`."],
           },
     ],
   };

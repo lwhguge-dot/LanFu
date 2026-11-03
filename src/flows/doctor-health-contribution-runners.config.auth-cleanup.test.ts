@@ -233,7 +233,7 @@ describe("Doctor retired auth profile cleanup", () => {
       {
         pluginId: "receipt-test",
         reason: "state migration has not completed",
-        command: "openclaw doctor --fix",
+        command: "lanfu doctor --fix",
         configPaths: [["session", "store"]],
       },
     ]);

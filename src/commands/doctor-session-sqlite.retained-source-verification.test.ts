@@ -240,7 +240,7 @@ describe("retained session source verification", () => {
             {
               pluginId: "fixture-plugin",
               reason: "Plugin is unavailable.",
-              command: "openclaw doctor --fix",
+              command: "lanfu doctor --fix",
             },
           ],
         });
@@ -480,7 +480,7 @@ describe("retained session source verification", () => {
               {
                 pluginId,
                 reason: "Retained session migration has not completed.",
-                command: "openclaw doctor --fix",
+                command: "lanfu doctor --fix",
                 requiresStateMigration: true,
                 configPaths: [["plugins", "entries", pluginId, "config"]],
               },

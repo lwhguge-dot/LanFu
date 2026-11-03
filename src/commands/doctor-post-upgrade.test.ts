@@ -233,7 +233,7 @@ describe("runPostUpgradeProbes — plugin.entry_unresolved", () => {
           code: "plugin.entry_unresolved",
           plugin: "broken",
           entry: "missing-package.json",
-          message: expect.stringContaining("openclaw plugins registry --refresh"),
+          message: expect.stringContaining("lanfu plugins registry --refresh"),
         }),
       ]);
       const line = stderrSpy.mock.calls.map(([value]) => String(value)).join("");
@@ -263,7 +263,7 @@ describe("runPostUpgradeProbes — plugin.entry_unresolved", () => {
           code: "plugin.entry_unresolved",
           plugin: "broken",
           entry: "package.json",
-          message: expect.stringContaining("openclaw plugins registry --refresh"),
+          message: expect.stringContaining("lanfu plugins registry --refresh"),
         }),
       ]);
       expect(stderrSpy).toHaveBeenCalled();
@@ -755,7 +755,7 @@ describe("runPostUpgradeProbes — plugin.version_drift", () => {
                 code: "plugin.version_drift",
                 level: "warn",
                 plugin: id,
-                message: expect.stringContaining(`openclaw plugins update ${id}`),
+                message: expect.stringContaining(`lanfu plugins update ${id}`),
               }),
             ]
           : [],
@@ -884,7 +884,7 @@ describe("runPostUpgradeProbes — manifest availability", () => {
           );
           if (error) {
             expect(report.findings[0]?.message).toContain("Reinstall the plugin");
-            expect(report.findings[0]?.message).toContain("openclaw plugins registry --refresh");
+            expect(report.findings[0]?.message).toContain("lanfu plugins registry --refresh");
           }
           expect(await readPersistedInstalledPluginIndex({ stateDir: root })).toEqual(before);
         } finally {

@@ -58,7 +58,7 @@ export function createManagedHandoffBootIdentityReader(serviceManagerEnv: NodeJS
     };
     const parsed = managedHandoffBootSchema.safeParse(boot);
     if (!parsed.success) {
-      throw new Error("OS boot identity unavailable; run openclaw triage manually");
+      throw new Error("OS boot identity unavailable; run lanfu triage manually");
     }
     return parsed.data;
   };

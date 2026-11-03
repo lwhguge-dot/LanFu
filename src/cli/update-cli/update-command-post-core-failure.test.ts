@@ -22,7 +22,7 @@ it("carries Doctor restoration phase and next action through the post-core child
     {
       check: "gateway-restoration",
       code: "stale-gateway-recovery-command",
-      message: "openclaw gateway status --deep",
+      message: "lanfu gateway status --deep",
     },
   ];
   const error = new UpdateDoctorError("Doctor Gateway restoration failed", facts);

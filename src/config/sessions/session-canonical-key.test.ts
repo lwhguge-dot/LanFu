@@ -178,10 +178,10 @@ describe("cold canonical session validation", () => {
     closeOpenClawAgentDatabasesForTest();
     const held = openOpenClawAgentDatabase({ ...scope, path: scope.storePath });
     expect(() => listSessionEntriesReadOnly({ ...scope, projection: "list" })).toThrow(
-      "openclaw doctor --fix",
+      "lanfu doctor --fix",
     );
     expect(() => listSessionEntriesReadOnly({ ...scope, projection: "list" })).toThrow(
-      "openclaw doctor --fix",
+      "lanfu doctor --fix",
     );
     for (const [key, id] of [
       [scope.sessionKey, "cold-key"],
@@ -204,7 +204,7 @@ describe("cold canonical session validation", () => {
     setCanonicalSqliteSessionMainKey(database, "custom");
     closeOpenClawAgentDatabasesForTest();
     expect(() => listSessionEntriesReadOnly({ ...scope, projection: "list" })).toThrow(
-      "openclaw doctor --fix",
+      "lanfu doctor --fix",
     );
   });
 
@@ -378,6 +378,6 @@ describe("cold canonical session validation", () => {
     closeOpenClawAgentDatabasesForTest();
     closeOpenClawStateDatabaseForTest();
 
-    expect(() => loadSessionEntryReadOnly(scope)).toThrow("openclaw doctor --fix");
+    expect(() => loadSessionEntryReadOnly(scope)).toThrow("lanfu doctor --fix");
   });
 });

@@ -262,7 +262,7 @@ describe("noteAuthProfileHealth", () => {
   it.each([
     [
       "auth_permanent",
-      "Re-authenticate with `openclaw models auth login --provider openai --profile-id 'openai:disabled'`.",
+      "Re-authenticate with `lanfu models auth login --provider openai --profile-id 'openai:disabled'`.",
     ],
     ["unknown", "Wait for cooldown or switch provider."],
   ] satisfies Array<[AuthProfileFailureReason, string]>)(
@@ -790,22 +790,22 @@ describe("noteAuthProfileHealth", () => {
     [
       "openai-codex:default",
       "OAuth token refresh failed for openai-codex: refresh_token_reused. Please try again or re-authenticate.",
-      "- openai-codex:default: re-auth required [refresh_token_reused] — Run `openclaw models auth login --provider openai`.",
+      "- openai-codex:default: re-auth required [refresh_token_reused] — Run `lanfu models auth login --provider openai`.",
     ],
     [
       "openai-codex:default",
       "OAuth token refresh failed for openai-codex: temporary upstream issue. Please try again or re-authenticate.",
-      "- openai-codex:default: OAuth refresh failed — Try again; if this persists, run `openclaw models auth login --provider openai`.",
+      "- openai-codex:default: OAuth refresh failed — Try again; if this persists, run `lanfu models auth login --provider openai`.",
     ],
     [
       "OpenAI Work Profile",
       "OAuth token refresh failed for openai: invalid_grant. Please try again or re-authenticate.",
-      "- OpenAI Work Profile: re-auth required [invalid_grant] — Run `openclaw models auth login --provider openai --profile-id 'OpenAI Work Profile'`.",
+      "- OpenAI Work Profile: re-auth required [invalid_grant] — Run `lanfu models auth login --provider openai --profile-id 'OpenAI Work Profile'`.",
     ],
     [
       "openai-codex:default",
       "OAuth token refresh failed for openai-codex`\nrm -rf /: invalid_grant. Please try again or re-authenticate.",
-      "- openai-codex:default: re-auth required [invalid_grant] — Run `openclaw models auth login --provider openai`.",
+      "- openai-codex:default: re-auth required [invalid_grant] — Run `lanfu models auth login --provider openai`.",
     ],
   ])(
     "formats OAuth refresh failures through the doctor command path",

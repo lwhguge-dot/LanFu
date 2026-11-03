@@ -79,7 +79,7 @@ export async function signalGatewayRestart(
   }
   if (pids.length > 1) {
     throw new Error(
-      `multiple gateway processes are listening on port ${port}: ${formatGatewayPidList(pids)}; use "openclaw gateway status --deep" before retrying restart`,
+      `multiple gateway processes are listening on port ${port}: ${formatGatewayPidList(pids)}; use "lanfu gateway status --deep" before retrying restart`,
     );
   }
   const pid = expectDefined(pids[0], "pids entry at 0");
@@ -96,7 +96,7 @@ export async function signalGatewayRestart(
     previousLockIdentity.port !== port
   ) {
     throw new Error(
-      `gateway lock identity does not match the verified listener on port ${port}; use "openclaw gateway status --deep" and restart through its supervisor or original terminal`,
+      `gateway lock identity does not match the verified listener on port ${port}; use "lanfu gateway status --deep" and restart through its supervisor or original terminal`,
     );
   }
   const intentWritten = previousLockIdentity.ownerId
@@ -119,7 +119,7 @@ export async function signalGatewayRestart(
       !isSameGatewayLockIdentity(previousLockIdentity, currentLockIdentity)
     ) {
       throw new Error(
-        `gateway lock owner changed before the restart request could be delivered on port ${port}; run "openclaw gateway status --deep" before retrying`,
+        `gateway lock owner changed before the restart request could be delivered on port ${port}; run "lanfu gateway status --deep" before retrying`,
       );
     }
     if (params.ownerLease) {

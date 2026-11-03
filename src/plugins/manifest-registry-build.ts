@@ -419,7 +419,7 @@ export function buildPluginManifestRegistry(
           level: "warn",
           pluginId: effectivePluginId,
           source: packageManifestSource,
-          message: `plugin requires plugin API ${packagePluginApiRange}, but this host is ${currentHostVersion}; skipping load (check "openclaw --version", OPENCLAW_COMPATIBILITY_HOST_VERSION, or run "openclaw doctor")`,
+          message: `plugin requires plugin API ${packagePluginApiRange}, but this host is ${currentHostVersion}; skipping load (check "lanfu --version", OPENCLAW_COMPATIBILITY_HOST_VERSION, or run "lanfu doctor")`,
         });
         continue;
       }

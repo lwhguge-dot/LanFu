@@ -326,7 +326,7 @@ describe("configured plugin migration deferral", () => {
                 (receipt) =>
                   receipt.id === "plugin:discord" &&
                   receipt.outcome === "deferred" &&
-                  receipt.warnings.some((warning) => warning.includes("openclaw update repair")),
+                  receipt.warnings.some((warning) => warning.includes("lanfu update repair")),
               ),
             ).toBe(allowDiscord);
           },
@@ -664,19 +664,19 @@ describe("configured plugin migration deferral", () => {
                 expect.objectContaining({
                   id: `plugin:${pluginId}`,
                   outcome: "deferred",
-                  warnings: [expect.stringContaining("openclaw update repair")],
+                  warnings: [expect.stringContaining("lanfu update repair")],
                 }),
               ]),
             );
             expect(readDeferredPluginMigrations()).toEqual([
-              expect.objectContaining({ pluginId, command: "openclaw update repair" }),
+              expect.objectContaining({ pluginId, command: "lanfu update repair" }),
             ]);
             expect(await fs.readFile(configPath, "utf8")).toBe(original);
             expect(await fs.readFile(source, "utf8")).toBe('{"binding":"retained"}\n');
             if (entry === "published-candidate") {
               await closeOpenClawStateDatabaseByPathAsync(databasePath);
               expect(readDeferredPluginMigrations()).toEqual([
-                expect.objectContaining({ pluginId, command: "openclaw update repair" }),
+                expect.objectContaining({ pluginId, command: "lanfu update repair" }),
               ]);
               const { DatabaseSync } = requireNodeSqlite();
               const database = new DatabaseSync(databasePath, { readOnly: true });

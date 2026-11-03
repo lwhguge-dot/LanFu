@@ -113,7 +113,7 @@ describe("paired-device automatic placement selection", () => {
         }),
       ).toEqual({
         ok: false,
-        error: expect.stringContaining("run openclaw update, then reconnect"),
+        error: expect.stringContaining("run lanfu update, then reconnect"),
       });
     },
   );
@@ -320,7 +320,7 @@ describe("paired-device automatic placement selection", () => {
           issues: [NODE_RUNNER_UPDATE_REQUIRED_ISSUE],
         }),
       ],
-      message: "run openclaw update, then reconnect",
+      message: "run lanfu update, then reconnect",
     },
   ])("explains $name with an operator recovery action", async ({ environments, message }) => {
     const result = await selectNodes(environments);

@@ -630,7 +630,7 @@ async function gatherDaemonStatusImpl(
       runtime: runtime?.inspectionFailure
         ? {
             ...runtime,
-            detail: `${runtime.detail}; retry with openclaw gateway status --deep`,
+            detail: `${runtime.detail}; retry with lanfu gateway status --deep`,
           }
         : runtime,
       configAudit,

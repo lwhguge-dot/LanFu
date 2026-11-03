@@ -47,7 +47,7 @@ vi.mock("../infra/update-run-ledger.js", async (importOriginal) => ({
 const activationReason =
   "The update parent must stop the managed Gateway before Doctor maintenance; Doctor left the service unchanged.";
 const maintenanceSuffix =
-  " Stop the Gateway service and other OpenClaw processes using this state, then run openclaw doctor --fix from an independent shell.";
+  " Stop the Gateway service and other OpenClaw processes using this state, then run lanfu doctor --fix from an independent shell.";
 const runtime = { log: vi.fn(), error: vi.fn(), exit: vi.fn() };
 const quote = process.platform === "win32" ? quotePowerShellArg : quoteCliArg;
 
@@ -287,8 +287,8 @@ describe("Doctor refusal recovery under the released Git update driver", () => {
               runtime,
             }),
           );
-          expect(error.message).toContain("openclaw gateway stop");
-          expect(error.message).toContain("openclaw update repair");
+          expect(error.message).toContain("lanfu gateway stop");
+          expect(error.message).toContain("lanfu update repair");
           expect(error.message).toContain("If the stop command already returned successfully");
           expect(error.message).toContain("managed-service shutdown did not complete");
           if (platform === "darwin") {
@@ -374,7 +374,7 @@ describe("Doctor refusal recovery under the released Git update driver", () => {
         "Doctor refused update-time schema repair driven by OpenClaw 2026.9.2: this updater reopens the ledger with old code after migration, and version publication could not be deferred safely. " +
         `agent database ${state.path("agent.sqlite")}: on-disk schema 1, this build's schema 2. ` +
         "The blocked schema change was not applied. Let the updater restore the previous package, then update manually: " +
-        `openclaw gateway stop && npm install -g openclaw@${VERSION} --allow-scripts=openclaw && openclaw doctor --fix && openclaw gateway start. ` +
+        `lanfu gateway stop && npm install -g openclaw@${VERSION} --allow-scripts=openclaw && lanfu doctor --fix && lanfu gateway start. ` +
         `Use the package manager that owns this install (pnpm: pnpm add -g --allow-build=openclaw openclaw@${VERSION}; Bun: bun add -g --trust openclaw@${VERSION}). On npm 11.15 and earlier, omit --allow-scripts=openclaw.`;
       expect(
         (await refusalError(guardUpdateDoctorSchemaUpgrade({ schemas, runtime }))).message,

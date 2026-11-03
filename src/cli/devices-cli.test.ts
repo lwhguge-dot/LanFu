@@ -179,9 +179,9 @@ function mockApprovedReplacement() {
 
 const requireRecord = createRequireRecord("object", "label-not-object");
 const approvalCommandContexts = [
-  ["default", undefined, undefined, "openclaw"],
-  ["profile", "work", undefined, "openclaw --profile work"],
-  ["container", "work", "demo", "openclaw --container demo"],
+  ["default", undefined, undefined, "lanfu"],
+  ["profile", "work", undefined, "lanfu --profile work"],
+  ["container", "work", "demo", "lanfu --container demo"],
 ] as const;
 
 const nodeApprovalLabelCases = [
@@ -385,7 +385,7 @@ describe("devices cli approve", () => {
     expect(logOutput).toContain("Device Nine");
     expect(logOutput).toContain("Approved: roles: operator; scopes: operator.read");
     expect(logOutput).toContain("Requested scopes exceed the current approval");
-    expect(readRuntimeErrorOutput()).toContain("openclaw devices approve req-abc");
+    expect(readRuntimeErrorOutput()).toContain("lanfu devices approve req-abc");
     expect(runtime.exit).toHaveBeenCalledWith(1);
     expect(hasGatewayMethod("device.pair.approve")).toBe(false);
   });
@@ -448,7 +448,7 @@ describe("devices cli approve", () => {
 
     expectGatewayCall(0, { method: "device.pair.list" });
     expect(hasGatewayMethod("device.pair.approve")).toBe(false);
-    expect(readRuntimeErrorOutput()).toContain(`openclaw devices approve ${expectedRequestId}`);
+    expect(readRuntimeErrorOutput()).toContain(`lanfu devices approve ${expectedRequestId}`);
   });
 
   it("falls back to device id when selected pending display name is blank", async () => {
@@ -467,7 +467,7 @@ describe("devices cli approve", () => {
 
     const logOutput = runtime.log.mock.calls.map((c) => readRuntimeCallText(c)).join("\n");
     expect(logOutput).toContain("device-9");
-    expect(readRuntimeErrorOutput()).toContain("openclaw devices approve req-blank");
+    expect(readRuntimeErrorOutput()).toContain("lanfu devices approve req-blank");
     expect(hasGatewayMethod("device.pair.approve")).toBe(false);
   });
 
@@ -592,7 +592,7 @@ describe("devices cli approve", () => {
       const errorOutput = readRuntimeErrorOutput();
       expect(errorOutput).toContain("No pending device request matches");
       expect(errorOutput).toContain(`Node reapproval pending for ${expectedName}. Run`);
-      expect(errorOutput).toContain("openclaw nodes approve node-req-1");
+      expect(errorOutput).toContain("lanfu nodes approve node-req-1");
       expect(errorOutput).toContain(
         "Reuse the same connection options when rerunning: --url, --token.",
       );
@@ -627,7 +627,7 @@ describe("devices cli approve", () => {
     const errorOutput = readRuntimeErrorOutput();
     expect(errorOutput).toContain("No pending device request matches");
     expect(errorOutput).not.toContain("node-req-unrelated");
-    expect(errorOutput).not.toContain("openclaw nodes approve");
+    expect(errorOutput).not.toContain("lanfu nodes approve");
   });
 
   it("does not suggest node approval when the query only matches a paired device display name", async () => {
@@ -656,7 +656,7 @@ describe("devices cli approve", () => {
     const errorOutput = readRuntimeErrorOutput();
     expect(errorOutput).toContain("No pending device request matches");
     expect(errorOutput).not.toContain("node-req-display-name");
-    expect(errorOutput).not.toContain("openclaw nodes approve");
+    expect(errorOutput).not.toContain("lanfu nodes approve");
   });
 
   it("does not suggest node approval when a JSON-mode query only matches an operator label", async () => {
@@ -682,7 +682,7 @@ describe("devices cli approve", () => {
     const errorOutput = readRuntimeErrorOutput();
     expect(errorOutput).toContain("No pending device request matches Kitchen Mac");
     expect(errorOutput).not.toContain("node-req-alias");
-    expect(errorOutput).not.toContain("openclaw nodes approve");
+    expect(errorOutput).not.toContain("lanfu nodes approve");
     expect(runtime.writeJson).not.toHaveBeenCalled();
     expect(runtime.exit).toHaveBeenCalledWith(1);
   });
@@ -720,7 +720,7 @@ describe("devices cli reject", () => {
 
     expect(callGateway).not.toHaveBeenCalled();
     expect(readRuntimeErrorOutput()).toContain("requestId is required.");
-    expect(readRuntimeErrorOutput()).toContain("openclaw devices list");
+    expect(readRuntimeErrorOutput()).toContain("lanfu devices list");
     expect(runtime.exit).toHaveBeenCalledWith(1);
   });
 });
@@ -1006,7 +1006,7 @@ describe("devices cli local fallback", () => {
 
     const errorOutput = stripAnsi(readRuntimeErrorOutput());
     expect(errorOutput).toContain("No pending device request matches req-old");
-    expect(errorOutput).toContain("openclaw devices list");
+    expect(errorOutput).toContain("lanfu devices list");
     expect(errorOutput).not.toContain("unknown requestId");
     expect(runtime.exit).toHaveBeenCalledWith(1);
     expect(approveDevicePairing).not.toHaveBeenCalled();
@@ -1058,7 +1058,7 @@ describe("devices cli local fallback", () => {
       (error: unknown) => String(error),
     );
     expect(failure).toContain("superseded by a newer pending request");
-    expect(failure).toContain("openclaw --profile work devices approve req-default");
+    expect(failure).toContain("lanfu --profile work devices approve req-default");
     expect(failure).not.toContain("OPENCLAW_PROFILE");
     expect(failure).not.toContain("--token");
     expect(readRuntimeOutput()).not.toContain(fallbackNotice);
@@ -1084,7 +1084,7 @@ describe("devices cli local fallback", () => {
     expect(approveDevicePairing).not.toHaveBeenCalled();
     const errorOutput = stripAnsi(readRuntimeErrorOutput());
     expect(errorOutput).toContain("No pending device request matches req-default");
-    expect(errorOutput).toContain("openclaw devices list");
+    expect(errorOutput).toContain("lanfu devices list");
     expect(runtime.exit).toHaveBeenCalledWith(1);
   });
 
@@ -1166,7 +1166,7 @@ describe("devices cli list", () => {
       if (operatorLabel?.trim()) {
         expect(output.split("\n")).toContain(`  android-node  ${expectedName}`);
       }
-      expect(output).toContain("openclaw --profile work nodes approve node-req-1");
+      expect(output).toContain("lanfu --profile work nodes approve node-req-1");
       expect(output).toContain("Reuse the same connection options when rerunning: --url, --token.");
       expect(output).not.toContain("gateway-user");
       expect(output).not.toContain("url-secret");
@@ -1194,7 +1194,7 @@ describe("devices cli list", () => {
     expect(callGateway).toHaveBeenCalledOnce();
     const output = readRuntimeOutput();
     expect(output).not.toContain("node-req-unrelated");
-    expect(output).not.toContain("openclaw nodes approve");
+    expect(output).not.toContain("lanfu nodes approve");
   });
 
   it("does not show upgrade context for key-mismatched pending requests", async () => {
@@ -1349,15 +1349,15 @@ describe("devices cli rename", () => {
 });
 
 describe("devices cli help", () => {
-  it("cross-references `openclaw qr` for mobile app setup codes", () => {
+  it("cross-references `lanfu qr` for mobile app setup codes", () => {
     const program = new Command();
     registerDevicesCli(program);
 
     const devices = program.commands.find((cmd) => cmd.name() === "devices");
     const joinCode = devices?.commands.find((cmd) => cmd.name() === "join-code");
 
-    expect(devices?.description()).toContain("openclaw qr");
-    expect(joinCode?.description()).toContain("openclaw qr");
+    expect(devices?.description()).toContain("lanfu qr");
+    expect(joinCode?.description()).toContain("lanfu qr");
   });
 });
 

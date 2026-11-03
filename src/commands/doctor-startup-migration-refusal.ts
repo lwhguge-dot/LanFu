@@ -38,7 +38,7 @@ async function describeLiveGatewayOwnerStartupBlocker(
   if (!activeGateway) {
     return undefined;
   }
-  return `Another gateway (pid ${activeGateway.pid}) already owns this state directory; refusing to run automatic startup migrations or report the gateway ready. Stop it with "openclaw gateway stop" (or select a different OPENCLAW_STATE_DIR), then retry startup.`;
+  return `Another gateway (pid ${activeGateway.pid}) already owns this state directory; refusing to run automatic startup migrations or report the gateway ready. Stop it with "lanfu gateway stop" (or select a different OPENCLAW_STATE_DIR), then retry startup.`;
 }
 
 export async function refuseStartupMigrationsForLiveGatewayOwner(

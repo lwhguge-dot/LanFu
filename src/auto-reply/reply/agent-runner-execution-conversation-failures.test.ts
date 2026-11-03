@@ -126,7 +126,7 @@ describe("executeAgentTurn: conversation failures", () => {
     expect(result.kind).toBe("final");
     if (result.kind === "final") {
       expect(result.payload.text).toContain(providerError);
-      expect(result.payload.text).toContain("openclaw logs --follow");
+      expect(result.payload.text).toContain("lanfu logs --follow");
       expect(result.payload.text).toMatch(/terminal/i);
     }
   });

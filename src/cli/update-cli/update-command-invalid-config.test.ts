@@ -26,7 +26,7 @@ it.each(
     expect(defaultRuntime.writeJson).toHaveBeenCalledWith(
       expect.objectContaining({
         dryRun: true,
-        notes: [expect.stringMatching(/configuration is invalid[\s\S]*openclaw doctor --fix/)],
+        notes: [expect.stringMatching(/configuration is invalid[\s\S]*lanfu doctor --fix/)],
       }),
     );
   } else {

@@ -29,22 +29,22 @@ export { parseConfigSetPath } from "./config-cli-path.js";
 const CONFIG_SET_DESCRIPTION = [
   "Set config values by path (value mode, ref/provider builder mode, or batch JSON mode).",
   "Examples:",
-  formatCliCommand("openclaw config set gateway.port 19001 --strict-json"),
+  formatCliCommand("lanfu config set gateway.port 19001 --strict-json"),
   formatCliCommand(
-    "openclaw config set channels.discord.token --ref-provider default --ref-source env --ref-id DISCORD_BOT_TOKEN",
+    "lanfu config set channels.discord.token --ref-provider default --ref-source env --ref-id DISCORD_BOT_TOKEN",
   ),
   formatCliCommand(
-    "openclaw config set secrets.providers.vault --provider-source file --provider-path /etc/openclaw/secrets.json --provider-mode json",
+    "lanfu config set secrets.providers.vault --provider-source file --provider-path /etc/openclaw/secrets.json --provider-mode json",
   ),
-  formatCliCommand("openclaw config set --batch-file ./config-set.batch.json --dry-run"),
+  formatCliCommand("lanfu config set --batch-file ./config-set.batch.json --dry-run"),
 ].join("\n");
 
 const CONFIG_PATCH_DESCRIPTION = [
   "Patch config from a JSON5 object in one validated write.",
   "Objects merge recursively, arrays/scalars replace, and null deletes a path.",
   "Examples:",
-  formatCliCommand("openclaw config patch --file ./openclaw.patch.json5 --dry-run"),
-  formatCliCommand("openclaw config patch --stdin"),
+  formatCliCommand("lanfu config patch --file ./openclaw.patch.json5 --dry-run"),
+  formatCliCommand("lanfu config patch --stdin"),
 ].join("\n");
 
 export async function runConfigSet(opts: {
@@ -130,8 +130,8 @@ export async function runConfigGet(opts: { path: string; json?: boolean; runtime
     const res = getAtPath(redactConfigObject(snapshot.config, uiHints), parsedPath);
     if (!res.found || res.value === undefined) {
       const message = isConfigSchemaPath(schema, parsedPath)
-        ? `Config path is valid but unset: ${opts.path}. The runtime default applies until you set an authored value with ${formatCliCommand(`openclaw config set ${quoteCliArg(opts.path)} <value>`)}.`
-        : `Unknown config path: ${opts.path}. Run ${formatCliCommand("openclaw config schema")} to inspect valid paths.`;
+        ? `Config path is valid but unset: ${opts.path}. The runtime default applies until you set an authored value with ${formatCliCommand(`lanfu config set ${quoteCliArg(opts.path)} <value>`)}.`
+        : `Unknown config path: ${opts.path}. Run ${formatCliCommand("lanfu config schema")} to inspect valid paths.`;
       if (opts.json) {
         writeRuntimeJson(runtime, formatCliJsonFailure(message));
         exitCliAfterOutput(runtime, 1);
@@ -245,7 +245,7 @@ async function runConfigValidate(opts: { json?: boolean; runtime?: RuntimeEnv } 
       } else {
         runtime.error(danger(`Config file not found: ${shortPath}`));
         runtime.error(
-          `Create one with ${formatCliCommand("openclaw onboard")} or run ${formatCliCommand("openclaw doctor --fix")}.`,
+          `Create one with ${formatCliCommand("lanfu onboard")} or run ${formatCliCommand("lanfu doctor --fix")}.`,
         );
       }
       exitCliAfterOutput(runtime, 1);
@@ -268,7 +268,7 @@ async function runConfigValidate(opts: { json?: boolean; runtime?: RuntimeEnv } 
         runtime.error(
           formatInvalidConfigRepairHint(snapshot, "to repair, or fix the keys above manually."),
         );
-        runtime.error(`Inspect with ${formatCliCommand("openclaw config validate")}.`);
+        runtime.error(`Inspect with ${formatCliCommand("lanfu config validate")}.`);
       }
       exitCliAfterOutput(runtime, 1);
     }

@@ -346,7 +346,7 @@ describe("runDoctorSessionSqlite", () => {
       const receiptJson = fs.readFileSync(manifestPath, "utf8");
       expect(receiptJson).not.toContain(`stable sanitized report v${manifestVersion}`);
       expect(receiptJson).not.toContain("github.com/openclaw/openclaw/issues/");
-      expect(receiptJson).not.toContain("openclaw doctor");
+      expect(receiptJson).not.toContain("lanfu doctor");
       expect(receiptJson).not.toContain('"body"');
       expect(receiptJson).not.toContain("?body=");
       expect(fs.readFileSync(failureMarkdownPath, "utf8")).toBe(

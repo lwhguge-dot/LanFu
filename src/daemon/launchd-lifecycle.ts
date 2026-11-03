@@ -182,7 +182,7 @@ async function ensureLaunchAgentLoadedAfterFailure(params: {
       domain: params.domain,
       serviceTarget: params.serviceTarget,
       plistPath: params.plistPath,
-      actionHint: "openclaw gateway start",
+      actionHint: "lanfu gateway start",
       onMutation: params.onMutation,
       assertCurrent: params.assertCurrent,
       retryPendingTeardown: params.retryPendingTeardown,
@@ -210,7 +210,7 @@ function formatLaunchAgentLeftUnloadedError(params: {
     params.failure,
     `LaunchAgent ${params.serviceTarget} is not loaded and could not be restored: ${params.restoreDetail}`,
     "The gateway is down and launchd has no job left to respawn it.",
-    `Fix: run \`openclaw gateway start\`, or \`launchctl bootstrap ${params.domain} ${params.plistPath}\`.`,
+    `Fix: run \`lanfu gateway start\`, or \`launchctl bootstrap ${params.domain} ${params.plistPath}\`.`,
   ].join("\n");
 }
 
@@ -225,7 +225,7 @@ async function rethrowLaunchAgentActivationFailure(
   const failure = error instanceof Error ? error.message : String(error);
   throw new Error(
     restored.loaded
-      ? `${failure}\nLaunchAgent ${params.serviceTarget} is loaded; launchd can retry its KeepAlive job. Run openclaw gateway status --deep to inspect startup.`
+      ? `${failure}\nLaunchAgent ${params.serviceTarget} is loaded; launchd can retry its KeepAlive job. Run lanfu gateway status --deep to inspect startup.`
       : formatLaunchAgentLeftUnloadedError({ ...params, failure, restoreDetail: restored.detail }),
     { cause: error },
   );
@@ -281,7 +281,7 @@ export async function startLaunchAgent({
         domain,
         serviceTarget,
         plistPath,
-        actionHint: "openclaw gateway start",
+        actionHint: "lanfu gateway start",
         onMutation: reportMutation,
         skipEnable: enabled,
         preserveAutoStart,
@@ -430,7 +430,7 @@ export async function restartLaunchAgent({
         domain,
         serviceTarget,
         plistPath,
-        actionHint: "openclaw gateway restart",
+        actionHint: "lanfu gateway restart",
         onMutation: reportMutation,
         assertCurrent,
         preserveAutoStart,
@@ -450,7 +450,7 @@ export async function restartLaunchAgent({
           domain,
           serviceTarget,
           plistPath,
-          actionHint: "openclaw gateway restart",
+          actionHint: "lanfu gateway restart",
           onMutation: reportMutation,
           assertCurrent,
           preserveAutoStart,

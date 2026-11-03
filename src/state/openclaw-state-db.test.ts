@@ -1799,10 +1799,10 @@ describe("openclaw state database", () => {
       defensiveProbe.close();
 
       expect(() => openOpenClawStateDatabase(options)).toThrow(
-        /legacy-workshop-review-index.*openclaw doctor --fix/u,
+        /legacy-workshop-review-index.*lanfu doctor --fix/u,
       );
       expect(() => repairOpenClawStateDatabaseSchemaIfNeeded(options)).toThrow(
-        /legacy-workshop-review-index.*openclaw doctor --fix/u,
+        /legacy-workshop-review-index.*lanfu doctor --fix/u,
       );
       expect(readDanglingSkillWorkshopReviewIndex(databasePath)).toMatchObject({ rootpage });
 
@@ -5482,7 +5482,7 @@ INSERT INTO macos_port_guardian_records VALUES (4242, 18789, '/usr/bin/ssh', 're
     const refusal = {
       changes: [],
       warnings: [
-        `Failed migrating shared state database schema at ${databasePath}: Error: SQLite schema is incomplete or noncanonical for ${databasePath}: missing table apns_registration_tombstones; run openclaw doctor --fix to repair it.`,
+        `Failed migrating shared state database schema at ${databasePath}: Error: SQLite schema is incomplete or noncanonical for ${databasePath}: missing table apns_registration_tombstones; run lanfu doctor --fix to repair it.`,
       ],
     };
     // Warm canonical schema contracts before measuring a repeated Doctor refusal.
@@ -5552,7 +5552,7 @@ INSERT INTO macos_port_guardian_records VALUES (4242, 18789, '/usr/bin/ssh', 're
       const metadataBefore = damaged.prepare("SELECT * FROM schema_meta ORDER BY meta_key").all();
       damaged.close();
 
-      const message = `SQLite schema is incomplete or noncanonical for ${databasePath}: missing table apns_registration_tombstones; run openclaw doctor --fix to repair it.`;
+      const message = `SQLite schema is incomplete or noncanonical for ${databasePath}: missing table apns_registration_tombstones; run lanfu doctor --fix to repair it.`;
       if (migrationPath === "runtime open") {
         expect(() => openOpenClawStateDatabase(options)).toThrow(new Error(message));
       } else if (migrationPath === "doctor repair") {
@@ -7266,7 +7266,7 @@ INSERT INTO macos_port_guardian_records VALUES (4242, 18789, '/usr/bin/ssh', 're
     expect(result.warnings).toEqual([
       expect.stringContaining("automatic repair refused the unrecognized schema shape"),
     ]);
-    expect(result.warnings[0]).not.toContain("run openclaw doctor --fix");
+    expect(result.warnings[0]).not.toContain("run lanfu doctor --fix");
   });
 
   it.each([

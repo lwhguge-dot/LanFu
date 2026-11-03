@@ -86,7 +86,7 @@ function failUnknownMcpServer(
   opts?: { json?: boolean },
 ): never {
   fail(
-    `No MCP server named "${name}" in ${configPath}. Run ${formatCliCommand("openclaw mcp list")} to see configured servers.`,
+    `No MCP server named "${name}" in ${configPath}. Run ${formatCliCommand("lanfu mcp list")} to see configured servers.`,
     opts?.json,
   );
 }
@@ -441,14 +441,14 @@ async function collectMcpDoctorIssues(params: {
             issues.push(
               issue(
                 "warning",
-                `OAuth credentials require additional authorization; run ${formatCliCommand(`openclaw mcp login ${name}`)}`,
+                `OAuth credentials require additional authorization; run ${formatCliCommand(`lanfu mcp login ${name}`)}`,
               ),
             );
           } else if (authStatus.state !== "authorized") {
             issues.push(
               issue(
                 "warning",
-                `OAuth credentials are not authorized; run ${formatCliCommand(`openclaw mcp login ${name}`)}`,
+                `OAuth credentials are not authorized; run ${formatCliCommand(`lanfu mcp login ${name}`)}`,
               ),
             );
           }
@@ -790,7 +790,7 @@ export function registerMcpCli(program: Command) {
         });
       } catch (err) {
         defaultRuntime.error(
-          `MCP server failed to start: ${formatErrorMessage(err)}. Run ${formatCliCommand("openclaw gateway status --deep --require-rpc")} to inspect Gateway health.`,
+          `MCP server failed to start: ${formatErrorMessage(err)}. Run ${formatCliCommand("lanfu gateway status --deep --require-rpc")} to inspect Gateway health.`,
         );
         defaultRuntime.exit(1);
       }
@@ -810,7 +810,7 @@ export function registerMcpCli(program: Command) {
       const names = entries.map(([name]) => name);
       if (names.length === 0) {
         defaultRuntime.log(
-          `No LanFu-managed MCP servers configured in ${loaded.path}. Add one with ${formatCliCommand('openclaw mcp set <name> \'{"command":"uvx","args":["context7-mcp"]}\'')}.`,
+          `No LanFu-managed MCP servers configured in ${loaded.path}. Add one with ${formatCliCommand('lanfu mcp set <name> \'{"command":"uvx","args":["context7-mcp"]}\'')}.`,
         );
         defaultRuntime.log(OPENCLAW_MCP_REGISTRY_SCOPE_NOTE);
         return;
@@ -912,7 +912,7 @@ export function registerMcpCli(program: Command) {
       const servers = selectMcpServers(loaded, name, opts);
       if (name && loaded.mcpServers[name]?.enabled === false) {
         fail(
-          `MCP server "${name}" is disabled in ${loaded.path}. Run ${formatCliCommand(`openclaw mcp configure ${name} --enable`)} before probing it.`,
+          `MCP server "${name}" is disabled in ${loaded.path}. Run ${formatCliCommand(`lanfu mcp configure ${name} --enable`)} before probing it.`,
           opts.json,
         );
       }
@@ -920,7 +920,7 @@ export function registerMcpCli(program: Command) {
       // Explain the intentional non-outcome; JSON keeps its existing empty envelope.
       if (!opts.json && Object.values(servers).every((server) => server.enabled === false)) {
         defaultRuntime.log(
-          `No enabled MCP servers in ${loaded.path}. Add one with ${formatCliCommand("openclaw mcp add <name> --command <command>")} or enable one with ${formatCliCommand("openclaw mcp configure <name> --enable")}.`,
+          `No enabled MCP servers in ${loaded.path}. Add one with ${formatCliCommand("lanfu mcp add <name> --command <command>")} or enable one with ${formatCliCommand("lanfu mcp configure <name> --enable")}.`,
         );
         return;
       }
@@ -1008,7 +1008,7 @@ export function registerMcpCli(program: Command) {
       }
       if (servers.length === 0) {
         defaultRuntime.log(
-          `No MCP servers configured in ${loaded.path}. Add one with ${formatCliCommand("openclaw mcp add <name> --command <command>")}.`,
+          `No MCP servers configured in ${loaded.path}. Add one with ${formatCliCommand("lanfu mcp add <name> --command <command>")}.`,
         );
         return;
       }
@@ -1130,7 +1130,7 @@ export function registerMcpCli(program: Command) {
         defaultRuntime.log(`Saved MCP server "${name}" to ${result.path}.`);
         if (server.auth === "oauth") {
           defaultRuntime.log(
-            `Run ${formatCliCommand(`openclaw mcp login ${name}`)} to authorize this MCP server.`,
+            `Run ${formatCliCommand(`lanfu mcp login ${name}`)} to authorize this MCP server.`,
           );
         }
       },
@@ -1338,7 +1338,7 @@ export function registerMcpCli(program: Command) {
       }
 
       let callbackServer: OAuthLoopbackCallbackServer | undefined;
-      const manualCommand = formatCliCommand(`openclaw mcp login ${name} --code <code>`);
+      const manualCommand = formatCliCommand(`lanfu mcp login ${name} --code <code>`);
       try {
         const session = await startMcpOAuthAuthorization(identity, resolved, {});
         if (session.status === "authorized") {

@@ -53,7 +53,7 @@ describe("config cli integration", () => {
                 {
                   pluginId: "sample",
                   reason: "The configured plugin is not installed.",
-                  command: "openclaw plugins install @example/sample",
+                  command: "lanfu plugins install @example/sample",
                   configPaths: [["plugins", "entries", "sample", "config"]],
                 },
               ],
@@ -73,7 +73,7 @@ describe("config cli integration", () => {
                 'Plugin "sample" data/settings upgrade is unfinished',
               );
               expect(registeredRuntimeErrors.at(-1)).toContain(
-                "openclaw plugins install @example/sample",
+                "lanfu plugins install @example/sample",
               );
               expect(fs.readFileSync(configPath, "utf8")).toBe(raw);
               expect(fs.existsSync(`${configPath}.bak`)).toBe(false);
@@ -93,7 +93,7 @@ describe("config cli integration", () => {
   });
 
   it.each(["restore", "external replacement", "empty external replacement", "recovery failure"])(
-    "openclaw config set reports owned root removal with %s",
+    "lanfu config set reports owned root removal with %s",
     async (recovery) => {
       const raw = '{"gateway":{"mode":"local"},"logging":{"$include":"logging.json"}}\n';
       await withConfigFileHarness(
@@ -160,7 +160,7 @@ describe("config cli integration", () => {
   );
 
   it.each(["root", "include"])(
-    "openclaw config set preserves all five %s backups after five failed stages",
+    "lanfu config set preserves all five %s backups after five failed stages",
     async (location) => {
       const includeRaw = '{"level":"info"}\n';
       const raw =
@@ -208,7 +208,7 @@ describe("config cli integration", () => {
     },
   );
 
-  it("openclaw config set preserves the parent mode when saving a long include filename", async () => {
+  it("lanfu config set preserves the parent mode when saving a long include filename", async () => {
     const name = "a".repeat(230) + ".json";
     const raw =
       JSON.stringify({ gateway: { mode: "local" }, logging: { $include: "shared/" + name } }) +
@@ -240,7 +240,7 @@ describe("config cli integration", () => {
       })),
     ),
   )(
-    "openclaw config set preserves $alias include identity during fallback: $outcome",
+    "lanfu config set preserves $alias include identity during fallback: $outcome",
     async ({ alias, outcome }) => {
       const raw =
         JSON.stringify({
@@ -599,17 +599,17 @@ describe("config cli integration", () => {
         {
           field: "contextWindow",
           prefix: "Config path is valid but unset",
-          remedy: "openclaw config set",
+          remedy: "lanfu config set",
         },
         {
           field: "contextTokens",
           prefix: "Config path is valid but unset",
-          remedy: "openclaw config set",
+          remedy: "lanfu config set",
         },
         {
           field: "notAConfigField",
           prefix: "Unknown config path",
-          remedy: "openclaw config schema",
+          remedy: "lanfu config schema",
         },
       ];
       for (const { field, prefix, remedy } of failures) {
@@ -974,7 +974,7 @@ describe("config cli integration", () => {
         expect(fs.readFileSync(configPath, "utf8")).toBe(raw);
         expect(output.logs).toStrictEqual([]);
         expect(output.errors.join("\n")).toContain(
-          "Config path not found: gateway.bind. Nothing was changed. Run openclaw config get <path> first if you are unsure of the path.",
+          "Config path not found: gateway.bind. Nothing was changed. Run lanfu config get <path> first if you are unsure of the path.",
         );
       },
     );

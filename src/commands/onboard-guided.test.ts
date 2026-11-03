@@ -1066,10 +1066,8 @@ describe("runGuidedOnboarding", () => {
     const notes = JSON.stringify((prompter.note as ReturnType<typeof vi.fn>).mock.calls);
     expect(notes).toContain("/tmp/broken-openclaw.json");
     expect(notes).toContain("agents.defaults.model: Expected a model reference");
-    expect(prompter.outro).toHaveBeenCalledWith(expect.stringContaining("openclaw doctor --fix"));
-    expect(prompter.outro).toHaveBeenCalledWith(
-      expect.stringContaining("openclaw config validate"),
-    );
+    expect(prompter.outro).toHaveBeenCalledWith(expect.stringContaining("lanfu doctor --fix"));
+    expect(prompter.outro).toHaveBeenCalledWith(expect.stringContaining("lanfu config validate"));
     expect(runtime.exit).toHaveBeenCalledWith(1);
     expect(deps.runSystemAgentChat).not.toHaveBeenCalled();
     expect(deps.detect).not.toHaveBeenCalled();

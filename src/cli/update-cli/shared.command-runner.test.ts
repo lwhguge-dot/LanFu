@@ -155,7 +155,7 @@ describe("update CLI shared helpers", () => {
         {
           check: "installation-inspection",
           code: "installation-unclassified",
-          message: expect.stringMatching(/Installation ownership[\s\S]*retry openclaw update/),
+          message: expect.stringMatching(/Installation ownership[\s\S]*retry lanfu update/),
         },
       ],
     });
@@ -189,7 +189,7 @@ describe("update CLI shared helpers", () => {
         name: "UpdatePreMutationError",
         reason: "unmanaged-package-install",
         message:
-          "This OpenClaw installation is managed by Homebrew. To update OpenClaw, run:\n\n  brew upgrade openclaw-cli\n\nThen restart the gateway:\n\n  openclaw gateway restart",
+          "This LanFu installation is managed by Homebrew. To update LanFu, run:\n\n  brew upgrade openclaw-cli\n\nThen restart the gateway:\n\n  lanfu gateway restart",
       });
     },
   );

@@ -493,7 +493,7 @@ describe("gateway update.run", () => {
           }
           return {
             status: "started",
-            command: "openclaw update --yes --json",
+            command: "lanfu update --yes --json",
             logPath: path.join(root, "handoff.log"),
             handoffId: params.handoffId,
             installRoot: params.root,

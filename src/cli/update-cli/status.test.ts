@@ -449,7 +449,7 @@ describe("update status readiness outcome", () => {
           {
             pluginId: "sample",
             reason: "Plugin upgrade did not complete.",
-            command: "openclaw doctor --fix",
+            command: "lanfu doctor --fix",
           },
         ],
       });
@@ -464,7 +464,7 @@ describe("update status readiness outcome", () => {
       expect(output.includes("Let the current update or repair finish")).toBe(!finished);
       if (!finished) {
         expect(output).toContain("in progress · validating");
-        expect(output.trim()).toMatch(/Check progress with openclaw update status\.$/);
+        expect(output.trim()).toMatch(/Check progress with lanfu update status\.$/);
       }
       await updateStatusCommand({ json: true });
       expect(runtime.writeJson.mock.lastCall?.[0]).toMatchObject({
@@ -711,9 +711,9 @@ describe("update status abandoned-run reporting", () => {
       } else {
         const output = runtime.log.mock.calls.flat().join("\n");
         expect(output).toContain("update-activation-timeout");
-        expect(output).toContain("openclaw doctor");
+        expect(output).toContain("lanfu doctor");
         expect(output).toContain("Wait for the owning updater and its child processes to stop");
-        expect(output).toContain("openclaw update repair");
+        expect(output).toContain("lanfu update repair");
         expect(output).not.toContain("Abandoned update detected");
       }
       expect(getUpdateRun(created.runId)).toEqual(finished);
@@ -829,7 +829,7 @@ describe("update status abandoned-run reporting", () => {
       });
       expect(output).toContain("treated as abandoned after 24 h");
       expect(output.includes("Historical update:")).toBe(laterRun !== "none");
-      expect(output.includes("run `openclaw update` to retry.")).toBe(laterRun === "none");
+      expect(output.includes("run `lanfu update` to retry.")).toBe(laterRun === "none");
       expect(findActiveUpdateRun()?.runId).toBe(laterRun === "active" ? currentRunId : undefined);
       // A later read must still surface the advisory after the terminal write.
       await updateStatusCommand({ json: true });
@@ -898,7 +898,7 @@ describe("update status abandoned-run reporting", () => {
 
       await updateStatusCommand({ json });
 
-      const guidance = `no activity since ${new Date(lastActivity).toISOString()}; if no update is running, run \`openclaw update repair\` or start a new \`openclaw update\``;
+      const guidance = `no activity since ${new Date(lastActivity).toISOString()}; if no update is running, run \`lanfu update repair\` or start a new \`lanfu update\``;
       expect(getUpdateRun(recorded.runId)).toEqual(recorded);
       if (json) {
         expect(runtime.writeJson).toHaveBeenCalledWith(
@@ -946,7 +946,7 @@ describe("update status abandoned-run reporting", () => {
     } else {
       const output = runtime.log.mock.calls.map(([line]) => String(line)).join("\n");
       expect(output).toContain("Abandoned update detected;");
-      expect(output).toContain("openclaw update repair");
+      expect(output).toContain("lanfu update repair");
       expect(output).not.toContain("update in progress:");
       expect(output).not.toContain("update failed:");
     }

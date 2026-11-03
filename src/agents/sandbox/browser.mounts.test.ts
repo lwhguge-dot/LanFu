@@ -73,7 +73,7 @@ describe("ensureSandboxBrowser managed mounts", () => {
         agentWorkspaceDir: harness.testWorkspaceDir,
         cfg: buildConfig(false),
       }),
-    ).rejects.toThrow("openclaw sandbox recreate --browser --session session:test");
+    ).rejects.toThrow("lanfu sandbox recreate --browser --session session:test");
     expect(findDockerArgsCall(dockerMocks.execDocker.mock.calls, "rm")).toBeUndefined();
     expect(findDockerArgsCall(dockerMocks.execDocker.mock.calls, "create")).toBeUndefined();
     expect(bridgeMocks.stopBrowserBridgeServer).not.toHaveBeenCalled();
@@ -106,7 +106,7 @@ describe("ensureSandboxBrowser managed mounts", () => {
         agentWorkspaceDir: harness.testWorkspaceDir,
         cfg,
       }),
-    ).rejects.toThrow("openclaw sandbox recreate --browser --session session:test");
+    ).rejects.toThrow("lanfu sandbox recreate --browser --session session:test");
     expect(findDockerArgsCall(dockerMocks.execDocker.mock.calls, "rm")).toBeUndefined();
     expect(findDockerArgsCall(dockerMocks.execDocker.mock.calls, "create")).toBeUndefined();
     expect(bridgeMocks.stopBrowserBridgeServer).not.toHaveBeenCalled();

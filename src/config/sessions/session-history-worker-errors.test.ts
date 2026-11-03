@@ -310,7 +310,7 @@ it.each([true, false])(
     if (resetFirst) {
       await expect(read()).resolves.toEqual({ kind: "reset" });
     } else {
-      await expect(read()).rejects.toThrow("openclaw doctor --fix");
+      await expect(read()).rejects.toThrow("lanfu doctor --fix");
     }
     expect(observed.close).toHaveBeenCalledOnce();
     expect(observed.rotate).toHaveBeenCalledOnce();

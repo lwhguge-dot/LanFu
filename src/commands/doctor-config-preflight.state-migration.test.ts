@@ -761,7 +761,7 @@ describe("runDoctorConfigPreflight state migration", () => {
                   {
                     reason: "Failed to repair installed OpenClaw host peer links: EACCES",
                     message: "Failed to repair installed OpenClaw host peer links: EACCES",
-                    guidance: ["Run `openclaw doctor --fix` to retry plugin repair."],
+                    guidance: ["Run `lanfu doctor --fix` to retry plugin repair."],
                   },
                 ]
               : []),
@@ -769,7 +769,7 @@ describe("runDoctorConfigPreflight state migration", () => {
               pluginId: "discord",
               reason: "missing-install-path: install path missing",
               message: 'Plugin "discord" has no install path.',
-              guidance: ["Run `openclaw update repair` to retry plugin repair."],
+              guidance: ["Run `lanfu update repair` to retry plugin repair."],
             },
           ],
           smokeFailures: [
@@ -790,7 +790,7 @@ describe("runDoctorConfigPreflight state migration", () => {
             expect.objectContaining({
               id: "plugin:discord",
               outcome: "deferred",
-              warnings: [expect.stringContaining('Run "openclaw update repair"')],
+              warnings: [expect.stringContaining('Run "lanfu update repair"')],
             }),
           );
         },
@@ -862,7 +862,7 @@ describe("runDoctorConfigPreflight state migration", () => {
                 outcome: "deferred",
                 warnings: [
                   expect.stringContaining(
-                    'Let the current update or repair finish. If this warning remains afterward, run "openclaw update repair"',
+                    'Let the current update or repair finish. If this warning remains afterward, run "lanfu update repair"',
                   ),
                 ],
               }),

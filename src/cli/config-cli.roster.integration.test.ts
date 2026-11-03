@@ -745,7 +745,7 @@ describe("config cli roster integration", () => {
             'Cannot set model reference "<configured model reference>" at agents.entries.main.model',
           );
           expect(registeredRuntimeErrors.join("\n")).toContain(
-            formatCliCommand("openclaw models list"),
+            formatCliCommand("lanfu models list"),
           );
         },
       );

@@ -138,7 +138,7 @@ describe("runDoctorHealthFlow update outcomes", () => {
           reversibility: "checkpoint-required",
           outcome,
           changes: [],
-          warnings: [`${id}: run openclaw doctor --fix`],
+          warnings: [`${id}: run lanfu doctor --fix`],
         });
         mocks.stateMigrationReceipts.push(receipt("preflight cleanup", "warning"));
         mocks.stateMigrationReceipts.push(receipt("skipped audit recovery", "skipped"));
@@ -163,7 +163,7 @@ describe("runDoctorHealthFlow update outcomes", () => {
         const refusalWarning = `Failing check ${refusalFact.check} (${refusalFact.code}): ${refusalFact.message}`;
         const refusal = new DoctorStateMigrationRefusalError([deferred]);
         const inspectionWarning =
-          "core/doctor/auth-profiles [update-inspection-deferred]: Run openclaw doctor after activation.";
+          "core/doctor/auth-profiles [update-inspection-deferred]: Run lanfu doctor after activation.";
         mocks.runContributions.mockImplementation(async (ctx) => {
           ctx.updateWarnings = [inspectionWarning];
           ctx.updateBudget = {
@@ -179,7 +179,7 @@ describe("runDoctorHealthFlow update outcomes", () => {
                   severity: "warning",
                   errorCode: "update-inspection-deferred",
                   requirement: "update-validation-budget",
-                  message: "Run openclaw doctor after activation.",
+                  message: "Run lanfu doctor after activation.",
                 },
               ],
             ]),
@@ -217,12 +217,12 @@ describe("runDoctorHealthFlow update outcomes", () => {
               refusalWarning,
             );
           } else {
-            expect(result?.warnings).toContain("preflight cleanup: run openclaw doctor --fix");
+            expect(result?.warnings).toContain("preflight cleanup: run lanfu doctor --fix");
             if (!noisy) {
               expect(result?.warnings).toEqual(
                 expect.arrayContaining([
-                  "skipped audit recovery: run openclaw doctor --fix",
-                  "deferred cleanup: run openclaw doctor --fix",
+                  "skipped audit recovery: run lanfu doctor --fix",
+                  "deferred cleanup: run lanfu doctor --fix",
                 ]),
               );
             }

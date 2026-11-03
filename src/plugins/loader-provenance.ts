@@ -66,7 +66,7 @@ function matchesPathMatcher(matcher: PathMatcher, sourcePath: string): boolean {
 }
 
 function formatPluginInspectCommand(pluginId: string): string {
-  return `openclaw plugins inspect ${quoteCliArg(pluginId)}`;
+  return `lanfu plugins inspect ${quoteCliArg(pluginId)}`;
 }
 
 /** Builds provenance matchers from configured load paths and install records. */
@@ -174,7 +174,7 @@ export function warnWhenAllowlistIsOpen(params: {
         .map((entry) => JSON.stringify(entry.id))
         .join(
           ", ",
-        )}] }). Run 'openclaw plugins list --enabled --verbose' or ${inspectCommands} to confirm plugin ids.`;
+        )}] }). Run 'lanfu plugins list --enabled --verbose' or ${inspectCommands} to confirm plugin ids.`;
   params.warningCache.recordOpenAllowlistWarning(params.warningCacheKey);
   if (!hasConfiguredAllowlist) {
     params.logger.warn(

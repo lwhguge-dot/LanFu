@@ -327,9 +327,7 @@ export async function runChannelsSetupWizard(
   const writeSnapshot = await readConfigFileSnapshotForWrite();
   const { snapshot } = writeSnapshot;
   if (snapshot.exists && !snapshot.valid) {
-    throw new Error(
-      "LanFu config is invalid; run `openclaw doctor --fix`, then retry channel setup.",
-    );
+    throw new Error("LanFu config is invalid; run `lanfu doctor --fix`, then retry channel setup.");
   }
   const cfg = snapshot.sourceConfig;
   const { agentId, workspaceDir } = await selectChannelSetupOwner(writeSnapshot, prompter);

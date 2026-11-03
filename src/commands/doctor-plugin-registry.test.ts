@@ -315,8 +315,8 @@ describe("maybeRepairPluginRegistryState", () => {
     expect(fs.existsSync(managed.packageDir)).toBe(true);
     const notes = vi.mocked(note).mock.calls.join("\n");
     expect(notes).toContain("plugins.installs contains invalid records");
-    expect(notes).toContain("Back up openclaw.json");
-    expect(notes).toContain("rerun `openclaw doctor --fix`");
+    expect(notes).toContain("Back up lanfu.json");
+    expect(notes).toContain("rerun `lanfu doctor --fix`");
     expect(fs.existsSync(resolveInstalledPluginIndexStorePath({ stateDir }))).toBe(false);
   });
 
@@ -357,7 +357,7 @@ describe("maybeRepairPluginRegistryState", () => {
     expect(notes).toContain(
       "delete only the config_machine_state row with state_key='plugins.installedIndex'",
     );
-    expect(notes).toContain("rerun `openclaw doctor --fix`");
+    expect(notes).toContain("rerun `lanfu doctor --fix`");
     const row = runOpenClawStateWriteTransaction(
       ({ db }) =>
         db
@@ -925,7 +925,7 @@ describe("maybeRepairPluginRegistryState", () => {
     const notes = vi.mocked(note).mock.calls.join("\n");
     expect(notes).toContain("Managed npm LanFu host peer links need repair");
     expect(notes).toContain("codex-plugin");
-    expect(notes).toContain("openclaw doctor --fix");
+    expect(notes).toContain("lanfu doctor --fix");
     expect(fs.existsSync(linkPath)).toBe(false);
   });
 

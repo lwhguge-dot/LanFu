@@ -48,7 +48,7 @@ afterEach(() => {
 
 describe("managed post-core root handoff", () => {
   it.each(["replacement", "foreign-install", "inactive-generation", "pre-core", "moving-link"])(
-    "openclaw update admits the installed driver's original pnpm identity (%s)",
+    "lanfu update admits the installed driver's original pnpm identity (%s)",
     async (scenario) => {
       const state = await createOpenClawTestState({ label: "legacy-pnpm-handoff" });
       try {

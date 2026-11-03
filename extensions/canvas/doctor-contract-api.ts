@@ -92,7 +92,7 @@ export const stateMigrations: PluginDoctorStateMigration[] = [
           migrated += 1;
         } catch (error) {
           warnings.push(
-            `Skipped Canvas document ${documentId}; core target may already exist: ${String(error)}. Keep plugins.entries.canvas.config.host.root, resolve the copy or target conflict, then rerun "openclaw doctor --fix".`,
+            `Skipped Canvas document ${documentId}; core target may already exist: ${String(error)}. Keep plugins.entries.canvas.config.host.root, resolve the copy or target conflict, then rerun "lanfu doctor --fix".`,
           );
         } finally {
           if (tempParent) {

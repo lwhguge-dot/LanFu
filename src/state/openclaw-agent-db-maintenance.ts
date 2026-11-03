@@ -64,12 +64,12 @@ export function assertOpenClawAgentDatabaseForMaintenance(
   }
   if (userVersion !== OPENCLAW_AGENT_SCHEMA_VERSION) {
     throw new Error(
-      `LanFu agent database ${options.pathname} uses schema version ${userVersion}; run openclaw doctor --fix before compacting it.`,
+      `LanFu agent database ${options.pathname} uses schema version ${userVersion}; run lanfu doctor --fix before compacting it.`,
     );
   }
   if (metadata.schemaVersion !== OPENCLAW_AGENT_SCHEMA_VERSION) {
     throw new Error(
-      `LanFu agent database ${options.pathname} metadata schema version ${metadata.schemaVersion ?? "invalid"} does not match ${OPENCLAW_AGENT_SCHEMA_VERSION}; run openclaw doctor --fix before compacting it.`,
+      `LanFu agent database ${options.pathname} metadata schema version ${metadata.schemaVersion ?? "invalid"} does not match ${OPENCLAW_AGENT_SCHEMA_VERSION}; run lanfu doctor --fix before compacting it.`,
     );
   }
   assertOpenClawAgentSchemaContains(

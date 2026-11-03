@@ -137,7 +137,7 @@ it.each([false, true])(
       await expect(refusal).rejects.toMatchObject({
         code: "update-schema-bump-unfenced",
         message: expect.stringContaining("already committed its package"),
-        commands: ["openclaw doctor --fix", "openclaw gateway start"],
+        commands: ["lanfu doctor --fix", "lanfu gateway start"],
       });
       await expect(refusal).rejects.not.toThrow("Let the updater restore");
       expect(fs.readFileSync(f.pathname)).toEqual(f.bytes);

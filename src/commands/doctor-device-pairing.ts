@@ -226,8 +226,8 @@ function resolvePendingPairingIssue(
     displayName: pending.displayName,
     clientId: pending.clientId,
   });
-  const approveCommand = formatCliArgs(["openclaw", "devices", "approve", pending.requestId]);
-  const inspectCommand = formatCliArgs(["openclaw", "devices", "list"]);
+  const approveCommand = formatCliArgs(["lanfu", "devices", "approve", pending.requestId]);
+  const inspectCommand = formatCliArgs(["lanfu", "devices", "list"]);
   if (!paired) {
     return {
       kind: "first-time",
@@ -244,7 +244,7 @@ function resolvePendingPairingIssue(
       deviceLabel,
       approveCommand,
       inspectCommand,
-      removeCommand: formatCliArgs(["openclaw", "devices", "remove", pending.deviceId]),
+      removeCommand: formatCliArgs(["lanfu", "devices", "remove", pending.deviceId]),
     };
   }
   const requestedRoles = normalizeUniqueSingleOrTrimmedStringList(
@@ -335,7 +335,7 @@ function collectPairedRecordIssues(snapshot: DoctorPairingSnapshot): PairedRecor
     for (const role of approvedRoles) {
       const token = findTokenSummary(device, role);
       const rotateCommand = formatCliArgs([
-        "openclaw",
+        "lanfu",
         "devices",
         "rotate",
         "--device",
@@ -433,7 +433,7 @@ async function collectLocalDeviceAuthIssues(
       continue;
     }
     const rotateCommand = formatCliArgs([
-      "openclaw",
+      "lanfu",
       "devices",
       "rotate",
       "--device",
@@ -479,11 +479,11 @@ async function collectLegacyPairingStoreFindings(cfg: OpenClawConfig): Promise<H
   return (await listLegacyPairingStoreFiles()).map((filePath): HealthFinding => ({
     checkId: DEVICE_PAIRING_CHECK_ID,
     severity: "warning",
-    message: `Legacy pairing store ${filePath} has not been imported into SQLite. Stop the Gateway and run openclaw doctor --fix. Unreadable sources remain in place for repair.`,
+    message: `Legacy pairing store ${filePath} has not been imported into SQLite. Stop the Gateway and run lanfu doctor --fix. Unreadable sources remain in place for repair.`,
     path: "devices.legacy-store",
     requirement: "pairing-store-legacy-file",
     fixHint:
-      "Stop the Gateway and run openclaw doctor --fix to import and archive the legacy pairing stores.",
+      "Stop the Gateway and run lanfu doctor --fix to import and archive the legacy pairing stores.",
   }));
 }
 
@@ -542,7 +542,7 @@ export async function collectDevicePairingHealthFindings(params: {
   // Report this debt even without a reachable remote Gateway or local identity.
   const deviceAuth = detectLegacyDeviceAuth({ stateDir: resolveStateDir(params.env) });
   if (deviceAuth.sourcePresent) {
-    const fixCommand = formatCliCommand("openclaw doctor --fix", params.env);
+    const fixCommand = formatCliCommand("lanfu doctor --fix", params.env);
     const fixHint = `Stop the Gateway and run ${fixCommand} to finish migration or cleanup.`;
     legacyStoreFindings.push({
       checkId: DEVICE_PAIRING_CHECK_ID,

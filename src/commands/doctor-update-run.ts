@@ -57,7 +57,7 @@ export async function noteStaleUpdateRuns(options: {
         ? "the recorded candidate has not been verified as installed and serving"
         : "the target build was not recorded, so current version equality cannot prove this update completed";
       note(
-        `Update ${run.runId} remains abandoned: ${reason}. Run \`openclaw update repair\` to repair the installation and reconcile its history.`,
+        `Update ${run.runId} remains abandoned: ${reason}. Run \`lanfu update repair\` to repair the installation and reconcile its history.`,
         "Update history",
       );
     }

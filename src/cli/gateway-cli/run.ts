@@ -789,7 +789,7 @@ async function runGatewayCommandOnce(opts: GatewayRunOpts, hooks: GatewayRunRunt
       }
     } catch (err) {
       defaultRuntime.error(
-        `Could not free port ${port}: ${formatErrorMessage(err)}. Run ${formatCliCommand("openclaw gateway status --deep")} to inspect the listener.`,
+        `Could not free port ${port}: ${formatErrorMessage(err)}. Run ${formatCliCommand("lanfu gateway status --deep")} to inspect the listener.`,
       );
       defaultRuntime.exit(1);
       return;
@@ -1106,7 +1106,7 @@ async function runGatewayCommandOnce(opts: GatewayRunOpts, hooks: GatewayRunRunt
     if (isGatewayLockError(err)) {
       const errMessage = formatErrorMessage(err);
       defaultRuntime.error(
-        `Gateway failed to start: ${errMessage}\nIf the gateway is supervised, stop it with: ${formatCliCommand("openclaw gateway stop")}`,
+        `Gateway failed to start: ${errMessage}\nIf the gateway is supervised, stop it with: ${formatCliCommand("lanfu gateway stop")}`,
       );
       try {
         const [{ formatPortDiagnostics }, { inspectPortUsage }] = await Promise.all([
@@ -1135,7 +1135,7 @@ async function runGatewayCommandOnce(opts: GatewayRunOpts, hooks: GatewayRunRunt
       throw err;
     }
     defaultRuntime.error(
-      `Gateway failed to start: ${formatErrorMessage(err)}. Run ${formatCliCommand("openclaw gateway status --deep")} for diagnostics.`,
+      `Gateway failed to start: ${formatErrorMessage(err)}. Run ${formatCliCommand("lanfu gateway status --deep")} for diagnostics.`,
     );
     await triageStartupFailure(err);
     defaultRuntime.exit(resolveGatewayStartupFailureExitCode(err));

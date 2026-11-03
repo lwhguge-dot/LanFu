@@ -108,7 +108,7 @@ export async function tryInstallShellCompletion(opts: {
     await tryWriteCompletionCache(opts.root, opts.jsonMode);
   } catch (err) {
     if (!opts.jsonMode) {
-      const completionCacheRefreshCommand = formatCliCommand("openclaw completion --write-state");
+      const completionCacheRefreshCommand = formatCliCommand("lanfu completion --write-state");
       defaultRuntime.log(
         theme.warn(
           `Completion cache update failed: ${formatErrorMessage(err)}. Update will continue; retry with: ${completionCacheRefreshCommand}`,
@@ -153,7 +153,7 @@ export async function tryInstallShellCompletion(opts: {
       if (isCancel(shouldInstall) || !shouldInstall) {
         defaultRuntime.log(
           theme.muted(
-            `Skipped. Run \`${formatCliCommand("openclaw completion --install")}\` later to enable.`,
+            `Skipped. Run \`${formatCliCommand("lanfu completion --install")}\` later to enable.`,
           ),
         );
         return;
@@ -168,7 +168,7 @@ export async function tryInstallShellCompletion(opts: {
     const message = formatErrorMessage(err);
     defaultRuntime.log(
       theme.warn(
-        `Shell completion refresh failed: ${message}. Update will continue. Resolve the reported error before retrying: ${formatCliCommand("openclaw completion --write-state --install")}`,
+        `Shell completion refresh failed: ${message}. Update will continue. Resolve the reported error before retrying: ${formatCliCommand("lanfu completion --write-state --install")}`,
       ),
     );
   }
@@ -280,7 +280,7 @@ export async function maybeRestartService(params: {
       recordServiceReconciliationWarning(
         activation.result,
         activation.serviceEnv,
-        `The previous service installation was not restarted automatically because update state may have changed. Inspect \`${formatCliCommand("openclaw gateway status --deep", activation.serviceEnv)}\` before choosing a recovery installation.`,
+        `The previous service installation was not restarted automatically because update state may have changed. Inspect \`${formatCliCommand("lanfu gateway status --deep", activation.serviceEnv)}\` before choosing a recovery installation.`,
       );
     }
     await recordFailedUpdateGatewayState(params.opts.run, activation.serviceEnv, assertCurrent);
@@ -456,7 +456,7 @@ export async function maybeRestartService(params: {
           }
           const warning =
             `Failed to reconcile gateway service with ${activation.result.root ?? "the updated install"}: ${String(err)}. ` +
-            `Run \`${formatCliCommand("openclaw gateway install --force", activation.serviceEnv)}\`, then \`${formatCliCommand("openclaw gateway restart", activation.serviceEnv)}\`.`;
+            `Run \`${formatCliCommand("lanfu gateway install --force", activation.serviceEnv)}\`, then \`${formatCliCommand("lanfu gateway restart", activation.serviceEnv)}\`.`;
           recordServiceReconciliationWarning(activation.result, activation.serviceEnv, warning);
           if (activation.serviceRuntimeRefreshRequired) {
             params.onVerificationFailure?.("service-runtime-refresh-failed");
@@ -522,7 +522,7 @@ export async function maybeRestartService(params: {
             activation.result,
             activation.serviceEnv,
             `Gateway service still points outside the updated install ${activation.result.root}. ` +
-              `Run \`${formatCliCommand("openclaw gateway install --force", activation.serviceEnv)}\`, then \`${formatCliCommand("openclaw gateway restart", activation.serviceEnv)}\`.`,
+              `Run \`${formatCliCommand("lanfu gateway install --force", activation.serviceEnv)}\`, then \`${formatCliCommand("lanfu gateway restart", activation.serviceEnv)}\`.`,
           );
           return await reconciliationPending();
         }
@@ -647,7 +647,7 @@ export async function maybeRestartService(params: {
       }
       defaultRuntime.error(
         `Gateway: restart failed: ${String(err)}. Code update remains installed; a service stopped for update may still be stopped. ` +
-          `Run \`${formatCliCommand("openclaw gateway status --deep", activation.serviceEnv)}\` and ask its service owner to restart it manually.`,
+          `Run \`${formatCliCommand("lanfu gateway status --deep", activation.serviceEnv)}\` and ask its service owner to restart it manually.`,
       );
       return await failed();
     }
@@ -657,13 +657,13 @@ export async function maybeRestartService(params: {
     if (activation.result.mode === "npm" || activation.result.mode === "pnpm") {
       defaultRuntime.log(
         theme.muted(
-          `Tip: Run \`${formatCliCommand("openclaw doctor", activation.serviceEnv)}\`, then \`${formatCliCommand("openclaw gateway restart", activation.serviceEnv)}\` to apply updates to a running gateway.`,
+          `Tip: Run \`${formatCliCommand("lanfu doctor", activation.serviceEnv)}\`, then \`${formatCliCommand("lanfu gateway restart", activation.serviceEnv)}\` to apply updates to a running gateway.`,
         ),
       );
     } else {
       defaultRuntime.log(
         theme.muted(
-          `Tip: Run \`${formatCliCommand("openclaw gateway restart", activation.serviceEnv)}\` to apply updates to a running gateway.`,
+          `Tip: Run \`${formatCliCommand("lanfu gateway restart", activation.serviceEnv)}\` to apply updates to a running gateway.`,
         ),
       );
     }

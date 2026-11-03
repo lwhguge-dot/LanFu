@@ -72,9 +72,7 @@ describe("resetCommand", () => {
     });
 
     expect(
-      cleanupCommandLogMessages(runtime).some((message) =>
-        message.includes("openclaw backup create"),
-      ),
+      cleanupCommandLogMessages(runtime).some((message) => message.includes("lanfu backup create")),
     ).toBe(true);
   });
 
@@ -87,9 +85,7 @@ describe("resetCommand", () => {
     });
 
     expect(
-      cleanupCommandLogMessages(runtime).some((message) =>
-        message.includes("openclaw backup create"),
-      ),
+      cleanupCommandLogMessages(runtime).some((message) => message.includes("lanfu backup create")),
     ).toBe(false);
   });
 

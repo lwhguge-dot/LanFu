@@ -160,7 +160,7 @@ export async function readStartupMigrationSnapshot(params: {
       }
       const repair = read.snapshot.valid ? null : params.planRepair(read);
       if (!read.snapshot.valid && !repair) {
-        throw new Error('LanFu config is invalid; run "openclaw doctor --fix" before startup.');
+        throw new Error('LanFu config is invalid; run "lanfu doctor --fix" before startup.');
       }
       await params.validateConfig?.(repair?.snapshot ?? read.snapshot);
       if (

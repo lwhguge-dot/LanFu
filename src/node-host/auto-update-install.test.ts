@@ -179,7 +179,7 @@ describe("private node runtime installation", () => {
         });
         await expect(
           prepareNodeRuntimeUpdate({ targetVersion: VERSION, stateDir }),
-        ).rejects.toThrow("openclaw update");
+        ).rejects.toThrow("lanfu update");
         expect(mocks.pack).not.toHaveBeenCalled();
         expect(await fs.readdir(stateDir)).toEqual([]);
       });

@@ -83,7 +83,7 @@ export async function collectGatewayDaemonFindings(
       message: `Gateway service status could not be determined: ${state.loadState.detail}`,
       path: state.command?.sourcePath,
       target: service.label,
-      fixHint: "Run `openclaw gateway status --deep`, restore service-manager access, and retry.",
+      fixHint: "Run `lanfu gateway status --deep`, restore service-manager access, and retry.",
     });
     return findings;
   }
@@ -94,7 +94,7 @@ export async function collectGatewayDaemonFindings(
       message: "Gateway service is not installed.",
       path: "gateway.mode",
       target: service.label,
-      fixHint: "Run `openclaw gateway install` to install the service.",
+      fixHint: "Run `lanfu gateway install` to install the service.",
     });
     return findings;
   }
@@ -118,7 +118,7 @@ export async function collectGatewayDaemonFindings(
                 ...(runtime.status === "unsupported"
                   ? [formatUnsupportedNodeVersionMessage(runtime.version)]
                   : []),
-                "Repair the Node runtime, then run `openclaw gateway install`.",
+                "Repair the Node runtime, then run `lanfu gateway install`.",
               ].join("\n"),
             }
           : {}),
@@ -132,7 +132,7 @@ export async function collectGatewayDaemonFindings(
       message: "Gateway service is installed but not loaded.",
       path: state.command?.sourcePath,
       target: service.label,
-      fixHint: "Start the installed service with `openclaw gateway start`.",
+      fixHint: "Start the installed service with `lanfu gateway start`.",
     });
   }
   const status = gatewayRuntimeStatus(state.runtime);
@@ -146,7 +146,7 @@ export async function collectGatewayDaemonFindings(
       path: state.command?.sourcePath,
       target: service.label,
       fixHint:
-        "Run `openclaw gateway status --deep` to inspect the service before choosing a recovery action.",
+        "Run `lanfu gateway status --deep` to inspect the service before choosing a recovery action.",
     });
   }
   if (state.runtime?.missingGuiSession) {

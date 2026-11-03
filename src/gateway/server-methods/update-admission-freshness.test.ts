@@ -82,7 +82,7 @@ beforeEach(async () => {
   mocks.handoff.mockReset().mockImplementation(async (params) => ({
     status: "started",
     pid: 12345,
-    command: "openclaw update",
+    command: "lanfu update",
     logPath: path.join(mocks.root, "handoff.log"),
     handoffId: expectDefined(params.handoffId, "prepared handoff identity"),
     installRoot: params.root,

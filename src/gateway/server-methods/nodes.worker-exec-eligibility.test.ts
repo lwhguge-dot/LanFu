@@ -128,7 +128,7 @@ it("scopes an outdated v6 host to OpenClaw and refreshes eligibility from curren
     });
     expect(await select("openclaw")).toMatchObject({
       ok: false,
-      error: expect.stringContaining("run openclaw update, then reconnect"),
+      error: expect.stringContaining("run lanfu update, then reconnect"),
     });
     expect(
       await resolveDevicePlacementEligibility({
@@ -138,7 +138,7 @@ it("scopes an outdated v6 host to OpenClaw and refreshes eligibility from curren
         requirement: { requiredNodeCommands: [], consumesWorkerSlot: true },
         config,
       }),
-    ).toMatchObject({ ok: false, error: expect.stringContaining("openclaw update") });
+    ).toMatchObject({ ok: false, error: expect.stringContaining("lanfu update") });
     for (const runtimeId of [undefined, "codex"]) {
       expect(
         (await inventory(runtimeId)).find((row) => row.id === "node:node-1"),

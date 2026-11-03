@@ -559,7 +559,7 @@ describe("getStatusSummary", () => {
 
     expect(summary.tasks.total).toBe(0);
     expect(summary.tasks.warning).toBe(
-      "Task history is unavailable until Gateway startup or openclaw doctor --fix repairs the state database.",
+      "Task history is unavailable until Gateway startup or lanfu doctor --fix repairs the state database.",
     );
   });
 

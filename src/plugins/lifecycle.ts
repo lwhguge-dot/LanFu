@@ -13,7 +13,7 @@ export class PluginInstallPersistedError extends Error {
   ) {
     super(
       `${formatErrorMessage(cause)}
-Plugin "${pluginId}" installation is saved. Fix the reported issue, then run \`openclaw plugins reload ${pluginId}\`.`,
+Plugin "${pluginId}" installation is saved. Fix the reported issue, then run \`lanfu plugins reload ${pluginId}\`.`,
       { cause },
     );
     this.name = "PluginInstallPersistedError";

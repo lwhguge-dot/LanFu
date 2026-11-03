@@ -215,7 +215,7 @@ describe("Doctor with a deleted agent database", () => {
     });
     expect(result.warnings.join("\n")).toContain("agent main");
     expect(result.warnings.join("\n")).toContain(sourcePath);
-    expect(result.warnings.join("\n")).toContain("openclaw doctor --fix");
+    expect(result.warnings.join("\n")).toContain("lanfu doctor --fix");
     await expect(
       noteStateIntegrity(
         { agents: { ownership: "explicit", entries: { main: {} } }, plugins: { enabled: false } },
@@ -432,7 +432,7 @@ describe("Doctor with a deleted agent database", () => {
         expect(migration).toMatchObject({ outcome: "warning" });
         expect(migration?.warnings.join("\n")).toContain("Held agent retired");
         expect(migration?.warnings.join("\n")).toContain(retainedPath);
-        expect(migration?.warnings.join("\n")).toContain("openclaw doctor --fix");
+        expect(migration?.warnings.join("\n")).toContain("lanfu doctor --fix");
         expect(result.warnings).toEqual(expect.arrayContaining(migration!.warnings));
         expect(fs.existsSync(execPath)).toBe(false);
         if (registered && location === "default") {

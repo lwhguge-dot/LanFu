@@ -341,7 +341,7 @@ export async function appendStatusAllDiagnosis(params: {
       emitUnavailableDiagnostics({
         label: "Telemetry exporters",
         detail: `Exporter diagnostics failed: ${params.exporterDiagnostics.error}`,
-        retry: "openclaw gateway stability --type telemetry.exporter",
+        retry: "lanfu gateway stability --type telemetry.exporter",
       });
     }
   }
@@ -389,7 +389,7 @@ export async function appendStatusAllDiagnosis(params: {
       emitUnavailableDiagnostics({
         label: "Inbound delivery telemetry",
         detail: "Delivery diagnostics returned an invalid response.",
-        retry: "openclaw gateway stability",
+        retry: "lanfu gateway stability",
       });
     }
   } else if (
@@ -400,7 +400,7 @@ export async function appendStatusAllDiagnosis(params: {
     emitUnavailableDiagnostics({
       label: "Inbound delivery telemetry",
       detail: `Delivery diagnostics failed: ${params.deliveryDiagnostics.error}`,
-      retry: "openclaw gateway stability",
+      retry: "lanfu gateway stability",
     });
   }
 

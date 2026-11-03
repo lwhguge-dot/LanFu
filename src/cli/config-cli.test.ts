@@ -722,7 +722,7 @@ describe("config cli", () => {
         refsChecked: 1,
         refsTotal: 1,
         errors: [
-          'Cannot set model reference "missing/nope" at agents.defaults.model.primary: Unknown model: missing/nope. Run openclaw models list to list available models.',
+          'Cannot set model reference "missing/nope" at agents.defaults.model.primary: Unknown model: missing/nope. Run lanfu models list to list available models.',
         ],
       });
 
@@ -954,8 +954,8 @@ describe("config cli", () => {
       ).rejects.toThrow(ExitError);
 
       expect(mockWriteConfigFile).not.toHaveBeenCalled();
-      expectErrorIncludes("openclaw plugins install <spec>");
-      expectErrorIncludes("openclaw plugins update <plugin-id>");
+      expectErrorIncludes("lanfu plugins install <spec>");
+      expectErrorIncludes("lanfu plugins update <plugin-id>");
     });
 
     it("rejects auto-managed meta.lastTouchedVersion config updates (#80849)", async () => {
@@ -1429,19 +1429,19 @@ describe("config cli", () => {
         name: "valid but unset schema path",
         path: "gateway.bind",
         message:
-          "Config path is valid but unset: gateway.bind. The runtime default applies until you set an authored value with openclaw config set gateway.bind <value>.",
+          "Config path is valid but unset: gateway.bind. The runtime default applies until you set an authored value with lanfu config set gateway.bind <value>.",
       },
       {
         name: "valid but unset array path",
         path: "models.providers.example.models[0].id",
         message:
-          "Config path is valid but unset: models.providers.example.models[0].id. The runtime default applies until you set an authored value with openclaw config set 'models.providers.example.models[0].id' <value>.",
+          "Config path is valid but unset: models.providers.example.models[0].id. The runtime default applies until you set an authored value with lanfu config set 'models.providers.example.models[0].id' <value>.",
       },
       {
         name: "unknown path",
         path: "nonexistent.path",
         message:
-          "Unknown config path: nonexistent.path. Run openclaw config schema to inspect valid paths.",
+          "Unknown config path: nonexistent.path. Run lanfu config schema to inspect valid paths.",
       },
     ])("reports a $name to the operator", async (testCase) => {
       setGatewaySnapshot();
@@ -1460,13 +1460,13 @@ describe("config cli", () => {
         name: "valid but unset schema path",
         path: "gateway.bind",
         message:
-          "Config path is valid but unset: gateway.bind. The runtime default applies until you set an authored value with openclaw config set gateway.bind <value>.",
+          "Config path is valid but unset: gateway.bind. The runtime default applies until you set an authored value with lanfu config set gateway.bind <value>.",
       },
       {
         name: "unknown path",
         path: "nonexistent.path",
         message:
-          "Unknown config path: nonexistent.path. Run openclaw config schema to inspect valid paths.",
+          "Unknown config path: nonexistent.path. Run lanfu config schema to inspect valid paths.",
       },
     ])("outputs a JSON error for a $name", async (testCase) => {
       setGatewaySnapshot();
@@ -1642,7 +1642,7 @@ describe("config cli", () => {
       expectErrorIncludes("This is a plugin packaging issue, not a local config problem.");
       expectErrorIncludes("disable/uninstall the plugin");
       expect(mockError.mock.calls.map((call) => String(call[0])).join("\n")).not.toContain(
-        "openclaw doctor --fix",
+        "lanfu doctor --fix",
       );
       expect(mockLog).not.toHaveBeenCalled();
     });
@@ -4733,7 +4733,7 @@ describe("config cli", () => {
         refsChecked: 1,
         refsTotal: 1,
         errors: [
-          'Cannot set model reference "backup" at agents.defaults.model.fallbacks.0: Unknown model: openai/backup. Run openclaw models list to list available models.',
+          'Cannot set model reference "backup" at agents.defaults.model.fallbacks.0: Unknown model: openai/backup. Run lanfu models list to list available models.',
         ],
       });
 
@@ -4855,7 +4855,7 @@ describe("config cli", () => {
 
       expectLogExcludes("No change");
       expectErrorIncludes(
-        `Config path not found in authored config: ${aliasPath}. It only exists after runtime defaults are applied, so there is nothing for config unset to remove. Use openclaw config set <path> <value> to override the inherited value.`,
+        `Config path not found in authored config: ${aliasPath}. It only exists after runtime defaults are applied, so there is nothing for config unset to remove. Use lanfu config set <path> <value> to override the inherited value.`,
       );
       expect(mockWriteConfigFile).not.toHaveBeenCalled();
 

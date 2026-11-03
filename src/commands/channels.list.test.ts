@@ -518,7 +518,7 @@ describe("channels list", () => {
       expect(output).toContain("configured");
       expect(output).toContain("disabled");
       expect(output).toContain(
-        "run openclaw plugins install @openclaw/mattermost or openclaw doctor --fix",
+        "run lanfu plugins install @openclaw/mattermost or lanfu doctor --fix",
       );
       expect(output).not.toContain("no configured chat channels");
     },
@@ -537,10 +537,10 @@ describe("channels list", () => {
         channelId: "discord",
         label: "Discord",
         installSpec: "@openclaw/discord",
-        installCommand: "openclaw plugins install @openclaw/discord",
-        doctorFixCommand: "openclaw doctor --fix",
+        installCommand: "lanfu plugins install @openclaw/discord",
+        doctorFixCommand: "lanfu doctor --fix",
         repairHint:
-          "Install the official external plugin with: openclaw plugins install @openclaw/discord, or run: openclaw doctor --fix.",
+          "Install the official external plugin with: lanfu plugins install @openclaw/discord, or run: lanfu doctor --fix.",
       },
     ]);
     mocks.readConfigFileSnapshot.mockResolvedValue(
@@ -670,8 +670,8 @@ describe("channels list", () => {
     mocks.resolveMissingOfficialExternalChannelPluginRepairHints.mockReturnValue([
       {
         channelId: "discord",
-        installCommand: "openclaw plugins install @openclaw/discord",
-        doctorFixCommand: "openclaw doctor --fix",
+        installCommand: "lanfu plugins install @openclaw/discord",
+        doctorFixCommand: "lanfu doctor --fix",
       },
     ]);
     mocks.readConfigFileSnapshot.mockResolvedValue(createTestConfigSnapshot({}));
@@ -716,7 +716,7 @@ describe("channels list", () => {
           "Chat channels:",
           "- Telegram default: installed",
           "- WeCom: installed, not configured, disabled",
-          "- Discord: not installed, configured, disabled, run openclaw plugins install @openclaw/discord or openclaw doctor --fix",
+          "- Discord: not installed, configured, disabled, run lanfu plugins install @openclaw/discord or lanfu doctor --fix",
           "- WeCom duplicate: installed, not configured, disabled",
           "- QQ Bot: not installed, not configured, disabled",
         ].join("\n"),

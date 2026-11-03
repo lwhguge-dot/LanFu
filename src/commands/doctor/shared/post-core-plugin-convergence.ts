@@ -63,9 +63,9 @@ type PostCoreConvergenceResult = {
   installRecords: Record<string, PluginInstallRecord>;
 };
 
-const REPAIR_GUIDANCE = "Run `openclaw update repair` to retry plugin repair.";
+const REPAIR_GUIDANCE = "Run `lanfu update repair` to retry plugin repair.";
 const inspectGuidance = (pluginId: string) =>
-  `Run \`openclaw plugins inspect ${pluginId} --runtime --json\` for details.`;
+  `Run \`lanfu plugins inspect ${pluginId} --runtime --json\` for details.`;
 
 function smokeFailureGuidance(failure: PluginPayloadSmokeFailure): string[] {
   if (failure.reason !== "unreadable-package-json") {

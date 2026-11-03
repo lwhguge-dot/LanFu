@@ -450,7 +450,7 @@ describe("legacy file install scan compatibility", () => {
         guidance: [
           "This invocation cannot approve install policy warnings.",
           "To continue:",
-          "  • Run the matching direct `openclaw plugins ...` or `openclaw skills ...` command interactively.",
+          "  • Run the matching direct `lanfu plugins ...` or `lanfu skills ...` command interactively.",
           "  • For reviewed direct CLI automation, add --acknowledge-install-policy-warning.",
           "  • If no equivalent direct command exists, change security.installPolicy to allow this reviewed request, then retry.",
           "  • --force does not approve install policy warnings.",
@@ -629,7 +629,7 @@ describe("legacy file install scan compatibility", () => {
       const guidance = [
         "This invocation cannot approve install policy warnings.",
         "To continue:",
-        "  • Run the matching direct `openclaw plugins ...` or `openclaw skills ...` command interactively.",
+        "  • Run the matching direct `lanfu plugins ...` or `lanfu skills ...` command interactively.",
         "  • For reviewed direct CLI automation, add --acknowledge-install-policy-warning.",
         "  • If no equivalent direct command exists, change security.installPolicy to allow this reviewed request, then retry.",
         "  • --force does not approve install policy warnings.",

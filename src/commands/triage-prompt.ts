@@ -124,7 +124,7 @@ export function renderTriagePrompt(params: {
     return severity || left.checkId.localeCompare(right.checkId);
   });
   const lines = [
-    "You are repairing THIS machine's LanFu installation. Diagnose the root cause, apply the repair autonomously within your existing permissions, and verify the result. Preserve configuration, history, and databases. Use local `openclaw doctor`, `openclaw doctor --fix`, `openclaw status --all`, and `openclaw logs` as needed. Product documentation: https://docs.openclaw.ai.",
+    "You are repairing THIS machine's LanFu installation. Diagnose the root cause, apply the repair autonomously within your existing permissions, and verify the result. Preserve configuration, history, and databases. Use local `lanfu doctor`, `lanfu doctor --fix`, `lanfu status --all`, and `lanfu logs` as needed. Product documentation: https://docs.openclaw.ai.",
     "",
     "## Environment",
     "",
@@ -138,11 +138,11 @@ export function renderTriagePrompt(params: {
     "",
     "## Completion goal",
     "",
-    "Diagnose and repair the original symptom using existing repair commands, including `openclaw doctor --fix` and, for unfinished updates, `openclaw update repair`. Respect installation ownership, locks, schema and capability approval refusals. If maintenance refuses to stop the Gateway from this fixing subtree, use read-only diagnosis or safe offline artifact repair and atomic restart, or report that an independent operator must run maintenance outside triage. Do not bypass the refusal.",
+    "Diagnose and repair the original symptom using existing repair commands, including `lanfu doctor --fix` and, for unfinished updates, `lanfu update repair`. Respect installation ownership, locks, schema and capability approval refusals. If maintenance refuses to stop the Gateway from this fixing subtree, use read-only diagnosis or safe offline artifact repair and atomic restart, or report that an independent operator must run maintenance outside triage. Do not bypass the refusal.",
     failure?.gateway === "preserve"
       ? "Do not start or restart the Gateway: this invocation did not authorize activation. Preserve --no-restart and intentional stops. Use read-only status checks and report live health verification as deferred while it is intentionally stopped."
-      : "Only activate a Gateway intended to run. For managed recovery, use atomic `openclaw gateway restart` when needed, never stop then start: an explicit stop after native scope attachment cancels this recovery and its children. Preserve later operator stops and report cancellation or infeasibility instead of claiming recovery.",
-    "For a running Gateway, verify this installation with `openclaw health --json` AND `openclaw status --all` or `openclaw gateway status --deep`. Verify the running version matches the expected version above when supplied, and reproduce the original symptom to confirm it is resolved.",
+      : "Only activate a Gateway intended to run. For managed recovery, use atomic `lanfu gateway restart` when needed, never stop then start: an explicit stop after native scope attachment cancels this recovery and its children. Preserve later operator stops and report cancellation or infeasibility instead of claiming recovery.",
+    "For a running Gateway, verify this installation with `lanfu health --json` AND `lanfu status --all` or `lanfu gateway status --deep`. Verify the running version matches the expected version above when supplied, and reproduce the original symptom to confirm it is resolved.",
     "A valid config, process PID, repair command exit 0, or health snapshot's top-level ok alone is not success. Inspect relevant health/status failures. End with a concise report of changes, verification commands and evidence, and any remaining blocker. Do not claim recovery without that evidence.",
     "",
   );
@@ -207,7 +207,7 @@ export function renderTriagePrompt(params: {
   }
   const omitted = findings.length - rendered;
   if (omitted > 0) {
-    lines.push(`${omitted} more findings omitted; run \`openclaw doctor\` for the full list.`);
+    lines.push(`${omitted} more findings omitted; run \`lanfu doctor\` for the full list.`);
   }
 
   lines.push(...tail);

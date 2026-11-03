@@ -415,7 +415,7 @@ export async function prepareUpdateFailureReport(
     `- Node version: ${sanitizeReportField(process.versions.node ?? "unknown", context)}`,
     ...(action
       ? [
-          `- Update action: ${action === "cli" ? "CLI command: openclaw update" : action === "campaign" ? "automatic update campaign" : `Gateway RPC: update.run (${action})`}`,
+          `- Update action: ${action === "cli" ? "CLI command: lanfu update" : action === "campaign" ? "automatic update campaign" : `Gateway RPC: update.run (${action})`}`,
         ]
       : []),
     ...(installation ? [`- Installation method: ${installation}`] : []),

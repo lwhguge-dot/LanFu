@@ -123,7 +123,7 @@ it.each(["fresh", "interrupted", "replaced"] as const)(
     expect(activate).not.toHaveBeenCalled();
     expect(launchHatchTui).not.toHaveBeenCalled();
     expect(prompter.note).toHaveBeenCalledWith(
-      expect.stringContaining("openclaw onboard"),
+      expect.stringContaining("lanfu onboard"),
       "Next steps",
     );
   },

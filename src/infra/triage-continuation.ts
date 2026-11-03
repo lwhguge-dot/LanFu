@@ -113,7 +113,7 @@ export async function resolveTriageEntrypoint(root: string): Promise<[string, st
   const entry = await resolveGatewayInstallEntrypoint(root);
   if (!entry) {
     throw new Error(
-      "installed CLI entry is unavailable; repair the installation and run openclaw triage manually",
+      "installed CLI entry is unavailable; repair the installation and run lanfu triage manually",
     );
   }
   return [resolveNodeRunner(), entry, "triage"];

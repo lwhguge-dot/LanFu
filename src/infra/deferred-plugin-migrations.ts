@@ -38,7 +38,7 @@ export class DeferredPluginMigrationConflictError extends Error {
 
   constructor(pending: readonly DeferredPluginMigration[]) {
     super(
-      'Plugin migration obligations changed while their inputs were being prepared. Retained inputs remain protected; run "openclaw doctor --fix" after the other repair finishes.',
+      'Plugin migration obligations changed while their inputs were being prepared. Retained inputs remain protected; run "lanfu doctor --fix" after the other repair finishes.',
     );
     this.name = "DeferredPluginMigrationConflictError";
     this.pending = pending;
@@ -194,7 +194,10 @@ export function formatDeferredPluginMigration(
   pending: DeferredPluginMigration,
   env: NodeJS.ProcessEnv = process.env,
 ): string {
-  const retry = pending.command === "openclaw doctor --fix" ? "" : ', then "openclaw doctor --fix"';
+  // persisted configs may still carry the legacy "openclaw doctor --fix" value
+  const isDoctorFixCommand =
+    pending.command === "lanfu doctor --fix" || pending.command === "openclaw doctor --fix";
+  const retry = isDoctorFixCommand ? "" : ', then "lanfu doctor --fix"';
   const updating =
     isTruthyEnvValue(env.OPENCLAW_UPDATE_IN_PROGRESS) ||
     isTruthyEnvValue(env.OPENCLAW_UPDATE_POST_CORE_CONVERGENCE);

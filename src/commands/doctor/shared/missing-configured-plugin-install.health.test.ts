@@ -57,7 +57,7 @@ describe("configured plugin install health findings", () => {
       checkId: "core/doctor/configured-plugin-installs",
       severity: "warning",
       target: "matrix",
-      fixHint: "Run `openclaw doctor --fix` to install @openclaw/plugin-matrix.",
+      fixHint: "Run `lanfu doctor --fix` to install @openclaw/plugin-matrix.",
     });
     expect(
       configuredPluginInstallIssueToRepairEffect(expectDefined(issue, "issue test invariant")),
@@ -146,7 +146,7 @@ describe("configured plugin install health findings", () => {
       resolvedSpec: "clawhub:demo@1.2.3",
       installSpec: "clawhub:demo@1.2.3",
       fixHint:
-        "Run `openclaw plugins install clawhub:demo@1.2.3 --force` to reinstall the configured plugin package.",
+        "Run `lanfu plugins install clawhub:demo@1.2.3 --force` to reinstall the configured plugin package.",
     },
     {
       name: "resolved selector without original spec",
@@ -154,7 +154,7 @@ describe("configured plugin install health findings", () => {
       resolvedSpec: "clawhub:demo@1.2.3",
       installSpec: "clawhub:demo@1.2.3",
       fixHint:
-        "Run `openclaw plugins install clawhub:demo@1.2.3 --force` to reinstall the configured plugin package.",
+        "Run `lanfu plugins install clawhub:demo@1.2.3 --force` to reinstall the configured plugin package.",
     },
     {
       name: "original selector only",
@@ -162,14 +162,14 @@ describe("configured plugin install health findings", () => {
       spec: "@example/demo@1.2.3",
       installSpec: "@example/demo@1.2.3",
       fixHint:
-        "Run `openclaw plugins install @example/demo@1.2.3 --force` to reinstall the configured plugin package.",
+        "Run `lanfu plugins install @example/demo@1.2.3 --force` to reinstall the configured plugin package.",
     },
     {
       name: "no recorded selector",
       source: "clawhub",
       installSpec: undefined,
       fixHint:
-        "Run `openclaw doctor --fix` to repair the configured plugin install. An exact reinstall command is unavailable because the install record has no package spec.",
+        "Run `lanfu doctor --fix` to repair the configured plugin install. An exact reinstall command is unavailable because the install record has no package spec.",
     },
   ])("preserves install identity for an empty project: $name", async (fixture) => {
     const installPath = tempDirs.make("openclaw-doctor-empty-plugin-");

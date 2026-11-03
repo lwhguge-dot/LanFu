@@ -31,7 +31,7 @@ export async function runTuiCliAction(
   const isLocal = Boolean(opts.local) || invokedAsLocalAlias;
   if (target && isLocal) {
     throw new Error(
-      "a session target cannot be combined with --local, openclaw chat, or openclaw terminal",
+      "a session target cannot be combined with --local, lanfu chat, or lanfu terminal",
     );
   }
   if (isLocal && (opts.url || opts.token || opts.password || opts.tlsFingerprint)) {

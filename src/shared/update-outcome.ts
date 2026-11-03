@@ -85,18 +85,18 @@ export const UPDATE_ENVIRONMENT_FAILURE_REASONS: ReadonlySet<string> = new Set([
 export function formatUpdateActivationTimeoutGuidance(
   command: (value: string) => string = (value) => value,
 ): string {
-  return `Inspect \`${command("openclaw update status")}\` and \`${command("openclaw doctor")}\`. Wait for the owning updater and its child processes to stop before running \`${command("openclaw update repair")}\`. The timeout does not make rollback or removal of retained update state safe.`;
+  return `Inspect \`${command("lanfu update status")}\` and \`${command("lanfu doctor")}\`. Wait for the owning updater and its child processes to stop before running \`${command("lanfu update repair")}\`. The timeout does not make rollback or removal of retained update state safe.`;
 }
 
 export const UPDATE_INSTALL_SKIP_GUIDANCE: Readonly<Record<string, string>> = {
   "external-supervisor-update-required":
-    "This Gateway is managed by an external supervisor. Use your server or deployment's update workflow to update LanFu and restart the Gateway. The Control UI and `openclaw update` cannot update this installation. No package changes or Gateway restart were attempted.",
+    "This Gateway is managed by an external supervisor. Use your server or deployment's update workflow to update LanFu and restart the Gateway. The Control UI and `lanfu update` cannot update this installation. No package changes or Gateway restart were attempted.",
   "container-image-install":
     "Pull or build the target Docker/container image, then redeploy it with the same state/config mounts. No package changes or Gateway restart were attempted.",
   "unmanaged-package-install":
     "No npm, pnpm, or Bun global owner was detected. Reinstall using the original method; use Yarn for Yarn global installs. No package changes or Gateway restart were attempted.",
   "package-update-requires-cli":
-    "Run `openclaw update` through this install's npm, pnpm, or Bun global launcher. No package changes or Gateway restart were attempted.",
+    "Run `lanfu update` through this install's npm, pnpm, or Bun global launcher. No package changes or Gateway restart were attempted.",
 };
 
 export const SKIPPED_UPDATE_OUTCOMES: Readonly<Record<string, "pending" | "noop">> = {

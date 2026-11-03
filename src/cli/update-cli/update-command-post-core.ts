@@ -167,7 +167,7 @@ export async function readPostCorePluginInstallRecordsFile(
       return undefined;
     }
     throw new Error(
-      `Unable to read plugin install records file: ${filePath}. Run openclaw doctor to inspect and repair plugin installation state.`,
+      `Unable to read plugin install records file: ${filePath}. Run lanfu doctor to inspect and repair plugin installation state.`,
       { cause: err },
     );
   }
@@ -176,7 +176,7 @@ export async function readPostCorePluginInstallRecordsFile(
     parsed = JSON.parse(raw);
   } catch (err) {
     throw new Error(
-      `Malformed JSON in plugin install records file: ${filePath}. Run openclaw doctor to inspect and repair plugin installation state.`,
+      `Malformed JSON in plugin install records file: ${filePath}. Run lanfu doctor to inspect and repair plugin installation state.`,
       { cause: err },
     );
   }
@@ -184,7 +184,7 @@ export async function readPostCorePluginInstallRecordsFile(
     return normalizePluginInstallRecordMap(parsed);
   } catch (err) {
     throw new Error(
-      `Invalid plugin install records in handoff file: ${filePath}. Run openclaw doctor to inspect and repair plugin installation state.`,
+      `Invalid plugin install records in handoff file: ${filePath}. Run lanfu doctor to inspect and repair plugin installation state.`,
       { cause: err },
     );
   }

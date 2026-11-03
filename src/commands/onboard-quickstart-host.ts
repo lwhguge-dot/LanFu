@@ -98,7 +98,7 @@ export async function runQuickstartForegroundGateway(
     runtime.log(t("wizard.guided.quickstartReopen"));
     if (setupOnly) {
       runtime.log(
-        "Use openclaw setup for the setup assistant. Choose a primary model with openclaw onboard before regular agent chat.",
+        "Use lanfu setup for the setup assistant. Choose a primary model with lanfu onboard before regular agent chat.",
       );
     }
     await gateway;

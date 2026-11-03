@@ -188,7 +188,7 @@ const SystemAgentToolSchema = Type.Object({
   sha256: Type.Optional(
     Type.String({
       pattern: "^[a-fA-F0-9]{64}$",
-      description: "Exact SHA256 from openclaw plugins pack for plugin_activate_artifact",
+      description: "Exact SHA256 from lanfu plugins pack for plugin_activate_artifact",
     }),
   ),
   value: Type.Optional(Type.String({ description: "Value for config_set (JSON5 or string)" })),
@@ -224,7 +224,7 @@ const SystemAgentToolSchema = Type.Object({
   target: Type.Optional(
     stringEnum(["guided", "classic", "channels", "search", "gateway"], {
       description:
-        "Setup target for open_setup. channels/search/gateway open masked terminal flows; guided/classic require exiting LanFu and running openclaw onboard.",
+        "Setup target for open_setup. channels/search/gateway open masked terminal flows; guided/classic require exiting LanFu and running lanfu onboard.",
     }),
   ),
   query: Type.Optional(Type.String({ description: "Search query for plugin_search" })),
@@ -365,7 +365,7 @@ function operationForAction(params: Record<string, unknown>): SystemAgentOperati
         !/^[a-f0-9]{64}$/u.test(sha256)
       ) {
         throw new ToolInputError(
-          "openclaw: plugin_activate_artifact requires an absolute packed .tgz path and its exact SHA256 from openclaw plugins pack",
+          "openclaw: plugin_activate_artifact requires an absolute packed .tgz path and its exact SHA256 from lanfu plugins pack",
         );
       }
       return { kind: "plugin-activate-artifact", path: artifactPath, sha256 };
@@ -449,7 +449,7 @@ export function createSystemAgentTool(options: SystemAgentToolOptions): AnyAgent
       "Model providers: configure_model_provider returns protected Settings → Models sign-in guidance without changing credentials or selecting a model. Personal accounts: manage_model_accounts opens the human-owned account controls. Never request credentials in chat.",
       "Write: setup, set_default_model (agentId optional; live-tested), config_set, config_set_ref, create_agent (optional role), create_team, gateway_*, plugin_install, plugin_activate_artifact, plugin_uninstall. Submit the exact proposal first. Direct chat: exact user approval, then approved=true. Delegated requests: host applies session permission policy and returns the final outcome. Host applies after turn; rechecks inference owner.",
       "plugin_install: ClawHub/bundled/official only. Arbitrary source: exit, trusted shell.",
-      "plugin_activate_artifact: for a task-authored plugin built with openclaw plugins pack, pass its absolute archive path and sha256. Copies and reviews exact bytes before proposing; approval includes trusted backend code, declared capabilities, and native UI. No dependency fetching. Backend activation requires Gateway restart. Native UI separately requires enabling Settings > Labs > Custom plugin UI, then Gateway restart and browser reload; artifact approval does not enable Labs.",
+      "plugin_activate_artifact: for a task-authored plugin built with lanfu plugins pack, pass its absolute archive path and sha256. Copies and reviews exact bytes before proposing; approval includes trusted backend code, declared capabilities, and native UI. No dependency fetching. Backend activation requires Gateway restart. Native UI separately requires enabling Settings > Labs > Custom plugin UI, then Gateway restart and browser reload; artifact approval does not enable Labs.",
       "Unknown config: config_schema first. Config writes are proposed, approved, then checked by the canonical config validator and writer. Validation or write errors return to you; propose one correction for fresh approval. Config writes do not test whether a model route or API key works. For secrets, follow the user's storage preference; use config_set_ref for env storage. Never echo secret values. set_default_model is the shortcut for switching the primary model.",
       "No doctor repair. Writes validated, audited. Invalid config: fix now.",
     ].join(" "),

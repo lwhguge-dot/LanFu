@@ -405,7 +405,7 @@ describe("runDoctorConfigPreflight", () => {
             ...startupCheckpointOptions,
             skipPristineStartupStateMigrations: true,
           }),
-        ).rejects.toThrow("openclaw doctor --fix");
+        ).rejects.toThrow("lanfu doctor --fix");
       });
       expect(await fs.readFile(configPath, "utf-8")).toBe(original);
       await expect(fs.access(`${configPath}.bak`)).rejects.toMatchObject({ code: "ENOENT" });

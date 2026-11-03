@@ -291,7 +291,7 @@ function assertVerifiedSessionSources(
         continue;
       }
       throw new Error(
-        `Retained session migration source changed: ${source.path}. Resolve the source conflict before running openclaw doctor --fix again; the verified import was not replayed.`,
+        `Retained session migration source changed: ${source.path}. Resolve the source conflict before running lanfu doctor --fix again; the verified import was not replayed.`,
       );
     }
     verifiedPaths.set(source.path, verifiedPath);
@@ -345,7 +345,7 @@ function assertVerifiedSessionSources(
     for (const candidate of transcriptCandidates) {
       if (statMigrationPath(candidate)) {
         throw new Error(
-          `Retained session migration source changed: ${candidate}. A previously unimported transcript appeared; preserve it and resolve the source conflict before running openclaw doctor --fix again.`,
+          `Retained session migration source changed: ${candidate}. A previously unimported transcript appeared; preserve it and resolve the source conflict before running lanfu doctor --fix again.`,
         );
       }
     }
@@ -421,11 +421,11 @@ function parseSessionImportReceipt(
   if (recorded.databaseIdentity !== databaseIdentity(params.sqlitePath)) {
     if (purpose !== "readiness") {
       throw new Error(
-        "The verified session import database changed; run openclaw doctor --session-sqlite recover to verify the retained sources against the current database.",
+        "The verified session import database changed; run lanfu doctor --session-sqlite recover to verify the retained sources against the current database.",
       );
     }
     recordStartupMigrationWarnings([
-      "Retained session import database identity changed; sources remain protected. Run openclaw doctor --session-sqlite recover to revalidate the receipt.",
+      "Retained session import database identity changed; sources remain protected. Run lanfu doctor --session-sqlite recover to revalidate the receipt.",
     ]);
   }
   return recorded;

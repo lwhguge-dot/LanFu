@@ -254,7 +254,7 @@ const gatewayConfigCheck: HealthCheck = {
         message: "gateway.mode is unset; gateway start will be blocked.",
         path: "gateway.mode",
         fixHint:
-          "Run `openclaw configure` and set Gateway mode (local/remote), or `openclaw config set gateway.mode local`.",
+          "Run `lanfu configure` and set Gateway mode (local/remote), or `lanfu config set gateway.mode local`.",
       });
     }
     if (ctx.cfg.gateway?.mode !== "remote" && hasAmbiguousGatewayAuthModeConfig(ctx.cfg)) {
@@ -265,7 +265,7 @@ const gatewayConfigCheck: HealthCheck = {
           "gateway.auth.token and gateway.auth.password are both configured while gateway.auth.mode is unset; auth selection is ambiguous.",
         path: "gateway.auth.mode",
         fixHint:
-          "Set an explicit mode: `openclaw config set gateway.auth.mode token` or `... password`.",
+          "Set an explicit mode: `lanfu config set gateway.auth.mode token` or `... password`.",
       });
     }
     return findings;
@@ -289,7 +289,7 @@ const commandOwnerCheck: HealthCheck = {
           "No command owner is configured. Owner-only commands (/diagnostics, /export-trajectory, /config, exec approvals) have no allowed sender.",
         path: "commands.ownerAllowFrom",
         fixHint:
-          "Set commands.ownerAllowFrom to your channel user id, e.g. `openclaw config set commands.ownerAllowFrom '[\"feishu:123456789\"]'`.",
+          "Set commands.ownerAllowFrom to your channel user id, e.g. `lanfu config set commands.ownerAllowFrom '[\"feishu:123456789\"]'`.",
       },
     ];
   },
@@ -356,8 +356,8 @@ const skillWorkshopRelocationCheck: HealthCheck = {
     ) {
       fixHints.push(
         ctx.mode === "doctor"
-          ? "If Workshop repair has not run, use `openclaw doctor --fix`. Otherwise review the remaining targets and migration warnings above. Resolve their ownership or recovery blockers before retrying Doctor; repeating the same repair alone will not resolve them."
-          : "Run `openclaw doctor --fix` to process eligible Workshop relocations and legacy collection backups.",
+          ? "If Workshop repair has not run, use `lanfu doctor --fix`. Otherwise review the remaining targets and migration warnings above. Resolve their ownership or recovery blockers before retrying Doctor; repeating the same repair alone will not resolve them."
+          : "Run `lanfu doctor --fix` to process eligible Workshop relocations and legacy collection backups.",
       );
     }
     if (inspection.preservedLegacyBackupRootCount > 0) {
@@ -481,14 +481,14 @@ const legacyStateCheck: HealthCheck & { readonly defaultEnabled: false } = {
         severity: "warning",
         message: line.replace(/^- /, ""),
         path: detected.stateDir,
-        fixHint: "Run `openclaw doctor --fix` to migrate legacy state.",
+        fixHint: "Run `lanfu doctor --fix` to migrate legacy state.",
       })),
       ...detected.warnings.map((warning): HealthFinding => ({
         checkId: "core/doctor/legacy-state",
         severity: "warning",
         message: warning,
         path: detected.stateDir,
-        fixHint: "Resolve the warning, then rerun `openclaw doctor --fix`.",
+        fixHint: "Resolve the warning, then rerun `lanfu doctor --fix`.",
       })),
     ];
   },
@@ -607,7 +607,7 @@ function createModelReferenceCheck(): HealthCheck {
           ? {
               message: `Configured model "${inspection.ref}" is a legacy reference. Doctor can migrate it to "${migrationTarget}".`,
               requirement: `canonical model reference "${migrationTarget}"`,
-              fixHint: `Run \`openclaw doctor --fix\` to migrate this model reference to "${migrationTarget}".`,
+              fixHint: `Run \`lanfu doctor --fix\` to migrate this model reference to "${migrationTarget}".`,
             }
           : undefined;
         if (inspection.status === "unknown-provider") {
@@ -853,7 +853,7 @@ const codexSessionRoutesCheck: HealthCheck = {
               "or set the affected OpenAI models to a LanFu runtime policy.",
             ].join(" ")
           : [
-              "Run `openclaw doctor --fix`: it enables plugins.entries.codex,",
+              "Run `lanfu doctor --fix`: it enables plugins.entries.codex,",
               "or set the affected OpenAI models to a LanFu runtime policy.",
             ].join(" "),
       }),
@@ -1059,7 +1059,7 @@ function unavailableSkillToFinding(skill: SkillStatusEntry): HealthFinding {
     message: `${skill.name} is allowed but unavailable: ${formatMissingSkillSummary(skill)}.`,
     path: skillReadinessPath(skill),
     fixHint:
-      "Install/configure the missing requirement, or run `openclaw doctor --fix` to disable unused unavailable skills.",
+      "Install/configure the missing requirement, or run `lanfu doctor --fix` to disable unused unavailable skills.",
   };
 }
 
@@ -1092,7 +1092,7 @@ function browserResidueFinding(residue: LegacyClawdBrowserProfileResidue): Healt
     path: residue.legacyProfileDir,
     ocPath: "oc://state/browser/clawd",
     fixHint:
-      "Run `openclaw doctor --fix` to archive the stale clawd profile safely instead of deleting it in place.",
+      "Run `lanfu doctor --fix` to archive the stale clawd profile safely instead of deleting it in place.",
   };
 }
 

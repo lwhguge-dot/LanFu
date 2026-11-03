@@ -19,6 +19,6 @@ export function assertDoctorMaintenanceInspection(
   }
   throw new Error(
     inspection.blockMessage ??
-      `Gateway service ownership or shutdown could not be verified. Run ${formatCliCommand("openclaw gateway status --deep", env)} and stop it through its service owner before retrying.`,
+      `Gateway service ownership or shutdown could not be verified. Run ${formatCliCommand("lanfu gateway status --deep", env)} and stop it through its service owner before retrying.`,
   );
 }

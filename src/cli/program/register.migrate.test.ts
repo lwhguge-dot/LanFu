@@ -234,7 +234,7 @@ describe("registerMigrateCommand", () => {
 
     expect(mocks.migrateApplyCommand).not.toHaveBeenCalled();
     expect(mocks.runtime.error).toHaveBeenCalledWith(
-      expect.stringContaining("--dry-run is not supported for `openclaw migrate apply`"),
+      expect.stringContaining("--dry-run is not supported for `lanfu migrate apply`"),
     );
     expect(mocks.runtime.exit).toHaveBeenCalledWith(1);
   });

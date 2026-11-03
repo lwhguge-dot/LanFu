@@ -33,7 +33,7 @@ export function registerCronCli(program: Command) {
     .addHelpText(
       "after",
       () =>
-        `\n\n${theme.muted("Upgrade tip:")} run \`openclaw doctor --fix\` to normalize legacy automation storage.\n`,
+        `\n\n${theme.muted("Upgrade tip:")} run \`lanfu doctor --fix\` to normalize legacy automation storage.\n`,
     );
 
   addGatewayClientOptions(cron);

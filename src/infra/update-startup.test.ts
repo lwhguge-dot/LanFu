@@ -294,7 +294,7 @@ describe("update-startup", () => {
     startManagedServiceUpdateHandoffMock.mockResolvedValue({
       status: "started",
       pid: 12345,
-      command: "openclaw update --yes --channel beta",
+      command: "lanfu update --yes --channel beta",
       logPath: "/tmp/openclaw-handoff.log",
       handoffId: "auto-handoff-id",
       installRoot: "/opt/openclaw",
@@ -573,7 +573,7 @@ describe("update-startup", () => {
 
     expectLastTelemetryConfig({ update: { channel } });
     expect(log.info).toHaveBeenCalledWith(
-      `update available (latest): v2.0.0 (current v1.0.0). Run: ${formatCliCommand("openclaw update")}`,
+      `update available (latest): v2.0.0 (current v1.0.0). Run: ${formatCliCommand("lanfu update")}`,
     );
     expect(parsed?.lastNotifiedVersion).toBe("2.0.0");
     expect(parsed?.lastAvailableVersion).toBe("2.0.0");
@@ -971,7 +971,7 @@ describe("update-startup", () => {
     expect(checkTelemetryUpdateMock).toHaveBeenCalledTimes(2);
     expect(log.info).toHaveBeenCalledTimes(1);
     expect(log.info).toHaveBeenCalledWith(
-      `update available (extended-stable): v2.0.0 (current v1.0.0). Run: ${formatCliCommand("openclaw update")}`,
+      `update available (extended-stable): v2.0.0 (current v1.0.0). Run: ${formatCliCommand("lanfu update")}`,
     );
     expect(onUpdateAvailableChange).toHaveBeenCalledTimes(1);
     expect(onUpdateAvailableChange).toHaveBeenCalledWith({
@@ -2244,7 +2244,7 @@ describe("update-startup", () => {
             releaseHandoff = () => {
               const handoff = {
                 pid: 12345,
-                command: "openclaw update --yes --channel beta",
+                command: "lanfu update --yes --channel beta",
                 logPath: "/tmp/late-handoff.log",
                 handoffId: "late-handoff",
                 installRoot: "/opt/openclaw",
@@ -2587,7 +2587,7 @@ describe("update-startup", () => {
     startManagedServiceUpdateHandoffMock.mockResolvedValueOnce({
       status: "started",
       pid: 12345,
-      command: "openclaw update --yes --channel beta --tag 2.0.0-beta.1",
+      command: "lanfu update --yes --channel beta --tag 2.0.0-beta.1",
       logPath: "/tmp/openclaw-handoff.log",
       handoffId: "started-auto-handoff-id",
       installRoot: await fs.realpath(installRoot),
@@ -2643,7 +2643,7 @@ describe("update-startup", () => {
       version: "2.0.0-beta.1",
       tag: "beta",
       forced: false,
-      command: "openclaw update --yes --channel beta --tag 2.0.0-beta.1",
+      command: "lanfu update --yes --channel beta --tag 2.0.0-beta.1",
       logPath: "/tmp/openclaw-handoff.log",
     });
     expect(getUpdateSchedule()?.campaign?.state).toBe("applying");
@@ -2665,7 +2665,7 @@ describe("update-startup", () => {
       if (triageFails) {
         runUpdateFailureTriageMock.mockResolvedValueOnce({
           status: "failed",
-          hint: "Triage could not complete: collector failed. Run openclaw triage.",
+          hint: "Triage could not complete: collector failed. Run lanfu triage.",
         });
       }
       const log = { info: vi.fn() };
@@ -2693,7 +2693,7 @@ describe("update-startup", () => {
         forced: false,
         reason: "managed-service-handoff-failed",
         message: expect.stringContaining("ENOENT"),
-        triage: expect.stringContaining(triageFails ? "openclaw triage" : triageResult.hint),
+        triage: expect.stringContaining(triageFails ? "lanfu triage" : triageResult.hint),
       });
       expect(log.info).toHaveBeenCalledWith(
         "update campaign ended",
@@ -2706,7 +2706,7 @@ describe("update-startup", () => {
       expect((await terminalSentinels.at(-1))?.payload).toMatchObject({
         kind: "update",
         status: "error",
-        doctorHint: expect.stringContaining(triageFails ? "openclaw triage" : triageResult.hint),
+        doctorHint: expect.stringContaining(triageFails ? "lanfu triage" : triageResult.hint),
         stats: { reason: "managed-service-handoff-failed" },
       });
       expect(runUpdateFailureTriageMock).toHaveBeenCalledOnce();
@@ -2738,7 +2738,7 @@ describe("update-startup", () => {
     startManagedServiceUpdateHandoffMock.mockResolvedValueOnce({
       status: "joined",
       pid: 12345,
-      command: "openclaw update --yes --channel beta",
+      command: "lanfu update --yes --channel beta",
       logPath: "/tmp/openclaw-handoff.log",
       handoffId: "handoff-existing",
     });

@@ -261,9 +261,7 @@ export const systemAgentHandlers: GatewayRequestHandlers = {
                 ]);
               const snapshot = await setupShared.readSetupConfigFileSnapshot();
               if (!snapshot.valid) {
-                throw new Error(
-                  "Config is invalid. Run `openclaw doctor` before preparing a model.",
-                );
+                throw new Error("Config is invalid. Run `lanfu doctor` before preparing a model.");
               }
               // Match the classic wizard: mutate the authored shape, not runtimeConfig,
               // so setup never writes resolved runtime defaults into lanfu.json.
@@ -297,7 +295,7 @@ export const systemAgentHandlers: GatewayRequestHandlers = {
               );
               if (!prepared || prepared.retrySelection) {
                 throw new Error(
-                  `Provider setup resolution failed for "${params.authChoice}". Run \`openclaw doctor --fix\`, restart the Gateway, and try again.`,
+                  `Provider setup resolution failed for "${params.authChoice}". Run \`lanfu doctor --fix\`, restart the Gateway, and try again.`,
                 );
               }
               signal.throwIfAborted();

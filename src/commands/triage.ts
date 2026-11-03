@@ -679,7 +679,7 @@ export async function triageCommand(
         };
       } catch (error) {
         signal.throwIfAborted();
-        const summary = `${updateFailure ? "Update resolution checks" : "Doctor checks"} unavailable: ${triageCollectionError(error, redaction)}${updateFailure ? " Next step: run `openclaw update status --json`, then `openclaw update repair`." : ""}`;
+        const summary = `${updateFailure ? "Update resolution checks" : "Doctor checks"} unavailable: ${triageCollectionError(error, redaction)}${updateFailure ? " Next step: run `lanfu update status --json`, then `lanfu update repair`." : ""}`;
         return {
           ok: false,
           // An unavailable oracle must never appear better than known Doctor errors.
@@ -696,11 +696,11 @@ export async function triageCommand(
   if (result.status === "unavailable") {
     if (result.reason === "exec-denied-by-policy") {
       throw new Error(
-        "The operator's policy denies unattended repair (exec-denied-by-policy). Use `openclaw triage` for an external handoff.",
+        "The operator's policy denies unattended repair (exec-denied-by-policy). Use `lanfu triage` for an external handoff.",
       );
     }
     throw new Error(
-      `Embedded agent unavailable: ${result.reason}. Run \`openclaw onboard\` or use a suggested handoff command.`,
+      `Embedded agent unavailable: ${result.reason}. Run \`lanfu onboard\` or use a suggested handoff command.`,
     );
   }
   for (const attempt of result.attempts) {

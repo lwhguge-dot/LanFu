@@ -1642,7 +1642,7 @@ function assertRecoverableUpdateJson([file, expectedVersion, observationRoot, ba
       "",
     );
     const match =
-      /^Plugin "([^"]+)" requires capability consent(?:\. Use openclaw plugins install or openclaw plugins enable with --accept-capabilities, then retry\.|; rerun with --accept-capabilities\.)$/.exec(
+      /^Plugin "([^"]+)" requires capability consent(?:\. Use lanfu plugins install or lanfu plugins enable with --accept-capabilities, then retry\.|; rerun with --accept-capabilities\.)$/.exec(
         reason,
       );
     assertStrict.ok(match && reviewed.has(match[1]), "Unexpected plugin convergence failure.");
@@ -1691,7 +1691,7 @@ function assertExpectedMissingCodexOutcomes(result, expectedVersion) {
       "missing Codex update retained an unexpected source transition",
     );
   }
-  const repairCommand = "openclaw plugins update codex";
+  const repairCommand = "lanfu plugins update codex";
   for (const outcome of failures) {
     assert(
       plugins.warnings?.some(

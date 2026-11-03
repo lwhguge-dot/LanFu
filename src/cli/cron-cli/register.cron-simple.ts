@@ -122,7 +122,7 @@ function registerCronToggleCommand(params: {
           printCronJson(res);
           if (!params.enabled && process.stderr.isTTY) {
             process.stderr.write(
-              `Note: 'openclaw cron list' hides disabled jobs by default. Use 'openclaw cron list --all' to see this job, or 'openclaw cron enable <id>' to re-enable it.\n`,
+              `Note: 'lanfu cron list' hides disabled jobs by default. Use 'lanfu cron list --all' to see this job, or 'lanfu cron enable <id>' to re-enable it.\n`,
             );
           }
           await warnIfCronSchedulerDisabled(opts);

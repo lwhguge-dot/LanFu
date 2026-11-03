@@ -20,7 +20,7 @@ const TOOL_FOLLOWUPS = [
     "gateway",
     "openclaw",
     "Never via shell.",
-    "Never via shell. Other system changes: use openclaw tool.",
+    "Never via shell. Other system changes: use lanfu tool.",
   ],
   [
     "sessions_search",

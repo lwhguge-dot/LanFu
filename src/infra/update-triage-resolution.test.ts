@@ -57,7 +57,7 @@ const BEFORE_SHA = "2222222222222222222222222222222222222222";
 const TARGET_VERSION = "2026.9.4";
 const BEFORE_VERSION = "2026.9.3";
 const MISSING_TARGET =
-  "Next step: run `openclaw update status --json`, then `openclaw update repair`. Cannot establish the update target.";
+  "Next step: run `lanfu update status --json`, then `lanfu update repair`. Cannot establish the update target.";
 
 function run(patch: Partial<UpdateRunRecord> = {}): UpdateRunRecord {
   return {
@@ -292,7 +292,7 @@ describe("saved update failure resolution", () => {
         {
           pluginId: "codex",
           reason: "The plugin has not reported completion of its retained state migration.",
-          command: "openclaw doctor --fix",
+          command: "lanfu doctor --fix",
           requiresStateMigration: true as const,
         },
       ];
@@ -323,7 +323,7 @@ describe("saved update failure resolution", () => {
         {
           pluginId: "fixture-plugin",
           reason: "Package repair deferred.",
-          command: "openclaw update repair",
+          command: "lanfu update repair",
         },
       ]);
       const result = await validateTriageUpdateResolution({
@@ -339,7 +339,7 @@ describe("saved update failure resolution", () => {
         summary: expect.stringContaining("Let the current update or repair finish."),
       });
       expect(result.summary).toContain(
-        'If this warning remains afterward, run "openclaw update repair"',
+        'If this warning remains afterward, run "lanfu update repair"',
       );
       expect(result.stopReason).toBe(result.summary);
     },
@@ -351,7 +351,7 @@ describe("saved update failure resolution", () => {
       ["first", "second"].map((pluginId) => ({
         pluginId,
         reason: "State migration is incomplete.",
-        command: "openclaw doctor --fix",
+        command: "lanfu doctor --fix",
       })),
     );
     const result = await validateTriageUpdateResolution({

@@ -239,8 +239,8 @@ describe("update candidate Doctor lint", () => {
           for (const output of [markdown, printed, warnings]) {
             expect({
               code: output.includes(code),
-              configure: output.includes("openclaw secrets configure"),
-              apply: output.includes("openclaw secrets apply"),
+              configure: output.includes("lanfu secrets configure"),
+              apply: output.includes("lanfu secrets apply"),
             }).toEqual({ code: true, configure: true, apply: true });
             expect(output).not.toContain(auth.profiles["fixture:default"].key);
           }

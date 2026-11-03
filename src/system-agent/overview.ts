@@ -277,7 +277,7 @@ export function formatSystemAgentOverview(overview: SystemAgentOverview): string
     `AI: ${
       overview.defaultModel || overview.setupModel
         ? `conversation runs on ${overview.defaultModel ?? overview.setupModel}`
-        : "inference unavailable; run openclaw onboard before starting LanFu"
+        : "inference unavailable; run lanfu onboard before starting LanFu"
     }`,
     overview.references.docsPath
       ? `Local docs: ${overview.references.docsPath}`
@@ -294,15 +294,15 @@ export function formatSystemAgentOverview(overview: SystemAgentOverview): string
 
 function recommendSystemAgentNextStep(overview: SystemAgentOverview): string {
   if (!overview.config.exists) {
-    return 'run "openclaw onboard" to establish inference';
+    return 'run "lanfu onboard" to establish inference';
   }
   if (!overview.config.valid) {
     return 'run "validate config" or "doctor" to inspect the config';
   }
   if (!overview.defaultModel) {
     return overview.setupModel
-      ? 'continue setup here; run "openclaw onboard" to choose your regular agent model'
-      : 'run "openclaw onboard" to establish inference';
+      ? 'continue setup here; run "lanfu onboard" to choose your regular agent model'
+      : 'run "lanfu onboard" to establish inference';
   }
   if (!overview.gateway.reachable) {
     return 'run "gateway status" or "restart gateway"';
@@ -329,10 +329,10 @@ function formatStartupAction(overview: SystemAgentOverview): string | undefined 
     return "Config needs attention. Run `doctor` to inspect it.";
   }
   if (!overview.defaultModel && !overview.setupModel) {
-    return "Inference is unavailable. Run `openclaw onboard` and complete a live model check.";
+    return "Inference is unavailable. Run `lanfu onboard` and complete a live model check.";
   }
   if (!overview.defaultModel) {
-    return "Setup and utility inference are ready. Choose a regular agent model in Model Setup or run `openclaw onboard`.";
+    return "Setup and utility inference are ready. Choose a regular agent model in Model Setup or run `lanfu onboard`.";
   }
   return undefined;
 }
@@ -352,7 +352,7 @@ export function formatSystemAgentOnboardingWelcome(overview: SystemAgentOverview
     "",
     overview.defaultModel
       ? "Say `talk to agent` to meet your agent right here, or `help` for everything I can do."
-      : "Your setup model stays available here. Choose a primary model in Model Setup or run `openclaw onboard` before opening regular agent chat.",
+      : "Your setup model stays available here. Choose a primary model in Model Setup or run `lanfu onboard` before opening regular agent chat.",
   ].join("\n");
 }
 

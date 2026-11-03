@@ -142,7 +142,7 @@ describe("maybeRepairSandboxImages", () => {
         "",
         "Options:",
         "- Install Docker and restart the gateway",
-        "- Disable sandbox mode: openclaw config set agents.defaults.sandbox.mode off",
+        "- Disable sandbox mode: lanfu config set agents.defaults.sandbox.mode off",
       ].join("\n"),
       "Sandbox",
     ]);
@@ -467,7 +467,7 @@ describe("maybeRepairSandboxRegistryFiles", () => {
       [
         "Legacy sandbox registry files detected.",
         "- containers monolithic: /tmp/openclaw/sandbox/containers.json (2 entries)",
-        "Run openclaw doctor --fix to migrate them to SQLite.",
+        "Run lanfu doctor --fix to migrate them to SQLite.",
       ].join("\n"),
       "Sandbox",
     );
@@ -524,7 +524,7 @@ describe("maybeRepairSandboxRegistryFiles", () => {
         checkId: "core/doctor/sandbox/registry-files",
         severity: "warning",
         path: "/tmp/openclaw/sandbox/containers.json",
-        fixHint: expect.stringContaining("openclaw doctor --fix"),
+        fixHint: expect.stringContaining("lanfu doctor --fix"),
       }),
     );
     expect(legacySandboxRegistryInspectionToRepairEffect(monolithicFile)).toEqual({

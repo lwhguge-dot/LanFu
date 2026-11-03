@@ -197,7 +197,7 @@ export async function restoreDoctorGatewayService(params: {
         }
       }
       if (installation.requiresInstallRootRefresh) {
-        const message = `Gateway service still targets ${installation.root}; Doctor could not reconcile it with ${root}. The previous installation remains stopped because state compatibility is unverified. Run ${formatCliCommand("openclaw gateway install --force", env)} from the intended install.`;
+        const message = `Gateway service still targets ${installation.root}; Doctor could not reconcile it with ${root}. The previous installation remains stopped because state compatibility is unverified. Run ${formatCliCommand("lanfu gateway install --force", env)} from the intended install.`;
         warnings.push(message);
         params.runtime.log(message);
         return undefined;

@@ -221,7 +221,7 @@ describe("applyNonInteractivePluginProviderChoice", () => {
       if (legacy) {
         const original = structuredClone(baseConfig);
         expect(await apply()).toBeNull();
-        expectRuntimeErrorIncludes(runtime, "openclaw doctor --fix");
+        expectRuntimeErrorIncludes(runtime, "lanfu doctor --fix");
         expect(runNonInteractive).not.toHaveBeenCalled();
         expect(ensureModelSelectionRuntimePlugins).not.toHaveBeenCalled();
         expect(baseConfig).toEqual(original);

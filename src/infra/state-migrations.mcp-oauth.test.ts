@@ -308,7 +308,7 @@ describe("legacy MCP OAuth Doctor migration", () => {
         authorizationChallenge: true,
         scope: "docs.read",
       }),
-    ).rejects.toThrow("Run openclaw mcp login Remote Docs.");
+    ).rejects.toThrow("Run lanfu mcp login Remote Docs.");
     await withMcpOAuthProviderForTest(
       {
         identity,

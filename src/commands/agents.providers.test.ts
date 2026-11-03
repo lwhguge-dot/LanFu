@@ -431,7 +431,7 @@ describe("buildProviderStatusIndex", () => {
         label: "Feishu",
         installSpec: "@openclaw/feishu",
         installCommand: "openclaw plugins install @openclaw/feishu",
-        doctorFixCommand: "openclaw doctor --fix",
+        doctorFixCommand: "lanfu doctor --fix",
         repairHint:
           "Install the official external plugin with: openclaw plugins install @openclaw/feishu, or run: openclaw doctor --fix.",
       },

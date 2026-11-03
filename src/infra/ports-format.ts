@@ -169,7 +169,7 @@ export function buildPortHints(listeners: PortListener[], port: number): string[
   const expectedGatewayListeners = isExpectedGatewayListeners(listeners, port);
   if (kinds.has("gateway") && !expectedGatewayListeners) {
     hints.push(
-      `Gateway already running locally. Stop it (${formatCliCommand("openclaw gateway stop")}) or use a different port.`,
+      `Gateway already running locally. Stop it (${formatCliCommand("lanfu gateway stop")}) or use a different port.`,
     );
   }
   if (kinds.has("ssh")) {

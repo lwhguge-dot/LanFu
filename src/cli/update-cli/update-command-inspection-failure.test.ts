@@ -88,7 +88,7 @@ it.each(["recovered", "unreadable", "retained", "settlement-failed"] as const)(
       expect(recorded).toMatchObject({
         status: "failed",
         reason: "update-failed",
-        origin: { nextAction: expect.stringContaining("openclaw triage") },
+        origin: { nextAction: expect.stringContaining("lanfu triage") },
         steps: expect.arrayContaining([
           expect.objectContaining({
             step: "requested",

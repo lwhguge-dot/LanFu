@@ -71,7 +71,7 @@ describe("runConfigureWizard", () => {
     await runConfigureWizard({ command: "configure" }, runtime);
 
     expect(mocks.clackOutro).toHaveBeenCalledWith(
-      "Config invalid. Run `openclaw doctor --fix` to apply supported repairs, then re-run configure.",
+      "Config invalid. Run `lanfu doctor --fix` to apply supported repairs, then re-run configure.",
     );
     expect(runtime.exit).toHaveBeenCalledWith(1);
     expect(mocks.clackSelect).not.toHaveBeenCalled();

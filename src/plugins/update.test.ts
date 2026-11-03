@@ -2204,7 +2204,7 @@ describe("updateNpmInstalledPlugins", () => {
           message:
             `${pluginId} is pinned to ${packageName}@1.2.3 (installed 1.2.3); ` +
             `registry ${updateChannel === "beta" ? "beta" : "latest"} resolves to ${registryVersion}. ` +
-            `Pass \`openclaw plugins update ${overrideSpec}\` to replace this version pin.`,
+            `Pass \`lanfu plugins update ${overrideSpec}\` to replace this version pin.`,
         },
       ]);
     },
@@ -2308,7 +2308,7 @@ describe("updateNpmInstalledPlugins", () => {
         nextVersion: "1.2.4",
         message:
           "demo is pinned to @acme/demo@1.2.3 (installed 1.2.3); registry latest resolves to 1.2.4. " +
-          "Pass `openclaw plugins update @acme/demo@latest` to replace this version pin.",
+          "Pass `lanfu plugins update @acme/demo@latest` to replace this version pin.",
       },
     ]);
   });
@@ -3208,7 +3208,7 @@ describe("updateNpmInstalledPlugins", () => {
       expect(message).toContain(spec);
       expect(message).toContain("2026.9.4");
       expect(message).toContain(stderr.startsWith("E404") ? "Package not found" : "ECONNREFUSED");
-      expect(message).toContain("openclaw plugins update demo");
+      expect(message).toContain("lanfu plugins update demo");
       expect(warn).toHaveBeenCalledWith(message);
       expect(result.config).toBe(config);
       expect(result.changed).toBe(false);
@@ -3820,7 +3820,7 @@ describe("updateNpmInstalledPlugins", () => {
         status: "unchanged",
         currentVersion: "1.2.3",
         nextVersion: "1.2.4",
-        message: `${pluginId} is pinned to ${spec} (installed 1.2.3); registry latest resolves to 1.2.4. Pass \`openclaw plugins update ${packageName}@latest\` to replace this version pin.`,
+        message: `${pluginId} is pinned to ${spec} (installed 1.2.3); registry latest resolves to 1.2.4. Pass \`lanfu plugins update ${packageName}@latest\` to replace this version pin.`,
       });
     },
   );
@@ -3952,7 +3952,7 @@ describe("updateNpmInstalledPlugins", () => {
       message: scenario.warns
         ? `diagnostics-otel is pinned to ${spec} ` +
           "(installed 2026.9.1); ClawHub latest resolves to 2026.9.2. " +
-          "Pass `openclaw plugins install clawhub:@openclaw/diagnostics-otel --force` " +
+          "Pass `lanfu plugins install clawhub:@openclaw/diagnostics-otel --force` " +
           "to replace this version pin."
         : dryRun
           ? "diagnostics-otel is up to date (2026.9.1)."
@@ -6615,7 +6615,7 @@ describe("syncPluginsForUpdateChannel", () => {
         pluginId: "legacy-chat",
         code: "package_not_found",
         message:
-          'Failed to update legacy-chat: Package not found on ClawHub. (ClawHub clawhub:legacy-chat@2026.5.1-beta.2).\nBundled relocation did not install the replacement plugin payload; resolve the error above, then run "openclaw update repair".',
+          'Failed to update legacy-chat: Package not found on ClawHub. (ClawHub clawhub:legacy-chat@2026.5.1-beta.2).\nBundled relocation did not install the replacement plugin payload; resolve the error above, then run "lanfu update repair".',
       },
     ]);
   });
@@ -6711,7 +6711,7 @@ describe("syncPluginsForUpdateChannel", () => {
         pluginId: "legacy-chat",
         code: "archive_integrity_mismatch",
         message:
-          'Failed to update legacy-chat: ClawHub ClawPack integrity mismatch. (ClawHub clawhub:legacy-chat@2026.5.1-beta.2).\nBundled relocation did not install the replacement plugin payload; resolve the error above, then run "openclaw update repair".',
+          'Failed to update legacy-chat: ClawHub ClawPack integrity mismatch. (ClawHub clawhub:legacy-chat@2026.5.1-beta.2).\nBundled relocation did not install the replacement plugin payload; resolve the error above, then run "lanfu update repair".',
       },
     ]);
   });
@@ -6785,7 +6785,7 @@ describe("syncPluginsForUpdateChannel", () => {
       {
         pluginId: "legacy-chat",
         message:
-          'Failed to update legacy-chat: package unavailable\nBundled relocation did not install the replacement plugin payload; resolve the error above, then run "openclaw update repair".',
+          'Failed to update legacy-chat: package unavailable\nBundled relocation did not install the replacement plugin payload; resolve the error above, then run "lanfu update repair".',
       },
     ]);
   });

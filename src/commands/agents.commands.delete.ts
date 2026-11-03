@@ -146,7 +146,7 @@ export async function agentsDeleteCommand(
     failAgentsDelete(
       opts,
       runtime,
-      `Agent id is required. Run ${formatCliCommand("openclaw agents list")} to choose one.`,
+      `Agent id is required. Run ${formatCliCommand("lanfu agents list")} to choose one.`,
     );
     return;
   }
@@ -156,7 +156,7 @@ export async function agentsDeleteCommand(
     failAgentsDelete(
       opts,
       runtime,
-      `Agent "${input}" not found. Run ${formatCliCommand("openclaw agents list")} to see configured agents.`,
+      `Agent "${input}" not found. Run ${formatCliCommand("lanfu agents list")} to see configured agents.`,
     );
     return;
   }

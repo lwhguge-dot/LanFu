@@ -116,11 +116,11 @@ describe("system agent setup-flow operations", () => {
     }
 
     const output = lines.join("\n");
-    expect(output).toContain("openclaw onboard`");
-    expect(output).toContain("openclaw onboard --classic");
-    expect(output).toContain("openclaw channels add --channel slack");
-    expect(output).toContain("openclaw configure --section web");
-    expect(output).toContain("openclaw configure --section gateway");
+    expect(output).toContain("lanfu onboard`");
+    expect(output).toContain("lanfu onboard --classic");
+    expect(output).toContain("lanfu channels add --channel slack");
+    expect(output).toContain("lanfu configure --section web");
+    expect(output).toContain("lanfu configure --section gateway");
     expect(output).toContain("on the machine running OpenClaw");
   });
 
@@ -131,9 +131,9 @@ describe("system agent setup-flow operations", () => {
     await executeSystemAgentOperation({ kind: "search-setup" }, runtime);
     await executeSystemAgentOperation({ kind: "gateway-config-setup" }, runtime);
 
-    expect(lines.join("\n")).toContain("openclaw configure --section skills");
-    expect(lines.join("\n")).toContain("openclaw configure --section web");
-    expect(lines.join("\n")).toContain("openclaw configure --section gateway");
+    expect(lines.join("\n")).toContain("lanfu configure --section skills");
+    expect(lines.join("\n")).toContain("lanfu configure --section web");
+    expect(lines.join("\n")).toContain("lanfu configure --section gateway");
   });
 
   it("points one-shot memory import at interactive owners", async () => {
@@ -142,7 +142,7 @@ describe("system agent setup-flow operations", () => {
     await executeSystemAgentOperation({ kind: "memory-import" }, runtime);
 
     expect(lines.join("\n")).toContain("Memory page in the Control UI");
-    expect(lines.join("\n")).toContain("openclaw onboard");
+    expect(lines.join("\n")).toContain("lanfu onboard");
   });
 
   it("directs one-shot model setup to protected Models controls without a write", async () => {

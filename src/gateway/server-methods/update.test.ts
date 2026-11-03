@@ -221,7 +221,7 @@ describe("update.run acknowledgement", () => {
   it("merges explicit route fields and refuses a second prepared updater after acknowledgement", async () => {
     startManagedServiceUpdateHandoffMock.mockResolvedValueOnce({
       status: "joined",
-      command: "openclaw update --yes",
+      command: "lanfu update --yes",
       logPath: "/tmp/fixture.log",
     });
     const response = await captureUpdateRunPayload({
@@ -488,7 +488,7 @@ describe("update.run restart scheduling", () => {
     expect(payload?.handoff).toEqual({
       status: "started",
       pid: 12345,
-      command: "openclaw update --yes --timeout 1800",
+      command: "lanfu update --yes --timeout 1800",
     });
     expect(payload?.sentinel?.persisted).toBe(true);
     const sentinel = readCapturedPayload();
@@ -517,7 +517,7 @@ describe("update.run restart scheduling", () => {
     startManagedServiceUpdateHandoffMock.mockResolvedValueOnce({
       status: "joined",
       pid: 12345,
-      command: "openclaw update --yes --timeout 1800",
+      command: "lanfu update --yes --timeout 1800",
       logPath: "/tmp/openclaw-update-run-handoff/handoff.log",
       handoffId: "handoff-existing",
     });
@@ -548,7 +548,7 @@ describe("update.run restart scheduling", () => {
     });
     expect(payload?.handoff).toEqual({
       status: "already-running",
-      command: "openclaw update --yes --timeout 1800",
+      command: "lanfu update --yes --timeout 1800",
       message: "Another managed update is already running; retry after it completes.",
     });
     expect(payload?.sentinel?.persisted).toBe(false);
@@ -657,7 +657,7 @@ describe("update.run restart scheduling", () => {
     expect(payload?.handoff).toEqual({
       status: "started",
       pid: 12345,
-      command: "openclaw update --yes --timeout 1800",
+      command: "lanfu update --yes --timeout 1800",
     });
     expect(readCapturedPayload().status).toBe("skipped");
   });
@@ -819,7 +819,7 @@ describe("update.run restart scheduling", () => {
     );
     expect(payload).toMatchObject({
       ok: true,
-      handoff: { status: "started", command: "openclaw update --yes --timeout 1800" },
+      handoff: { status: "started", command: "lanfu update --yes --timeout 1800" },
     });
     expect(startManagedServiceUpdateHandoffMock.mock.calls[0]?.[0].meta.completionOwner).toBe(
       "gateway-restart",

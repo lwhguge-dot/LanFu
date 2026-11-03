@@ -499,7 +499,7 @@ describe("restart startup progress", () => {
       if (expected === "still-starting") {
         expect(message.failMessage).toContain("still starting after 300s");
         expect(message.failMessage).toContain(phase ?? "startup migration");
-        expect(message.failMessage).toContain("openclaw gateway status --deep");
+        expect(message.failMessage).toContain("lanfu gateway status --deep");
       } else if (expected === "timeout") {
         expect(message.failMessage).toBe(
           `Gateway restart timed out after ${elapsedMs / 1000}s waiting for health checks.`,

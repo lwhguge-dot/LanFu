@@ -227,7 +227,7 @@ describe("status-overview-rows", () => {
     ["all", "installationReplacementWarning", "Installation replaced"],
   ] as const)("surfaces %s %s output", (mode, field, label) => {
     const params = createStatusCommandOverviewRowsParams();
-    params.summary[field] = "Inspect the affected state. Run openclaw doctor.";
+    params.summary[field] = "Inspect the affected state. Run lanfu doctor.";
     const rows =
       mode === "default"
         ? buildStatusCommandOverviewRows(params)
@@ -294,7 +294,7 @@ describe("status-overview-rows", () => {
     expect(findRowValue(rows, "Gateway self")).toBe("gateway app 1.2.3");
     expect(findRowValue(rows, "Update")).toContain("behind 2");
     expect(findRowValue(rows, "Update restart")).toBe("restart pending health verification");
-    expect(findRowValue(rows, "Security")).toBe("Run: openclaw security audit --deep");
+    expect(findRowValue(rows, "Security")).toBe("Run: lanfu security audit --deep");
     expect(findRowValue(rows, "Secret egress proxy")).toBe(
       "Check OpenSSL, then retry the request.",
     );

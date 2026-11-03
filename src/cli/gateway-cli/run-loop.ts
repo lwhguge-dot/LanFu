@@ -259,7 +259,7 @@ export async function runGatewayLoop(params: {
   const exitReplacedInstallation = async (replacement: GatewayInstallationReplacement) => {
     shuttingDown = true;
     gatewayLog.error(
-      `${replacement.message} Cannot continue in this process. Run: ${formatCliCommand(supervisorMode ? "openclaw gateway restart" : "openclaw gateway run")}`,
+      `${replacement.message} Cannot continue in this process. Run: ${formatCliCommand(supervisorMode ? "lanfu gateway restart" : "lanfu gateway run")}`,
     );
     pendingRestartCompletion ??= {
       outcome: "planned_restart",
@@ -1169,7 +1169,7 @@ export async function runGatewayLoop(params: {
           gatewayLog.warn("SIGUSR2 restart ignored (not authorized; commands.restart=false).");
           gatewayLog.warn(
             "An unauthorized SIGUSR2 restart signal was received and ignored. " +
-              "If a pending gateway restart needs to be applied, run `openclaw gateway restart` " +
+              "If a pending gateway restart needs to be applied, run `lanfu gateway restart` " +
               "or restart the gateway through your service manager.",
           );
           return;
@@ -1237,7 +1237,7 @@ export async function runGatewayLoop(params: {
     gatewayLog.warn(fact.message);
     if (!supervisorMode) {
       gatewayLog.error(
-        `The foreground Gateway must stop after its installation was replaced. Restart it with: ${formatCliCommand("openclaw gateway run")}`,
+        `The foreground Gateway must stop after its installation was replaced. Restart it with: ${formatCliCommand("lanfu gateway run")}`,
       );
     }
     request("restart", "SIGUSR2", fact.reason);

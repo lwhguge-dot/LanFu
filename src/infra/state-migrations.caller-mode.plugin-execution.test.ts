@@ -635,7 +635,7 @@ module.exports = { stateMigrations: [{
     const pending = {
       pluginId,
       reason: "Package convergence was deferred.",
-      command: "openclaw update repair",
+      command: "lanfu update repair",
       configPaths: [["plugins", "entries", pluginId, "config"]],
     };
     recordDeferredPluginMigrations({ env: fixture.env, pending: [pending] });

@@ -36,7 +36,7 @@ describe.each([
       expect(reply.handoff).toEqual(surface === "gateway" ? { kind: "model-accounts" } : undefined);
       expect(reply.text).toContain("Settings → Profile → Connected accounts");
       if (surface === "cli") {
-        expect(reply.text).toContain("openclaw models accounts login <provider>");
+        expect(reply.text).toContain("lanfu models accounts login <provider>");
       }
       expect(runAgentTurn).toHaveBeenCalledTimes(source === "command" ? 0 : 1);
       expect(executeOperation).not.toHaveBeenCalled();

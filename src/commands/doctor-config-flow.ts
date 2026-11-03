@@ -174,7 +174,7 @@ export async function loadAndMaybeMigrateDoctorConfig(params: {
   let openAICodexAuthProfileIdMap: ReadonlyMap<string, string> | undefined;
   let modelRetirementRepairRan = false;
   let retiredModelRefConfig: Pick<OpenClawConfig, "agents" | "models"> | undefined;
-  const doctorFixCommand = formatCliCommand("openclaw doctor --fix");
+  const doctorFixCommand = formatCliCommand("lanfu doctor --fix");
   const changesPanelSink = createDoctorChangesPanelSink(shouldRepair);
   const configRepairWarnings: string[] = [];
   const applyConfigMutation = (

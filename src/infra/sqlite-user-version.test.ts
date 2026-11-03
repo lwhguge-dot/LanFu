@@ -72,7 +72,7 @@ describe("createNewerSqliteSchemaVersionError", () => {
     expect(error.message).toContain(describeRunningOpenClawBuild());
     expect(error.message).toContain("supports schema 12 or newer");
     expect(error.message).toContain(
-      "restore your pre-update backup created with openclaw backup create.",
+      "restore your pre-update backup created with lanfu backup create.",
     );
   });
 

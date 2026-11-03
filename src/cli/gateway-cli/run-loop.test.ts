@@ -585,7 +585,7 @@ describe("runGatewayLoop", () => {
             setImmediate(resolve);
           });
           const hint =
-            "received SIGTERM 3 times in 5 min: another supervisor may be managing this Gateway — see `openclaw gateway status --deep`";
+            "received SIGTERM 3 times in 5 min: another supervisor may be managing this Gateway — see `lanfu gateway status --deep`";
           if (expired) {
             expect(gatewayLog.warn).not.toHaveBeenCalledWith(hint);
           } else {
@@ -2862,7 +2862,7 @@ describe("runGatewayLoop", () => {
       expect(gatewayLog.warn).toHaveBeenNthCalledWith(
         2,
         "An unauthorized SIGUSR2 restart signal was received and ignored. " +
-          "If a pending gateway restart needs to be applied, run `openclaw gateway restart` " +
+          "If a pending gateway restart needs to be applied, run `lanfu gateway restart` " +
           "or restart the gateway through your service manager.",
       );
     });

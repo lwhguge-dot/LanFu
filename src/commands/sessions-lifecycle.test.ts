@@ -434,7 +434,7 @@ describe("sessions lifecycle commands", () => {
       );
       expect(runtime.log).toHaveBeenCalledWith(
         expect.stringContaining(
-          `openclaw memory forget --agent ${agentId} --session ${canonicalKey} on the Gateway host or container using its state and configuration`,
+          `lanfu memory forget --agent ${agentId} --session ${canonicalKey} on the Gateway host or container using its state and configuration`,
         ),
       );
     },
@@ -468,10 +468,10 @@ describe("sessions lifecycle commands", () => {
     );
 
     expect(runtime.log).toHaveBeenCalledWith(
-      expect.stringContaining("openclaw memory forget --agent work --session global"),
+      expect.stringContaining("lanfu memory forget --agent work --session global"),
     );
     expect(runtime.log).toHaveBeenCalledWith(
-      expect.stringContaining("openclaw memory forget --agent peer --session global"),
+      expect.stringContaining("lanfu memory forget --agent peer --session global"),
     );
   });
 
@@ -494,7 +494,7 @@ describe("sessions lifecycle commands", () => {
 
       expect(runtime.log).toHaveBeenCalledWith(
         expect.stringContaining(
-          "openclaw memory forget --agent work --session 'agent:work:notes;echo unsafe' on the Gateway host or container using its state and configuration",
+          "lanfu memory forget --agent work --session 'agent:work:notes;echo unsafe' on the Gateway host or container using its state and configuration",
         ),
       );
       expect(runtime.log).not.toHaveBeenCalledWith(
@@ -537,7 +537,7 @@ describe("sessions lifecycle commands", () => {
     await sessionsDeleteCommand({ keys: ["agent:main:active"], yes: true }, runtime);
 
     expect(runtime.log).toHaveBeenCalledWith("Deleted session agent:main:active.");
-    expect(runtime.log).not.toHaveBeenCalledWith(expect.stringContaining("openclaw memory forget"));
+    expect(runtime.log).not.toHaveBeenCalledWith(expect.stringContaining("lanfu memory forget"));
   });
 
   it("prints the preserved worktree cleanup reason without claiming source changes", async () => {
@@ -680,7 +680,7 @@ describe("sessions lifecycle commands", () => {
             key: "agent:main:missing",
             ok: false,
             status: "not_found",
-            error: expect.stringContaining("openclaw sessions list --json"),
+            error: expect.stringContaining("lanfu sessions list --json"),
           },
           {
             key: "agent:main:last",

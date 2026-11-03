@@ -30,7 +30,7 @@ type Scenario = FailurePhase | "success" | "drift";
 const syntheticToken = "sk-140392syntheticfixturetoken123456789";
 const syntheticStructuredValue = "140392-structured-placeholder";
 const syntheticCustomValue = "PR140392_PRIVATE_SAMPLE";
-const guidance = "Run `openclaw onboard` to connect and live-test AI first.";
+const guidance = "Run `lanfu onboard` to connect and live-test AI first.";
 
 async function observeScenario(scenario: Scenario, json: boolean) {
   const root = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-error-reporting-140392-"));

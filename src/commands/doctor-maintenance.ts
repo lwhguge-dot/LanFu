@@ -314,7 +314,7 @@ export async function beginDoctorMaintenance(params: {
             : outcome === "restored"
               ? "The previous service definition was restored from its captured backup."
               : "Restoration was not verified; inspect the current service before replacing it.";
-        const message = `Doctor could not finish Gateway installation or activation under its maintenance authority (${outcome}). ${recovery} Run \`${formatCliCommand("openclaw gateway status --deep", serviceEnv)}\`; after the active maintenance or update finishes, run \`${formatDaemonServiceInstallCommand(serviceEnv, before.servicePort)}\` from the active CLI. Reason: ${error.message}`;
+        const message = `Doctor could not finish Gateway installation or activation under its maintenance authority (${outcome}). ${recovery} Run \`${formatCliCommand("lanfu gateway status --deep", serviceEnv)}\`; after the active maintenance or update finishes, run \`${formatDaemonServiceInstallCommand(serviceEnv, before.servicePort)}\` from the active CLI. Reason: ${error.message}`;
         failureFacts.push(
           createUpdateFailureFact(
             {
@@ -378,7 +378,7 @@ export async function beginDoctorMaintenance(params: {
           const warning =
             ownershipError instanceof StateDatabaseCoordinatorContentionError &&
             ownershipError.family === "gateway-lifecycle"
-              ? `Warning: The stopped Gateway still owns gateway-lifecycle after the service stop deadline. Shared-state repair is unsafe while that writer remains active. Restoring its service; run ${formatCliCommand("openclaw gateway status --deep", env)}, then retry ${formatCliCommand("openclaw doctor --fix", env)} after shutdown completes.`
+              ? `Warning: The stopped Gateway still owns gateway-lifecycle after the service stop deadline. Shared-state repair is unsafe while that writer remains active. Restoring its service; run ${formatCliCommand("lanfu gateway status --deep", env)}, then retry ${formatCliCommand("lanfu doctor --fix", env)} after shutdown completes.`
               : `Warning: Doctor could not reacquire maintenance ownership: ${String(ownershipError)} Restoring its service without repairing shared state.`;
           warnings.push(warning);
           params.runtime.log(warning);
@@ -405,7 +405,7 @@ export async function beginDoctorMaintenance(params: {
       throw error;
     }
     const refusal = new Error(
-      `Doctor could not enter maintenance. ${String(error)}${parentMustStopGateway || hasGatewayServiceStopUnsafeError(error) ? "" : ` Stop the Gateway service and other LanFu processes using this state, then run ${formatCliCommand("openclaw doctor --fix", env)} from an independent shell.`}`,
+      `Doctor could not enter maintenance. ${String(error)}${parentMustStopGateway || hasGatewayServiceStopUnsafeError(error) ? "" : ` Stop the Gateway service and other LanFu processes using this state, then run ${formatCliCommand("lanfu doctor --fix", env)} from an independent shell.`}`,
       { cause: error },
     );
     const recovery = inspectingActivation

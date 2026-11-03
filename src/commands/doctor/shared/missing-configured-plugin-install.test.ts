@@ -1833,11 +1833,11 @@ describe("repairMissingConfiguredPluginInstalls", () => {
     expect(mocks.writePersistedInstalledPluginIndexInstallRecordsWithLease).not.toHaveBeenCalled();
     expect(result).toEqual({
       changes: [
-        'Skipped package-manager repair for configured plugin "discord" during package update; rerun "openclaw doctor --fix" after the update completes.',
+        'Skipped package-manager repair for configured plugin "discord" during package update; rerun "lanfu doctor --fix" after the update completes.',
       ],
       warnings: [],
       deferredRepairDetails: [
-        'Skipped package-manager repair for configured plugin "discord" during package update; rerun "openclaw doctor --fix" after the update completes.',
+        'Skipped package-manager repair for configured plugin "discord" during package update; rerun "lanfu doctor --fix" after the update completes.',
       ],
       records,
     });
@@ -2277,11 +2277,11 @@ describe("repairMissingConfiguredPluginInstalls", () => {
     expect(mocks.writePersistedInstalledPluginIndexInstallRecordsWithLease).not.toHaveBeenCalled();
     expect(result).toEqual({
       changes: [
-        'Skipped package-manager repair for configured plugin "discord" during package update; rerun "openclaw doctor --fix" after the update completes.',
+        'Skipped package-manager repair for configured plugin "discord" during package update; rerun "lanfu doctor --fix" after the update completes.',
       ],
       warnings: [],
       deferredRepairDetails: [
-        'Skipped package-manager repair for configured plugin "discord" during package update; rerun "openclaw doctor --fix" after the update completes.',
+        'Skipped package-manager repair for configured plugin "discord" during package update; rerun "lanfu doctor --fix" after the update completes.',
       ],
       records,
     });

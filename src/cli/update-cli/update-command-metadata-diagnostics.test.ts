@@ -186,7 +186,7 @@ it.each([
     expect(report.body).toContain("Failed phase: target-resolution");
     expect(report.body).toContain("Update mode: package");
     expect(report.body).toContain("Update target: 2026.9.2");
-    expect(report.body).toContain("Update action: CLI command: openclaw update");
+    expect(report.body).toContain("Update action: CLI command: lanfu update");
     expect(report.body).toContain("Installation method: npm-global");
     expect(report.body).toContain(metadata === "constructor" ? "(Error)" : "TypeError");
     expect(report.body).toContain("Target response was invalid");
@@ -284,7 +284,7 @@ it.each(cases)(
       ],
     });
     const message = result.steps[0]?.failureFacts?.[0]?.message;
-    expect(message).toMatch(/openclaw update/);
+    expect(message).toMatch(/lanfu update/);
     const log = vi.spyOn(defaultRuntime, "log").mockImplementation(() => undefined);
     await printResult(result, {});
     expect(log.mock.calls.flat().join("\n")).toContain(message);
@@ -293,7 +293,7 @@ it.each(cases)(
     expect(report.body).toContain(code);
     expect(report.body).toContain(message);
     expect(report.body).toMatch(detail);
-    expect(report.body).toContain("openclaw update");
+    expect(report.body).toContain("lanfu update");
     expect(report.body).not.toContain("registry.internal.example");
     expect(report.body).not.toContain("/private/operator/npmrc");
     expect(fs.existsSync(fixture.databasePath)).toBe(false);
@@ -326,13 +326,13 @@ it("keeps metadata failure details in update status JSON for an existing profile
       lastRun: expect.objectContaining({
         status: "failed",
         reason: "target-metadata-preflight",
-        origin: expect.objectContaining({ nextAction: expect.stringContaining("openclaw update") }),
+        origin: expect.objectContaining({ nextAction: expect.stringContaining("lanfu update") }),
         steps: expect.arrayContaining([
           expect.objectContaining({
             failureFacts: [
               expect.objectContaining({
                 code: "target-registry-metadata",
-                message: expect.stringMatching(/registry[\s\S]*openclaw update/i),
+                message: expect.stringMatching(/registry[\s\S]*lanfu update/i),
               }),
             ],
           }),

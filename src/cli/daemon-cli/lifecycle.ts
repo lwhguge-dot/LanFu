@@ -138,8 +138,8 @@ async function stopGatewayWithoutServiceManager(
     if (portUsage !== "free") {
       throw new Error(
         portUsage === "busy"
-          ? `Port ${port} is in use but the owning process could not be identified. Run ${formatCliCommand("openclaw gateway status --deep")} to diagnose.`
-          : `Could not determine whether port ${port} is still in use, so the gateway cannot be confirmed stopped. Run ${formatCliCommand("openclaw gateway status --deep")} to diagnose.`,
+          ? `Port ${port} is in use but the owning process could not be identified. Run ${formatCliCommand("lanfu gateway status --deep")} to diagnose.`
+          : `Could not determine whether port ${port} is still in use, so the gateway cannot be confirmed stopped. Run ${formatCliCommand("lanfu gateway status --deep")} to diagnose.`,
       );
     }
     return null;
@@ -535,7 +535,7 @@ export async function runDaemonRestart(opts: DaemonLifecycleOptions = {}): Promi
 
         fail(
           `Gateway restart timed out after ${waitSeconds}s waiting for health checks.`,
-          [formatCliCommand("openclaw gateway status --deep"), formatCliCommand("openclaw doctor")],
+          [formatCliCommand("lanfu gateway status --deep"), formatCliCommand("lanfu doctor")],
           activationAccepted ? "restart-health-failed" : undefined,
         );
         throw new Error("unreachable after gateway restart health failure");
@@ -620,7 +620,7 @@ export async function runDaemonRestart(opts: DaemonLifecycleOptions = {}): Promi
 
       fail(
         failure.failMessage,
-        [formatCliCommand("openclaw gateway status --deep"), formatCliCommand("openclaw doctor")],
+        [formatCliCommand("lanfu gateway status --deep"), formatCliCommand("lanfu doctor")],
         health.waitOutcome === "still-starting"
           ? // Published updater parents recognize this envelope and continue readiness verification.
             managedRestartContext.env.OPENCLAW_UPDATE_IN_PROGRESS === "1"

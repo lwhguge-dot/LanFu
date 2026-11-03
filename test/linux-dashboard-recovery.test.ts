@@ -303,7 +303,7 @@ test.each(
   "$platform first-run describes its local service ownership (release: $releaseBuild)",
   async ({ platform, externalService, releaseBuild }) => {
     for (const phase of ["unconfigured", "missingCli"]) {
-      const installFailure = "Fixture: start the Gateway with openclaw gateway run, then retry.";
+      const installFailure = "Fixture: start the Gateway with lanfu gateway run, then retry.";
       const elements = new Map<string, ReturnType<typeof fakeElement>>();
       const invoked: { command: string; args?: Record<string, unknown> }[] = [];
       const document = {

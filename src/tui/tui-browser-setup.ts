@@ -20,7 +20,7 @@ const NEXT_ACTIONS: Readonly<Record<string, string>> = {
     "Install the LanFu extension from the Chrome Web Store, then run /browser-setup verify.",
   check_connection: "Run /browser-setup verify to check the local Chrome connection.",
   repair_native_host:
-    "Repair the local native host with openclaw browser extension install, then retry.",
+    "Repair the local native host with lanfu browser extension install, then retry.",
   unsupported: "Automatic setup is unavailable on this platform.",
 };
 

@@ -13,7 +13,7 @@ const evidenceRoot = path.join(artifactRoot, "missing-load-path");
 const fixturePath = path.join(evidenceRoot, "fixture.json");
 const registrationPath = path.join(evidenceRoot, "baseline-registration.json");
 const code = "configured-plugin-path-unavailable";
-const message = `Configured plugin load path is unavailable: ${pluginRoot}. Uninspected plugin configuration is preserved. Restore access to the path, then run \`openclaw doctor --fix\`.`;
+const message = `Configured plugin load path is unavailable: ${pluginRoot}. Uninspected plugin configuration is preserved. Restore access to the path, then run \`lanfu doctor --fix\`.`;
 
 function writeJson(file, value) {
   fs.mkdirSync(path.dirname(file), { recursive: true });
@@ -122,7 +122,7 @@ if (stage === "seed") {
     assert.equal(finding.severity, "warning");
     assert.equal(finding.target, "configured-unavailable");
     assert.equal(finding.message, message);
-    assert.equal(finding.fixHint, "openclaw doctor --fix");
+    assert.equal(finding.fixHint, "lanfu doctor --fix");
   } else if (stage === "ready") {
     assert.equal(readJson(path.join(artifactRoot, "readyz.json")).body.ready, true);
     assert.equal(readJson(path.join(artifactRoot, "status.json")).rpc.ok, true);

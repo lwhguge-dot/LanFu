@@ -672,9 +672,9 @@ describe("ensureConfigReady", () => {
       "Problem:",
       "  - channels.quietchat: invalid",
       "",
-      `Inspect: ${formatCliCommand("openclaw config validate")}`,
+      `Inspect: ${formatCliCommand("lanfu config validate")}`,
       "Audit, status, health, logs, tasks list/audit, and doctor commands still run with invalid config.",
-      `Run "${formatCliCommand("openclaw doctor --fix")}" to repair the config, then retry.`,
+      `Run "${formatCliCommand("lanfu doctor --fix")}" to repair the config, then retry.`,
     ]);
     expect(runtime.exit).toHaveBeenCalledWith(1);
   });
@@ -751,7 +751,7 @@ describe("ensureConfigReady", () => {
     );
 
     expect(confirm).toHaveBeenCalledWith(
-      `Run "${formatCliCommand("openclaw doctor --fix")}" now?`,
+      `Run "${formatCliCommand("lanfu doctor --fix")}" now?`,
       true,
     );
     expect(runDoctor).toHaveBeenCalledOnce();
@@ -881,7 +881,7 @@ describe("ensureConfigReady", () => {
     const calls = plainErrorCalls(runtime);
 
     expect(calls).toContain(`Fix: ${pluginPackagingRecoveryHint}`);
-    expect(calls).not.toContain(`Fix: ${formatCliCommand("openclaw doctor --fix")}`);
+    expect(calls).not.toContain(`Fix: ${formatCliCommand("lanfu doctor --fix")}`);
     expect(runtime.exit).toHaveBeenCalledWith(1);
 
     const gatewayRuntime = await runEnsureConfigReady(["gateway", "start"]);

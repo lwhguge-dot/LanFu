@@ -123,7 +123,7 @@ describe("handleUpdateCommand", () => {
       expect(await handleUpdateCommand(params, true)).toEqual({
         shouldContinue: false,
         reply: {
-          text: "You are not authorized to use this owner-only command. Ask the operator to run `openclaw config set commands.ownerAllowFrom '[\"telegram:123456789\"]'` in a terminal to make this sender a command owner.",
+          text: "You are not authorized to use this owner-only command. Ask the operator to run `lanfu config set commands.ownerAllowFrom '[\"telegram:123456789\"]'` in a terminal to make this sender a command owner.",
         },
       });
       expect(dispatch).not.toHaveBeenCalled();
@@ -132,7 +132,7 @@ describe("handleUpdateCommand", () => {
 
   it("relays owner recovery instructions when the gateway revokes an admitted owner", async () => {
     const message =
-      "Ask the operator to run `openclaw config set commands.ownerAllowFrom '[\"telegram:owner\"]'` in a terminal.";
+      "Ask the operator to run `lanfu config set commands.ownerAllowFrom '[\"telegram:owner\"]'` in a terminal.";
     getRun.mockReturnValue(
       updateRun({
         phase: "finished",
@@ -181,7 +181,7 @@ describe("handleUpdateCommand", () => {
         runId,
         ackDelivered: true,
         result: { status: "skipped", reason: "managed-service-handoff-started", steps: [] },
-        handoff: { status: "started", command: "openclaw update" },
+        handoff: { status: "started", command: "lanfu update" },
       };
     });
 
@@ -275,7 +275,7 @@ describe("handleUpdateCommand", () => {
     { status: "skipped", reason: "managed-service-handoff-unavailable" },
     { status: "error", reason: "managed-service-handoff-failed" },
   ])("reports $status with the exact manual command", async ({ status, reason }) => {
-    const command = "openclaw update --channel stable";
+    const command = "lanfu update --channel stable";
     getRun.mockReturnValue(
       updateRun({ status: status === "error" ? "failed" : "skipped", phase: "finished", reason }),
     );

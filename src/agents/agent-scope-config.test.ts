@@ -38,7 +38,7 @@ describe("agent roster resolution", () => {
 
     expect(resolveConfiguredAgentId(cfg, "ops")).toBe("ops");
     expect(() => resolveConfiguredAgentId(cfg, "nope-zzz")).toThrow(
-      'Unknown agent id "nope-zzz". Run openclaw agents list to see configured agents.',
+      'Unknown agent id "nope-zzz". Run lanfu agents list to see configured agents.',
     );
   });
 

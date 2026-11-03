@@ -80,7 +80,7 @@ describe("auth profile migration isolation", () => {
           resolveApiKeyForProviderCore({ provider: "openai", agentDir: legacyAgentDir }),
         ).rejects.toMatchObject({
           code: "AUTH_PROFILE_MIGRATION_REQUIRED",
-          action: "openclaw doctor --fix",
+          action: "lanfu doctor --fix",
           sourceKinds: ["legacy-auth"],
         });
         await expect(

@@ -116,7 +116,7 @@ export function gatewayMaintenanceBlockMessage(
         store.readProcessStartIdentity(owner.pid) === owner.startIdentity,
     )
   ) {
-    return "This maintenance command cannot stop the Gateway from inside its automatic triage process tree: stopping the service would cancel this repair. Use read-only diagnosis or safe offline artifact repair followed by an atomic `openclaw gateway restart`, or run stop-requiring maintenance from a shell outside automatic triage. Report this blocker if repair cannot proceed safely.";
+    return "This maintenance command cannot stop the Gateway from inside its automatic triage process tree: stopping the service would cancel this repair. Use read-only diagnosis or safe offline artifact repair followed by an atomic `lanfu gateway restart`, or run stop-requiring maintenance from a shell outside automatic triage. Report this blocker if repair cannot proceed safely.";
   }
   return operation === "handoff" ? undefined : gatewayAncestryBlockMessage(state.runtime?.pid);
 }
@@ -162,7 +162,7 @@ export async function handoffUpdateFromGateway(params: {
   if (!argv1) {
     throw new UpdatePreMutationError(
       "managed-service-handoff-failed",
-      "Cannot locate the installed updater; run `openclaw doctor` before retrying.",
+      "Cannot locate the installed updater; run `lanfu doctor` before retrying.",
     );
   }
   if (params.opts.run?.executorFence) {
@@ -190,7 +190,7 @@ export async function handoffUpdateFromGateway(params: {
   if (started.status === "joined") {
     throw new UpdatePreMutationError(
       "managed-service-handoff-already-running",
-      "Another managed update is already running. Check progress with `openclaw update status`.",
+      "Another managed update is already running. Check progress with `lanfu update status`.",
     );
   }
   const identity = {
@@ -199,11 +199,11 @@ export async function handoffUpdateFromGateway(params: {
     installRoot: started.installRoot,
   };
   const target = resolveInstallationTarget(env);
-  const statusCommand = formatInstallationTargetCommand(["openclaw", "update", "status"], target, {
+  const statusCommand = formatInstallationTargetCommand(["lanfu", "update", "status"], target, {
     env,
   });
   const healthCommand = formatInstallationTargetCommand(
-    ["openclaw", "gateway", "status", "--deep"],
+    ["lanfu", "gateway", "status", "--deep"],
     target,
     { env },
   );

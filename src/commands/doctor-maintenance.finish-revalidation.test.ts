@@ -984,7 +984,7 @@ it("reports a failed restoration with a next step after the owner dies", async (
     message: expect.stringContaining("service manager rejected restart"),
   });
   expect(finishError).toMatchObject({
-    message: expect.stringContaining("openclaw gateway restart"),
+    message: expect.stringContaining("lanfu gateway restart"),
   });
   expect(logs).not.toContain("Gateway restarted and verified after Doctor repair.");
 });

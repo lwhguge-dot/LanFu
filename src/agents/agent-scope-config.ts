@@ -177,7 +177,7 @@ export function resolveConfiguredAgentId(cfg: OpenClawConfig, agentId: string): 
     // formatCliCommand, not a literal: under a profile or container the bare command is wrong,
     // so a hint that cannot be pasted back is worse than none.
     throw new Error(
-      `Unknown agent id "${agentId}". Run ${formatCliCommand("openclaw agents list")} to see configured agents.`,
+      `Unknown agent id "${agentId}". Run ${formatCliCommand("lanfu agents list")} to see configured agents.`,
     );
   }
   return agentId;
@@ -190,7 +190,7 @@ export function resolveSoleAgentId(cfg: OpenClawConfig, context?: AgentSelection
   }
   const agentIds = listAgentIds(cfg);
   if (agentIds.length === 0) {
-    throw new Error("No agents configured. Run `openclaw onboard` or `openclaw agents add` first.");
+    throw new Error("No agents configured. Run `lanfu onboard` or `lanfu agents add` first.");
   }
   throw new AgentSelectionRequiredError(agentIds, context);
 }

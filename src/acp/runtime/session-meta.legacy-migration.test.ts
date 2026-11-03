@@ -86,7 +86,7 @@ async function seedRetainedSource(
       {
         pluginId: PLUGIN_ID,
         reason: "The configured plugin is not installed.",
-        command: "openclaw plugins install @example/fixture-plugin",
+        command: "lanfu plugins install @example/fixture-plugin",
       },
     ],
   });

@@ -217,7 +217,7 @@ it.each(["missing", "invalid"])(
             expect.objectContaining({
               check: "installation-inspection",
               code: "installation-unclassified",
-              message: expect.stringContaining("openclaw gateway status --deep and npm root -g"),
+              message: expect.stringContaining("lanfu gateway status --deep and npm root -g"),
             }),
           ],
         }),
@@ -231,7 +231,7 @@ it.each(["missing", "invalid"])(
     expect(diagnostics).toContain(
       "Service unit target: not inspected (service management unavailable)",
     );
-    expect(diagnostics).toContain("retry openclaw update from the owning installation");
+    expect(diagnostics).toContain("retry lanfu update from the owning installation");
     expect(metadata).not.toHaveBeenCalled();
     expect(channel).not.toHaveBeenCalled();
     expect(triage).not.toHaveBeenCalled();
@@ -290,7 +290,7 @@ it.skipIf(process.platform === "win32").each([false, true])(
       expect(output[0]).toMatchObject({ runId: run.runId, run: { origin: run.origin } });
       const report = renderUpdateRunReport(run).markdown;
       expect(report).toContain("brew upgrade openclaw-cli");
-      expect(report).toContain("openclaw gateway restart");
+      expect(report).toContain("lanfu gateway restart");
       expect(report.length).toBeLessThanOrEqual(1500);
       expect(isReportableUpdateRun(run)).toBe(false);
       vi.spyOn(nodeRuntime, "collectNodeRuntimeFindings").mockResolvedValue([]);
@@ -314,7 +314,7 @@ it.skipIf(process.platform === "win32").each([false, true])(
     await expect(updateCommand({ yes: true })).rejects.toMatchObject({ code: 0 });
     expect(lines.join("\n")).toContain("OpenClaw update skipped: unmanaged-package-install");
     expect(lines.join("\n")).toContain("brew upgrade openclaw-cli");
-    expect(lines.join("\n")).toContain("openclaw gateway restart");
+    expect(lines.join("\n")).toContain("lanfu gateway restart");
     expect(triage).not.toHaveBeenCalled();
   },
 );

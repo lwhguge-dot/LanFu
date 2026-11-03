@@ -304,7 +304,7 @@ export async function verifyUpdatedGateway(
       "Gateway readiness is pending; leaving the observed running process starting without another recovery restart or rollback.",
       ...renderRestartDiagnostics(health),
       ...(http ? [`Last HTTP readiness response: ${http.readyz ?? "unavailable"}.`] : []),
-      `Keep recovery backups and check progress with \`${formatCliCommand("openclaw gateway status --deep")}\`.`,
+      `Keep recovery backups and check progress with \`${formatCliCommand("lanfu gateway status --deep")}\`.`,
     ].join("\n");
     recordVerificationStep(undefined, detail, detail);
     defaultRuntime.error(detail);
@@ -334,7 +334,7 @@ export async function verifyUpdatedGateway(
         ]
       : []),
     `Restart log: ${resolveGatewayRestartLogPath(params.serviceEnv)}`,
-    `Run \`${formatCliCommand("openclaw gateway status --deep")}\` for details.`,
+    `Run \`${formatCliCommand("lanfu gateway status --deep")}\` for details.`,
     ...formatPostUpdateGatewayRecoveryInstructions(params.result),
   ];
   const reason = health.versionMismatch

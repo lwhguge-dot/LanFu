@@ -96,11 +96,11 @@ describe("readServiceStatusSummary", () => {
       expect(typeof summary.installationDrift).toBe("string");
       if (refusal) {
         expect(output).toContain(refusal);
-        expect(output).not.toContain("openclaw doctor --fix");
-        expect(output).not.toContain("openclaw gateway install --force");
+        expect(output).not.toContain("lanfu doctor --fix");
+        expect(output).not.toContain("lanfu gateway install --force");
       } else {
-        expect(output).toContain("openclaw doctor --fix");
-        expect(output).toContain("openclaw gateway install --force");
+        expect(output).toContain("lanfu doctor --fix");
+        expect(output).toContain("lanfu gateway install --force");
       }
 
       const alias = path.join(root, "active-package");

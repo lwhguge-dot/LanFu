@@ -269,7 +269,7 @@ describe("planned legacy configuration admission", () => {
             captureTargetDatabaseSchemaContext(env).then(() => true),
           ).rejects.toMatchObject({
             reason: "invalid-config",
-            message: expect.stringMatching(/gateway\.bind:[\s\S]*openclaw doctor --fix/),
+            message: expect.stringMatching(/gateway\.bind:[\s\S]*lanfu doctor --fix/),
           });
           // Exercise the real caller admission forwarding, without inspecting a live service.
           const { contexts } = await withEnvAsync({ OPENCLAW_CONFIG_PATH: configPath }, () =>
@@ -327,7 +327,7 @@ describe("planned migration managed profile isolation", () => {
       const inspected = captureTargetDatabaseSchemaContext(env);
       await expect(inspected).rejects.toMatchObject({ reason: "invalid-config" });
       await expect(inspected).rejects.toThrow("agents.defaults.modelPolicy.allow.0:");
-      await expect(inspected).rejects.toThrow("openclaw doctor --fix");
+      await expect(inspected).rejects.toThrow("lanfu doctor --fix");
       await expect(inspected).rejects.not.toThrow(rejectedValue);
       expect(fs.readFileSync(configPath)).toEqual(before);
     });
@@ -454,7 +454,7 @@ describe("planned migration managed profile isolation", () => {
         });
         await expect(inspected).rejects.toThrow("gateway.port:");
         await expect(inspected).rejects.toThrow("session.store:");
-        await expect(inspected).rejects.toThrow("openclaw doctor --fix");
+        await expect(inspected).rejects.toThrow("lanfu doctor --fix");
         expect(fs.readFileSync(configPath)).toEqual(before);
       });
     });

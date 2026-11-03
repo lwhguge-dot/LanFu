@@ -108,7 +108,7 @@ describe("secret store redaction integrity", () => {
       source: "store",
       provider: "default",
       refId: name,
-      message: expect.stringContaining("openclaw doctor --fix"),
+      message: expect.stringContaining("lanfu doctor --fix"),
     });
   });
 

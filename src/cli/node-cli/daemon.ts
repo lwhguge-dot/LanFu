@@ -73,8 +73,8 @@ type NodeDaemonStatusOptions = {
 
 function renderNodeServiceStartHints(): string[] {
   return buildPlatformServiceStartHints({
-    installHint: formatCliCommand("openclaw node install"),
-    startCommand: formatCliCommand("openclaw node start"),
+    installHint: formatCliCommand("lanfu node install"),
+    startCommand: formatCliCommand("lanfu node start"),
     launchAgentPlistPath: `~/Library/LaunchAgents/${resolveNodeLaunchAgentLabel()}.plist`,
     systemdServiceName: resolveNodeSystemdServiceName(),
     windowsTaskName: resolveNodeWindowsTaskName(),
@@ -211,7 +211,7 @@ export async function runNodeDaemonInstall(opts: NodeDaemonInstallOptions) {
       warnings: warnings.length ? warnings : undefined,
     });
     if (!json) {
-      defaultRuntime.log(`Reinstall with: ${formatCliCommand("openclaw node install --force")}`);
+      defaultRuntime.log(`Reinstall with: ${formatCliCommand("lanfu node install --force")}`);
     }
     return;
   }

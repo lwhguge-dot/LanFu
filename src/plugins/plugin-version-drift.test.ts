@@ -379,7 +379,7 @@ describe("resolvePluginVersionDriftTargets", () => {
     const entry = expectDefined(resolved.drifts[0], "detected plugin drift");
     expect(entry.targetResolution).toBeUndefined();
     // No resolved target, so guidance falls back to the bare plugin id command.
-    expect(resolvePluginVersionDriftUpdateCommand(entry)).toBe("openclaw plugins update whatsapp");
+    expect(resolvePluginVersionDriftUpdateCommand(entry)).toBe("lanfu plugins update whatsapp");
     expect(fetchClawHubPackageDetail).not.toHaveBeenCalled();
   });
 });
@@ -463,7 +463,7 @@ describe("resolvePluginVersionDriftUpdateCommand", () => {
         packageName: entry.packageName,
         spec: entry.spec,
       }),
-    ).toBe(`openclaw plugins update ${entry.pluginId}`);
+    ).toBe(`lanfu plugins update ${entry.pluginId}`);
   });
 
   it("does not fabricate a command when an exact npm target was not resolved", () => {

@@ -106,7 +106,7 @@ describe("update run report", () => {
     const record = run({
       status: "skipped",
       reason,
-      origin: { doctorHint: "Run openclaw doctor --non-interactive" },
+      origin: { doctorHint: "Run lanfu doctor --non-interactive" },
       after: {},
       steps: [],
     });
@@ -114,8 +114,8 @@ describe("update run report", () => {
     const report = renderUpdateRunReport(record);
     expect(report.markdown).toContain(nextAction);
     expect(report.markdown).toContain("No package changes or Gateway restart were attempted");
-    expect(report.markdown).not.toContain("openclaw triage");
-    expect(report.markdown).not.toContain("openclaw doctor");
+    expect(report.markdown).not.toContain("lanfu triage");
+    expect(report.markdown).not.toContain("lanfu doctor");
     expect(isReportableUpdateRun(record)).toBe(false);
   });
 
@@ -125,7 +125,7 @@ describe("update run report", () => {
       const record = run({
         status: "failed",
         reason,
-        origin: { doctorHint: "Run openclaw doctor --fix", nextAction: "Run openclaw triage" },
+        origin: { doctorHint: "Run lanfu doctor --fix", nextAction: "Run lanfu triage" },
         steps: [
           { step: "reconcile:abandoned", status: "failed", detail: "inactive-driver-dead" },
           { step: "reconcile:acknowledged", status: "completed", endedAtMs: 301 },
@@ -136,7 +136,7 @@ describe("update run report", () => {
 
       expect(report.headline).toBe("ℹ️ LanFu abandoned update reconciled.");
       expect(report.lines).toContain("Failed: reconcile:abandoned — inactive-driver-dead");
-      expect(report.markdown).not.toContain("Run openclaw");
+      expect(report.markdown).not.toContain("Run lanfu");
       expect(report.markdown).not.toContain("to retry");
       expect(record).toEqual(before);
     },
@@ -153,7 +153,7 @@ describe("update run report", () => {
         }),
       );
       expect(report.headline).toBe("⚠️ LanFu update failed: abandoned.");
-      expect(report.markdown).toContain("Run openclaw triage");
+      expect(report.markdown).toContain("Run lanfu triage");
     },
   );
 
@@ -305,14 +305,14 @@ describe("update run report", () => {
               )
             ).body;
       expect(text).toContain(
-        "A 2026.9.2-era update never progressed past admission; treated as abandoned after 24 h; run `openclaw update` to retry.",
+        "A 2026.9.2-era update never progressed past admission; treated as abandoned after 24 h; run `lanfu update` to retry.",
       );
     },
   );
 
   it.each([
     ["requester-revoked", "A current command owner must start a new update"],
-    ["repair-requires-config-change", "run openclaw doctor --fix under your own authority"],
+    ["repair-requires-config-change", "run lanfu doctor --fix under your own authority"],
   ])("renders the repair stop reason %s with an unambiguous next action", (reason, guidance) => {
     const report = renderUpdateRunReport(
       run({
@@ -367,7 +367,7 @@ describe("update run report", () => {
         "⚠️ LanFu update failed: restart-unhealthy. The gateway is running 2026.9.1.
       Phases: staging (300ms)
       Verification: service running.
-      Run openclaw triage to diagnose and repair the failed update.",
+      Run lanfu triage to diagnose and repair the failed update.",
         "ℹ️ LanFu update skipped: dry-run.
       Phases: staging (300ms)",
         "↩️ LanFu update rolled back to 2026.9.1: build-failed.
@@ -406,7 +406,7 @@ describe("update run report", () => {
     expect(report.markdown.length).toBeLessThanOrEqual(1500);
     expect(Buffer.from(report.markdown).toString("utf8")).toBe(report.markdown);
     expect(
-      report.markdown.endsWith("Run openclaw triage to diagnose and repair the failed update."),
+      report.markdown.endsWith("Run lanfu triage to diagnose and repair the failed update."),
     ).toBe(true);
     expect(report.lines.join("\n").length).toBeGreaterThan(1500);
   });
@@ -445,9 +445,9 @@ describe("update run report", () => {
       expect(report.markdown).toContain("Historical recovery advice:");
       expect(report.markdown).toContain(nextAction);
     }
-    expect(report.markdown).not.toContain("Run openclaw triage");
-    expect(report.markdown).not.toContain("run openclaw doctor --fix");
-    expect(report.markdown).not.toContain("operator can run openclaw triage locally");
+    expect(report.markdown).not.toContain("Run lanfu triage");
+    expect(report.markdown).not.toContain("run lanfu doctor --fix");
+    expect(report.markdown).not.toContain("operator can run lanfu triage locally");
     if (source === "options") {
       expect(report.markdown).not.toContain(originAction);
     }
@@ -567,7 +567,7 @@ describe("update run report", () => {
         status: "running",
         phase: "verifying",
         after: {},
-        origin: { doctorHint: "Run openclaw doctor", nextAction: "Run the update manually" },
+        origin: { doctorHint: "Run lanfu doctor", nextAction: "Run the update manually" },
         verification: {
           booted: true,
           versionMatch: false,
@@ -580,7 +580,7 @@ describe("update run report", () => {
       }),
     );
     expect(report.headline).toBe("⬆️ LanFu update in progress: verifying.");
-    expect(report.markdown).not.toContain("openclaw doctor");
+    expect(report.markdown).not.toContain("lanfu doctor");
     expect(report.markdown).not.toContain("Run the update manually");
     expect(report.markdown).toContain(
       "service identity unavailable; channels not ready; 1 plugin activation error(s)",
@@ -702,7 +702,7 @@ describe("update run report", () => {
       const record = run({
         status: "failed",
         reason,
-        origin: { doctorHint: "Run openclaw doctor --fix", nextAction: "Run openclaw triage" },
+        origin: { doctorHint: "Run lanfu doctor --fix", nextAction: "Run lanfu triage" },
         steps: [
           { step: "requested", status: "failed" },
           { step: "finalize:doctor", status: "failed" },
@@ -717,7 +717,7 @@ describe("update run report", () => {
           : "⚠️ LanFu update failed: finalize:doctor.",
       );
       expect(report.lines).toContain("Failed: finalize:doctor");
-      expect(report.markdown.includes("Run openclaw")).toBe(!reconciled);
+      expect(report.markdown.includes("Run lanfu")).toBe(!reconciled);
       expect(JSON.stringify(record)).toBe(saved);
     });
 

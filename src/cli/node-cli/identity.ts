@@ -11,7 +11,7 @@ export async function runNodeIdentityShow(opts: { json?: boolean }) {
   const identity = await loadDeviceIdentityIfPresentAsync();
   if (!identity) {
     defaultRuntime.error(
-      "no node device identity found (start the node host once with `openclaw node run` or `openclaw node install`)",
+      "no node device identity found (start the node host once with `lanfu node run` or `lanfu node install`)",
     );
     defaultRuntime.exit(1);
     return;

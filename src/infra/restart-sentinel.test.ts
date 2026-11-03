@@ -462,7 +462,7 @@ describe("restart sentinel", () => {
       status: "ok" as const,
       ts: Date.now(),
       message: "Run restart-gateway.ps1 to apply config changes.",
-      doctorHint: "Run openclaw doctor --non-interactive",
+      doctorHint: "Run lanfu doctor --non-interactive",
       stats: { mode: "config.patch", requiresRestart: true },
     };
 
@@ -470,7 +470,7 @@ describe("restart sentinel", () => {
       [
         "Gateway restart required (config.patch)",
         "Run restart-gateway.ps1 to apply config changes.",
-        "Run openclaw doctor --non-interactive",
+        "Run lanfu doctor --non-interactive",
       ].join("\n"),
     );
     expect(summarizeRestartSentinel(payload)).toBe("Gateway restart required (config.patch)");
@@ -504,7 +504,7 @@ describe("restart sentinel", () => {
       status: "error" as const,
       ts: Date.now(),
       message: "Patch failed",
-      doctorHint: "Run openclaw doctor",
+      doctorHint: "Run lanfu doctor",
       stats: { mode: "patch", reason: "validation failed" },
     };
 
@@ -907,7 +907,7 @@ describe("restart sentinel message dedup", () => {
 
   it("formats the non-interactive doctor command as actionability guidance", () => {
     expect(formatDoctorNonInteractiveHint({ PATH: "/usr/bin:/bin" })).toBe(
-      "Recommended follow-up: run openclaw doctor --non-interactive in a terminal or approvals-capable OpenClaw surface.",
+      "Recommended follow-up: run lanfu doctor --non-interactive in a terminal or approvals-capable OpenClaw surface.",
     );
   });
 

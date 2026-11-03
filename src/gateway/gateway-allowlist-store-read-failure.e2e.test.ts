@@ -137,7 +137,7 @@ describe("Gateway allowlist command", () => {
 
       expect(faultObserved).toBe(true);
       expect(extractFirstTextBlock(payload.message)).toContain(
-        "Paired allowFrom (store): unavailable (read failed). Retry this command; if it still fails, run openclaw doctor.",
+        "Paired allowFrom (store): unavailable (read failed). Retry this command; if it still fails, run lanfu doctor.",
       );
     } finally {
       if (finalTimeout) {

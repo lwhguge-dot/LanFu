@@ -137,7 +137,7 @@ describe("update.run current owner authority", () => {
           reason: "owner_required",
           ackDelivered: false,
           message: expect.stringContaining(
-            `openclaw config set commands.ownerAllowFrom '${JSON.stringify(change === "revoked" ? ["slack:owner"] : ["replacement", "slack:owner"])}'`,
+            `lanfu config set commands.ownerAllowFrom '${JSON.stringify(change === "revoked" ? ["slack:owner"] : ["replacement", "slack:owner"])}'`,
           ),
         });
         expect(listUpdateRuns()).toEqual([
@@ -273,7 +273,7 @@ describe("update.run current owner authority", () => {
       expect(guidance).toContain("relay the tool's exact recovery instructions");
       expect(guidance).toContain("operator to run outside the Gateway service");
       expect(guidance).toContain(
-        "Never run openclaw update, npm install -g openclaw, swap installations, or stop/restart the gateway service via exec or detached jobs.",
+        "Never run lanfu update, npm install -g openclaw, swap installations, or stop/restart the gateway service via exec or detached jobs.",
       );
     },
   );
@@ -325,7 +325,7 @@ describe("update.run current owner authority", () => {
       reason: "owner_required",
       ackDelivered: true,
       message: expect.stringContaining(
-        'openclaw config set commands.ownerAllowFrom \'["replacement","slack:owner"]\'',
+        'lanfu config set commands.ownerAllowFrom \'["replacement","slack:owner"]\'',
       ),
     });
     expect(startManagedServiceUpdateHandoffMock).not.toHaveBeenCalled();

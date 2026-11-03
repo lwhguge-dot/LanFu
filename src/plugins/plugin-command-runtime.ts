@@ -179,7 +179,7 @@ async function executeSelectedPluginCommand(
       240,
     );
     return {
-      text: `⚠️ Plugin "${selection.plugin.id}" failed to load: ${reason}. Run \`openclaw doctor\` and check the gateway logs.`,
+      text: `⚠️ Plugin "${selection.plugin.id}" failed to load: ${reason}. Run \`lanfu doctor\` and check the gateway logs.`,
     };
   }
   const { executeRegisteredPluginCommand } = await import("./plugin-command-execution.js");

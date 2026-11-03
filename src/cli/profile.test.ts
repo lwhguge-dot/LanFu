@@ -577,39 +577,39 @@ describe("formatCliCommand", () => {
   it.each([
     {
       name: "no profile is set",
-      cmd: "openclaw doctor --fix",
+      cmd: "lanfu doctor --fix",
       env: {},
-      expected: "openclaw doctor --fix",
+      expected: "lanfu doctor --fix",
     },
     {
       name: "profile is default",
-      cmd: "openclaw doctor --fix",
+      cmd: "lanfu doctor --fix",
       env: { OPENCLAW_PROFILE: "default" },
-      expected: "openclaw doctor --fix",
+      expected: "lanfu doctor --fix",
     },
     {
       name: "profile is Default (case-insensitive)",
-      cmd: "openclaw doctor --fix",
+      cmd: "lanfu doctor --fix",
       env: { OPENCLAW_PROFILE: "Default" },
-      expected: "openclaw doctor --fix",
+      expected: "lanfu doctor --fix",
     },
     {
       name: "profile is invalid",
-      cmd: "openclaw doctor --fix",
+      cmd: "lanfu doctor --fix",
       env: { OPENCLAW_PROFILE: "bad profile" },
-      expected: "openclaw doctor --fix",
+      expected: "lanfu doctor --fix",
     },
     {
       name: "--profile is already present",
-      cmd: "openclaw --profile work doctor --fix",
+      cmd: "lanfu --profile work doctor --fix",
       env: { OPENCLAW_PROFILE: "work" },
-      expected: "openclaw --profile work doctor --fix",
+      expected: "lanfu --profile work doctor --fix",
     },
     {
       name: "--dev is already present",
-      cmd: "openclaw --dev doctor",
+      cmd: "lanfu --dev doctor",
       env: { OPENCLAW_PROFILE: "dev" },
-      expected: "openclaw --dev doctor",
+      expected: "lanfu --dev doctor",
     },
   ])("returns command unchanged when $name", ({ cmd, env, expected }) => {
     expect(formatCliCommand(cmd, env)).toBe(expected);
@@ -617,20 +617,18 @@ describe("formatCliCommand", () => {
 
   it("inserts --profile flag when profile is set", () => {
     expect(formatCliCommand("openclaw doctor --fix", { OPENCLAW_PROFILE: "work" })).toBe(
-      "openclaw --profile work doctor --fix",
+      "lanfu --profile work doctor --fix",
     );
   });
 
   it("trims whitespace from profile", () => {
     expect(formatCliCommand("openclaw doctor --fix", { OPENCLAW_PROFILE: "  jbopenclaw  " })).toBe(
-      "openclaw --profile jbopenclaw doctor --fix",
+      "lanfu --profile jbopenclaw doctor --fix",
     );
   });
 
   it("handles command with no args after openclaw", () => {
-    expect(formatCliCommand("openclaw", { OPENCLAW_PROFILE: "test" })).toBe(
-      "openclaw --profile test",
-    );
+    expect(formatCliCommand("lanfu", { OPENCLAW_PROFILE: "test" })).toBe("lanfu --profile test");
   });
 
   it("handles pnpm wrapper", () => {
@@ -642,40 +640,40 @@ describe("formatCliCommand", () => {
   it("inserts --container when a container hint is set", () => {
     expect(
       formatCliCommand("openclaw gateway status --deep", { OPENCLAW_CONTAINER_HINT: "demo" }),
-    ).toBe("openclaw --container demo gateway status --deep");
+    ).toBe("lanfu --container demo gateway status --deep");
   });
 
   it("ignores unsafe container hints", () => {
     expect(
-      formatCliCommand("openclaw gateway status --deep", {
+      formatCliCommand("lanfu gateway status --deep", {
         OPENCLAW_CONTAINER_HINT: "demo; rm -rf /",
       }),
-    ).toBe("openclaw gateway status --deep");
+    ).toBe("lanfu gateway status --deep");
   });
 
   it("preserves both --container and --profile hints", () => {
     expect(
-      formatCliCommand("openclaw doctor", {
+      formatCliCommand("lanfu doctor", {
         OPENCLAW_CONTAINER_HINT: "demo",
         OPENCLAW_PROFILE: "work",
       }),
-    ).toBe("openclaw --container demo doctor");
+    ).toBe("lanfu --container demo doctor");
   });
 
   it.each([
-    "openclaw update",
+    "lanfu update",
     "pnpm openclaw update --channel beta",
     "npm openclaw update",
     "bunx openclaw update",
     "npx openclaw update",
-    "openclaw --profile work update",
-    "openclaw --profile=work update",
-    "openclaw --log-level debug update",
-    "openclaw --log-level=debug update",
-    "openclaw --dev update",
-    "openclaw --no-color update",
-    "openclaw --no-color --profile work --log-level=debug update",
-    "openclaw --profile update update",
+    "lanfu --profile work update",
+    "lanfu --profile=work update",
+    "lanfu --log-level debug update",
+    "lanfu --log-level=debug update",
+    "lanfu --dev update",
+    "lanfu --no-color update",
+    "lanfu --no-color --profile work --log-level=debug update",
+    "lanfu --profile update update",
     "pnpm openclaw --profile work update --channel beta",
   ])("does not prepend --container to root update: %s", (command) => {
     expect(

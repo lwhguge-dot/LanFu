@@ -125,7 +125,7 @@ export function renderCmdRestartLogSetup(env: GatewayServiceEnv): {
     quotedLogPath,
     lines: [
       `if not exist ${quotedLogDir} mkdir ${quotedLogDir} >nul 2>&1`,
-      `>> ${quotedLogPath} 2>&1 echo [%DATE% %TIME%] openclaw restart log initialized`,
+      `>> ${quotedLogPath} 2>&1 echo [%DATE% %TIME%] lanfu restart log initialized`,
     ],
   };
 }

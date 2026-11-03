@@ -93,9 +93,9 @@ async function validateConfigFileSnapshot(
     runtime.error(
       isPluginPackagingRuntimeOutputInvalidConfigSnapshot(snapshot)
         ? `Fix: ${formatPluginPackagingRuntimeOutputRecoveryHint()}`
-        : `Fix: ${formatCliCommand("openclaw doctor --fix")}`,
+        : `Fix: ${formatCliCommand("lanfu doctor --fix")}`,
     );
-    runtime.error(`Inspect: ${formatCliCommand("openclaw config validate")}`);
+    runtime.error(`Inspect: ${formatCliCommand("lanfu config validate")}`);
     runtime.exit(1);
     return null;
   }
@@ -111,7 +111,7 @@ async function validateConfigFileSnapshot(
           .slice(0, 3)
           .map((notice) => `- ${formatPluginCompatibilityNotice(notice)}`),
         ...(compatibility.length > 3 ? [`- ... +${compatibility.length - 3} more`] : []),
-        `Review: ${formatCliCommand("openclaw doctor")}`,
+        `Review: ${formatCliCommand("lanfu doctor")}`,
       ].join("\n"),
     );
   }

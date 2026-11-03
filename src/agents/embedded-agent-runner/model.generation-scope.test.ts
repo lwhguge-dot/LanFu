@@ -538,7 +538,7 @@ describe("model runtime generation scope", () => {
     const result = await resolveGeneration(generation);
 
     expect(result.model).toBeUndefined();
-    expect(result.error).toContain("openclaw doctor --fix");
+    expect(result.error).toContain("lanfu doctor --fix");
     expect(result.error).toContain("current-model");
   });
 
@@ -569,7 +569,7 @@ describe("model runtime generation scope", () => {
     });
 
     expect(resolution.model).toBeUndefined();
-    expect(resolution.error).toContain("openclaw doctor --fix");
+    expect(resolution.error).toContain("lanfu doctor --fix");
     expect(resolution.error).toContain("current-model");
   });
 

@@ -161,7 +161,7 @@ describe("automatic startup config repair", () => {
       const pending = {
         pluginId: "pending-owner",
         reason: "The configured plugin is not installed.",
-        command: "openclaw update repair",
+        command: "lanfu update repair",
         configPaths: [["legacyPluginInput"]],
         validationExcludedPaths: [["legacyPluginInput"]],
       };

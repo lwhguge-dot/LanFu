@@ -127,7 +127,7 @@ export function registerMaintenanceCommands(
       }
       if (hasSessionSqliteOnlyDoctorOptions(opts)) {
         return exitDoctorError(
-          "doctor session SQLite options require --session-sqlite. Use `openclaw doctor --session-sqlite dry-run ...`.",
+          "doctor session SQLite options require --session-sqlite. Use `lanfu doctor --session-sqlite dry-run ...`.",
           opts.json === true || (opts.lint === true && !process.stdout.isTTY),
         );
       }
@@ -186,7 +186,7 @@ export function registerMaintenanceCommands(
       }
       if (opts.lint !== true && hasLintOnlyDoctorOptions(opts)) {
         return exitDoctorError(
-          "doctor lint options require --lint. Use `openclaw doctor --lint ...`.",
+          "doctor lint options require --lint. Use `lanfu doctor --lint ...`.",
           opts.json === true,
         );
       }

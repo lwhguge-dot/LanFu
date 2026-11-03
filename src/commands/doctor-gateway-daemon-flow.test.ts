@@ -780,7 +780,7 @@ describe("maybeRepairGatewayDaemon", () => {
     expect(service.install).not.toHaveBeenCalled();
     expect(service.restart).not.toHaveBeenCalled();
     expect(note).toHaveBeenCalledWith(
-      `Run ${formatCliCommand("openclaw gateway install")} when you want to install the gateway service.`,
+      `Run ${formatCliCommand("lanfu gateway install")} when you want to install the gateway service.`,
       "Gateway",
     );
   });
@@ -879,7 +879,7 @@ describe("maybeRepairGatewayDaemon", () => {
         "System-level LanFu gateway service detected while the user gateway service is not installed.",
         "- openclaw-gateway.service (unit: /etc/systemd/system/openclaw-gateway.service)",
         "LanFu will not install a second user-level gateway service automatically.",
-        "Run `openclaw gateway status --deep` or `openclaw doctor --deep` to inspect duplicate services.",
+        "Run `lanfu gateway status --deep` or `lanfu doctor --deep` to inspect duplicate services.",
         `Set ${SERVICE_REPAIR_POLICY_ENV}=external if a system supervisor owns the gateway lifecycle.`,
       ].join("\n"),
       "Gateway",

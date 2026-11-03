@@ -203,7 +203,7 @@ describe("Doctor refused-migration maintenance outcome", () => {
           expect(failure.message).toContain("Follow the migration recovery instructions above");
           expect(failure.message).not.toContain("git -C");
           expect(failure.message).not.toContain("pnpm install");
-          expect(failure.message).not.toContain("openclaw gateway start");
+          expect(failure.message).not.toContain("lanfu gateway start");
           expect(JSON.parse(fs.readFileSync(state.configPath, "utf8"))).toEqual({
             gateway: { mode: "local" },
           });

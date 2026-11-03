@@ -63,5 +63,5 @@ export async function deferUpdateFinalizationForServingGateway(
     // Dead owners fall through to normal admission and owner-held reclamation.
     return undefined;
   }
-  return `Skipped finalize:doctor and plugin convergence: ${owner.mode} Gateway owner ${owner.owner} (PID ${owner.pid}, start ${owner.startedAt}, port ${owner.port}) is verified serving ${version} build ${buildId}. The Gateway remains running. At the next maintenance window, stop it through its owner, run ${formatCliCommand("openclaw update repair", env)}, and start it through the same owner. Config and plugin maintenance remain pending.`;
+  return `Skipped finalize:doctor and plugin convergence: ${owner.mode} Gateway owner ${owner.owner} (PID ${owner.pid}, start ${owner.startedAt}, port ${owner.port}) is verified serving ${version} build ${buildId}. The Gateway remains running. At the next maintenance window, stop it through its owner, run ${formatCliCommand("lanfu update repair", env)}, and start it through the same owner. Config and plugin maintenance remain pending.`;
 }

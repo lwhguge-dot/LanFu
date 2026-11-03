@@ -123,7 +123,7 @@ it.each([
   },
   {
     sql: `PRAGMA user_version = ${OPENCLAW_AGENT_SCHEMA_VERSION - 1}`,
-    error: "run openclaw doctor --fix",
+    error: "run lanfu doctor --fix",
   },
   {
     sql: "UPDATE schema_meta SET agent_id = 'another' WHERE meta_key = 'primary'",

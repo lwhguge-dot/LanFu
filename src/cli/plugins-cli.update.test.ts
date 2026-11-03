@@ -2005,7 +2005,7 @@ describe("plugins cli update", () => {
     });
     expect(pluginsCliRuntimeLogs.join("\n")).toContain("Plugin update committed");
     expect(pluginsCliRuntimeLogs).toContain("Updated alpha -> 1.1.0");
-    expect(pluginsCliRuntimeLogs.join("\n")).toContain("Run openclaw plugins doctor");
+    expect(pluginsCliRuntimeLogs.join("\n")).toContain("Run lanfu plugins doctor");
     expectOfflineNoticeLogged();
   });
 

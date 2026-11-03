@@ -627,15 +627,15 @@ describe("registerBundledHealthChecks", () => {
         severity: "warning",
       }),
     ]);
-    expect(findings[0]?.message).toContain("openclaw doctor --fix");
+    expect(findings[0]?.message).toContain("lanfu doctor --fix");
     expect(findings[0]?.message).toContain(
       state === "missing"
-        ? "The configured Codex plugin was not found. Install it with openclaw plugins install @openclaw/codex."
+        ? "The configured Codex plugin was not found. Install it with lanfu plugins install @openclaw/codex."
         : state.startsWith("untrusted")
-          ? "The selected Codex plugin is not a bundled or verified official installation. Run openclaw plugins inspect codex --runtime --json to inspect its source; install the official plugin with openclaw plugins install @openclaw/codex."
+          ? "The selected Codex plugin is not a bundled or verified official installation. Run lanfu plugins inspect codex --runtime --json to inspect its source; install the official plugin with lanfu plugins install @openclaw/codex."
           : state === "missing-export"
-            ? "The selected Codex plugin's Doctor health checks are incomplete. Run openclaw plugins inspect codex --runtime --json for details, or openclaw triage for repair help."
-            : "The selected Codex plugin declares Doctor health checks but its health API could not be loaded. Run openclaw plugins inspect codex --runtime --json for details, or openclaw triage for repair help.",
+            ? "The selected Codex plugin's Doctor health checks are incomplete. Run lanfu plugins inspect codex --runtime --json for details, or lanfu triage for repair help."
+            : "The selected Codex plugin declares Doctor health checks but its health API could not be loaded. Run lanfu plugins inspect codex --runtime --json for details, or lanfu triage for repair help.",
     );
     expect(getHealthCheck("codex/managed-app-server")).toBeUndefined();
     expect(mocks.registerCodexManagedAppServerDoctorChecks).not.toHaveBeenCalled();

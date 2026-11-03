@@ -162,7 +162,7 @@ export function extraGatewayServiceToHealthFinding(service: ExtraGatewayService)
     target: service.label,
     fixHint:
       service.legacy === true
-        ? "Run `openclaw doctor` interactively to review legacy gateway services and confirm supported cleanup."
+        ? "Run `lanfu doctor` interactively to review legacy gateway services and confirm supported cleanup."
         : "Run a single gateway per machine unless this extra gateway is intentional.",
   };
 }
@@ -389,7 +389,7 @@ export async function maybeRepairGatewayServiceConfig(
   const sourceCheckoutWarning = serviceLayout?.entrypointSourceCheckout
     ? [
         `Gateway service entrypoint resolves to a source checkout: ${serviceLayout.packageRootReal ?? serviceLayout.packageRoot ?? serviceLayout.entrypointReal ?? serviceLayout.entrypoint}.`,
-        "Run `openclaw gateway install --force` from the intended package install to replace the gateway service definition.",
+        "Run `lanfu gateway install --force` from the intended package install to replace the gateway service definition.",
       ].join("\n")
     : null;
 
@@ -642,7 +642,7 @@ export async function maybeRepairGatewayServiceConfig(
   if (!repair) {
     if (!emittedSourceCheckoutWarning) {
       note(
-        "Run `openclaw gateway install --force` when you want to replace the gateway service definition.",
+        "Run `lanfu gateway install --force` when you want to replace the gateway service definition.",
         "Gateway service config",
       );
     }

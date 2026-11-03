@@ -498,7 +498,7 @@ async function verifyResolvedBackupArchive(
   } catch (error) {
     if (hasErrnoCode(error, "ENOENT")) {
       throw new Error(
-        "Archive does not exist. Check the path and run `openclaw backup verify <archive>` again.",
+        "Archive does not exist. Check the path and run `lanfu backup verify <archive>` again.",
         { cause: error },
       );
     }
@@ -509,7 +509,7 @@ async function verifyResolvedBackupArchive(
   }
   if (!archiveStat.isFile()) {
     throw new Error(
-      "Archive must be a regular file. Choose a backup archive created by `openclaw backup create` and try again.",
+      "Archive must be a regular file. Choose a backup archive created by `lanfu backup create` and try again.",
     );
   }
 
@@ -520,7 +520,7 @@ async function verifyResolvedBackupArchive(
   });
   if (listing.invalidReason) {
     throw new Error(
-      `Archive is not a valid LanFu backup. ${listing.invalidReason.replace(/[.!?]*$/u, ".")} Choose another archive or create a new one with \`openclaw backup create\`.`,
+      `Archive is not a valid LanFu backup. ${listing.invalidReason.replace(/[.!?]*$/u, ".")} Choose another archive or create a new one with \`lanfu backup create\`.`,
     );
   }
   const rawEntries = listing.entries;

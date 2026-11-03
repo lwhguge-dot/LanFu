@@ -110,7 +110,7 @@ export async function setupCommand(
       });
     }
     runtime.error(
-      `Config invalid at ${await formatDefaultConfigPath(configPath)}. Run \`${formatCliCommand("openclaw doctor --fix")}\` to apply supported repairs, then re-run setup.`,
+      `Config invalid at ${await formatDefaultConfigPath(configPath)}. Run \`${formatCliCommand("lanfu doctor --fix")}\` to apply supported repairs, then re-run setup.`,
     );
     runtime.exit(1);
     return;
@@ -282,9 +282,9 @@ export async function setupCommand(
   runtime.log(`Sessions OK: ${shortenHomePath(sessionsDir)}`);
   runtime.log("");
   runtime.log("Setup complete: config, workspace, and session directories are ready.");
-  runtime.log(`Next guided path: ${formatCliCommand("openclaw onboard")}.`);
+  runtime.log(`Next guided path: ${formatCliCommand("lanfu onboard")}.`);
   runtime.log(
-    `Next targeted changes: ${formatCliCommand("openclaw configure")} for models, channels, Gateway, plugins, skills, and health checks.`,
+    `Next targeted changes: ${formatCliCommand("lanfu configure")} for models, channels, Gateway, plugins, skills, and health checks.`,
   );
-  runtime.log(`Add a chat channel later: ${formatCliCommand("openclaw channels add")}.`);
+  runtime.log(`Add a chat channel later: ${formatCliCommand("lanfu channels add")}.`);
 }

@@ -43,7 +43,7 @@ function legacyConfig(): OpenClawConfig {
 describe("utility model separation migration", () => {
   it("requires canonical conversion before utility provider effects, while allowing fresh and explicit routes", () => {
     const legacy = legacyConfig();
-    expect(resolveUtilityModelSeparationError(legacy)).toContain("openclaw doctor --fix");
+    expect(resolveUtilityModelSeparationError(legacy)).toContain("lanfu doctor --fix");
     expect(
       resolveUtilityModelSeparationError(materializeUtilityModelSeparation(legacy).config),
     ).toBeUndefined();

@@ -79,7 +79,7 @@ describe("getReplyFromConfig workspace failures", () => {
     const reply = await getReplyFromConfig(buildGetReplyCtx(), undefined, {});
 
     expect(reply).toMatchObject({
-      text: expect.stringContaining("openclaw doctor"),
+      text: expect.stringContaining("lanfu doctor"),
     });
     expect((reply as { text: string }).text).toContain("⚠️");
   });

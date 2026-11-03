@@ -134,7 +134,7 @@ async function seedImportedHistory(
   }
   recordDeferredPluginMigrations({
     env: state.env,
-    pending: [{ pluginId, reason: "Plugin migration pending", command: "openclaw doctor --fix" }],
+    pending: [{ pluginId, reason: "Plugin migration pending", command: "lanfu doctor --fix" }],
   });
   // The later plugin receipt does not know about June's already-imported originals.
   await runDoctorSessionSqlite({ cfg, env: state.env, allAgents: true, mode: "import" });

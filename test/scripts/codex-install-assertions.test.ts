@@ -650,7 +650,7 @@ describe("Codex install helpers", () => {
   const missingRegistration =
     'Agent harness runtime "codex" is unavailable because its plugin registration is missing from this prepared run. Enable or reinstall the plugin that provides this runtime, restart the Gateway, then retry.';
   const inactiveOwner =
-    'Agent harness runtime "codex" is unavailable. (reason=owner-plugin-not-activatable, ownerPluginId=codex). Run "openclaw doctor --fix". Owner plugin "codex" is not activatable (disabled in config). Repair the plugin or select a model that does not require this runtime, restart the Gateway, then retry.';
+    'Agent harness runtime "codex" is unavailable. (reason=owner-plugin-not-activatable, ownerPluginId=codex). Run "lanfu doctor --fix". Owner plugin "codex" is not activatable (disabled in config). Repair the plugin or select a model that does not require this runtime, restart the Gateway, then retry.';
   it.each([
     ["missing registration", 1, missingRegistration, true],
     ["inactive owner", 1, inactiveOwner, true],

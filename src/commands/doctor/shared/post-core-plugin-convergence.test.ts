@@ -540,12 +540,12 @@ describe("runPostCorePluginConvergence", () => {
         pluginId: "discord",
         reason: message,
         message,
-        guidance: ["Run `openclaw update repair` to retry plugin repair."],
+        guidance: ["Run `lanfu update repair` to retry plugin repair."],
       },
       {
         reason: unclassifiedMessage,
         message: unclassifiedMessage,
-        guidance: ["Run `openclaw update repair` to retry plugin repair."],
+        guidance: ["Run `lanfu update repair` to retry plugin repair."],
       },
     ]);
   });
@@ -576,7 +576,7 @@ describe("runPostCorePluginConvergence", () => {
         pluginId: "matrix",
         reason: message,
         message,
-        guidance: ["Run `openclaw update repair` to retry plugin repair."],
+        guidance: ["Run `lanfu update repair` to retry plugin repair."],
       },
     ]);
     expect(mocks.runPluginPayloadSmokeCheck).toHaveBeenCalledWith({
@@ -713,8 +713,8 @@ describe("runPostCorePluginConvergence", () => {
         message:
           'Plugin "brave" failed post-core payload smoke check (missing-main-entry): Plugin main entry "dist/index.js" not found at /p/brave/dist/index.js',
         guidance: [
-          "Run `openclaw update repair` to retry plugin repair.",
-          "Run `openclaw plugins inspect brave --runtime --json` for details.",
+          "Run `lanfu update repair` to retry plugin repair.",
+          "Run `lanfu plugins inspect brave --runtime --json` for details.",
         ],
       },
     ]);
@@ -751,8 +751,8 @@ describe("runPostCorePluginConvergence", () => {
         message:
           'Plugin "brave" failed post-core payload smoke check (missing-install-path): Install path is missing from the plugin install record.',
         guidance: [
-          "Run `openclaw update repair` to retry plugin repair.",
-          "Run `openclaw plugins inspect brave --runtime --json` for details.",
+          "Run `lanfu update repair` to retry plugin repair.",
+          "Run `lanfu plugins inspect brave --runtime --json` for details.",
         ],
       },
     ]);
@@ -787,7 +787,7 @@ describe("runPostCorePluginConvergence", () => {
       'Plugin "brave" failed post-core payload smoke check (unreadable-package-json): Could not read package.json at /p/brave/package.json: EACCES: permission denied';
     const guidance = [
       "Fix file access for /p/brave/package.json so it is readable by the user running LanFu. For EACCES or EPERM, correct its ownership or permissions; otherwise resolve the reported filesystem I/O error, then retry.",
-      "Run `openclaw plugins inspect brave --runtime --json` for details.",
+      "Run `lanfu plugins inspect brave --runtime --json` for details.",
     ];
     expect(result.warnings).toStrictEqual([
       {
@@ -948,7 +948,7 @@ describe("runPostCorePluginConvergence", () => {
       {
         reason: "Failed to repair installed LanFu host peer links: EACCES: permission denied",
         message: "Failed to repair installed LanFu host peer links: EACCES: permission denied",
-        guidance: ["Run `openclaw update repair` to retry plugin repair."],
+        guidance: ["Run `lanfu update repair` to retry plugin repair."],
       },
     ]);
     expect(result.errored).toBe(false);

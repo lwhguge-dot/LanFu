@@ -277,13 +277,13 @@ describe("backupVerifyCommand", () => {
       name: "missing archive",
       prepare: async (tempDir: string) => path.join(tempDir, "missing.tar.gz"),
       detail:
-        "Archive does not exist. Check the path and run `openclaw backup verify <archive>` again.",
+        "Archive does not exist. Check the path and run `lanfu backup verify <archive>` again.",
     },
     {
       name: "directory",
       prepare: async (tempDir: string) => tempDir,
       detail:
-        "Archive must be a regular file. Choose a backup archive created by `openclaw backup create` and try again.",
+        "Archive must be a regular file. Choose a backup archive created by `lanfu backup create` and try again.",
     },
     {
       name: "non-tar garbage",
@@ -293,7 +293,7 @@ describe("backupVerifyCommand", () => {
         return archivePath;
       },
       detail:
-        "Archive is not a valid LanFu backup. Unrecognized archive format. Choose another archive or create a new one with `openclaw backup create`.",
+        "Archive is not a valid LanFu backup. Unrecognized archive format. Choose another archive or create a new one with `lanfu backup create`.",
     },
   ])("reports an actionable failure for $name", async ({ prepare, detail }) => {
     const tempDir = tempDirs.make("openclaw-backup-verify-input-");
@@ -348,7 +348,7 @@ describe("backupVerifyCommand", () => {
     });
 
     expect(runtime.error).toHaveBeenCalledWith(
-      `Backup archive verification failed: ${archivePath}. Archive is not a valid LanFu backup. ${detail}. Choose another archive or create a new one with \`openclaw backup create\`.`,
+      `Backup archive verification failed: ${archivePath}. Archive is not a valid LanFu backup. ${detail}. Choose another archive or create a new one with \`lanfu backup create\`.`,
     );
     expect(runtime.exit).toHaveBeenCalledWith(1);
     expect(runtime.log).not.toHaveBeenCalled();

@@ -302,7 +302,7 @@ export async function updateStatusCommand(opts: UpdateStatusOptions): Promise<vo
       }
       if (abandonedRun) {
         defaultRuntime.log(
-          "Abandoned update detected; the Gateway will reconcile its recorded outcome. Run openclaw update repair to reconcile it now.",
+          "Abandoned update detected; the Gateway will reconcile its recorded outcome. Run lanfu update repair to reconcile it now.",
         );
       }
       const report = renderUpdateRunReport(

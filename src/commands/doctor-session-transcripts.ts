@@ -180,7 +180,7 @@ export function sessionTranscriptIssueToHealthFinding(
       : `Session transcript has legacy branch or provider metadata that can be cleaned up.${metadata}`,
     path: issue.filePath,
     fixHint:
-      "Run `openclaw doctor --fix` to repair legacy transcripts during their staged import into SQLite.",
+      "Run `lanfu doctor --fix` to repair legacy transcripts during their staged import into SQLite.",
   };
 }
 
@@ -409,7 +409,7 @@ async function noteSessionSqliteMigrationHealth(params: {
       throw error;
     }
     note(
-      `- Skipped: Gateway or another SQLite maintenance command owns the state directory. Stop the Gateway, then run "${formatCliCommand("openclaw doctor --fix", params.env)}" for session-store maintenance.`,
+      `- Skipped: Gateway or another SQLite maintenance command owns the state directory. Stop the Gateway, then run "${formatCliCommand("lanfu doctor --fix", params.env)}" for session-store maintenance.`,
       "Session SQLite",
     );
     recordPostSessionRefusal({
@@ -422,7 +422,7 @@ async function noteSessionSqliteMigrationHealth(params: {
     note(
       params.shouldRepair
         ? `- Repaired canonical workspace metadata for ${worktreeWorkspaceReport.repaired} of ${worktreeWorkspaceReport.found} managed-worktree session(s). Check project/worktree ownership for any remaining entries.`
-        : `- Found ${worktreeWorkspaceReport.found} managed-worktree session(s) missing canonical workspace metadata. Run "openclaw doctor --fix" to repair them.`,
+        : `- Found ${worktreeWorkspaceReport.found} managed-worktree session(s) missing canonical workspace metadata. Run "lanfu doctor --fix" to repair them.`,
       "Session worktrees",
     );
   }
@@ -431,7 +431,7 @@ async function noteSessionSqliteMigrationHealth(params: {
       [
         params.shouldRepair
           ? `- Repaired ${acpKeyReport.repaired} of ${acpKeyReport.found} legacy ACP metadata key(s).`
-          : `- Found ${acpKeyReport.found} legacy ACP metadata key(s). Run "openclaw doctor --fix" to repair them.`,
+          : `- Found ${acpKeyReport.found} legacy ACP metadata key(s). Run "lanfu doctor --fix" to repair them.`,
         ...acpKeyReport.warnings,
       ].join("\n"),
       "ACP session keys",
@@ -442,7 +442,7 @@ async function noteSessionSqliteMigrationHealth(params: {
       [
         params.shouldRepair
           ? `- Repaired ${titleReport.repaired} of ${titleReport.found} missing session title(s) without changing activity.`
-          : `- Found ${titleReport.found} missing session title(s). Run "openclaw doctor --fix" to repair them.`,
+          : `- Found ${titleReport.found} missing session title(s). Run "lanfu doctor --fix" to repair them.`,
         ...titleReport.warnings,
       ].join("\n"),
       "Session titles",
@@ -452,7 +452,7 @@ async function noteSessionSqliteMigrationHealth(params: {
     note(
       params.shouldRepair
         ? `- Renamed ${reservedKeyReport.repaired} durable session key(s) that collided with the reserved incognito namespace.`
-        : `- Found ${reservedKeyReport.found} durable session key(s) that collide with the reserved incognito namespace. Run "openclaw doctor --fix" to rename them.`,
+        : `- Found ${reservedKeyReport.found} durable session key(s) that collide with the reserved incognito namespace. Run "lanfu doctor --fix" to rename them.`,
       "Session SQLite",
     );
   }
@@ -460,7 +460,7 @@ async function noteSessionSqliteMigrationHealth(params: {
     note(
       params.shouldRepair
         ? `- Canonicalized ${canonicalKeyReport.repairedGroups} session-key group(s) in ${canonicalKeyReport.repairBatches} transaction batch(es), removed ${canonicalKeyReport.removedRows} duplicate or alias row(s), and preserved cross-store history in ${canonicalKeyReport.archivedTranscriptDirectories.length} archive director${canonicalKeyReport.archivedTranscriptDirectories.length === 1 ? "y" : "ies"}.`
-        : `- Found ${canonicalKeyReport.foundGroups} non-canonical or duplicate session-key group(s). Run "openclaw doctor --fix" to preserve their history and canonicalize the rows.`,
+        : `- Found ${canonicalKeyReport.foundGroups} non-canonical or duplicate session-key group(s). Run "lanfu doctor --fix" to preserve their history and canonicalize the rows.`,
       "Session SQLite",
     );
   }
@@ -468,15 +468,15 @@ async function noteSessionSqliteMigrationHealth(params: {
     note(
       params.shouldRepair
         ? `- Canonicalized delivery state for ${deliveryReport.repaired} durable session row(s).`
-        : `- Found ${deliveryReport.found} durable session row(s) with legacy delivery fields. Run "openclaw doctor --fix" to canonicalize them.`,
+        : `- Found ${deliveryReport.found} durable session row(s) with legacy delivery fields. Run "lanfu doctor --fix" to canonicalize them.`,
       "Session SQLite",
     );
   }
   if (resolvedSkillsReport.found > 0) {
     note(
       params.shouldRepair
-        ? `- Stripped the runtime-only skills catalog from ${resolvedSkillsReport.repaired} durable session row(s). Logical SQLite pages are freed; shrinking the on-disk database requires "openclaw doctor --session-sqlite compact --session-sqlite-all-agents".`
-        : `- Found ${resolvedSkillsReport.found} durable session row(s) carrying a runtime-only skills catalog. Run "openclaw doctor --fix" to strip it.`,
+        ? `- Stripped the runtime-only skills catalog from ${resolvedSkillsReport.repaired} durable session row(s). Logical SQLite pages are freed; shrinking the on-disk database requires "lanfu doctor --session-sqlite compact --session-sqlite-all-agents".`
+        : `- Found ${resolvedSkillsReport.found} durable session row(s) carrying a runtime-only skills catalog. Run "lanfu doctor --fix" to strip it.`,
       "Session SQLite",
     );
   }
@@ -534,23 +534,23 @@ async function noteSessionSqliteMigrationHealth(params: {
     );
     if (deferredHistory > 0) {
       warnings.unshift(
-        `Deferred ${deferredHistory} historical transcript claim(s); originals remain protected. Preserve the named files and migration manifests, resolve the reported conflicts, then rerun "${formatCliCommand("openclaw doctor --fix", params.env)}".`,
+        `Deferred ${deferredHistory} historical transcript claim(s); originals remain protected. Preserve the named files and migration manifests, resolve the reported conflicts, then rerun "${formatCliCommand("lanfu doctor --fix", params.env)}".`,
       );
     }
     params.onWarnings?.(warnings);
     lines.push(...warnings.map((warning) => `- ${warning}`));
     lines.push(
-      `- Found ${actionableIssues} session SQLite issue(s). Inspect with "${formatCliCommand("openclaw doctor --session-sqlite dry-run --session-sqlite-all-agents", params.env)}".`,
+      `- Found ${actionableIssues} session SQLite issue(s). Inspect with "${formatCliCommand("lanfu doctor --session-sqlite dry-run --session-sqlite-all-agents", params.env)}".`,
     );
   }
   if (!params.shouldRepair && actionableTargets.length > 0) {
     lines.push(
-      '- Run "openclaw doctor --fix" to migrate legacy session metadata/transcripts to SQLite.',
+      '- Run "lanfu doctor --fix" to migrate legacy session metadata/transcripts to SQLite.',
     );
   }
   if (params.shouldRepair && report.migrationRun && report.totals.archivedTranscriptFiles > 0) {
     lines.push(
-      `- After verifying the upgrade, preview rollback retirement with "${formatCliCommand("openclaw update cleanup --dry-run", params.env)}" for state ${resolveStateDir(params.env)}. Keep the same OPENCLAW_STATE_DIR and OPENCLAW_CONFIG_PATH overrides.`,
+      `- After verifying the upgrade, preview rollback retirement with "${formatCliCommand("lanfu update cleanup --dry-run", params.env)}" for state ${resolveStateDir(params.env)}. Keep the same OPENCLAW_STATE_DIR and OPENCLAW_CONFIG_PATH overrides.`,
     );
   }
   note(lines.join("\n"), "Session SQLite");

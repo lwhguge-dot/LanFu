@@ -1659,8 +1659,8 @@ describe("config io write prepare", () => {
           'channels.telegram.dmPolicy = "open" requires channels.telegram.allowFrom to include "*"',
       },
     ]).message;
-    expect(message).toContain("openclaw config set channels.telegram.allowFrom '[\"*\"]'");
-    expect(message).toContain('openclaw config set channels.telegram.dmPolicy "pairing"');
+    expect(message).toContain("lanfu config set channels.telegram.allowFrom '[\"*\"]'");
+    expect(message).toContain('lanfu config set channels.telegram.dmPolicy "pairing"');
   });
 
   it("ignores prototype-chain keys when collecting changed paths", () => {

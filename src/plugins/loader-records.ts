@@ -195,7 +195,7 @@ function resolvePluginImportHint(
       const repair = sdkCompatibility.nestedSdk
         ? "this plugin bundles an incompatible LanFu SDK; update it or contact its author"
         : /^[a-z0-9_][a-z0-9_.-]*$/i.test(record.id)
-          ? `run \`openclaw plugins update ${record.id}\``
+          ? `run \`lanfu plugins update ${record.id}\``
           : "update this plugin or contact its author";
       return {
         hint: `Plugin ${record.id} cannot import ${sdkCompatibility.seam} (built with LanFu ${record.builtWithOpenClawVersion ?? "unknown"}; running core ${VERSION}); ${repair}`,

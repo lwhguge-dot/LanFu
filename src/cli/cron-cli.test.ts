@@ -560,7 +560,7 @@ describe("cron cli", () => {
     });
 
     expectRuntimeErrorContaining(
-      "Automation not found: missing. Run `openclaw cron list` to see recent automation ids.",
+      "Automation not found: missing. Run `lanfu cron list` to see recent automation ids.",
     );
   });
 

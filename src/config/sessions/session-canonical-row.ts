@@ -21,7 +21,7 @@ export type CanonicalSessionValidationRow = {
 class SessionCanonicalKeyMigrationRequiredError extends Error {
   readonly code = "SESSION_CANONICAL_KEY_MIGRATION_REQUIRED";
   constructor(detail: string) {
-    super(`${detail}; stop the Gateway and run openclaw doctor --fix`);
+    super(`${detail}; stop the Gateway and run lanfu doctor --fix`);
     this.name = "SessionCanonicalKeyMigrationRequiredError";
   }
 }

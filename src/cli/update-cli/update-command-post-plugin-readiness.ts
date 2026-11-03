@@ -28,7 +28,7 @@ function readinessWarning(
     ...(finding.errorCode ? { errorCode: finding.errorCode } : {}),
     guidance: [
       finding.fixHint ??
-        `Resolve this finding, then rerun \`openclaw doctor --lint --only ${finding.checkId}\`.`,
+        `Resolve this finding, then rerun \`lanfu doctor --lint --only ${finding.checkId}\`.`,
     ],
     ...(finding.source
       ? pathReason
@@ -51,7 +51,7 @@ function createPostPluginReadinessExecutionFailure(
       {
         reason,
         message: "Updated plugin readiness checks could not be completed before restart.",
-        guidance: ["Run `openclaw update repair` to retry post-update readiness checks."],
+        guidance: ["Run `lanfu update repair` to retry post-update readiness checks."],
       },
     ],
   };

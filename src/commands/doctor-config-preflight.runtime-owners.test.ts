@@ -21,7 +21,7 @@ const config: OpenClawConfig = {
 const pending: DeferredPluginMigration = {
   pluginId: runtimeId,
   reason: "The configured plugin package is missing or has not converged.",
-  command: "openclaw update repair",
+  command: "lanfu update repair",
 };
 
 async function withRuntimeOwner(

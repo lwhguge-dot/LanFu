@@ -210,7 +210,7 @@ export function assertOpenClawStateDatabaseForMaintenance(
   const userVersion = assertSupportedStateSchemaVersion(database, options.pathname);
   if (readStateSchemaContentVersion(database) !== OPENCLAW_STATE_SCHEMA_VERSION) {
     throw new Error(
-      `LanFu state database ${options.pathname} uses schema version ${userVersion}; run openclaw doctor --fix before compacting it.`,
+      `LanFu state database ${options.pathname} uses schema version ${userVersion}; run lanfu doctor --fix before compacting it.`,
     );
   }
 
@@ -222,7 +222,7 @@ export function assertOpenClawStateDatabaseForMaintenance(
     const schemaVersion =
       typeof metadata?.schema_version === "number" ? metadata.schema_version : "invalid";
     throw new Error(
-      `LanFu state database ${options.pathname} metadata schema version ${schemaVersion} does not match ${userVersion}; run openclaw doctor --fix before compacting it.`,
+      `LanFu state database ${options.pathname} metadata schema version ${schemaVersion} does not match ${userVersion}; run lanfu doctor --fix before compacting it.`,
     );
   }
   assertSqliteSchemaContains(

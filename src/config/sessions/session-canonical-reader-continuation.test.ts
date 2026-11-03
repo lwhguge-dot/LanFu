@@ -109,19 +109,19 @@ it("continues admitted row parsing without admitting the pooled reader's next op
         readWithCanonicalSessionAdmission(reader, () =>
           readExactSessionEntryRowValidated(reader, healthy),
         ),
-      ).toThrow("openclaw doctor --fix");
+      ).toThrow("lanfu doctor --fix");
       readWithCanonicalSessionReaderContinuation(reader, receipt, () => {
         expect(reader.db.isTransaction).toBe(true);
         expect(readExactSessionEntryRowValidated(reader, healthy)?.entry.sessionId).toBe("healthy");
         expect(() => readExactSessionEntryRowValidated(reader, damaged)).toThrow(
-          "openclaw doctor --fix",
+          "lanfu doctor --fix",
         );
       });
       expect(() =>
         readWithCanonicalSessionReaderContinuation(reader, undefined, () =>
           readExactSessionEntryRowValidated(reader, healthy),
         ),
-      ).toThrow("openclaw doctor --fix");
+      ).toThrow("lanfu doctor --fix");
       expect(captureCanonicalSessionReaderContinuation(reader)).toBeUndefined();
     } finally {
       held.release();
@@ -211,7 +211,7 @@ it.each([
         readWithCanonicalSessionReaderContinuation(reader, receipt, () =>
           readExactSessionEntryRowValidated(reader, healthy),
         ),
-      ).toThrow("openclaw doctor --fix");
+      ).toThrow("lanfu doctor --fix");
     } finally {
       held.release();
     }
@@ -274,7 +274,7 @@ it("checks the worker's current main-key policy rather than a still-live old rec
         readWithCanonicalSessionReaderContinuation(reader, held.receipt, () =>
           readExactSessionEntryRowValidated(reader, healthy),
         ),
-      ).toThrow("openclaw doctor --fix");
+      ).toThrow("lanfu doctor --fix");
     } finally {
       held.release();
     }
@@ -336,7 +336,7 @@ it("refuses a receipt for another physical database with the same agent owner", 
         readWithCanonicalSessionReaderContinuation(opened.database, held.receipt, () =>
           readExactSessionEntryRowValidated(opened.database, healthy),
         ),
-      ).toThrow("openclaw doctor --fix");
+      ).toThrow("lanfu doctor --fix");
     } finally {
       held.release();
       opened.database.close();
@@ -419,7 +419,7 @@ it("keeps an already active worker transaction on the strict admission path", as
         readWithCanonicalSessionReaderContinuation(reader, held.receipt, () =>
           readExactSessionEntryRowValidated(reader, healthy),
         ),
-      ).toThrow("openclaw doctor --fix");
+      ).toThrow("lanfu doctor --fix");
     } finally {
       reader.db.exec("ROLLBACK");
       held.release();

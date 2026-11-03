@@ -1497,7 +1497,7 @@ describe("prepareCliRunContext", () => {
       provider: "anthropic",
       agentDir,
     });
-    await expect(preparation).rejects.toThrow("openclaw models auth login --provider anthropic");
+    await expect(preparation).rejects.toThrow("lanfu models auth login --provider anthropic");
     expect(prepareExecution).not.toHaveBeenCalled();
   });
 

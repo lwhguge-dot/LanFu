@@ -292,7 +292,7 @@ describe("LanFu rescue message", () => {
       const reply = await runRescue("/openclaw doctor fix", cfg, commandContext(), deps);
       expect(reply).toContain("machine running LanFu");
       expect(reply).toContain("with LanFu stopped");
-      expect(reply).toContain("run `openclaw doctor --fix`");
+      expect(reply).toContain("run `lanfu doctor --fix`");
       await expect(runRescue("/openclaw yes", cfg, commandContext(), deps)).resolves.toBe(
         "No pending LanFu rescue change is waiting for approval.",
       );

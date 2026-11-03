@@ -111,7 +111,7 @@ async function stopChild(child: ChildProcessWithoutNullStreams | undefined): Pro
   }
 }
 
-describe("openclaw acp abort causes", () => {
+describe("lanfu acp abort causes", () => {
   it(
     "shows the carried tool-validation cause before cancelled settlement",
     { timeout: 120_000 },

@@ -402,7 +402,7 @@ export const updateHandlers: GatewayRequestHandlers = {
       const assertForegroundRespawnEnabled = () => {
         if (foregroundOrigin && isTruthyEnvValue(process.env.OPENCLAW_NO_RESPAWN)) {
           outcomeMessage =
-            "This foreground Gateway cannot restart because OPENCLAW_NO_RESPAWN is enabled. Stop the Gateway, run openclaw update, then start it again. To allow updates from the Gateway, relaunch it without OPENCLAW_NO_RESPAWN.";
+            "This foreground Gateway cannot restart because OPENCLAW_NO_RESPAWN is enabled. Stop the Gateway, run lanfu update, then start it again. To allow updates from the Gateway, relaunch it without OPENCLAW_NO_RESPAWN.";
           throw new UpdatePreMutationError("restart-unavailable", outcomeMessage);
         }
       };

@@ -532,7 +532,7 @@ describe("server-runtime-services", () => {
         expect(recoveryLog.warn).not.toHaveBeenCalled();
       } else {
         expect(recoveryLog.warn).toHaveBeenCalledWith(
-          expect.stringContaining("openclaw doctor --fix"),
+          expect.stringContaining("lanfu doctor --fix"),
         );
       }
       await vi.advanceTimersByTimeAsync(15_000);

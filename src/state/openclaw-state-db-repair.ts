@@ -223,7 +223,7 @@ export function repairStateSchema(
       warnings: quarantineCleared
         ? []
         : [
-            `Persisted quarantine record for ${pathname} could not be cleared; rerun openclaw doctor --fix so the repaired database is not refused again.`,
+            `Persisted quarantine record for ${pathname} could not be cleared; rerun lanfu doctor --fix so the repaired database is not refused again.`,
           ],
     };
   } catch (err) {
@@ -240,7 +240,7 @@ export function repairStateSchema(
       scope === "automatic"
         ? String(err)
         : String(err).replace(
-            /has a legacy ([a-z ]+) schema; run openclaw doctor --fix to migrate it\./u,
+            /has a legacy ([a-z ]+) schema; run lanfu doctor --fix to migrate it\./u,
             "has a legacy $1 schema; automatic repair refused the unrecognized schema shape.",
           );
     return {

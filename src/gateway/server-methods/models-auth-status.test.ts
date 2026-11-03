@@ -2446,7 +2446,7 @@ describe("models.authSetApiKey", () => {
         expect(firstRespondCall(opts)?.[1]?.warning).toContain(configWarning);
       }
       if (refreshFails) {
-        expect(firstRespondCall(opts)?.[1]?.warning).toContain("openclaw gateway restart");
+        expect(firstRespondCall(opts)?.[1]?.warning).toContain("lanfu gateway restart");
       }
     },
   );
@@ -2891,7 +2891,7 @@ describe("models.authLogout", () => {
       expect(ok).toBe(true);
       expect(payload).toMatchObject({
         abortedRunIds: ["revoked"],
-        warning: expect.stringContaining("openclaw gateway restart"),
+        warning: expect.stringContaining("lanfu gateway restart"),
       });
       expect(error).toBeUndefined();
     },

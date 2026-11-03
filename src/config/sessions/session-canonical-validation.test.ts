@@ -74,7 +74,7 @@ it.each([false, true])(
         database.db.exec("BEGIN IMMEDIATE");
       }
       try {
-        expect(() => loadSessionEntryReadOnly(scope)).toThrow("openclaw doctor --fix");
+        expect(() => loadSessionEntryReadOnly(scope)).toThrow("lanfu doctor --fix");
       } finally {
         if (!reopen) {
           database.db.exec("ROLLBACK");
@@ -189,7 +189,7 @@ it("does not retain native admission from a rolled-back repair of an unrelated r
         throw new Error("abandoned repair");
       }, scope),
     ).toThrow("abandoned repair");
-    expect(() => loadSessionEntry(scope)).toThrow("openclaw doctor --fix");
+    expect(() => loadSessionEntry(scope)).toThrow("lanfu doctor --fix");
   });
 });
 
@@ -215,7 +215,7 @@ it.each(["serialized identity", "native text conversion"])(
         runOpenClawAgentWriteTransaction((database) => {
           writeSessionEntry(database, scope.sessionKey, divergent);
         }, scope),
-      ).toThrow("openclaw doctor --fix");
+      ).toThrow("lanfu doctor --fix");
       expect(loadSessionEntry(scope)).toMatchObject({ sessionId: "serialization", updatedAt: 1 });
       expect(hasPendingCanonicalSessionValidation(openOpenClawAgentDatabase(scope))).toBe(false);
     });

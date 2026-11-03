@@ -727,7 +727,7 @@ describe("diagnostics command", () => {
     );
     expect(result?.reply?.text).not.toContain("sent the diagnostics");
     expect(result?.reply?.text).not.toContain("/private/diagnostics.zip");
-    expect(result?.reply?.text).not.toContain("openclaw gateway");
+    expect(result?.reply?.text).not.toContain("lanfu gateway");
     expect(privateReplies).toEqual([
       {
         targets: [{ channel: "telegram", to: "owner-dm" }],

@@ -101,7 +101,7 @@ describe("runDoctorLintCli config snapshot", () => {
         source: "/fixture/plugin",
         errorCode: "EACCES",
         message: "Configured plugin path could not be inspected.",
-        fixHint: "Restore access to /fixture/plugin, then run `openclaw doctor --fix`.",
+        fixHint: "Restore access to /fixture/plugin, then run `lanfu doctor --fix`.",
       });
       mocks.readConfigFileSnapshot.mockResolvedValue(snapshot);
 
@@ -125,7 +125,7 @@ describe("runDoctorLintCli config snapshot", () => {
               source: "/fixture/plugin",
               errorCode: "EACCES",
               message: "Configured plugin path could not be inspected.",
-              fixHint: "Restore access to /fixture/plugin, then run `openclaw doctor --fix`.",
+              fixHint: "Restore access to /fixture/plugin, then run `lanfu doctor --fix`.",
             },
           ],
         });

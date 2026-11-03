@@ -137,11 +137,11 @@ it.each([true, false])(
         if (complete) {
           expect(message).toContain("Canonical SQLite transcripts are complete");
           expect(message).toContain("legacy index entries are informational");
-          expect(message).not.toContain('Run "openclaw doctor --fix" to migrate');
+          expect(message).not.toContain('Run "lanfu doctor --fix" to migrate');
           expect(message).not.toContain("Inspect with");
         } else {
           expect(message).not.toContain("Canonical SQLite transcripts are complete");
-          expect(message).toContain('Run "openclaw doctor --fix" to migrate');
+          expect(message).toContain('Run "lanfu doctor --fix" to migrate');
         }
         expect(fs.readFileSync(transcriptPath)).toEqual(before);
         expect(fs.existsSync(storePath)).toBe(false);

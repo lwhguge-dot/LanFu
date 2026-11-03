@@ -201,11 +201,11 @@ describe("update progress", () => {
         .mockReturnValueOnce(present ? captured : undefined)
         .mockReturnValue(later);
       try {
-        const nextAction = "Update is not finished. Check progress: openclaw update status";
+        const nextAction = "Update is not finished. Check progress: lanfu update status";
         await printResult(result, { run: context }, { nextAction });
         const lines = log.mock.calls.flat();
         expect(lines.at(-1)).toBe(nextAction);
-        expect(lines.join("\n").match(/openclaw update status/g)).toHaveLength(1);
+        expect(lines.join("\n").match(/lanfu update status/g)).toHaveLength(1);
         expect(
           lines.filter((line) => typeof line === "string" && line.startsWith("Phase:")),
         ).toEqual(present ? ["Phase: requested", "Phase: verifying"] : ["Phase: requested"]);

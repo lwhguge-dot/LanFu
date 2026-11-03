@@ -57,7 +57,7 @@ describe("managed handoff boot identity", () => {
     spawnSyncMock.mockReturnValue(result);
     await withMockedPlatform("freebsd", async () => {
       expect(() => store.bootIdentity()).toThrow(
-        "OS boot identity unavailable; run openclaw triage manually",
+        "OS boot identity unavailable; run lanfu triage manually",
       );
     });
     expect(spawnSyncMock).toHaveBeenCalledTimes(1);

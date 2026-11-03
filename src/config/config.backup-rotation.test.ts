@@ -61,7 +61,7 @@ async function withConfigExecutor(
 }
 
 describe("config backup rotation", () => {
-  it("openclaw config set keeps five recovery points and preserves manual and pre-update backups", async () => {
+  it("lanfu config set keeps five recovery points and preserves manual and pre-update backups", async () => {
     const original = '{"gateway":{"mode":"local","port":19000}}\n';
     await withConfigFileHarness(
       "openclaw-config-backup-ring-",
@@ -103,7 +103,7 @@ describe("config backup rotation", () => {
   });
 
   it.each(["root", "include"])(
-    "openclaw config set preserves original %s bytes in private recovery backups",
+    "lanfu config set preserves original %s bytes in private recovery backups",
     async (location) => {
       const includeRaw = '{"level":"info"}\n';
       const rootRaw =
@@ -138,7 +138,7 @@ describe("config backup rotation", () => {
   );
 
   it.skipIf(IS_WINDOWS).each(["symlink", "hardlink"])(
-    "openclaw config set leaves an external file unchanged through an include backup %s",
+    "lanfu config set leaves an external file unchanged through an include backup %s",
     async (linkKind) => {
       const rootRaw = '{"gateway":{"mode":"local"},"logging":{"$include":"logging.json"}}\n';
       await withConfigFileHarness(

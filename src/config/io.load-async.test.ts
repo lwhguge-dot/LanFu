@@ -102,7 +102,7 @@ it.each(["sync", "async"] as const)(
     const pending = {
       pluginId: "fixture-plugin",
       reason: "Missing plugin",
-      command: "openclaw doctor --fix",
+      command: "lanfu doctor --fix",
     };
     recordDeferredPluginMigrations({ env: options.env, pending: [pending] });
     await closeOpenClawStateDatabaseAsync();
@@ -169,7 +169,7 @@ it.each(["load", "snapshot"] as const)(
     const pending = {
       pluginId: "fixture-plugin",
       reason: "The configured plugin is not installed.",
-      command: "openclaw plugins install @example/fixture-plugin",
+      command: "lanfu plugins install @example/fixture-plugin",
       configPaths: [["session", "store"]],
       validationExcludedPaths: [["session", "store"]],
     };

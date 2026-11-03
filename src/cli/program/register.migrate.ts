@@ -117,7 +117,7 @@ function readSharedMigrationOptions(opts: Record<string, unknown>, command: Comm
 function rejectUnsupportedApplyDryRun(command: Command): void {
   if (inheritOptionFromParent<boolean>(command, "dryRun") === true) {
     throw new Error(
-      "--dry-run is not supported for `openclaw migrate apply`. Run `openclaw migrate plan <provider>` or `openclaw migrate <provider> --dry-run` instead.",
+      "--dry-run is not supported for `lanfu migrate apply`. Run `lanfu migrate plan <provider>` or `lanfu migrate <provider> --dry-run` instead.",
     );
   }
 }
@@ -160,15 +160,15 @@ export function registerMigrateCommand(program: Command) {
       "after",
       () =>
         `\n${theme.heading("Examples:")}\n${formatHelpExamples([
-          ["openclaw migrate list", "Show available migration providers."],
-          ["openclaw migrate hermes", "Preview Hermes migration, then prompt before applying."],
-          ["openclaw migrate hermes --dry-run", "Preview Hermes migration only."],
+          ["lanfu migrate list", "Show available migration providers."],
+          ["lanfu migrate hermes", "Preview Hermes migration, then prompt before applying."],
+          ["lanfu migrate hermes --dry-run", "Preview Hermes migration only."],
           [
-            "openclaw migrate apply hermes --yes",
+            "lanfu migrate apply hermes --yes",
             "Apply Hermes migration non-interactively after writing a verified backup.",
           ],
           [
-            "openclaw migrate hermes --no-auth-credentials",
+            "lanfu migrate hermes --no-auth-credentials",
             "Preview and apply Hermes migration while skipping auth credential import.",
           ],
         ])}`,

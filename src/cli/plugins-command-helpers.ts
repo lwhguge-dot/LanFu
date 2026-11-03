@@ -61,7 +61,7 @@ export function formatPluginInstallWithHookFallbackError(
 ): string {
   const formattedPluginError = formatPluginInstallAttemptError(pluginError);
   if (/plugin already exists: .+ \(delete it first\)/.test(pluginError)) {
-    return `${formattedPluginError}\nUse \`${formatCliCommand("openclaw plugins update <id-or-npm-spec>")}\` to upgrade the tracked plugin, or rerun install with \`--force\` to replace it.`;
+    return `${formattedPluginError}\nUse \`${formatCliCommand("lanfu plugins update <id-or-npm-spec>")}\` to upgrade the tracked plugin, or rerun install with \`--force\` to replace it.`;
   }
   if (
     pluginError.startsWith("Invalid extensions directory:") ||

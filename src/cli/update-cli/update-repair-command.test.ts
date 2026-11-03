@@ -296,7 +296,7 @@ describe("update repair ledger recovery", () => {
         "age 3600s",
         `last activity ${new Date(current.updatedAtMs).toISOString()}`,
         "stop that driver",
-        "openclaw update repair",
+        "lanfu update repair",
       ]) {
         await expect(pending).rejects.toThrow(detail);
       }
@@ -370,7 +370,7 @@ describe("update repair ledger recovery", () => {
       expect(buildStatusUpdateRows(null)).toEqual([
         { Item: "Update run", Value: "ℹ️ LanFu abandoned update reconciled." },
       ]);
-      expect(renderUpdateRunReport(repaired).markdown).not.toContain("openclaw triage");
+      expect(renderUpdateRunReport(repaired).markdown).not.toContain("lanfu triage");
       expect(
         formatUpdateRestartStatusValue(
           { kind: "update", status: "error", ts: now, stats: { runId: run.runId } },
@@ -602,7 +602,7 @@ describe("update repair ledger recovery", () => {
     });
 
     await expect(updateRepairCommand({})).rejects.toThrow(
-      /openclaw update repair.*openclaw gateway stop/,
+      /lanfu update repair.*lanfu gateway stop/,
     );
 
     expect(getUpdateRun(old.runId)).toEqual(old);

@@ -163,7 +163,7 @@ export function registerLeaseServiceRestorationTests(params: {
         });
         const diagnostics = vi.mocked(defaultRuntime.error).mock.calls.flat().join("\n");
         expect(diagnostics).toContain("managed Gateway could not be restored");
-        expect(diagnostics).toContain("openclaw gateway restart");
+        expect(diagnostics).toContain("lanfu gateway restart");
         expect(getUpdateRun(recovery.runId)).toEqual(recovery);
       } else if (failDoctor) {
         expect(listUpdateRuns()[0]).toMatchObject({

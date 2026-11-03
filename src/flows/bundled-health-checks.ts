@@ -215,14 +215,14 @@ function registerCodexHealthChecks(
         return [];
       }
       return unavailable(
-        "The configured Codex plugin was not found. Install it with openclaw plugins install @openclaw/codex.",
+        "The configured Codex plugin was not found. Install it with lanfu plugins install @openclaw/codex.",
       );
     }
     // Doctor must inspect the selected runtime's artifact, including official external installs.
     // A bundled-first lookup can inspect a different version or bypass the selected owner's trust.
     if (owner.origin !== "bundled" && owner.trustedOfficialInstall !== true) {
       return unavailable(
-        "The selected Codex plugin is not a bundled or verified official installation. Run openclaw plugins inspect codex --runtime --json to inspect its source; install the official plugin with openclaw plugins install @openclaw/codex.",
+        "The selected Codex plugin is not a bundled or verified official installation. Run lanfu plugins inspect codex --runtime --json to inspect its source; install the official plugin with lanfu plugins install @openclaw/codex.",
       );
     }
     // Retained stable plugins can predate health APIs while an upgrade awaits capability consent.
@@ -237,12 +237,12 @@ function registerCodexHealthChecks(
         });
       } catch {
         return unavailable(
-          "The selected Codex plugin declares Doctor health checks but its health API could not be loaded. Run openclaw plugins inspect codex --runtime --json for details, or openclaw triage for repair help.",
+          "The selected Codex plugin declares Doctor health checks but its health API could not be loaded. Run lanfu plugins inspect codex --runtime --json for details, or lanfu triage for repair help.",
         );
       }
       if (typeof api.registerCodexManagedAppServerDoctorChecks !== "function") {
         return unavailable(
-          "The selected Codex plugin's Doctor health checks are incomplete. Run openclaw plugins inspect codex --runtime --json for details, or openclaw triage for repair help.",
+          "The selected Codex plugin's Doctor health checks are incomplete. Run lanfu plugins inspect codex --runtime --json for details, or lanfu triage for repair help.",
         );
       }
       api.registerCodexManagedAppServerDoctorChecks({

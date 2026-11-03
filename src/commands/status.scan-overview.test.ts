@@ -162,7 +162,7 @@ describe("collectStatusScanOverview", () => {
             },
             degradedSecretOwners: [],
             degradedPlugins: [],
-            startupMigrationWarning: "Retained legacy state; run openclaw doctor --fix.",
+            startupMigrationWarning: "Retained legacy state; run lanfu doctor --fix.",
             installationReplacementWarning: "Installation replaced; draining before handoff.",
             sqliteWal,
           }
@@ -197,7 +197,7 @@ describe("collectStatusScanOverview", () => {
     expect(channelTableCall?.[1]?.sourceConfig).toStrictEqual({ session: { raw: true } });
     expect(result.channelIssues).toEqual([{ channel: "quietchat", message: "boom" }]);
     expect(result.runtimeDegradation?.startupMigrationWarning).toBe(
-      "Retained legacy state; run openclaw doctor --fix.",
+      "Retained legacy state; run lanfu doctor --fix.",
     );
     expect(result.runtimeDegradation?.installationReplacementWarning).toBe(
       "Installation replaced; draining before handoff.",

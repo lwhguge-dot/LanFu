@@ -22,7 +22,7 @@ function createPrompter(confirmValue = false) {
 
 function createDeps(shell: "zsh" | "bash" | "fish" | "powershell" = "zsh") {
   const deps: NonNullable<Parameters<typeof setupWizardShellCompletion>[0]["deps"]> = {
-    resolveCliName: () => "openclaw",
+    resolveCliName: () => "lanfu",
     checkShellCompletionStatus: vi.fn(async (_binName: string) => ({
       shell,
       profileInstalled: false,

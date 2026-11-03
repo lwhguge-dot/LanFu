@@ -56,7 +56,7 @@ describe("WebSocket message handler load failures", () => {
 
     expect(socket.close).toHaveBeenCalledWith(
       1011,
-      "gateway install changed; run: openclaw gateway restart",
+      "gateway install changed; run: lanfu gateway restart",
     );
     expect(Buffer.byteLength(String(socket.close.mock.calls[0]?.[1]), "utf8")).toBeLessThanOrEqual(
       123,

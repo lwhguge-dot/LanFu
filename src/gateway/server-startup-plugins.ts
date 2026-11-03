@@ -111,13 +111,13 @@ export async function runGatewayStartupMaintenance(params: {
           (files) => {
             if (files.length > 0) {
               params.log.warn(
-                `Legacy pairing stores require repair: ${files.join(", ")}. Stop the Gateway and run openclaw doctor --fix.`,
+                `Legacy pairing stores require repair: ${files.join(", ")}. Stop the Gateway and run lanfu doctor --fix.`,
               );
             }
           },
           (error: unknown) => {
             params.log.warn(
-              `Legacy pairing store inspection failed: ${String(error)}. Stop the Gateway and run openclaw doctor --fix.`,
+              `Legacy pairing store inspection failed: ${String(error)}. Stop the Gateway and run lanfu doctor --fix.`,
             );
           },
         ),
@@ -284,7 +284,7 @@ async function warnConfiguredMemoryEmbeddingProviderSetup(params: {
         policy = resolveProviderPolicySurfaceForOwner(owner);
       } catch (error) {
         params.log.warn(
-          `Memory embedding provider "${provider.configuredId}" setup could not be checked (${String(error)}). Run "openclaw doctor" to retry.`,
+          `Memory embedding provider "${provider.configuredId}" setup could not be checked (${String(error)}). Run \"lanfu doctor\" to retry.`,
         );
         return [];
       }
@@ -307,7 +307,7 @@ async function warnConfiguredMemoryEmbeddingProviderSetup(params: {
           }
         } catch (error) {
           params.log.warn(
-            `Agent "${agentId}": memory embedding setup could not be checked (${String(error)}). Run "openclaw doctor" to retry.`,
+            `Agent "${agentId}": memory embedding setup could not be checked (${String(error)}). Run \"lanfu doctor\" to retry.`,
           );
         }
       });

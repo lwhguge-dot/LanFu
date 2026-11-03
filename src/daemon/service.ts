@@ -470,14 +470,14 @@ function createUnsupportedGatewayServiceError(kind: ServiceKind): Error {
     if (kind === "node") {
       return new Error(
         "Node service management is not supported by this CLI on FreeBSD. " +
-          "Run `openclaw node run` for a foreground node host connected to your Gateway.",
+          "Run `lanfu node run` for a foreground node host connected to your Gateway.",
       );
     }
     return new Error(
       "Gateway service management is not supported by this CLI on FreeBSD. " +
         'For a pkg install, set openclaw_user to your onboarding account and openclaw_enable="YES" in /etc/rc.conf, ' +
         "then use `service openclaw start` (or stop/restart/status) as root. " +
-        "For a foreground Gateway, run `openclaw gateway run` as your onboarding account.",
+        "For a foreground Gateway, run `lanfu gateway run` as your onboarding account.",
     );
   }
   return new Error(`Gateway service install not supported on ${process.platform}`);

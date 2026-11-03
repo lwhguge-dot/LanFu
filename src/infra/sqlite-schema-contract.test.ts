@@ -189,7 +189,7 @@ describe.each([false, true])("assertSqliteSchemaContains (statement cache: %s)",
       // Operators hit this throw as gateway startup failure text, so it must
       // name the repair owner instead of dead-ending on the drift detail.
       expect(() => assertSqliteSchemaContains(database, "test database", CANONICAL_SCHEMA)).toThrow(
-        /missing or drifted index idx_children_parent; run openclaw doctor --fix to repair it\./,
+        /missing or drifted index idx_children_parent; run lanfu doctor --fix to repair it\./,
       );
     } finally {
       database.close();
@@ -741,7 +741,7 @@ it("reports missing tables in canonical order across a large schema", () => {
     database.exec(schema);
     database.exec("DROP TABLE table_0001; DROP TABLE table_0501;");
     expect(() => assertSqliteSchemaTablesPresent(database, "large database", schema)).toThrow(
-      "SQLite schema is incomplete or noncanonical for large database: missing table table_0001; missing table table_0501; run openclaw doctor --fix to repair it.",
+      "SQLite schema is incomplete or noncanonical for large database: missing table table_0001; missing table table_0501; run lanfu doctor --fix to repair it.",
     );
     database.exec(
       "CREATE TABLE table_0001 (id INTEGER PRIMARY KEY); CREATE TABLE table_0501 (id INTEGER PRIMARY KEY);",
@@ -764,7 +764,7 @@ it("refuses table presence when the authorizer ignores the SELECT", () => {
       action === constants.SQLITE_SELECT ? constants.SQLITE_IGNORE : constants.SQLITE_OK,
     );
     expect(() => assertSqliteSchemaTablesPresent(database, "restricted database", schema)).toThrow(
-      "missing table retained; run openclaw doctor --fix to repair it.",
+      "missing table retained; run lanfu doctor --fix to repair it.",
     );
   } finally {
     database.setAuthorizer(null);

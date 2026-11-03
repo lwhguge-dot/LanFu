@@ -610,7 +610,7 @@ describe("openclaw tool", () => {
       target: "guided",
     });
     expect(toolText(guidedSetup)).toContain("cannot run inside LanFu");
-    expect(toolText(guidedSetup)).toContain("openclaw onboard");
+    expect(toolText(guidedSetup)).toContain("lanfu onboard");
     expect(directiveRef.current).toEqual({ kind: "open-setup", target: "guided" });
 
     const gatewaySetup = await tool.execute("t9", {
@@ -710,7 +710,7 @@ describe("openclaw tool", () => {
     expect(
       resolveSystemAgentDirectiveTransition({
         args: { action: "open_setup", target: "classic" },
-        resultText: "directive: classic setup cannot run inside LanFu; run openclaw onboard.",
+        resultText: "directive: classic setup cannot run inside LanFu; run lanfu onboard.",
       }),
     ).toEqual({ kind: "open-setup", target: "classic" });
     expect(

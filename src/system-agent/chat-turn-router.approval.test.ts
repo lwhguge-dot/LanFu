@@ -356,7 +356,7 @@ describe("SystemAgentChatEngine approval", () => {
     expect(reply.text).toContain("Settings → Models → Connect provider");
     expect(reply.text).toContain("Connecting another provider does not select it");
     expect(reply.text).toContain("never in chat");
-    expect(reply.text).not.toContain("openclaw onboard");
+    expect(reply.text).not.toContain("lanfu onboard");
   });
 
   it("drops the proposal when the user declines", async () => {

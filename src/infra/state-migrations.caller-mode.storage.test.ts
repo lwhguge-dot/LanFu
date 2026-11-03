@@ -117,7 +117,7 @@ describe("legacy state migration caller storage", () => {
         expect(result.changes).not.toContain(
           "Migrated legacy main session claim agent:worker:chat.",
         );
-        expect(result.notices).toContainEqual(expect.stringContaining("openclaw doctor --fix"));
+        expect(result.notices).toContainEqual(expect.stringContaining("lanfu doctor --fix"));
         expect(loadExactSessionEntryReadOnly(source)?.entry).toMatchObject(entry);
         expect(loadExactSessionEntryReadOnly(destination)).toBeUndefined();
       },

@@ -234,7 +234,7 @@ export async function createCronToolsAllowPreflightDiagnostics(params: {
     ) {
       return createCronRunDiagnosticsFromError(
         "cron-preflight",
-        `This automation's inherited tool cap predates final configured-MCP capture, so it continues with its stored finite tools and may omit MCP capabilities. Reauthorize in place with an exact explicit cap: openclaw automations edit ${params.jobId} --tools <tool,...>.`,
+        `This automation's inherited tool cap predates final configured-MCP capture, so it continues with its stored finite tools and may omit MCP capabilities. Reauthorize in place with an exact explicit cap: lanfu automations edit ${params.jobId} --tools <tool,...>.`,
         { severity: "warn" },
       );
     }

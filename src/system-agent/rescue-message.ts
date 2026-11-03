@@ -242,19 +242,19 @@ function formatUnsupportedRemoteOperation(operation: SystemAgentOperation): stri
   if (operation.kind === "channel-setup") {
     return [
       "LanFu rescue cannot host the interactive channel setup from a message channel.",
-      "Run `openclaw setup` locally and say `connect " + operation.channel + "` instead.",
+      "Run `lanfu setup` locally and say `connect " + operation.channel + "` instead.",
     ].join(" ");
   }
   if (operation.kind === "doctor-fix") {
     return [
       "LanFu rescue cannot run doctor repairs from a message channel because they can change the inference route powering this session.",
-      "On the machine running LanFu, with LanFu stopped, run `openclaw doctor --fix`.",
+      "On the machine running LanFu, with LanFu stopped, run `lanfu doctor --fix`.",
     ].join(" ");
   }
   if (operation.kind === "plugin-install") {
     return [
       "LanFu rescue cannot install plugins from a message channel by default because plugin install downloads executable code.",
-      "Use local `openclaw setup` or `openclaw plugins install` instead.",
+      "Use local `lanfu setup` or `lanfu plugins install` instead.",
     ].join(" ");
   }
   return null;

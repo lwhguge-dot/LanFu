@@ -129,7 +129,7 @@ export async function captureTargetDatabaseSchemaContext(
           "-",
           { normalizeRoot: true },
         ),
-        "Run `openclaw doctor --fix` to repair retired or unrecognized configuration fields, then correct any remaining errors before retrying.",
+        "Run `lanfu doctor --fix` to repair retired or unrecognized configuration fields, then correct any remaining errors before retrying.",
       ].join("\n"),
     );
   }

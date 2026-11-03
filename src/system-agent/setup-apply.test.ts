@@ -922,12 +922,12 @@ describe("applySystemAgentSetup transaction boundaries", () => {
     {
       reason: "explicit",
       installDaemon: false,
-      line: "Gateway: service installation skipped. Run `openclaw gateway run` to start it in the foreground.",
+      line: "Gateway: service installation skipped. Run `lanfu gateway run` to start it in the foreground.",
     },
     {
       reason: "systemd-unavailable",
       installDaemon: false,
-      line: "Gateway: service installation skipped. Run `openclaw gateway run` to start it in the foreground.",
+      line: "Gateway: service installation skipped. Run `lanfu gateway run` to start it in the foreground.",
     },
     {
       reason: "explicit",

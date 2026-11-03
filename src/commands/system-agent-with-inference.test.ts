@@ -282,9 +282,7 @@ describe("runSystemAgentWithInference", () => {
         },
       );
 
-      expect(currentRuntime.error).toHaveBeenCalledWith(
-        expect.stringContaining("openclaw onboard"),
-      );
+      expect(currentRuntime.error).toHaveBeenCalledWith(expect.stringContaining("lanfu onboard"));
       expect(currentRuntime.exit).toHaveBeenCalledWith(1);
       expect(exitMocks.requestExitAfterOneShotOutput).toHaveBeenCalledWith(currentRuntime, 1);
       expect(runGuidedOnboarding).not.toHaveBeenCalled();
@@ -309,7 +307,7 @@ describe("runSystemAgentWithInference", () => {
 
     expect(currentRuntime.log).toHaveBeenCalledWith(expect.stringContaining('"status": "auth"'));
     expect(currentRuntime.log).toHaveBeenCalledWith(
-      expect.stringContaining('"guidance": "Run `openclaw onboard`'),
+      expect.stringContaining('"guidance": "Run `lanfu onboard`'),
     );
     expect(currentRuntime.error).not.toHaveBeenCalled();
     expect(currentRuntime.exit).toHaveBeenCalledWith(1);

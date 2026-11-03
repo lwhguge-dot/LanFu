@@ -514,7 +514,7 @@ describe("openclaw.setup provider resolution", () => {
       done: true,
       status: "error",
       error:
-        'Provider setup resolution failed for "ollama". Run `openclaw doctor --fix`, restart the Gateway, and try again.',
+        'Provider setup resolution failed for "ollama". Run `lanfu doctor --fix`, restart the Gateway, and try again.',
     });
     await whenAdmittedWizardSessionSettled(session);
     expect(authConfigMocks.writeProviderAuthConfig).not.toHaveBeenCalled();

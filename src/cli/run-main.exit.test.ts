@@ -3716,7 +3716,7 @@ describe("runCli exit behavior", () => {
     });
 
     await expectNonInteractiveBareCliError(
-      "Onboarding needs an interactive TTY. Use `openclaw onboard --non-interactive --accept-risk ...` for automation.",
+      "Onboarding needs an interactive TTY. Use `lanfu onboard --non-interactive --accept-risk ...` for automation.",
       () => {
         expect(setupWizardCommandMock).not.toHaveBeenCalled();
         expect(tryRouteCliMock).not.toHaveBeenCalled();
@@ -4441,7 +4441,7 @@ describe("runCli exit behavior", () => {
 
       expect(process.exitCode).toBe(1);
       expect(errorSpy).toHaveBeenCalledWith(
-        "OpenClaw TUI needs an interactive TTY. Use `openclaw agent --local ...` for automation.",
+        "LanFu TUI needs an interactive TTY. Use `lanfu agent --local ...` for automation.",
       );
       expect(runTuiMock).not.toHaveBeenCalled();
     } finally {
@@ -4481,7 +4481,7 @@ describe("runCli exit behavior", () => {
       sourceConfig: { gateway: { mode: "local" } },
     });
     await expectNonInteractiveBareCliError(
-      "OpenClaw config is invalid. Run `openclaw doctor --fix` before onboarding.",
+      "LanFu config is invalid. Run `lanfu doctor --fix` before onboarding.",
       () => expect(setupWizardCommandMock).not.toHaveBeenCalled(),
     );
   });

@@ -72,7 +72,7 @@ it("points failed setup to a repair that works without a terminal", async () => 
         );
         expect(prompter.select).not.toHaveBeenCalled();
         expect(prompter.outro).toHaveBeenCalledWith(
-          "Config invalid. Run `openclaw doctor --fix` to apply supported repairs, then re-run setup.",
+          "Config invalid. Run `lanfu doctor --fix` to apply supported repairs, then re-run setup.",
         );
         expect(await fs.readFile(configPath, "utf8")).toBe(original);
 
@@ -105,11 +105,9 @@ it("points failed setup to a repair that works without a terminal", async () => 
           configStatus: "unchanged",
         });
 
-        expect(baseline.error).toHaveBeenCalledWith(
-          expect.stringContaining("openclaw doctor --fix"),
-        );
+        expect(baseline.error).toHaveBeenCalledWith(expect.stringContaining("lanfu doctor --fix"));
         expect(nonInteractive.error).toHaveBeenCalledWith(
-          "Config invalid. Run `openclaw doctor --fix` to apply supported repairs, then re-run setup.",
+          "Config invalid. Run `lanfu doctor --fix` to apply supported repairs, then re-run setup.",
         );
       });
     });

@@ -22,7 +22,7 @@ import { resolveGlobalSingleton } from "../shared/global-singleton.js";
 import { resolveRuntimeServiceBuildId, VERSION } from "../version.js";
 
 export const GATEWAY_STALE_INSTALL_CLOSE_REASON =
-  "gateway install changed; run: openclaw gateway restart";
+  "gateway install changed; run: lanfu gateway restart";
 
 // The install root is process-stable; capture it before an upgrade can replace
 // package metadata, then consult it only after a dynamic import has failed.
@@ -140,7 +140,7 @@ export function classifyGatewayStaleInstall(error: unknown): GatewayStaleInstall
   if (observer) {
     recordReplacement(observer);
   }
-  const restartCommand = formatCliCommand("openclaw gateway restart");
+  const restartCommand = formatCliCommand("lanfu gateway restart");
   return {
     error: errorShape(
       ErrorCodes.UNAVAILABLE,

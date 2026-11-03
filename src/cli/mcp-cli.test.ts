@@ -413,8 +413,8 @@ describe("mcp cli", () => {
 
       const output = mockLog.mock.calls.map((call) => String(call[0])).join("\n");
       expect(output).toContain("No enabled MCP servers in");
-      expect(output).toContain("openclaw mcp add <name> --command <command>");
-      expect(output).toContain("openclaw mcp configure <name> --enable");
+      expect(output).toContain("lanfu mcp add <name> --command <command>");
+      expect(output).toContain("lanfu mcp configure <name> --enable");
       expect(output).not.toMatch(/^MCP probe \(.*\):$/m);
 
       mockLog.mockClear();
@@ -930,7 +930,7 @@ describe("mcp cli", () => {
 
       await expect(runMcpCommand(["mcp", "probe", "docs"])).rejects.toThrow("__exit__:1");
       expect(lastErrorLine()).toBe(
-        `MCP server "docs" is disabled in ${configPath}. Run openclaw mcp configure docs --enable before probing it.`,
+        `MCP server "docs" is disabled in ${configPath}. Run lanfu mcp configure docs --enable before probing it.`,
       );
     });
   });
@@ -1068,7 +1068,7 @@ describe("mcp cli", () => {
 
       await expect(runMcpCommand(["mcp", "unset", "missing"])).rejects.toThrow("__exit__:1");
       expect(lastErrorLine()).toBe(
-        `No MCP server named "missing" in ${configPath}. Run openclaw mcp list to see configured servers.`,
+        `No MCP server named "missing" in ${configPath}. Run lanfu mcp list to see configured servers.`,
       );
     });
   });
@@ -1109,7 +1109,7 @@ describe("mcp cli", () => {
       await expect(runMcpCommand(["mcp", "serve"])).rejects.toThrow("__exit__:1");
 
       expect(lastErrorLine()).toBe(
-        "MCP server failed to start: gateway unavailable. Run openclaw gateway status --deep --require-rpc to inspect Gateway health.",
+        "MCP server failed to start: gateway unavailable. Run lanfu gateway status --deep --require-rpc to inspect Gateway health.",
       );
     });
   });

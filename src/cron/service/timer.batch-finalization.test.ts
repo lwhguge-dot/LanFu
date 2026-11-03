@@ -436,7 +436,7 @@ describe("cron batch outcome finalization", () => {
     expect(order).toEqual(["notify", "heartbeat"]);
     expect(enqueueSystemEvent).toHaveBeenCalledOnce();
     expect(enqueueSystemEvent).toHaveBeenCalledWith(
-      expect.stringContaining(`openclaw automations enable ${job.id}`),
+      expect.stringContaining(`lanfu automations enable ${job.id}`),
       {
         agentId: "main",
         sessionKey: undefined,

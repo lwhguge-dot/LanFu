@@ -57,7 +57,7 @@ export function readRegisteredAgentDatabaseRows(
   );
   if (!artifactPreserving && schemaMigrations.length > 0) {
     throw new Error(
-      `LanFu state database ${pathname} has a legacy agent database registry schema; run openclaw doctor --fix to migrate it.`,
+      `LanFu state database ${pathname} has a legacy agent database registry schema; run lanfu doctor --fix to migrate it.`,
     );
   }
   return readOpenClawAgentDatabaseRegistryRows(database, pathname).map((row) => ({

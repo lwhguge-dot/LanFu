@@ -621,7 +621,7 @@ describe("update run ledger", () => {
       {
         trigger: "cli",
         origin: {
-          nextAction: "Run openclaw update cleanup --dry-run for state /home/operator/.openclaw.",
+          nextAction: "Run lanfu update cleanup --dry-run for state /home/operator/.openclaw.",
         },
       },
       options,

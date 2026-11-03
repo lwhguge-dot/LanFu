@@ -79,7 +79,7 @@ export function registerConfigSetModelReferenceTests(fixture: () => ModelReferen
       refsChecked: 1,
       refsTotal: 1,
       errors: [
-        'Cannot set model reference "missing/nope" at agents.defaults.model.primary: Unknown model: missing/nope. Run openclaw models list to list available models.',
+        'Cannot set model reference "missing/nope" at agents.defaults.model.primary: Unknown model: missing/nope. Run lanfu models list to list available models.',
       ],
     });
 
@@ -89,7 +89,7 @@ export function registerConfigSetModelReferenceTests(fixture: () => ModelReferen
 
     expect(mockWriteConfigFile).not.toHaveBeenCalled();
     expectErrorIncludes('Cannot set model reference "missing/nope"');
-    expectErrorIncludes("openclaw models list");
+    expectErrorIncludes("lanfu models list");
   });
 
   it("preserves an authored env placeholder after model validation", async () => {
@@ -150,7 +150,7 @@ export function registerConfigUnsetModelReferenceTest(fixture: () => ModelRefere
       refsChecked: 1,
       refsTotal: 1,
       errors: [
-        'Cannot set model reference "backup" at agents.defaults.model.fallbacks.0: Unknown model: openai/backup. Run openclaw models list to list available models.',
+        'Cannot set model reference "backup" at agents.defaults.model.fallbacks.0: Unknown model: openai/backup. Run lanfu models list to list available models.',
       ],
     });
 

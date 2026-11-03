@@ -144,9 +144,9 @@ export async function recoverLaunchAgentAndRecheckGatewayHealth(params: {
 }
 
 function formatPostUpdateGatewayRecoveryLine(platform: NodeJS.Platform): string {
-  const restartCommand = formatCliCommand("openclaw gateway restart");
-  const installCommand = formatCliCommand("openclaw gateway install --force");
-  const statusCommand = formatCliCommand("openclaw gateway status --deep");
+  const restartCommand = formatCliCommand("lanfu gateway restart");
+  const installCommand = formatCliCommand("lanfu gateway install --force");
+  const statusCommand = formatCliCommand("lanfu gateway status --deep");
   if (platform === "darwin") {
     return `Recovery: run \`${restartCommand}\`; if the LaunchAgent is installed but not loaded, run \`${installCommand}\` from the logged-in macOS user session, then rerun \`${statusCommand}\`.`;
   }
@@ -167,7 +167,7 @@ export function formatPostUpdateGatewayRecoveryInstructions(
   const beforeVersion = normalizeOptionalString(result.before?.version);
   if (isPackageManagerUpdateMode(result.mode) && beforeVersion) {
     lines.push(
-      `Rollback: reinstall LanFu ${beforeVersion} with the same package manager, then rerun \`${formatCliCommand("openclaw gateway install --force")}\`.`,
+      `Rollback: reinstall LanFu ${beforeVersion} with the same package manager, then rerun \`${formatCliCommand("lanfu gateway install --force")}\`.`,
     );
   }
   return lines;
@@ -207,7 +207,7 @@ export async function maybeRestartServiceAfterFailedMutableUpdate(params: {
       : undefined;
   if (!original && !packageRecovery) {
     defaultRuntime.error(
-      "Managed gateway remains stopped: update safety is unverified. Run `openclaw doctor` and inspect the update failure before restarting.",
+      "Managed gateway remains stopped: update safety is unverified. Run `lanfu doctor` and inspect the update failure before restarting.",
     );
     return "failed";
   }
@@ -379,7 +379,7 @@ export async function maybeRestartServiceAfterFailedMutableUpdate(params: {
       throw err;
     }
     defaultRuntime.error(
-      `Failed to restart managed gateway service after failed update: ${String(err)}. Run \`openclaw gateway status --deep\` before restarting it manually.`,
+      `Failed to restart managed gateway service after failed update: ${String(err)}. Run \`lanfu gateway status --deep\` before restarting it manually.`,
     );
     return "failed";
   }
@@ -436,7 +436,7 @@ export async function compensateOriginalManagedService(
         ...result.steps,
         {
           name: "original-managed-service-compensation",
-          command: "openclaw gateway restart --preserve-definition",
+          command: "lanfu gateway restart --preserve-definition",
           cwd: original.root,
           durationMs: 0,
           exitCode: service === "healthy" ? 0 : 1,

@@ -331,7 +331,7 @@ export const formatCronLookupMiss = (jobId: string) =>
   formatLookupMiss({
     noun: "Automation",
     value: sanitizeTerminalText(jobId),
-    listCommand: "openclaw cron list",
+    listCommand: "lanfu cron list",
     valueLabel: "automation id",
   });
 

@@ -220,7 +220,7 @@ describe("gateway owner profiles", () => {
       expect(() => ensureGatewayOwnerProfile("Host Renamed", options)).toThrow(
         expect.objectContaining({
           code: "repair-required",
-          message: expect.stringContaining("openclaw doctor --fix"),
+          message: expect.stringContaining("lanfu doctor --fix"),
         }),
       );
       expect(profileState(options)).toEqual(before);

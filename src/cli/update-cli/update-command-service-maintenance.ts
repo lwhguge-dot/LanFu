@@ -560,7 +560,7 @@ async function stopManagedServiceBeforeMutableUpdate(
         if (hasCommandProcessCleanupError(error) || findServiceOwnershipRefusal(error)) {
           throw error;
         }
-        const message = `Gateway restoration identity could not be inspected; the managed service was not stopped. ${error instanceof ServiceInspectionError ? error.message : "Run openclaw gateway status --deep to inspect the native service manager."}`;
+        const message = `Gateway restoration identity could not be inspected; the managed service was not stopped. ${error instanceof ServiceInspectionError ? error.message : "Run lanfu gateway status --deep to inspect the native service manager."}`;
         return {
           ...inspected,
           serviceMutationAllowed: false,

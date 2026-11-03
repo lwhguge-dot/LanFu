@@ -412,7 +412,7 @@ export function registerOnboardCommand(program: Command): void {
             [
               "Non-interactive setup requires explicit risk acknowledgement.",
               "Read: https://docs.openclaw.ai/security",
-              `Re-run with: ${formatCliCommand("openclaw onboard --modern --non-interactive --accept-risk ...")}`,
+              `Re-run with: ${formatCliCommand("lanfu onboard --modern --non-interactive --accept-risk ...")}`,
             ].join("\n"),
           );
           return;

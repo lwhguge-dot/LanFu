@@ -52,7 +52,7 @@ describe("config IO with deferred plugin migrations", () => {
       const pending = {
         pluginId: "sample",
         reason: "The configured plugin is not installed.",
-        command: "openclaw plugins install @example/sample",
+        command: "lanfu plugins install @example/sample",
       };
       if (change === "stronger") {
         recordDeferredPluginMigrations({ env, pending: [pending] });
@@ -152,7 +152,7 @@ describe("config IO with deferred plugin migrations", () => {
     const pending = {
       pluginId: "sample",
       reason: "The configured plugin is not installed.",
-      command: "openclaw plugins install @example/sample",
+      command: "lanfu plugins install @example/sample",
     };
     recordDeferredPluginMigrations({ env, pending: [pending] });
     const stronger = { ...pending, configPaths: [["session", "store"]] };
@@ -232,7 +232,7 @@ describe("config IO with deferred plugin migrations", () => {
     const pending = {
       pluginId: "sample",
       reason: "The configured plugin is not installed.",
-      command: "openclaw plugins install @example/sample",
+      command: "lanfu plugins install @example/sample",
       ...resolveDeferredPluginMigrationConfigPaths({
         config: source,
         pluginId: "sample",
@@ -334,7 +334,7 @@ describe("config IO with deferred plugin migrations", () => {
           {
             pluginId: "sample",
             reason: "The configured plugin is not installed.",
-            command: "openclaw plugins install @example/sample",
+            command: "lanfu plugins install @example/sample",
             configPaths: [["legacySample"]],
             validationExcludedPaths: [["legacySample"]],
           },
@@ -358,7 +358,7 @@ describe("config IO with deferred plugin migrations", () => {
         {
           pluginId: "sample",
           reason: "The configured plugin is not installed.",
-          command: "openclaw plugins install @example/sample",
+          command: "lanfu plugins install @example/sample",
           configPaths: [["legacySample"]],
           validationExcludedPaths: [["legacySample"]],
         },

@@ -92,7 +92,7 @@ describe("buildStatusCommandReportData", () => {
     expect(
       stripAnsi(report.overviewRows.find(({ Item }) => Item === "Last heartbeat")?.Value ?? ""),
     ).toBe("not checked (gateway still starting; phase plugins)");
-    expect(report.footerLines.at(-1)).toBe("  Retry after startup: openclaw status --deep");
+    expect(report.footerLines.at(-1)).toBe("  Retry after startup: lanfu status --deep");
     expect(report.footerLines.join("\n")).not.toContain("Fix reachability first");
   });
 
@@ -132,7 +132,7 @@ describe("buildStatusCommandReportData", () => {
       Item: "OS",
       Value: "macOS · node " + process.versions.node,
     });
-    expect(result.taskMaintenanceHint).toBe("Task maintenance: openclaw tasks maintenance --apply");
+    expect(result.taskMaintenanceHint).toBe("Task maintenance: lanfu tasks maintenance --apply");
     expect(result.pluginCompatibilityLines.map(stripAnsi)).toEqual(["  WARN a legacy"]);
     const pairingTitle = expectDefined(result.pairingRecoveryLines[0], "pairing recovery title");
     expect(stripAnsi(pairingTitle)).toBe("Gateway pairing approval required.");
@@ -145,7 +145,7 @@ describe("buildStatusCommandReportData", () => {
       Status: "reachable",
       Detail: "42ms",
     });
-    expect(result.footerLines.at(-1)).toBe("  Need to test channels? openclaw status --deep");
+    expect(result.footerLines.at(-1)).toBe("  Need to test channels? lanfu status --deep");
   });
 
   it("shows skipped audit text when fast status omits the security audit", async () => {
@@ -156,8 +156,8 @@ describe("buildStatusCommandReportData", () => {
     );
 
     expect(result.securityAuditLines.map(stripAnsi)).toEqual([
-      "Skipped in fast status. Full report: openclaw security audit",
-      "Deep probe: openclaw status --deep",
+      "Skipped in fast status. Full report: lanfu security audit",
+      "Deep probe: lanfu status --deep",
     ]);
   });
 
@@ -197,7 +197,7 @@ describe("buildStatusCommandReportData", () => {
       expect(row?.Detail).toContain("frames 100/4000 checkpointed");
       expect(row?.Detail).toContain("last complete 2026-09-13T11:00:00.000Z");
       expect(row?.Detail).toContain("observed 2026-09-13T12:00:00.000Z");
-      expect(row?.Detail).toContain("openclaw gateway restart");
+      expect(row?.Detail).toContain("lanfu gateway restart");
     },
   );
 

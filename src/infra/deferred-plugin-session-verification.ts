@@ -28,7 +28,7 @@ export function verifyDeferredSessionDatabase(params: {
   const stats = readOnlySqliteDbStats(target);
   if (!snapshot.ok || !stats.ok || stats.stats.integrityCheck !== "ok") {
     throw new Error(
-      `Cannot verify retained session history against ${params.sqlitePath}; inspect SQLite integrity with openclaw doctor --session-sqlite validate. Sources remain protected.`,
+      `Cannot verify retained session history against ${params.sqlitePath}; inspect SQLite integrity with lanfu doctor --session-sqlite validate. Sources remain protected.`,
     );
   }
   const resolved = new Map(params.sources.map((source) => [source.originalPath, source.path]));
@@ -45,7 +45,7 @@ export function verifyDeferredSessionDatabase(params: {
     : [];
   if (issues.some((issue) => issue.code !== "entry_invalid")) {
     throw new Error(
-      `Cannot verify retained session index ${target.storePath}; preserve the source and inspect it with openclaw doctor --session-sqlite validate.`,
+      `Cannot verify retained session index ${target.storePath}; preserve the source and inspect it with lanfu doctor --session-sqlite validate.`,
     );
   }
   for (const record of records) {

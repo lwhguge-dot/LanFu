@@ -436,7 +436,7 @@ describe.each(["admission", "explicit", "async"] as const)("%s read-only state r
         Promise.resolve().then(() =>
           readState(({ db }) => db.prepare("SELECT role FROM schema_meta").get(), options),
         ),
-      ).rejects.toThrow(/legacy-workshop-review-index.*openclaw doctor --fix/);
+      ).rejects.toThrow(/legacy-workshop-review-index.*lanfu doctor --fix/);
       expect(fs.readFileSync(options.path)).toEqual(before);
     });
   });

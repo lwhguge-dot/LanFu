@@ -82,9 +82,9 @@ describe("setupCommand", () => {
       expect(runtime.log.mock.calls.map((call) => String(call[0])).slice(-5)).toStrictEqual([
         "",
         "Setup complete: config, workspace, and session directories are ready.",
-        "Next guided path: openclaw onboard.",
-        "Next targeted changes: openclaw configure for models, channels, Gateway, plugins, skills, and health checks.",
-        "Add a chat channel later: openclaw channels add.",
+        "Next guided path: lanfu onboard.",
+        "Next targeted changes: lanfu configure for models, channels, Gateway, plugins, skills, and health checks.",
+        "Add a chat channel later: lanfu channels add.",
       ]);
     });
   });
@@ -437,9 +437,7 @@ describe("setupCommand", () => {
         await setupCommand(json ? { json: true } : undefined, runtime);
 
         expect(runtime.exit).toHaveBeenCalledWith(1);
-        expect(runtime.error).toHaveBeenCalledWith(
-          expect.stringContaining("openclaw doctor --fix"),
-        );
+        expect(runtime.error).toHaveBeenCalledWith(expect.stringContaining("lanfu doctor --fix"));
         if (json) {
           expect(runtime.log).toHaveBeenCalledOnce();
           expect(JSON.parse(String(runtime.log.mock.calls[0]?.[0]))).toEqual({
@@ -487,9 +485,7 @@ describe("setupCommand", () => {
         await setupCommand(undefined, runtime);
 
         expect(runtime.exit).toHaveBeenCalledWith(1);
-        expect(runtime.error).toHaveBeenCalledWith(
-          expect.stringContaining("openclaw doctor --fix"),
-        );
+        expect(runtime.error).toHaveBeenCalledWith(expect.stringContaining("lanfu doctor --fix"));
         expect(await fs.readFile(configPath, "utf-8")).toBe(raw);
         expect(effects.replaceConfigFile).not.toHaveBeenCalled();
         expect(effects.ensureAgentWorkspace).not.toHaveBeenCalled();

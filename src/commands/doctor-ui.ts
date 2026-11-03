@@ -118,8 +118,8 @@ export function uiProtocolFreshnessIssueToHealthFinding(
     path: issue.uiIndexPath,
     fixHint: issue.canBuild
       ? issue.kind === "missing-assets"
-        ? "Run `openclaw doctor --fix` to build Control UI assets."
-        : `Run \`openclaw doctor --fix --force\` to rebuild Control UI assets, or run \`${formatControlUiSourceCommand(issue.root, "build")}\`.`
+        ? "Run `lanfu doctor --fix` to build Control UI assets."
+        : `Run \`lanfu doctor --fix --force\` to rebuild Control UI assets, or run \`${formatControlUiSourceCommand(issue.root, "build")}\`.`
       : "Reinstall LanFu to restore bundled Control UI assets.",
   };
 }

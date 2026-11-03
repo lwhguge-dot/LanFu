@@ -21,7 +21,7 @@ export const formatStatusConfigDiagnosticEntries = (
 ): string[] => [
   `- Config file is invalid: ${sanitizeTerminalText(diagnostics.path)}`,
   ...formatConfigIssueLines(diagnostics.issues, "-", { normalizeRoot: true }),
-  `- Fix: ${formatCliCommand("openclaw doctor --fix")}`,
+  `- Fix: ${formatCliCommand("lanfu doctor --fix")}`,
 ];
 
 /** Formats session token usage and prompt-cache hit rate for the sessions table. */

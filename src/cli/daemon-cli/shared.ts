@@ -74,7 +74,7 @@ export function resolveDaemonInstallBlockMessage(
 export function formatDaemonServiceInstallCommand(env: NodeJS.ProcessEnv, port?: number): string {
   const servicePort = port ?? parsePort(env.OPENCLAW_GATEWAY_PORT);
   return formatCliCommand(
-    `openclaw gateway install --force${servicePort ? ` --port ${servicePort}` : ""}`,
+    `lanfu gateway install --force${servicePort ? ` --port ${servicePort}` : ""}`,
     env,
   );
 }
@@ -91,7 +91,7 @@ export function resolveDaemonServiceInstallGuidance(
     resolveDaemonInstallBlockMessage("gateway", env) ??
     (service?.stopped
       ? `Stopped service definitions are preserved; run \`${formatDaemonServiceInstallCommand(env, service.port)}\` from the active CLI. Installation may start the service.`
-      : `Run \`${formatCliCommand("openclaw doctor --fix", env)}\` or \`${formatDaemonServiceInstallCommand(env, service?.port)}\` from the active CLI.`)
+      : `Run \`${formatCliCommand("lanfu doctor --fix", env)}\` or \`${formatDaemonServiceInstallCommand(env, service?.port)}\` from the active CLI.`)
   );
 }
 
@@ -223,10 +223,10 @@ export function renderGatewayServiceStartHints(env: NodeJS.ProcessEnv = process.
   const profile = env.OPENCLAW_PROFILE;
   const installHint =
     resolveDaemonInstallBlockMessage("gateway", env) ??
-    formatCliCommand("openclaw gateway install", env);
+    formatCliCommand("lanfu gateway install", env);
   return buildPlatformServiceStartHints({
     installHint,
-    startCommand: formatCliCommand("openclaw gateway start", env),
+    startCommand: formatCliCommand("lanfu gateway start", env),
     launchAgentPlistPath: `~/Library/LaunchAgents/${resolveGatewayLaunchAgentLabel(profile)}.plist`,
     systemdServiceName: resolveGatewaySystemdServiceName(profile),
     windowsTaskName: resolveGatewayWindowsTaskName(profile),

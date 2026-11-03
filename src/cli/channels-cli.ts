@@ -174,15 +174,15 @@ export async function registerChannelsCli(
       "after",
       () =>
         `\n${theme.heading("Examples:")}\n${formatHelpExamples([
-          ["openclaw channels list", "List configured channels."],
-          ["openclaw channels list --all", "Show configured, bundled, and installable channels."],
-          ["openclaw channels add", "Open guided channel setup."],
-          ["openclaw channels status --probe", "Run channel status checks and probes."],
+          ["lanfu channels list", "List configured channels."],
+          ["lanfu channels list --all", "Show configured, bundled, and installable channels."],
+          ["lanfu channels add", "Open guided channel setup."],
+          ["lanfu channels status --probe", "Run channel status checks and probes."],
           [
-            "openclaw channels add --channel qqbot --token <token>",
+            "lanfu channels add --channel qqbot --token <token>",
             "Add or update a channel account non-interactively.",
           ],
-          ["openclaw channels login --channel feishu", "Link a Feishu/Lark bot."],
+          ["lanfu channels login --channel feishu", "Link a Feishu/Lark bot."],
         ])}\n`,
     );
 
@@ -200,7 +200,7 @@ export async function registerChannelsCli(
 
   channels
     .command("status")
-    .description("Show channel status (use openclaw status --deep for a full connection check)")
+    .description("Show channel status (use lanfu status --deep for a full connection check)")
     .option("--channel <name>", `Only show one channel (${formatCliChannelOptions(["all"])})`)
     .option("--probe", "Probe channel credentials", false)
     .option("--timeout <ms>", "Timeout in ms")
@@ -326,12 +326,12 @@ export async function registerChannelsCli(
       "after",
       () =>
         `\n${theme.heading("Examples:")}\n${formatHelpExamples([
-          ["openclaw channels add", "Open guided setup for available chat channels."],
+          ["lanfu channels add", "Open guided setup for available chat channels."],
           [
-            "openclaw channels add --channel qqbot --token <token>",
+            "lanfu channels add --channel qqbot --token <token>",
             "Add or update QQ bot non-interactively.",
           ],
-          ["openclaw channels list --all", "Find channel ids before using --channel."],
+          ["lanfu channels list --all", "Find channel ids before using --channel."],
         ])}\n`,
     )
     .option("--channel <name>", `Channel (${channelNames})`)

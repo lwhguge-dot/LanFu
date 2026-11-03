@@ -202,7 +202,7 @@ describe("Doctor source update delegation", () => {
         termination: "exit",
       });
       await expect(offer()).resolves.toEqual({ updated: false });
-      expect(mocks.note).toHaveBeenCalledWith(expect.stringContaining("openclaw update"), "Update");
+      expect(mocks.note).toHaveBeenCalledWith(expect.stringContaining("lanfu update"), "Update");
       expect(mocks.confirm).not.toHaveBeenCalled();
       expect(mocks.updateCommand).not.toHaveBeenCalled();
     },

@@ -434,7 +434,7 @@ export async function applyNonInteractivePluginProviderChoice(params: {
     }
     if (savedProfileId) {
       return reject(
-        `Replacement credential saved but inactive. Your connection is unchanged. Test and activate it with:\n${formatCliCommand(`openclaw models auth activate ${quoteCliArg(savedProfileId)} --agent ${quoteCliArg(params.target.agentId)}`)}`,
+        `Replacement credential saved but inactive. Your connection is unchanged. Test and activate it with:\n${formatCliCommand(`lanfu models auth activate ${quoteCliArg(savedProfileId)} --agent ${quoteCliArg(params.target.agentId)}`)}`,
       );
     }
   } else {

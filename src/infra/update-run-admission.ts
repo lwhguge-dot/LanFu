@@ -56,7 +56,7 @@ export function runUpdateRunAdmission<T>(
     } catch (error) {
       if (isOpenClawStateWriteContentionError(error)) {
         throw new UpdateRunAdmissionBusyError(
-          "Update history is busy. Admission was deferred; previous history is unchanged. Retry `openclaw update` after the current database writer finishes.",
+          "Update history is busy. Admission was deferred; previous history is unchanged. Retry `lanfu update` after the current database writer finishes.",
           { cause: error },
         );
       }

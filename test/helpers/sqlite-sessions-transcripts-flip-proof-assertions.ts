@@ -13,7 +13,7 @@ export function assertSqliteFlipProofCore(report: SqliteFlipProofReport): void {
   const refusalCheckpoint = report.checkpoints.find(
     (checkpoint) => checkpoint.label === "after-startup-refusal",
   );
-  expect(report.startupRefusal?.message).toContain('Run "openclaw doctor --fix"');
+  expect(report.startupRefusal?.message).toContain('Run "lanfu doctor --fix"');
   expect(
     report.startupRefusal?.preservedSourceFiles.map((filePath) => filePath.replaceAll("\\", "/")),
   ).toEqual(

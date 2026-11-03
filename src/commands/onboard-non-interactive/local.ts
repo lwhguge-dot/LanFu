@@ -158,7 +158,7 @@ export async function runNonInteractiveLocalSetup(params: {
     rejectOnboardingOption(
       opts,
       runtime,
-      "An agent roster already exists. Use `openclaw agents team create` to add a team.",
+      "An agent roster already exists. Use `lanfu agents team create` to add a team.",
     );
     return;
   }
@@ -174,7 +174,7 @@ export async function runNonInteractiveLocalSetup(params: {
         "Warning: existing agents keep their current workspace during non-interactive onboarding.",
         `Current workspace: ${workspaceConflict.currentWorkspaceDir}`,
         `Requested workspace: ${workspaceConflict.requestedWorkspaceDir}`,
-        `Run \`${formatCliCommand("openclaw onboard --classic")}\` to confirm moving the existing agent fleet.`,
+        `Run \`${formatCliCommand("lanfu onboard --classic")}\` to confirm moving the existing agent fleet.`,
       ].join("\n"),
     );
   }
@@ -341,9 +341,9 @@ export async function runNonInteractiveLocalSetup(params: {
           daemonInstall.skippedReason === "systemd-user-unavailable"
             ? [
                 "Fix: rerun without `--install-daemon` for one-shot setup, or enable a working user-systemd session and retry.",
-                "If your auth profile uses env-backed refs, keep those env vars set in the shell that runs `openclaw gateway run` or `openclaw agent --local`.",
+                "If your auth profile uses env-backed refs, keep those env vars set in the shell that runs `lanfu gateway run` or `lanfu agent --local`.",
               ]
-            : [`Run \`${formatCliCommand("openclaw gateway status --deep")}\` for more detail.`],
+            : [`Run \`${formatCliCommand("lanfu gateway status --deep")}\` for more detail.`],
       });
       runtime.exit(1);
       return;
@@ -405,13 +405,13 @@ export async function runNonInteractiveLocalSetup(params: {
           diagnostics,
           hints: !opts.installDaemon
             ? [
-                "Non-interactive local setup only waits for an already-running gateway unless you pass `--install-daemon` to `openclaw onboard`.",
-                `Fix: start \`${formatCliCommand("openclaw gateway run")}\`, re-run \`${formatCliCommand("openclaw onboard --install-daemon")}\`, or use \`${formatCliCommand("openclaw onboard --skip-health")}\`.`,
+                "Non-interactive local setup only waits for an already-running gateway unless you pass `--install-daemon` to `lanfu onboard`.",
+                `Fix: start \`${formatCliCommand("lanfu gateway run")}\`, re-run \`${formatCliCommand("lanfu onboard --install-daemon")}\`, or use \`${formatCliCommand("lanfu onboard --skip-health")}\`.`,
                 process.platform === "win32"
                   ? "Native Windows managed gateway install tries Scheduled Tasks first and falls back to a per-user Startup-folder login item when task creation is denied."
                   : undefined,
               ].filter((value): value is string => Boolean(value))
-            : [`Run \`${formatCliCommand("openclaw gateway status --deep")}\` for more detail.`],
+            : [`Run \`${formatCliCommand("lanfu gateway status --deep")}\` for more detail.`],
           informational: explicitlySkippedAbsentGateway,
         });
       }
@@ -464,7 +464,7 @@ export async function runNonInteractiveLocalSetup(params: {
           installDaemon: Boolean(opts.installDaemon),
           daemonInstall: daemonInstallStatus,
           daemonRuntime: opts.installDaemon ? daemonRuntimeRaw : undefined,
-          hints: [`Run \`${formatCliCommand("openclaw health")}\` for full diagnostics.`],
+          hints: [`Run \`${formatCliCommand("lanfu health")}\` for full diagnostics.`],
         });
         runtime.exit(1);
         return;
@@ -494,7 +494,7 @@ export async function runNonInteractiveLocalSetup(params: {
 
   if (!opts.json) {
     runtime.log(
-      `Tip: run \`${formatCliCommand("openclaw configure --section web")}\` to store your Brave API key for web_search. Docs: https://docs.openclaw.ai/tools/web`,
+      `Tip: run \`${formatCliCommand("lanfu configure --section web")}\` to store your Brave API key for web_search. Docs: https://docs.openclaw.ai/tools/web`,
     );
   }
 }

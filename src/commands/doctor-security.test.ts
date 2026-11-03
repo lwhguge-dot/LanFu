@@ -223,7 +223,7 @@ describe("noteSecurityWarnings gateway exposure", () => {
         severity: "critical",
         title: "CRITICAL",
         detail: expect.stringContaining("without authentication"),
-        remediation: expect.stringContaining("openclaw doctor --fix"),
+        remediation: expect.stringContaining("lanfu doctor --fix"),
       }),
     ]);
 
@@ -233,13 +233,13 @@ describe("noteSecurityWarnings gateway exposure", () => {
       [
         '- CRITICAL: Gateway bound to "lan" (0.0.0.0) without authentication.',
         "  Anyone on your network (or internet if port-forwarded) can fully control your agent.",
-        "  Fix: openclaw config set gateway.bind loopback",
+        "  Fix: lanfu config set gateway.bind loopback",
         "  Safer remote access: keep bind loopback and use Tailscale Serve/Funnel or an SSH tunnel.",
         "  Example tunnel: ssh -N -L 18789:127.0.0.1:18789 user@gateway-host",
         "  Docs: https://docs.openclaw.ai/gateway/remote",
-        "  Fix: openclaw doctor --fix to generate a token",
-        "  Or set token directly: openclaw config set gateway.auth.mode token",
-        "- Run: openclaw security audit --deep",
+        "  Fix: lanfu doctor --fix to generate a token",
+        "  Or set token directly: lanfu config set gateway.auth.mode token",
+        "- Run: lanfu security audit --deep",
       ].join("\n"),
     );
   });
@@ -415,7 +415,7 @@ describe("noteSecurityWarnings gateway exposure", () => {
     const message = lastMessage();
     expect(message).toContain("disables approval forwarding only");
     expect(message).toContain("state/openclaw.sqlite#exec_approvals_config");
-    expect(message).toContain("openclaw approvals get --gateway");
+    expect(message).toContain("lanfu approvals get --gateway");
   });
 
   it("explains how to renew inactive generated exec approvals", async () => {
@@ -441,7 +441,7 @@ describe("noteSecurityWarnings gateway exposure", () => {
           (candidate) => candidate.checkId === "doctor.exec_approvals_require_cwd_renewal",
         );
         expect(finding?.detail).toContain("1 older generated approval is inactive");
-        expect(finding?.remediation).toContain("openclaw doctor --fix");
+        expect(finding?.remediation).toContain("lanfu doctor --fix");
         expect(finding?.remediation).toContain('choose "Always allow here"');
         expect(finding?.remediation).toContain("Manual allowlist rules are unchanged");
       },
@@ -511,7 +511,7 @@ describe("noteSecurityWarnings gateway exposure", () => {
     const message = lastMessage();
     expect(message).toContain("plaintext secret-bearing config fields");
     expect(message).toContain("models.providers.openai.apiKey");
-    expect(message).toContain("openclaw secrets audit --check");
+    expect(message).toContain("lanfu secrets audit --check");
   });
 
   it("names non-generatable redacted store credentials and leaves them unavailable until replaced", async () => {
@@ -533,7 +533,7 @@ describe("noteSecurityWarnings gateway exposure", () => {
         expect.objectContaining({
           checkId: "doctor.secret_store_redacted_value",
           detail: expect.stringContaining(entry.name),
-          remediation: expect.stringContaining(`openclaw secrets store set ${entry.name}`),
+          remediation: expect.stringContaining(`lanfu secrets store set ${entry.name}`),
         }),
       );
       expect(lastMessage()).toContain("unavailable until replaced");
@@ -851,7 +851,7 @@ describe("noteSecurityWarnings gateway exposure", () => {
     const message = lastMessage();
     expect(message).toContain("[secrets]");
     expect(message).toContain("failed to resolve account");
-    expect(message).toContain("Run: openclaw security audit --deep");
+    expect(message).toContain("Run: lanfu security audit --deep");
   });
 
   it.each([
@@ -920,7 +920,7 @@ describe("noteSecurityWarnings gateway exposure", () => {
       expect(
         plainFindings.filter((finding) => finding.detail.includes('groupPolicy="open"')),
       ).toEqual([expect.objectContaining({ severity: "warn" })]);
-      expect(lastMessage()).toContain("openclaw security audit --deep");
+      expect(lastMessage()).toContain("lanfu security audit --deep");
 
       const openGroupFindings = healthFindings.filter((finding) =>
         finding.message.includes('groupPolicy="open"'),

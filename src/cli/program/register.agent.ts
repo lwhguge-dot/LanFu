@@ -257,14 +257,14 @@ export function registerAgentsCommands(program: Command): void {
         `
 ${theme.heading("Examples:")}
 ${formatHelpExamples([
-  ['openclaw agents set-identity --agent main --name "LanFu" --emoji "🐦"', "Set name + emoji."],
-  ["openclaw agents set-identity --agent main --avatar avatars/openclaw.png", "Set avatar path."],
+  ['lanfu agents set-identity --agent main --name "LanFu" --emoji "🐦"', "Set name + emoji."],
+  ["lanfu agents set-identity --agent main --avatar avatars/openclaw.png", "Set avatar path."],
   [
-    "openclaw agents set-identity --workspace ~/.openclaw/workspace --from-identity",
+    "lanfu agents set-identity --workspace ~/.openclaw/workspace --from-identity",
     "Load from IDENTITY.md.",
   ],
   [
-    "openclaw agents set-identity --identity-file ~/.openclaw/workspace/IDENTITY.md --agent main",
+    "lanfu agents set-identity --identity-file ~/.openclaw/workspace/IDENTITY.md --agent main",
     "Use a specific IDENTITY.md.",
   ],
 ])}

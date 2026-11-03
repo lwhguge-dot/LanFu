@@ -258,7 +258,7 @@ export function buildStatusAllOverviewRows(params: {
     ],
     middleRows: [
       ...(params.updateRows ?? []),
-      { Item: "Security", Value: `Run: ${formatCliCommand("openclaw security audit --deep")}` },
+      { Item: "Security", Value: `Run: ${formatCliCommand("lanfu security audit --deep")}` },
       ...buildStatusDegradationRows(params.summary),
     ],
     agentsValue: buildStatusAllAgentsValue({

@@ -126,7 +126,7 @@ describe("resolveGatewayService", () => {
     expect(runtime.detail).toContain("openclaw_user to your onboarding account");
     expect(runtime.detail).toContain('openclaw_enable="YES" in /etc/rc.conf');
     expect(runtime.detail).toContain("`service openclaw start` (or stop/restart/status) as root");
-    expect(runtime.detail).toContain("`openclaw gateway run` as your onboarding account");
+    expect(runtime.detail).toContain("`lanfu gateway run` as your onboarding account");
 
     const args = {
       env: process.env,
@@ -153,9 +153,9 @@ describe("resolveGatewayService", () => {
     const runtime = await service.readRuntime(process.env);
     expect(runtime.status).toBe("unknown");
     expect(runtime.detail).toContain("Node service management is not supported");
-    expect(runtime.detail).toContain("`openclaw node run`");
+    expect(runtime.detail).toContain("`lanfu node run`");
     expect(runtime.detail).not.toContain("service openclaw");
-    expect(runtime.detail).not.toContain("openclaw gateway run");
+    expect(runtime.detail).not.toContain("lanfu gateway run");
     const args = {
       env: process.env,
       stdout: process.stdout,

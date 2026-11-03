@@ -87,7 +87,7 @@ export function buildLaunchAgentEnvironmentWrapper(): string {
   return `#!/bin/sh
 set -eu
 invalid_env() {
-  echo "Invalid LaunchAgent environment file; run openclaw gateway install --force to repair the service." >&2
+  echo "Invalid LaunchAgent environment file; run lanfu gateway install --force to repair the service." >&2
   exit 78
 }
 [ "$#" -ge 2 ] || invalid_env

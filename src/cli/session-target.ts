@@ -101,7 +101,7 @@ function formatAmbiguousCandidates(
 function sessionsListHint(gatewayUrl: string | undefined): string {
   return gatewayUrl
     ? `Choose a full session key from that gateway's Control UI (${controlUiBaseUrl(gatewayUrl)}).`
-    : "Run `openclaw sessions list` to choose a full session key.";
+    : "Run `lanfu sessions list` to choose a full session key.";
 }
 
 function controlUiBaseUrl(gatewayUrl: string): string {

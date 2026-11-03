@@ -131,7 +131,7 @@ export async function guardUpdateDoctorSchemaUpgrade(options: {
   const postCoreRecovery = {
     message:
       "The update has already committed its package. Complete Doctor repair with the installed compatible build before restarting the Gateway; package rollback cannot undo migrated state.",
-    commands: ["openclaw doctor --fix", "openclaw gateway start"],
+    commands: ["lanfu doctor --fix", "lanfu gateway start"],
   };
   const recovery = updater.postCoreStarted
     ? postCoreRecovery

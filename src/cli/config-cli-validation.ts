@@ -53,7 +53,7 @@ function formatInvalidConfigRepairHint(
 ): string {
   return isPluginPackagingRuntimeOutputInvalidConfigSnapshot(snapshot)
     ? formatPluginPackagingRuntimeOutputRecoveryHint()
-    : `Run \`${formatCliCommand("openclaw doctor --fix")}\` ${doctorMessage}`;
+    : `Run \`${formatCliCommand("lanfu doctor --fix")}\` ${doctorMessage}`;
 }
 
 export function ensureValidConfigSnapshotForCli(

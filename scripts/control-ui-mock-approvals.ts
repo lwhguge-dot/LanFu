@@ -31,7 +31,7 @@ function installApprovalMock(includeInbox: boolean): void {
       status: "pending",
       presentation: {
         kind: "exec",
-        commandText: "openclaw export --target production",
+        commandText: "lanfu export --target production",
         commandPreview: "Export the prepared release bundle",
         warningText: "This action writes outside the preview workspace.",
         host: "mock-workstation.invalid",

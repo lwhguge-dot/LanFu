@@ -45,7 +45,7 @@ export function assertCanonicalAgentPersistenceVersion(
   }
   if (userVersion < OPENCLAW_AGENT_SCHEMA_VERSION && !isNewUnownedDatabase) {
     throw new Error(
-      `LanFu agent database ${pathname} uses schema version ${userVersion}; stop active agents and run openclaw doctor --fix to migrate session identities before using it.`,
+      `LanFu agent database ${pathname} uses schema version ${userVersion}; stop active agents and run lanfu doctor --fix to migrate session identities before using it.`,
     );
   }
 }

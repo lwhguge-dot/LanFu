@@ -84,7 +84,7 @@ describe("applyPostPluginConfigValidation", () => {
       reason: "post-plugin-doctor-invalid-config",
       warnings: [
         {
-          guidance: ["Run `openclaw doctor --fix`, then rerun `openclaw update repair`."],
+          guidance: ["Run `lanfu doctor --fix`, then rerun `lanfu update repair`."],
         },
       ],
     });
@@ -664,9 +664,9 @@ describe("formatPostUpdateGatewayRecoveryInstructions", () => {
     );
 
     expect(line).toContain("the systemd user service");
-    expect(line).toContain("openclaw gateway restart");
-    expect(line).toContain("openclaw gateway install --force");
-    expect(line).toContain("openclaw gateway status --deep");
+    expect(line).toContain("lanfu gateway restart");
+    expect(line).toContain("lanfu gateway install --force");
+    expect(line).toContain("lanfu gateway status --deep");
     expect(line).not.toContain("Linux reports");
     expect(line).not.toContain("macOS");
     expect(line).not.toContain("LaunchAgent");
@@ -1008,8 +1008,8 @@ describe("updatePluginsAfterCoreUpdate (invalid config)", () => {
         message:
           "Plugin post-update convergence skipped because the config is invalid; refusing to restart the gateway with an unverified plugin set.",
         guidance: [
-          "Run `openclaw doctor` to inspect the config validation errors.",
-          "Once the config parses, rerun `openclaw update repair`.",
+          "Run `lanfu doctor` to inspect the config validation errors.",
+          "Once the config parses, rerun `lanfu update repair`.",
         ],
       },
     ]);
@@ -1027,8 +1027,8 @@ describe("buildInvalidConfigPostCoreUpdateResult", () => {
   it("surfaces actionable repair guidance in both the structural warnings and the message string", () => {
     const built = updateCommandPluginsTesting.buildInvalidConfigPostCoreUpdateResult();
     expect(built.guidance).toStrictEqual([
-      "Run `openclaw doctor` to inspect the config validation errors.",
-      "Once the config parses, rerun `openclaw update repair`.",
+      "Run `lanfu doctor` to inspect the config validation errors.",
+      "Once the config parses, rerun `lanfu update repair`.",
     ]);
     expect(built.result.warnings).toStrictEqual([
       {

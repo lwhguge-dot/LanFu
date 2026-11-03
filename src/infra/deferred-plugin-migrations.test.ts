@@ -238,7 +238,7 @@ describe("deferred configured-plugin migrations", () => {
     const alpha = {
       pluginId: "alpha",
       reason: "The configured plugin is not installed.",
-      command: "openclaw plugins install @example/alpha",
+      command: "lanfu plugins install @example/alpha",
       configPaths: [
         ["plugins", "entries", "alpha"],
         ["session", "store"],
@@ -317,7 +317,7 @@ describe("deferred configured-plugin migrations", () => {
       requiresStateMigration: true as const,
       requiresDoctorInspection: true as const,
       reason: "Package convergence is pending.",
-      command: "openclaw update repair",
+      command: "lanfu update repair",
       configPaths: [["legacyIntegration", "stateDirectory"]],
       validationExcludedPaths: [["legacyIntegration"]],
     };
@@ -325,7 +325,7 @@ describe("deferred configured-plugin migrations", () => {
     const unavailable = {
       pluginId: declared.pluginId,
       reason: "Plugin metadata is no longer available.",
-      command: "openclaw plugins install @example/fixture-plugin",
+      command: "lanfu plugins install @example/fixture-plugin",
     };
     recordDeferredPluginMigrations({ env, pending: [unavailable] });
     closeOpenClawStateDatabaseForTest();
@@ -396,7 +396,7 @@ describe("deferred plugin migration repair guidance", () => {
   const pending = {
     pluginId: "fixture-plugin",
     reason: "Package repair deferred.",
-    command: "openclaw update repair",
+    command: "lanfu update repair",
   };
 
   it.each(["OPENCLAW_UPDATE_IN_PROGRESS", "OPENCLAW_UPDATE_POST_CORE_CONVERGENCE"])(
@@ -404,7 +404,7 @@ describe("deferred plugin migration repair guidance", () => {
     (marker) => {
       const message = formatDeferredPluginMigration(pending, { [marker]: "1" });
       expect(message).toContain("Let the current update or repair finish.");
-      expect(message).toContain('If this warning remains afterward, run "openclaw update repair"');
+      expect(message).toContain('If this warning remains afterward, run "lanfu update repair"');
     },
   );
 
@@ -414,7 +414,7 @@ describe("deferred plugin migration repair guidance", () => {
     expect(repair).toContain(pending.reason);
     expect(repair).toContain("Your existing data and settings have been kept.");
     expect(repair).toContain(
-      'Run "openclaw update repair", then "openclaw doctor --fix" to retry the upgrade.',
+      'Run "lanfu update repair", then "lanfu doctor --fix" to retry the upgrade.',
     );
     const message = formatDeferredPluginMigration(
       { ...pending, command: "openclaw doctor --fix" },

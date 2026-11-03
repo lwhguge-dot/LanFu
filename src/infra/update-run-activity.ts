@@ -78,7 +78,7 @@ function formatUpdateRunOwnership(record: UpdateRunRecord): string {
   const unrecorded = hasUnrecordedUpdateRunDriver(record)
     ? "; unrecorded adopter: PID and host not recorded, liveness: not observed"
     : "";
-  return `Update ${record.runId} is still in progress (${record.phase}); ${owners}${unrecorded}; started ${new Date(record.createdAtMs).toISOString()} (age ${age(record.createdAtMs)}), last activity ${new Date(activity).toISOString()} (age ${age(activity)}). Wait for that update, or stop that driver through its owning host or supervisor and re-run \`openclaw update repair\`.`;
+  return `Update ${record.runId} is still in progress (${record.phase}); ${owners}${unrecorded}; started ${new Date(record.createdAtMs).toISOString()} (age ${age(record.createdAtMs)}), last activity ${new Date(activity).toISOString()} (age ${age(activity)}). Wait for that update, or stop that driver through its owning host or supervisor and re-run \`lanfu update repair\`.`;
 }
 
 export type UpdateRepairDriverAdmission =
@@ -149,6 +149,6 @@ function inspectUpdateRunDriverAbandonment(
 /** Legacy activity cannot prove death; reporting must leave recovery to the operator. */
 export function staleUpdateRunGuidance(record: UpdateRunRecord): string | undefined {
   return isStaleIdentitylessUpdateRun(record)
-    ? `no activity since ${new Date(updateRunLastActivity(record)).toISOString()}; if no update is running, run \`openclaw update repair\` or start a new \`openclaw update\``
+    ? `no activity since ${new Date(updateRunLastActivity(record)).toISOString()}; if no update is running, run \`lanfu update repair\` or start a new \`lanfu update\``
     : undefined;
 }

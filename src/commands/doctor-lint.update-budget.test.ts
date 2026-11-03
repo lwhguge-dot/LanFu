@@ -161,7 +161,7 @@ it.each([3, 480])(
             severity: "warning",
             errorCode: "update-inspection-deferred",
             requirement: "update-validation-budget",
-            fixHint: expect.stringContaining("openclaw doctor"),
+            fixHint: expect.stringContaining("lanfu doctor"),
           }),
     ]);
   },

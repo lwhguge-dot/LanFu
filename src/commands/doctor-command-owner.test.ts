@@ -48,9 +48,9 @@ describe("command owner health", () => {
       [
         "No command owner is configured.",
         "A command owner is your trusted human operator account, allowed to update LanFu with /update, restart the Gateway, change configuration, and approve commands. Chat allowlists do not grant this authority.",
-        "Run openclaw channels add and complete a channel's setup to choose your operator account, including servers and groups without DM pairing.",
+        "Run lanfu channels add and complete a channel's setup to choose your operator account, including servers and groups without DM pairing.",
         "CLI pairing approval records the first command owner. Control UI pairing approval has a separate owner checkbox.",
-        "Fix: set commands.ownerAllowFrom to your channel user id, for example openclaw config set commands.ownerAllowFrom '[\"telegram:123456789\"]'",
+        "Fix: set commands.ownerAllowFrom to your channel user id, for example lanfu config set commands.ownerAllowFrom '[\"telegram:123456789\"]'",
         "Restart the gateway after changing this if it is already running.",
       ].join("\n"),
       "Command owner",
@@ -64,13 +64,9 @@ describe("command owner health", () => {
       const id = "@o'brien$(printf injected) --profile decoy:example.org";
       const hint = formatCommandOwnerHint({ cfg: {}, channel: "matrix", id });
       const command = hint.slice(hint.indexOf("`") + 1, hint.lastIndexOf("`"));
-      const args = execFileSync(
-        "/bin/sh",
-        ["-c", command.replace(/^openclaw /, "printf '%s\\n' ")],
-        {
-          encoding: "utf8",
-        },
-      )
+      const args = execFileSync("/bin/sh", ["-c", command.replace(/^lanfu /, "printf '%s\\n' ")], {
+        encoding: "utf8",
+      })
         .trim()
         .split("\n");
       expect(args).toEqual([
@@ -104,7 +100,7 @@ describe("command owner health", () => {
         id: "123",
       }),
     ).toBe(
-      `Ask the operator to run \`openclaw config set commands.ownerAllowFrom '${JSON.stringify(expected)}'\` in a terminal to make this sender a command owner.`,
+      `Ask the operator to run \`lanfu config set commands.ownerAllowFrom '${JSON.stringify(expected)}'\` in a terminal to make this sender a command owner.`,
     );
   });
 

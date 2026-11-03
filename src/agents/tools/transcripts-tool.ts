@@ -291,7 +291,7 @@ async function statusTranscripts(ctx: TranscriptsRuntimeContext) {
   const omitted = visibleEntries.length - selectorLines.length;
   const selectorText = [
     ...(selectorLines.length ? ["Selectors:", ...selectorLines] : []),
-    ...(omitted ? [`${omitted} more; ask a local operator to run openclaw transcripts list.`] : []),
+    ...(omitted ? [`${omitted} more; ask a local operator to run lanfu transcripts list.`] : []),
   ];
   const omittedNotice = "Additional active sessions omitted (display limit).";
   const activeLines: string[] = [];

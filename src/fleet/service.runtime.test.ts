@@ -165,7 +165,7 @@ describe("fleet service", () => {
     });
 
     await expect(service.create({ tenant: "sick", gatewayToken: "token" })).rejects.toThrow(
-      "Fleet cell sick was created but did not become healthy within 60s; inspect it with `openclaw fleet status sick` or `openclaw fleet logs sick`, or remove it with `openclaw fleet rm sick --force`.",
+      "Fleet cell sick was created but did not become healthy within 60s; inspect it with `lanfu fleet status sick` or `lanfu fleet logs sick`, or remove it with `lanfu fleet rm sick --force`.",
     );
 
     expect(await getFleetCell(env, "sick")).toBeDefined();

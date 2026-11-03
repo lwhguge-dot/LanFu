@@ -312,7 +312,7 @@ export async function noteSessionTranscriptLabelHealth(params: {
     note(
       [
         `- Found ${formatCount(foundSessions, "session")} with legacy inbound-context labels.`,
-        '- Run "openclaw doctor --fix" to rewrite them.',
+        '- Run "lanfu doctor --fix" to rewrite them.',
       ].join("\n"),
       NOTE_TITLE,
     );

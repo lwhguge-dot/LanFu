@@ -1255,7 +1255,7 @@ describe("maybeRepairGatewayServiceConfig", () => {
       "Gateway service entrypoint does not match the current install.",
       "Gateway service config",
     );
-    expectNoteContaining("openclaw gateway install --force", "Gateway service config");
+    expectNoteContaining("lanfu gateway install --force", "Gateway service config");
     expect(mocks.stage).not.toHaveBeenCalled();
     expect(mocks.install).not.toHaveBeenCalled();
   });
@@ -1452,10 +1452,10 @@ describe("maybeRepairGatewayServiceConfig", () => {
 
         expectNoteContaining("resolves to a source checkout", "Gateway service config");
         expectNoteContaining(
-          "Run `openclaw gateway install --force` from the intended package install to replace the gateway service definition.",
+          "Run `lanfu gateway install --force` from the intended package install to replace the gateway service definition.",
           "Gateway service config",
         );
-        expectNoNoteContaining("openclaw doctor --fix", "Gateway service config");
+        expectNoNoteContaining("lanfu doctor --fix", "Gateway service config");
         expect(mocks.install).not.toHaveBeenCalled();
       } finally {
         await fs.rm(root, { recursive: true, force: true });
@@ -1498,7 +1498,7 @@ describe("maybeRepairGatewayServiceConfig", () => {
           "Gateway service entrypoint does not match the current install.",
         );
         expect(consolidated).not.toContain("resolves to a source checkout");
-        const forceMatches = consolidated.match(/openclaw gateway install --force/g) ?? [];
+        const forceMatches = consolidated.match(/lanfu gateway install --force/g) ?? [];
         expect(forceMatches).toHaveLength(0);
       } finally {
         await fs.rm(root, { recursive: true, force: true });
@@ -1553,7 +1553,7 @@ describe("maybeRepairGatewayServiceConfig", () => {
           "Gateway service entrypoint does not match the current install.",
         );
         expect(auditNote).not.toContain("resolves to a source checkout");
-        expect(gatewayServiceConfigNotes[1]?.[0]).toContain("openclaw gateway install --force");
+        expect(gatewayServiceConfigNotes[1]?.[0]).toContain("lanfu gateway install --force");
       } finally {
         await fs.rm(root, { recursive: true, force: true });
       }
@@ -1714,7 +1714,7 @@ describe("maybeScanExtraGatewayServices", () => {
         source: "linux",
         target: "openclaw-gateway.service",
         fixHint:
-          "Run `openclaw doctor` interactively to review legacy gateway services and confirm supported cleanup.",
+          "Run `lanfu doctor` interactively to review legacy gateway services and confirm supported cleanup.",
       }),
     );
   });

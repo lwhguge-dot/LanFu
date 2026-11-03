@@ -1103,7 +1103,7 @@ describe("statusCommand", () => {
       expect(output).toContain("Config diagnostics:");
       expect(output).toContain("Config file is invalid: /tmp/openclaw.json");
       expect(output).toContain("gateway.port: Invalid input: expected number, received string");
-      expect(output).toContain("Fix: openclaw --profile isolated doctor --fix");
+      expect(output).toContain("Fix: lanfu --profile isolated doctor --fix");
     }
 
     expect((await runStatusAndGetLogs()).join("\n")).not.toContain("Config diagnostics:");
@@ -1328,7 +1328,7 @@ describe("statusCommand", () => {
     const joined = await runStatusAndGetJoinedLogs();
     expect(joined).toContain("node → gateway.example.com:19000 · no local gateway");
     expect(joined).not.toContain("Gateway: local · ws://127.0.0.1:18789");
-    expect(joined).toContain("openclaw --profile isolated node status");
+    expect(joined).toContain("lanfu --profile isolated node status");
     expect(joined).not.toContain("Fix reachability first");
   });
 
@@ -1475,7 +1475,7 @@ describe("statusCommand", () => {
       expected: [
         "Gateway scope upgrade approval required.",
         "Reason: device is asking for more scopes than currently approved.",
-        "Recovery: openclaw --profile isolated devices approve req-123",
+        "Recovery: lanfu --profile isolated devices approve req-123",
       ],
       forbiddenRaw: [],
     },
@@ -1509,7 +1509,7 @@ describe("statusCommand", () => {
       expected: [
         "Gateway pairing approval required.",
         "Reason: device is not approved yet.",
-        "Recovery: openclaw --profile isolated devices approve req-close-456",
+        "Recovery: lanfu --profile isolated devices approve req-close-456",
       ],
       forbiddenRaw: [],
     },
@@ -1527,7 +1527,7 @@ describe("statusCommand", () => {
         "Gateway scope upgrade approval required.",
         "Reason: device is asking for more scopes than currently approved.",
         "Hint: Review the requested scopes, then approve the pending upgrade.",
-        "Recovery: openclaw --profile isolated devices approve req-structured-789",
+        "Recovery: lanfu --profile isolated devices approve req-structured-789",
       ],
       forbiddenRaw: [],
     },
@@ -1567,8 +1567,8 @@ describe("statusCommand", () => {
           );
         expect(recoveryLines).toEqual([
           ...expected,
-          "Fallback: openclaw --profile isolated devices approve --latest",
-          "Inspect: openclaw --profile isolated devices list",
+          "Fallback: lanfu --profile isolated devices approve --latest",
+          "Inspect: lanfu --profile isolated devices list",
         ]);
       });
     },

@@ -72,7 +72,7 @@ describe("SQLite session participants", () => {
         resume.resolve();
         await expect(patch).resolves.toMatchObject({ sessionId: "prepared", label: "committed" });
         expect(() => listSessionEntriesCore(scope)).toThrow(
-          "Session participant identity is invalid; run openclaw doctor --fix.",
+          "Session participant identity is invalid; run lanfu doctor --fix.",
         );
         database.db.prepare("DELETE FROM session_participants").run();
         expect(listSessionEntriesCore(scope)[0]?.entry.label).toBe("committed");
@@ -509,7 +509,7 @@ describe("SQLite session participants", () => {
           {
             ok: false,
             error: expect.objectContaining({
-              message: "Session participant identity is invalid; run openclaw doctor --fix.",
+              message: "Session participant identity is invalid; run lanfu doctor --fix.",
             }),
           },
           { ok: true, value: [] },

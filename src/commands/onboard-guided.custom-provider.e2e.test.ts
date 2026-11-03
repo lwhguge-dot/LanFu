@@ -465,7 +465,7 @@ describe("guided custom provider activation", () => {
     expect(setup.result).toBeNull();
     expect(setup.config).toEqual(setup.initialConfig);
     expect(setup.output).toContain(
-      "run openclaw onboard --auth-choice custom-api-key on the Gateway host",
+      "run lanfu onboard --auth-choice custom-api-key on the Gateway host",
     );
   });
 });

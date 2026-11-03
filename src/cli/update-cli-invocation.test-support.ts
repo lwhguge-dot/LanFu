@@ -14,12 +14,12 @@ export function expectGitMetadataPreview(result: unknown): void {
     dryRun: true,
     mode: "git",
     notes: expect.arrayContaining([
-      expect.stringMatching(/Git target manifest or revision[\s\S]*retry openclaw update/),
+      expect.stringMatching(/Git target manifest or revision[\s\S]*retry lanfu update/),
     ]),
     failures: expect.arrayContaining([
       expect.objectContaining({
         reason: "target-metadata-preflight",
-        message: expect.stringMatching(/Git[\s\S]*openclaw update/),
+        message: expect.stringMatching(/Git[\s\S]*lanfu update/),
         failureFacts: [
           expect.objectContaining({
             code: "target-git-metadata",
@@ -55,7 +55,7 @@ export function expectPluginCapabilityRetryNotice(
         warnings: expect.arrayContaining([
           expect.objectContaining({
             pluginId,
-            message: expect.stringContaining(`openclaw plugins update ${pluginId}`),
+            message: expect.stringContaining(`lanfu plugins update ${pluginId}`),
           }),
         ]),
         npm: {
@@ -71,7 +71,7 @@ export function expectPluginCapabilityRetryNotice(
           ? {
               sync: {
                 errors: [
-                  'Failed to update consent-fixture: Operator review token changed.\nBundled relocation did not install the replacement plugin payload; resolve the error above, then run "openclaw update repair".',
+                  'Failed to update consent-fixture: Operator review token changed.\nBundled relocation did not install the replacement plugin payload; resolve the error above, then run "lanfu update repair".',
                 ],
               },
             }

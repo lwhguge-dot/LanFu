@@ -448,12 +448,12 @@ export function registerGatewayCli(program: Command, deps: GatewayCliDependencie
         "after",
         () =>
           `\n${theme.heading("Examples:")}\n${formatHelpExamples([
-            ["openclaw gateway run", "Run the gateway in the foreground."],
-            ["openclaw gateway status", "Show service status plus connectivity/capability."],
-            ["openclaw gateway auth-token --show", "Reveal the shared token interactively."],
-            ["openclaw gateway discover", "Find local and wide-area gateway beacons."],
-            ["openclaw gateway stability", "Show recent stability diagnostics."],
-            ["openclaw gateway call health", "Call a gateway RPC method directly."],
+            ["lanfu gateway run", "Run the gateway in the foreground."],
+            ["lanfu gateway status", "Show service status plus connectivity/capability."],
+            ["lanfu gateway auth-token --show", "Reveal the shared token interactively."],
+            ["lanfu gateway discover", "Find local and wide-area gateway beacons."],
+            ["lanfu gateway stability", "Show recent stability diagnostics."],
+            ["lanfu gateway call health", "Call a gateway RPC method directly."],
           ])}\n\n\n`,
       ),
   );

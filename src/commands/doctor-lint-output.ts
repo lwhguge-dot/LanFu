@@ -50,7 +50,7 @@ export function formatDoctorLintFailure(error: unknown) {
           severity: "error",
           source: "doctor",
           message: failure.error.message,
-          fixHint: "Resolve this inspection error, then rerun `openclaw doctor --lint`.",
+          fixHint: "Resolve this inspection error, then rerun `lanfu doctor --lint`.",
         },
       ],
     }),

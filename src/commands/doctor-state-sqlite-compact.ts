@@ -84,7 +84,7 @@ export async function runDoctorStateSqliteCompact(
             afterSuccess: () => {
               if (!clearOpenClawDatabaseQuarantine(sqlitePath, { env })) {
                 throw new Error(
-                  `LanFu state database ${sqlitePath} was compacted, but its persisted quarantine record could not be cleared. Rerun openclaw doctor --fix so the database is not refused again.`,
+                  `LanFu state database ${sqlitePath} was compacted, but its persisted quarantine record could not be cleared. Rerun lanfu doctor --fix so the database is not refused again.`,
                 );
               }
               clearOpenClawStateDatabaseOpenFailure(sqlitePath);

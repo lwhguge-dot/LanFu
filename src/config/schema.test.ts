@@ -1052,7 +1052,7 @@ describe("config schema", () => {
       const message = result.error?.issues[0]?.message;
       expect(message).toContain("same exec object");
       expect(message).toContain("deploy script, template, or patch at this scope");
-      expect(message).toContain('run "openclaw doctor --fix"');
+      expect(message).toContain('run "lanfu doctor --fix"');
       if (!hint.startsWith("Replace")) {
         expect(message).not.toContain("the equivalent of");
       }

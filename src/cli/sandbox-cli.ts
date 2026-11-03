@@ -13,30 +13,30 @@ type CommandOptions = Record<string, unknown>;
 
 const SANDBOX_EXAMPLES = {
   main: [
-    ["openclaw sandbox list", "List all sandbox containers."],
-    ["openclaw sandbox list --browser", "List only browser containers."],
-    ["openclaw sandbox recreate --all", "Recreate all containers."],
-    ["openclaw sandbox recreate --session main", "Recreate a specific session."],
-    ["openclaw sandbox recreate --agent mybot", "Recreate agent containers."],
-    ["openclaw sandbox explain", "Explain effective sandbox config."],
+    ["lanfu sandbox list", "List all sandbox containers."],
+    ["lanfu sandbox list --browser", "List only browser containers."],
+    ["lanfu sandbox recreate --all", "Recreate all containers."],
+    ["lanfu sandbox recreate --session main", "Recreate a specific session."],
+    ["lanfu sandbox recreate --agent mybot", "Recreate agent containers."],
+    ["lanfu sandbox explain", "Explain effective sandbox config."],
   ],
   list: [
-    ["openclaw sandbox list", "List all sandbox containers."],
-    ["openclaw sandbox list --browser", "List only browser containers."],
-    ["openclaw sandbox list --json", "JSON output."],
+    ["lanfu sandbox list", "List all sandbox containers."],
+    ["lanfu sandbox list --browser", "List only browser containers."],
+    ["lanfu sandbox list --json", "JSON output."],
   ],
   recreate: [
-    ["openclaw sandbox recreate --all", "Recreate all containers."],
-    ["openclaw sandbox recreate --session main", "Recreate a specific session."],
-    ["openclaw sandbox recreate --agent mybot", "Recreate a specific agent (includes sub-agents)."],
-    ["openclaw sandbox recreate --browser --all", "Recreate only browser containers."],
-    ["openclaw sandbox recreate --all --force", "Skip confirmation."],
+    ["lanfu sandbox recreate --all", "Recreate all containers."],
+    ["lanfu sandbox recreate --session main", "Recreate a specific session."],
+    ["lanfu sandbox recreate --agent mybot", "Recreate a specific agent (includes sub-agents)."],
+    ["lanfu sandbox recreate --browser --all", "Recreate only browser containers."],
+    ["lanfu sandbox recreate --all --force", "Skip confirmation."],
   ],
   explain: [
-    ["openclaw sandbox explain", "Show effective sandbox config."],
-    ["openclaw sandbox explain --session agent:main:main", "Explain a specific session."],
-    ["openclaw sandbox explain --agent work", "Explain an agent sandbox."],
-    ["openclaw sandbox explain --json", "JSON output."],
+    ["lanfu sandbox explain", "Show effective sandbox config."],
+    ["lanfu sandbox explain --session agent:main:main", "Explain a specific session."],
+    ["lanfu sandbox explain --agent work", "Explain an agent sandbox."],
+    ["lanfu sandbox explain --json", "JSON output."],
   ],
 } as const;
 

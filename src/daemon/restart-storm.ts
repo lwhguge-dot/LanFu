@@ -101,8 +101,8 @@ export async function warnAboutGatewayRestartStorm(
     `Gateway restart storm: ${summary.count} external CLI restarts in 10 minutes.`,
     likelyJobs.length > 0
       ? `Likely stray launchd jobs: ${likelyJobs.join(", ")}.`
-      : "Check for a stray keepalive launchd job invoking openclaw gateway restart.",
-    "Run openclaw gateway status to inspect jobs and openclaw doctor --fix to remove eligible stray jobs.",
+      : "Check for a stray keepalive launchd job invoking lanfu gateway restart.",
+    "Run lanfu gateway status to inspect jobs and lanfu doctor --fix to remove eligible stray jobs.",
   ].join(" ");
   try {
     fs.appendFileSync(

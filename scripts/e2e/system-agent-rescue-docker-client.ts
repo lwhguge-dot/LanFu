@@ -254,7 +254,7 @@ async function main() {
     },
   });
   assert(
-    doctorReply?.includes("openclaw doctor --fix"),
+    doctorReply?.includes("lanfu doctor --fix"),
     "remote doctor fix did not point to the local repair command",
   );
   assert(doctorRuns.length === 0, "remote rescue must not invoke doctor repair");

@@ -102,7 +102,7 @@ const tick = () =>
     setImmediate(resolve);
   });
 
-describe("openclaw attach (action)", () => {
+describe("lanfu attach (action)", () => {
   beforeEach(() => {
     gatewayCalls.length = 0;
     logs.length = 0;
@@ -217,7 +217,7 @@ describe("openclaw attach (action)", () => {
         [
           "Session reference is ambiguous:",
           ...expectedLines,
-          "Pass a longer reference. Run `openclaw sessions list` to choose a full session key.",
+          "Pass a longer reference. Run `lanfu sessions list` to choose a full session key.",
         ].join("\n"),
       );
       expect(Buffer.from(error.message, "utf8").toString("utf8")).toBe(error.message);

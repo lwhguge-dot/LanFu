@@ -55,7 +55,7 @@ describe("ModelRegistry persisted catalog state", () => {
         pluginMetadataSnapshot: pluginOwnerSnapshot(providerId, "zai"),
       });
 
-      expect(registry.getError()).toContain("Run openclaw doctor --fix");
+      expect(registry.getError()).toContain("Run lanfu doctor --fix");
       expect(registry.find(providerId, "glm-5.1")).toBeUndefined();
       await expect(registry.getApiKeyForProvider(providerId)).resolves.toBeUndefined();
       expect(registry.getProviderAuthStatus(providerId).configured).toBe(false);
@@ -69,7 +69,7 @@ describe("ModelRegistry persisted catalog state", () => {
       registry.getAll();
       registry.getAvailable();
       registry.find(providerId, "glm-5.1");
-      expect(registry.getError()).toContain("Run openclaw doctor --fix");
+      expect(registry.getError()).toContain("Run lanfu doctor --fix");
       registry.refresh();
       expect(registry.getError()).toBeUndefined();
     },
@@ -133,7 +133,7 @@ describe("ModelRegistry persisted catalog state", () => {
 
         if (source === "disk") {
           expect(registry.getError()).toContain("Could not read legacy provider catalog");
-          expect(registry.getError()).toContain("Run openclaw doctor --fix");
+          expect(registry.getError()).toContain("Run lanfu doctor --fix");
         } else {
           expect(registry.getError()).toBeUndefined();
         }

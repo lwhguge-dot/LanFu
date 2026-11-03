@@ -301,7 +301,7 @@ export function formatMemoryIndexRebuildGuidance(
   status: Partial<Pick<MemoryProviderStatus, "provider" | "requestedProvider">>,
   agentId?: string,
 ): string {
-  const command = `openclaw memory status --index${agentId?.trim() ? ` --agent ${agentId.trim()}` : ""}`;
+  const command = `lanfu memory status --index${agentId?.trim() ? ` --agent ${agentId.trim()}` : ""}`;
   const configuredProvider = status.requestedProvider?.trim() || status.provider?.trim();
   const disclosure =
     configuredProvider === "none"
@@ -325,7 +325,7 @@ export function resolveMemoryIndexSearchDiagnostic(
   if (repairFailure && !newerIndex) {
     const guidance = {
       warning: `Memory index repair failed: ${repairFailure}. The existing index was left unchanged.`,
-      action: `Run: openclaw memory status --deep${agentId?.trim() ? ` --agent ${agentId.trim()}` : ""}. Resolve the reported sync failure before retrying the search.`,
+      action: `Run: lanfu memory status --deep${agentId?.trim() ? ` --agent ${agentId.trim()}` : ""}. Resolve the reported sync failure before retrying the search.`,
     };
     return {
       error: repairFailure,

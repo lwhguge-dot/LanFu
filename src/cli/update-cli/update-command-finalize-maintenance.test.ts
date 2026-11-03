@@ -162,7 +162,7 @@ function expectDeferred() {
   expect(run.steps).toContainEqual(
     expect.objectContaining({
       step: "warning:finalize:doctor:0",
-      detail: expect.stringContaining("openclaw update repair"),
+      detail: expect.stringContaining("lanfu update repair"),
     }),
   );
   expect(finalizationConfig.persistRequestedUpdateChannel).not.toHaveBeenCalled();

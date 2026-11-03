@@ -224,7 +224,7 @@ describe("noteMacStaleOpenClawUpdateLaunchdJobs", () => {
     expect(message).toContain("ai.openclaw.update.2026.5.12");
     expect(message).toContain("ai.openclaw.manual-update.1717168800");
     expect(message).toContain("launchctl remove <label>");
-    expect(message).toContain("openclaw gateway restart");
+    expect(message).toContain("lanfu gateway restart");
   });
 
   it("does nothing when no stale updater jobs exist", async () => {

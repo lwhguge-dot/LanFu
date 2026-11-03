@@ -191,7 +191,7 @@ describe("runDoctorSessionSqlite", () => {
         )((event) => {
           events.push(event);
         }),
-      ).toThrow(/stop active session writers and rerun `openclaw doctor --fix`/);
+      ).toThrow(/stop active session writers and rerun `lanfu doctor --fix`/);
       expect(events).toEqual([]);
     } finally {
       statSpy.mockRestore();
@@ -217,7 +217,7 @@ describe("runDoctorSessionSqlite", () => {
 
     try {
       await expect(importLegacyStore(store)).rejects.toThrow(
-        /stop active session writers and rerun `openclaw doctor --fix`/,
+        /stop active session writers and rerun `lanfu doctor --fix`/,
       );
       expect(fs.existsSync(store.transcriptPath)).toBe(true);
     } finally {

@@ -93,11 +93,11 @@ export function registerDoctorRestorationRollbackTests(
         {
           check: "gateway-restoration",
           code: "stale-gateway-recovery-command",
-          message: "openclaw gateway status --deep",
+          message: "lanfu gateway status --deep",
         },
       ];
       const error = new UpdateDoctorError(
-        "Doctor Gateway restoration failed during rpc-verification. Run openclaw gateway status --deep.",
+        "Doctor Gateway restoration failed during rpc-verification. Run lanfu gateway status --deep.",
         facts,
       );
       harness.freshProcess.mockImplementationOnce(async () => {
@@ -208,7 +208,7 @@ export function registerDoctorRestorationRollbackTests(
       const report = renderUpdateRunReport(recorded);
       expect(report.headline).toContain("rolled back to 1.0.0");
       expect(report.markdown).toContain("rpc-verification");
-      expect(report.markdown).toContain("openclaw gateway status --deep");
+      expect(report.markdown).toContain("lanfu gateway status --deep");
       expect(await fs.readFile(configPath, "utf8")).toBe("{}\n");
     },
   );

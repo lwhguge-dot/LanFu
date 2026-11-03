@@ -119,7 +119,7 @@ describe("cli json stdout contract", () => {
           error: { type: "cli_error", message: expect.stringContaining("Invalid config at") },
         });
         expect(result.stdout).toContain("gateway.port");
-        expect(result.stderr).toContain("openclaw doctor");
+        expect(result.stderr).toContain("lanfu doctor");
         await expect(
           fs.access(path.join(stateDir, "state", "openclaw.sqlite")),
         ).rejects.toMatchObject({ code: "ENOENT" });

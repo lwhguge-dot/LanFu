@@ -64,11 +64,11 @@ it.each([
   const message =
     kind === "recoverable-maintenance"
       ? "baseline package fingerprint incomplete after 30 s; rollback will be verified by the retained package copy"
-      : "Skipped derived cache cleanup: permission denied. Run openclaw doctor --fix.";
+      : "Skipped derived cache cleanup: permission denied. Run lanfu doctor --fix.";
   const otherWarning =
     kind === "recoverable-maintenance"
       ? "Package fingerprint verification unavailable; rollback verified by the retained package copy's directory identity and version."
-      : "Skipped legacy cache cleanup: read-only directory. Run openclaw doctor --fix.";
+      : "Skipped legacy cache cleanup: read-only directory. Run lanfu doctor --fix.";
   const result = completeUpdateCommandRun(
     {
       status: "ok",

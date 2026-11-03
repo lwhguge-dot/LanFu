@@ -167,7 +167,7 @@ export async function runDoctorPluginConvergence(params: {
         ...deferredPlugins.get(warning.pluginId),
         pluginId: warning.pluginId,
         reason: warning.reason,
-        command: "openclaw update repair",
+        command: "lanfu update repair",
       });
     }
   }
@@ -176,7 +176,7 @@ export async function runDoctorPluginConvergence(params: {
       ...deferredPlugins.get(plugin.pluginId),
       pluginId: plugin.pluginId,
       reason: plugin.diagnostic.detail,
-      command: "openclaw update repair",
+      command: "lanfu update repair",
     });
   }
   return {
@@ -257,7 +257,7 @@ function mapStartupPluginQuarantineRefresh(params: {
     deferredPlugins: quarantinedPlugins.map((plugin) => ({
       pluginId: plugin.pluginId,
       reason: plugin.diagnostic.detail,
-      command: "openclaw update repair",
+      command: "lanfu update repair",
     })),
   };
 }

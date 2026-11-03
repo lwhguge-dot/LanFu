@@ -169,7 +169,7 @@ describe("executeAgentTurn: provider failures", () => {
           expect(result.payload.text).toContain("Agent failed before reply:");
           expect(result.payload.text).toContain("reconnect before continuing");
           if (surface === "control UI") {
-            expect(result.payload.text).toContain("openclaw logs --follow");
+            expect(result.payload.text).toContain("lanfu logs --follow");
           } else {
             expect(result.payload.text!.length).toBeLessThanOrEqual(1020);
           }

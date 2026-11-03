@@ -400,7 +400,7 @@ describe("node worker launch wire", () => {
         ).resolves.toMatchObject({
           status: "error",
           error: expect.stringMatching(
-            /requires an update.*openclaw update.*reconnect.*openclaw node restart/su,
+            /requires an update.*lanfu update.*reconnect.*lanfu node restart/su,
           ),
         });
         await legacyWorkerNode.waitForInvokes();

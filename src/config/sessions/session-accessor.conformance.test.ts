@@ -2190,13 +2190,13 @@ describe("sqlite session normalization", () => {
         },
         { id: "canonical-event", timestamp: new Date(20).toISOString(), type: "metadata" },
       ),
-    ).rejects.toThrow("openclaw doctor --fix");
+    ).rejects.toThrow("lanfu doctor --fix");
     expect(() =>
       replaceSessionEntrySync(
         { agentId: "main", env, sessionKey: canonicalKey, storePath: paths.sqlitePath },
         { sessionId: "replacement", updatedAt: 20 },
       ),
-    ).toThrow("openclaw doctor --fix");
+    ).toThrow("lanfu doctor --fix");
     expect(
       database.db
         .prepare("SELECT current_session_id FROM session_nodes WHERE session_key = ?")
@@ -2216,7 +2216,7 @@ describe("sqlite session normalization", () => {
         },
         { id: "canonical-event-2", timestamp: new Date(21).toISOString(), type: "metadata" },
       ),
-    ).rejects.toThrow("openclaw doctor --fix");
+    ).rejects.toThrow("lanfu doctor --fix");
   });
 
   it("fails loud for invalid live rows instead of treating them as retained tombstones", () => {
@@ -2237,7 +2237,7 @@ describe("sqlite session normalization", () => {
 
     expect(() =>
       listSessionEntryRows({ agentId: "main", env, storePath: paths.sqlitePath }),
-    ).toThrow("openclaw doctor --fix");
+    ).toThrow("lanfu doctor --fix");
   });
 
   it("revalidates an open database after its canonical main key changes", () => {
@@ -2253,7 +2253,7 @@ describe("sqlite session normalization", () => {
     setCanonicalSqliteSessionMainKey(database, "work");
 
     expect(() => listSessionEntryRows({ agentId: "main", env, storePath })).toThrow(
-      "openclaw doctor --fix",
+      "lanfu doctor --fix",
     );
   });
 
@@ -2283,10 +2283,10 @@ describe("sqlite session normalization", () => {
         sessionKey: "agent:main:json-parent",
         storePath: paths.sqlitePath,
       }),
-    ).toThrow("openclaw doctor --fix");
+    ).toThrow("lanfu doctor --fix");
     expect(() =>
       listSessionEntryRows({ agentId: "main", env, storePath: paths.sqlitePath }),
-    ).toThrow("openclaw doctor --fix");
+    ).toThrow("lanfu doctor --fix");
   });
 
   it("normalizes missing entry updatedAt before writing root and entry rows", async () => {

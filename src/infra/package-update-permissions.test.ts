@@ -39,7 +39,7 @@ it.each(["EACCES", "EPERM"])(
           ? "owner unavailable"
           : `UID ${(await fs.stat(globalRoot)).uid}`,
       );
-      expect(result.failedStep?.stderrTail).toContain("rerun `openclaw update`");
+      expect(result.failedStep?.stderrTail).toContain("rerun `lanfu update`");
       expect(result.failedStep?.failureFacts).toEqual(
         expect.arrayContaining([
           expect.objectContaining({ code: "global-install-permission-denied" }),

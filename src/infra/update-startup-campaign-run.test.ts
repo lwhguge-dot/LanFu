@@ -76,7 +76,7 @@ describe("automatic campaign handoff failure", () => {
     start.mockReset().mockResolvedValue({
       status: "started",
       pid: 12345,
-      command: "openclaw update --yes --channel beta",
+      command: "lanfu update --yes --channel beta",
       logPath: "/tmp/openclaw-handoff.log",
       handoffId: "auto-handoff-id",
       installRoot: "/opt/openclaw",

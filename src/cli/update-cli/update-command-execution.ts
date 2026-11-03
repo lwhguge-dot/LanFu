@@ -326,7 +326,7 @@ export async function executeMutableUpdate(
         [
           `${params.updateInstallKind === "git" ? "Git updates" : "Package updates"} cannot run from inside the gateway service process.`,
           "That path replaces the active LanFu dist tree while the live gateway may still lazy-load old chunks.",
-          `Run \`${formatCliCommand("openclaw update")}\` from a terminal outside the gateway service.`,
+          `Run \`${formatCliCommand("lanfu update")}\` from a terminal outside the gateway service.`,
         ].join("\n"),
         inspectionFailure,
       );

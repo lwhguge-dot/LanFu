@@ -131,7 +131,7 @@ describe("Doctor Gateway token store repair", () => {
         severity: "error",
         requirement: "SECRET_REF_REDACTED_VALUE",
         message: expect.stringContaining(tokenRef.id),
-        fixHint: expect.stringContaining("openclaw doctor --fix"),
+        fixHint: expect.stringContaining("lanfu doctor --fix"),
       }),
     ]);
     await runGatewayAuth(fixture.ctx);

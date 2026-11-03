@@ -233,7 +233,7 @@ describe("runDoctorSessionSqlite", () => {
       mutate: (database: DatabaseSync) => {
         database.exec(`PRAGMA user_version = ${OPENCLAW_AGENT_SCHEMA_VERSION - 1};`);
       },
-      message: /run openclaw doctor --fix before compacting/iu,
+      message: /run lanfu doctor --fix before compacting/iu,
     },
   ])("rejects $label before compaction", async ({ mutate, message }) => {
     const { sqlitePath, store } = await createImportedStoreForCompaction();

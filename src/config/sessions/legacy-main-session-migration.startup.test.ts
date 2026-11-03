@@ -128,6 +128,6 @@ it("reports legacy session repairs without rewriting stored claims at startup", 
     expect.soft(loadSessionEntry(canonical)).toBeUndefined();
     expect.soft(loadSessionEntry(worktree)).toEqual(beforeWorktree);
     expect(handoffDatabase).toHaveBeenCalled();
-    expect(log.warn).toHaveBeenCalledWith(expect.stringContaining("openclaw doctor --fix"));
+    expect(log.warn).toHaveBeenCalledWith(expect.stringContaining("lanfu doctor --fix"));
   });
 });

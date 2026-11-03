@@ -632,7 +632,7 @@ describe.skipIf(process.platform === "win32")("embedded triage installation targ
                     opts.assertSourceCurrent?.();
                     expect(assertCurrent.mock.calls.length).toBeGreaterThan(checksBefore);
                     expect(prompt).toContain("## Triggering failure");
-                    expect(prompt).toContain("openclaw health --json");
+                    expect(prompt).toContain("lanfu health --json");
                     if (fails) {
                       controller.abort(runFailure);
                       expect(runSignal.aborted).toBe(true);

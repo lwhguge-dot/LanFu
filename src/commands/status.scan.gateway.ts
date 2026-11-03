@@ -177,7 +177,7 @@ export async function scanStatusJsonGateway(
                 {
                   fields: ["channelSummary"],
                   reason:
-                    "Online status skips channel summaries; an empty channelSummary was not collected. Use openclaw channels status, or openclaw channels status --probe for live account checks.",
+                    "Online status skips channel summaries; an empty channelSummary was not collected. Use lanfu channels status, or lanfu channels status --probe for live account checks.",
                 },
               ]
             : []),

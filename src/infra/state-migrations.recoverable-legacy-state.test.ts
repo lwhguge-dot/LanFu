@@ -101,7 +101,7 @@ describe("recoverable legacy state", () => {
         if (canonical) {
           expect(() => throwIfDoctorStateMigrationRefused([receipt])).not.toThrow();
           expect(receipt.outcome).toBe("warning");
-          expect(receipt.warnings.join("\n")).toContain("openclaw doctor --fix");
+          expect(receipt.warnings.join("\n")).toContain("lanfu doctor --fix");
         } else {
           expect(() => throwIfDoctorStateMigrationRefused([receipt])).toThrow(
             "Doctor stopped because a state migration refused",
@@ -163,7 +163,7 @@ describe("recoverable legacy state", () => {
         } else {
           expect(() => throwIfDoctorStateMigrationRefused([receipt])).not.toThrow();
           expect(receipt.outcome).toBe("warning");
-          expect(receipt.warnings.join("\n")).toContain("openclaw doctor --fix");
+          expect(receipt.warnings.join("\n")).toContain("lanfu doctor --fix");
         }
         vi.restoreAllMocks();
         if (!failedImport) {

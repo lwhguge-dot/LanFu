@@ -237,7 +237,7 @@ describe("Doctor Windows database path repair", () => {
     await runStateIntegrityHealth(ctx);
     expect(state.readRows()).toHaveLength(3);
     expect(ctx.updateWarnings).toEqual([
-      "Skipped agent database path repair while update 00000000-0000-4000-8000-000000000001 is in progress. Run openclaw doctor --fix after the update finishes.",
+      "Skipped agent database path repair while update 00000000-0000-4000-8000-000000000001 is in progress. Run lanfu doctor --fix after the update finishes.",
     ]);
     expect(fixture.note).toHaveBeenCalledWith(ctx.updateWarnings?.[0], "Doctor warnings");
     expect(
@@ -258,7 +258,7 @@ describe("Doctor Windows database path repair", () => {
     await runStateIntegrityHealth(ctx);
     expect(state.readRows()).toEqual(before);
     expect(ctx.updateWarnings).toEqual([
-      "Skipped agent database path repair during update Doctor. Run openclaw doctor --fix after the update finishes.",
+      "Skipped agent database path repair during update Doctor. Run lanfu doctor --fix after the update finishes.",
     ]);
   });
 

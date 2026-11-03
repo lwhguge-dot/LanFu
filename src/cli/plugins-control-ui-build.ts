@@ -95,7 +95,7 @@ export async function buildPluginControlUi(params: {
         .readFile(path.join(outputDir, path.basename(file.path)))
         .catch(() => null);
       if (!existing?.equals(Buffer.from(file.contents))) {
-        throw new Error("Control UI build is missing or stale. Run openclaw plugins build.");
+        throw new Error("Control UI build is missing or stale. Run lanfu plugins build.");
       }
     }
     return declaration;

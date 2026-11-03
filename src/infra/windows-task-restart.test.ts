@@ -202,7 +202,7 @@ describe("relaunchGatewayScheduledTask", () => {
     expect(script).toContain("WaitForExit(180000)");
     expect(script).toContain("gateway-restart.log");
     expect(script).toContain(
-      'openclaw restart attempt source=windows-task-handoff target="OpenClaw Gateway (work)"',
+      'lanfu restart attempt source=windows-task-handoff target="OpenClaw Gateway (work)"',
     );
     expect(script).not.toContain("Get-ScheduledTask");
     expect(script).toContain("Get-NetTCPConnection -LocalPort 18789 -State Listen");
@@ -237,7 +237,7 @@ describe("relaunchGatewayScheduledTask", () => {
       });
       expect(output.join("\n")).not.toContain("restart finished");
       expect(output.join("\n")).toContain("restart failed source=windows-task-handoff");
-      expect(output.join("\n")).toContain("openclaw gateway restart --force");
+      expect(output.join("\n")).toContain("lanfu gateway restart --force");
       expect(commands.filter((line) => line.startsWith("schtasks /Run"))).toHaveLength(1);
     },
   );

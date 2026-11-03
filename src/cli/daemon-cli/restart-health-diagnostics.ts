@@ -2,7 +2,7 @@ import { formatPortDiagnostics } from "../../infra/ports.js";
 import type { GatewayPortHealthSnapshot, GatewayRestartSnapshot } from "./restart-health.types.js";
 
 function formatGatewayStillStarting(snapshot: GatewayRestartSnapshot): string {
-  return `Gateway service is still starting after ${Math.round((snapshot.elapsedMs ?? 0) / 1000)}s. Last observed startup phase: ${snapshot.startupPhase ?? "unknown"}. Run openclaw gateway status --deep.`;
+  return `Gateway service is still starting after ${Math.round((snapshot.elapsedMs ?? 0) / 1000)}s. Last observed startup phase: ${snapshot.startupPhase ?? "unknown"}. Run lanfu gateway status --deep.`;
 }
 
 function renderPortUsageDiagnostics(snapshot: GatewayPortHealthSnapshot): string[] {

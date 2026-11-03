@@ -158,7 +158,7 @@ it("admits active pending-plugin inputs without selecting an older valid backup"
             {
               pluginId: "canvas",
               reason: "The configured plugin is not installed.",
-              command: "openclaw doctor --fix",
+              command: "lanfu doctor --fix",
               ...resolveDeferredPluginMigrationConfigPaths({
                 config: snapshot.sourceConfig,
                 pluginId: "canvas",

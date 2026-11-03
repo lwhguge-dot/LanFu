@@ -269,7 +269,7 @@ describe("update cli option collisions", () => {
     expect(handler).not.toHaveBeenCalled();
     expect(updateCommand).not.toHaveBeenCalled();
     expect(defaultRuntime.error).toHaveBeenCalledWith(
-      `--dry-run is not supported for \`openclaw update ${name}\`. Run \`openclaw update --dry-run\` instead.`,
+      `--dry-run is not supported for \`lanfu update ${name}\`. Run \`lanfu update --dry-run\` instead.`,
     );
     expect(defaultRuntime.exit).toHaveBeenCalledWith(1);
   });

@@ -1092,7 +1092,7 @@ function buildConfigMocks(options: { swarmEnabled?: boolean; workboardEnabled?: 
           status: "ok",
           ts: 0,
           message: null,
-          doctorHint: "openclaw doctor --non-interactive",
+          doctorHint: "lanfu doctor --non-interactive",
           stats: { mode: "config.apply", root: get.path, requiresRestart: false },
         },
       },
@@ -1621,7 +1621,7 @@ async function createChatPickerScenario(
   <path d="M232 114c-72-44-135-22-146 35 52 9 91-4 125-39" fill="none" stroke="#f06b5f" stroke-width="28" stroke-linecap="round"/>
   <path d="M408 114c72-44 135-22 146 35-52 9-91-4-125-39" fill="none" stroke="#f06b5f" stroke-width="28" stroke-linecap="round"/>
   <path d="M232 246c-45 28-91 35-142 23M408 246c45 28 91 35 142 23" fill="none" stroke="#e14b47" stroke-width="16" stroke-linecap="round"/>
-  <text x="320" y="326" text-anchor="middle" font-family="ui-sans-serif, system-ui" font-size="24" fill="#f6f7f9">openclaw session artifact</text>
+  <text x="320" y="326" text-anchor="middle" font-family="ui-sans-serif, system-ui" font-size="24" fill="#f6f7f9">lanfu session artifact</text>
 </svg>`;
   const lobsterArtifact = {
     id: "artifact-openclaw-lobster",

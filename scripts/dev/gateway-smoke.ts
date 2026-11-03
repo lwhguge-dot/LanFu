@@ -169,7 +169,7 @@ export async function runGatewaySmoke(
       maxProtocol: PROTOCOL_VERSION,
       client: {
         id: "openclaw-ios",
-        displayName: "openclaw gateway smoke test",
+        displayName: "lanfu gateway smoke test",
         version: "dev",
         platform: "dev",
         mode: "ui",

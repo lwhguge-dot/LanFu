@@ -669,7 +669,7 @@ function formatMissingProviderHint(providerId: string): string {
   if (!catalogHint) {
     return "";
   }
-  return ` Install the official external plugin with: ${formatCliCommand(catalogHint.installCommand)}, then run ${formatCliCommand("openclaw plugins registry --refresh")} and stop and start the gateway service, or run ${formatCliCommand(catalogHint.doctorFixCommand)} to repair automatically.`;
+  return ` Install the official external plugin with: ${formatCliCommand(catalogHint.installCommand)}, then run ${formatCliCommand("lanfu plugins registry --refresh")} and stop and start the gateway service, or run ${formatCliCommand(catalogHint.doctorFixCommand)} to repair automatically.`;
 }
 
 /** Executes one provider-backed media-understanding entry for one attachment. */

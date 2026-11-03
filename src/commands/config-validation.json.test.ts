@@ -130,8 +130,8 @@ describe("command invalid-config JSON", () => {
   it("keeps the existing human recovery and inspection guidance", async () => {
     const rt = runtime();
     expect(await withOutputMode(false, () => requireValidConfig(rt))).toBeNull();
-    expect(rt.error).toHaveBeenCalledWith("Fix: openclaw doctor --fix");
-    expect(rt.error).toHaveBeenCalledWith("Inspect: openclaw config validate");
+    expect(rt.error).toHaveBeenCalledWith("Fix: lanfu doctor --fix");
+    expect(rt.error).toHaveBeenCalledWith("Inspect: lanfu config validate");
     expect(rt.documents).toEqual([]);
     expect(rt.exit).toHaveBeenCalledExactlyOnceWith(1);
   });

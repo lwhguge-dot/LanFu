@@ -92,8 +92,8 @@ export function assertGatewayServiceAdmissionUnchanged(
   if (expectedVerdict && expectedVerdict.kind !== serviceUpdateVerdict.kind) {
     throw new GatewayServiceUpdateOwnershipError(
       serviceUpdateVerdict.kind === "unavailable"
-        ? "Gateway service ownership could not be verified because inspection is unavailable. Run `openclaw gateway status --deep` and retry."
-        : "Gateway service ownership changed after database admission; run `openclaw gateway status --deep` and retry.",
+        ? "Gateway service ownership could not be verified because inspection is unavailable. Run `lanfu gateway status --deep` and retry."
+        : "Gateway service ownership changed after database admission; run `lanfu gateway status --deep` and retry.",
       undefined,
       serviceUpdateVerdict.kind === "unavailable"
         ? serviceUpdateVerdict.inspectionReason
@@ -143,7 +143,7 @@ export function isGatewayServiceManagementAllowedForUpdate(
 }
 
 export const GATEWAY_SERVICE_INSPECTION_WARNING =
-  "Gateway service inspection is unavailable; automatic service restart was skipped. Restart the Gateway you launched manually after the update. Any recorded service definition was left unchanged; inspect it with `openclaw gateway status --deep`.";
+  "Gateway service inspection is unavailable; automatic service restart was skipped. Restart the Gateway you launched manually after the update. Any recorded service definition was left unchanged; inspect it with `lanfu gateway status --deep`.";
 
 function serviceInspectionWarningMessage(state: GatewayServiceState): string {
   if (state.inspectionReason) {
@@ -362,7 +362,7 @@ export async function resolvePackageRuntimePreflight(params: {
       const version = normalizeOptionalString(manifest?.version);
       if (!version) {
         return resultError(
-          "Cannot inspect the installed LanFu runtime requirement; repair its package.json before retrying openclaw update.",
+          "Cannot inspect the installed LanFu runtime requirement; repair its package.json before retrying lanfu update.",
         );
       }
       target = {

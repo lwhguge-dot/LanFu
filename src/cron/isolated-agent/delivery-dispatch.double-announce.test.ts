@@ -3564,7 +3564,7 @@ describe("dispatchCronDelivery — double-announce guard", () => {
       threadId: undefined,
       mode: "implicit",
       error: new Error(
-        "Channel is required (no configured channels detected). Run openclaw channels add to configure one, or pass --channel <channel> after enabling a channel. Use openclaw channels list --all to see available channel ids. Set delivery.channel explicitly or use a main session with a previous channel.",
+        "Channel is required (no configured channels detected). Run lanfu channels add to configure one, or pass --channel <channel> after enabling a channel. Use lanfu channels list --all to see available channel ids. Set delivery.channel explicitly or use a main session with a previous channel.",
       ),
     };
 

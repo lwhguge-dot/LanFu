@@ -670,8 +670,8 @@ it("gives actionable Windows Bun recovery before stopping or installing", async 
       });
       expect(result.failedStep).toMatchObject({ name: "package-stage", exitCode: 1 });
       expect(result.failedStep?.stderrTail).toContain("bun add -g --trust openclaw@2.0.0");
-      expect(result.failedStep?.stderrTail).toContain("openclaw gateway restart");
-      expect(result.failedStep?.stderrTail).toContain("openclaw update status");
+      expect(result.failedStep?.stderrTail).toContain("lanfu gateway restart");
+      expect(result.failedStep?.stderrTail).toContain("lanfu update status");
       expect(result.recovery).toEqual({ serviceRestartSafe: true, version: "1.0.0" });
       expect(runStep).not.toHaveBeenCalled();
       expect(beforeActivate).not.toHaveBeenCalled();

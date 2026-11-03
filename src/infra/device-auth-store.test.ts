@@ -283,7 +283,7 @@ describe("infra/device-auth-store", () => {
 
       await expect(
         async () => await loadDeviceAuthToken({ deviceId: "device-1", role: "operator", env }),
-      ).rejects.toThrow("openclaw doctor --fix");
+      ).rejects.toThrow("lanfu doctor --fix");
       await expect(
         async () =>
           await storeDeviceAuthToken({
@@ -292,7 +292,7 @@ describe("infra/device-auth-store", () => {
             token: "replacement",
             env,
           }),
-      ).rejects.toThrow("openclaw doctor --fix");
+      ).rejects.toThrow("lanfu doctor --fix");
       await expect(
         async () =>
           await loadOriginDeviceToken({
@@ -301,7 +301,7 @@ describe("infra/device-auth-store", () => {
             role: "operator",
             env,
           }),
-      ).rejects.toThrow("openclaw doctor --fix");
+      ).rejects.toThrow("lanfu doctor --fix");
       await expect(
         async () =>
           await storeOriginDeviceToken({
@@ -311,7 +311,7 @@ describe("infra/device-auth-store", () => {
             token: "origin-token",
             env,
           }),
-      ).rejects.toThrow("openclaw doctor --fix");
+      ).rejects.toThrow("lanfu doctor --fix");
       await expect(
         async () =>
           await clearOriginDeviceToken({
@@ -320,7 +320,7 @@ describe("infra/device-auth-store", () => {
             role: "operator",
             env,
           }),
-      ).rejects.toThrow("openclaw doctor --fix");
+      ).rejects.toThrow("lanfu doctor --fix");
       expect(
         openOpenClawStateDatabase({ env })
           .db.prepare("SELECT name FROM sqlite_schema WHERE type = 'table' AND name = ?")

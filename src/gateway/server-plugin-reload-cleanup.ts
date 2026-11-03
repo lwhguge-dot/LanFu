@@ -28,7 +28,7 @@ export class PluginAdmittedWorkTimeoutError extends Error {
   constructor(pluginIds: ReadonlySet<string>, cause: PluginHostCleanupTimeoutError) {
     const ids = [...pluginIds].join(", ");
     super(
-      `plugin ${ids} admitted work did not settle within 60s; the previous plugin generation stays active. Retry \`openclaw plugins reload ${[...pluginIds].join(" ")}\` after that work finishes.`,
+      `plugin ${ids} admitted work did not settle within 60s; the previous plugin generation stays active. Retry \`lanfu plugins reload ${[...pluginIds].join(" ")}\` after that work finishes.`,
       { cause },
     );
   }

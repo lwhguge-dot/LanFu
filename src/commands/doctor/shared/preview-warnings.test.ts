@@ -22,7 +22,7 @@ async function collectProfileConfiguredToolSectionWarningsThroughDoctor(
 ): Promise<string[]> {
   const warnings = await collectDoctorPreviewWarnings({
     cfg,
-    doctorFixCommand: "openclaw doctor --fix",
+    doctorFixCommand: "lanfu doctor --fix",
   });
   return warnings.filter((warning) => warning.includes("is configured, but configured sections"));
 }
@@ -32,7 +32,7 @@ async function collectVisibleReplyToolPolicyWarningsThroughDoctor(
 ): Promise<string[]> {
   const warnings = await collectDoctorPreviewWarnings({
     cfg,
-    doctorFixCommand: "openclaw doctor --fix",
+    doctorFixCommand: "lanfu doctor --fix",
   });
   return warnings.filter((warning) => warning.includes("visibleReplies is set"));
 }
@@ -42,7 +42,7 @@ async function collectChannelBoundMessageToolPolicyWarningsThroughDoctor(
 ): Promise<string[]> {
   const warnings = await collectDoctorPreviewWarnings({
     cfg,
-    doctorFixCommand: "openclaw doctor --fix",
+    doctorFixCommand: "lanfu doctor --fix",
   });
   return warnings.filter((warning) => warning.includes("is routed from channel"));
 }
@@ -412,7 +412,7 @@ describe("doctor preview warnings", () => {
 
   it("reports merged gateway owner profiles without applying the repair", async () => {
     const env = { OPENCLAW_STATE_DIR: "/tmp/openclaw-doctor-preview" };
-    const warning = 'Gateway owner profile is merged. Run "openclaw doctor --fix" to repair it.';
+    const warning = 'Gateway owner profile is merged. Run "lanfu doctor --fix" to repair it.';
     repairMergedGatewayOwnerProfile.mockReturnValue({
       repaired: false,
       changes: [],
@@ -421,7 +421,7 @@ describe("doctor preview warnings", () => {
 
     const notes = await collectDoctorPreviewNotes({
       cfg: {},
-      doctorFixCommand: "openclaw doctor --fix",
+      doctorFixCommand: "lanfu doctor --fix",
       env,
     });
 
@@ -452,7 +452,7 @@ describe("doctor preview warnings", () => {
           },
         },
       } as unknown as OpenClawConfig,
-      doctorFixCommand: "openclaw doctor --fix",
+      doctorFixCommand: "lanfu doctor --fix",
       env: { CODEX_HOME: codexHome, HOME: root },
     });
 
@@ -477,7 +477,7 @@ describe("doctor preview warnings", () => {
           },
         },
       },
-      doctorFixCommand: "openclaw doctor --fix",
+      doctorFixCommand: "lanfu doctor --fix",
     });
 
     expect(
@@ -519,7 +519,7 @@ describe("doctor preview warnings", () => {
       await import("../../../cli/command-secret-gateway.js");
     const notes = await collectDoctorPreviewNotes({
       cfg: rawConfig,
-      doctorFixCommand: "openclaw doctor --fix",
+      doctorFixCommand: "lanfu doctor --fix",
       env: {},
     });
 
@@ -553,7 +553,7 @@ describe("doctor preview warnings", () => {
           },
         },
       } as unknown as OpenClawConfig,
-      doctorFixCommand: "openclaw doctor --fix",
+      doctorFixCommand: "lanfu doctor --fix",
       env: {},
       allowExec: true,
     });
@@ -586,7 +586,7 @@ describe("doctor preview warnings", () => {
           },
         },
       } as unknown as OpenClawConfig,
-      doctorFixCommand: "openclaw doctor --fix",
+      doctorFixCommand: "lanfu doctor --fix",
     });
 
     const warning = expectSingleWarningContaining(
@@ -610,7 +610,7 @@ describe("doctor preview warnings", () => {
           },
         },
       },
-      doctorFixCommand: "openclaw doctor --fix",
+      doctorFixCommand: "lanfu doctor --fix",
     });
 
     const warning = expectSingleWarningContaining(
@@ -624,14 +624,14 @@ describe("doctor preview warnings", () => {
   it("includes stale plugin config warnings", async () => {
     const warnings = await collectDoctorPreviewWarnings({
       cfg: stalePluginConfig(),
-      doctorFixCommand: "openclaw doctor --fix",
+      doctorFixCommand: "lanfu doctor --fix",
     });
 
     const warning = expectSingleWarningContaining(
       warnings,
       "Stale plugin references (plugins.allow/deny/entries): acpx",
     );
-    expect(warning).toContain('Run "openclaw doctor --fix"');
+    expect(warning).toContain('Run "lanfu doctor --fix"');
     expect(warning).not.toContain("Auto-removal is paused");
   });
 
@@ -642,7 +642,7 @@ describe("doctor preview warnings", () => {
           allow: ["codex"],
         },
       },
-      doctorFixCommand: "openclaw doctor --fix",
+      doctorFixCommand: "lanfu doctor --fix",
     });
 
     expect(warnings.join("\n")).not.toContain("Stale plugin references");
@@ -657,7 +657,7 @@ describe("doctor preview warnings", () => {
           },
         },
       },
-      doctorFixCommand: "openclaw doctor --fix",
+      doctorFixCommand: "lanfu doctor --fix",
     });
 
     expectSingleWarningContaining(warnings, "channels.openclaw-weixin: dangling channel config");
@@ -676,24 +676,24 @@ describe("doctor preview warnings", () => {
           },
         },
       },
-      doctorFixCommand: "openclaw doctor --fix",
+      doctorFixCommand: "lanfu doctor --fix",
     });
 
     const warning = expectSingleWarningContaining(
       warnings,
       `plugins.load.paths: legacy bundled plugin path "${legacyPath}"`,
     );
-    expect(warning).toContain('Run "openclaw doctor --fix"');
+    expect(warning).toContain('Run "lanfu doctor --fix"');
   });
 
   it("includes stale OAuth profile shadow warnings", async () => {
     staleOAuthShadowState.warnings = [
-      '- ~/.openclaw/agents/telegram/agent/auth-profiles.json has stale OAuth auth profile openai-codex:default. Run "openclaw doctor --fix".',
+      '- ~/.openclaw/agents/telegram/agent/auth-profiles.json has stale OAuth auth profile openai-codex:default. Run "lanfu doctor --fix".',
     ];
 
     const warnings = await collectDoctorPreviewWarnings({
       cfg: {},
-      doctorFixCommand: "openclaw doctor --fix",
+      doctorFixCommand: "lanfu doctor --fix",
     });
 
     expectSingleWarningContaining(warnings, "stale OAuth auth profile openai-codex:default");
@@ -701,12 +701,12 @@ describe("doctor preview warnings", () => {
 
   it("includes stale configured auth-order warnings", async () => {
     staleAuthOrderState.warnings = [
-      "- auth.order.anthropic references only missing profiles while compatible stored credentials exist; run openclaw doctor --fix to remove the stale override and restore automatic selection.",
+      "- auth.order.anthropic references only missing profiles while compatible stored credentials exist; run lanfu doctor --fix to remove the stale override and restore automatic selection.",
     ];
 
     const warnings = await collectDoctorPreviewWarnings({
       cfg: {},
-      doctorFixCommand: "openclaw doctor --fix",
+      doctorFixCommand: "lanfu doctor --fix",
     });
 
     expectSingleWarningContaining(
@@ -723,7 +723,7 @@ describe("doctor preview warnings", () => {
 
     const warnings = await collectDoctorPreviewWarnings({
       cfg: stalePluginConfig(),
-      doctorFixCommand: "openclaw doctor --fix",
+      doctorFixCommand: "lanfu doctor --fix",
     });
 
     const warning = expectSingleWarningContaining(
@@ -731,7 +731,7 @@ describe("doctor preview warnings", () => {
       "Stale plugin references (plugins.allow/deny/entries): acpx",
     );
     expect(warning).toContain("Auto-removal is paused");
-    expect(warning).toContain('rerun "openclaw doctor --fix"');
+    expect(warning).toContain('rerun "lanfu doctor --fix"');
   });
 
   it("warns when a configured channel plugin is disabled explicitly", async () => {
@@ -753,7 +753,7 @@ describe("doctor preview warnings", () => {
           },
         },
       },
-      doctorFixCommand: "openclaw doctor --fix",
+      doctorFixCommand: "lanfu doctor --fix",
     });
 
     const warning = expectSingleWarningContaining(
@@ -779,7 +779,7 @@ describe("doctor preview warnings", () => {
           },
         },
       },
-      doctorFixCommand: "openclaw doctor --fix",
+      doctorFixCommand: "lanfu doctor --fix",
     });
 
     const warning = expectSingleWarningContaining(
@@ -805,7 +805,7 @@ describe("doctor preview warnings", () => {
           },
         },
       },
-      doctorFixCommand: "openclaw doctor --fix",
+      doctorFixCommand: "lanfu doctor --fix",
     });
 
     expect(warnings.join("\n")).toContain(
@@ -828,7 +828,7 @@ describe("doctor preview warnings", () => {
         },
       },
       activationSourceConfig: {},
-      doctorFixCommand: "openclaw doctor --fix",
+      doctorFixCommand: "lanfu doctor --fix",
       env: {
         DISCORD_BOT_TOKEN: "configured",
       } as NodeJS.ProcessEnv,
@@ -863,7 +863,7 @@ describe("doctor preview warnings", () => {
           },
         },
       },
-      doctorFixCommand: "openclaw doctor --fix",
+      doctorFixCommand: "lanfu doctor --fix",
     });
 
     const warning = expectSingleWarningContaining(
@@ -889,7 +889,7 @@ describe("doctor preview warnings", () => {
           enabled: false,
         },
       },
-      doctorFixCommand: "openclaw doctor --fix",
+      doctorFixCommand: "lanfu doctor --fix",
     });
 
     const warning = expectSingleWarningContaining(
@@ -918,7 +918,7 @@ describe("doctor preview warnings", () => {
           },
         },
       },
-      doctorFixCommand: "openclaw doctor --fix",
+      doctorFixCommand: "lanfu doctor --fix",
     });
 
     expectSingleWarningContaining(
@@ -938,7 +938,7 @@ describe("doctor preview warnings", () => {
           },
         },
       },
-      doctorFixCommand: "openclaw doctor --fix",
+      doctorFixCommand: "lanfu doctor --fix",
     });
 
     const warning = expectSingleWarningContaining(warnings, 'tools.profile is "messaging"');

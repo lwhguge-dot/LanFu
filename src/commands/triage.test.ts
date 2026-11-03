@@ -154,7 +154,7 @@ describe("triageCommand", () => {
       expect(runtime.exit).not.toHaveBeenCalled();
       const output = runtime.log.mock.calls.flat().join("\n");
       expect(output).toContain("No repair agent was started.");
-      expect(output).toContain(run ? "openclaw triage --run" : "claude -p");
+      expect(output).toContain(run ? "lanfu triage --run" : "claude -p");
       expect(runtime.log.mock.calls.filter(([line]) => String(line).startsWith("  "))).toHaveLength(
         1,
       );
@@ -426,7 +426,7 @@ describe("triageCommand", () => {
       expect(output).toContain(
         configured ? "Authentication required" : "No configured embedded agent",
       );
-      expect(output).toContain(configured ? "openclaw triage --run" : "openclaw triage");
+      expect(output).toContain(configured ? "lanfu triage --run" : "lanfu triage");
       expect(output).not.toContain("codex exec --skip-git-repo-check - <");
       const promptFile = (await fs.readdir(path.join(stateDir, "logs/support"))).find((file) =>
         file.endsWith(".md"),
@@ -615,7 +615,7 @@ describe("triageCommand", () => {
               expect.stringContaining("| & cursor-agent --print"),
               expect.stringContaining("& kimi --prompt"),
               expect.stringContaining("| & qwen"),
-              expect.stringContaining("& openclaw triage --run"),
+              expect.stringContaining("& lanfu triage --run"),
             ]
           : [
               `${targetEnv} codex exec --skip-git-repo-check - < '${promptPath}'`,
@@ -627,7 +627,7 @@ describe("triageCommand", () => {
               `${targetEnv} cursor-agent --print < '${promptPath}'`,
               `${targetEnv} kimi --prompt 'Read the debugging prompt at ${promptPath} and follow its repair and verification instructions.'`,
               `${targetEnv} qwen < '${promptPath}'`,
-              `${targetEnv} openclaw triage --run`,
+              `${targetEnv} lanfu triage --run`,
             ],
     });
     expect(await fs.readFile(promptPath, "utf8")).toContain("[error] core/error: broken");

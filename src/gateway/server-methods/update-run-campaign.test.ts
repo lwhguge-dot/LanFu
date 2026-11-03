@@ -54,7 +54,7 @@ const startManagedServiceUpdateHandoffMock = vi.fn<
 >(async () => ({
   status: "started" as const,
   pid: 12345,
-  command: "openclaw update --yes --timeout 1800",
+  command: "lanfu update --yes --timeout 1800",
   logPath: "/tmp/openclaw-update-run-handoff/handoff.log",
   handoffId: "handoff-1",
   installRoot: "/tmp/openclaw",
@@ -207,7 +207,7 @@ beforeEach(() => {
   startManagedServiceUpdateHandoffMock.mockReset().mockImplementation(async (params) => ({
     status: "started",
     pid: 12345,
-    command: "openclaw update --yes --timeout 1800",
+    command: "lanfu update --yes --timeout 1800",
     logPath: "/tmp/fixture.log",
     handoffId: "handoff-1",
     installRoot: params.root,

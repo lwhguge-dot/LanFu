@@ -84,8 +84,8 @@ async function runGuidedOnboardingFlow(
     );
     await prompter.outro(
       t("wizard.guided.invalidConfigRepair", {
-        fixCommand: formatCliCommand("openclaw doctor --fix"),
-        inspectCommand: formatCliCommand("openclaw config validate"),
+        fixCommand: formatCliCommand("lanfu doctor --fix"),
+        inspectCommand: formatCliCommand("lanfu config validate"),
       }),
     );
     runtime.exit(1);
@@ -125,7 +125,7 @@ async function runGuidedOnboardingFlow(
   const hasAuthoredRoster = hasResolvedRosterBeforeMigrations(snapshot);
   if (opts.team && hasAuthoredRoster) {
     throw new Error(
-      "An agent roster already exists. Use `openclaw agents team create` to add a team.",
+      "An agent roster already exists. Use `lanfu agents team create` to add a team.",
     );
   }
   const firstAgent =
@@ -235,7 +235,7 @@ async function runGuidedOnboardingFlow(
       !(await matchesLocalSetupWorkspace(existingConfig, workspace, localSetup.teamCoordinatorId))
     ) {
       throw new Error(
-        "The pending team no longer matches its approved roster and workspace. Inspect `openclaw agents list` and repair the team before retrying setup.",
+        "The pending team no longer matches its approved roster and workspace. Inspect `lanfu agents list` and repair the team before retrying setup.",
       );
     }
     if (
@@ -480,7 +480,7 @@ async function runGuidedOnboardingFlow(
     if (workspaceConflict) {
       await prompter.note(
         t("wizard.guided.workspaceConflictClassic", {
-          command: formatCliCommand("openclaw onboard --classic"),
+          command: formatCliCommand("lanfu onboard --classic"),
         }),
         t("wizard.setup.workspaceConflictTitle"),
       );
@@ -574,7 +574,7 @@ async function runGuidedOnboardingFlow(
       applyProgress.stop(t("wizard.guided.testFailed"));
       if (teamCoordinatorId) {
         throw new Error(
-          `Onboarding did not complete: ${error instanceof Error ? error.message : String(error)} Run \`openclaw agents list\` to inspect the roster, then retry with the same --workspace after resolving the error.`,
+          `Onboarding did not complete: ${error instanceof Error ? error.message : String(error)} Run \`lanfu agents list\` to inspect the roster, then retry with the same --workspace after resolving the error.`,
           { cause: error },
         );
       }

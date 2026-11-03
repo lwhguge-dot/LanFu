@@ -468,7 +468,7 @@ describe("Windows Gateway firewall diagnostics", () => {
         code: "windows_firewall_inspection_failed",
         message,
         details: [
-          "Run `openclaw gateway status --deep` again, or verify the advertised LAN URL from another device.",
+          "Run `lanfu gateway status --deep` again, or verify the advertised LAN URL from another device.",
         ],
       });
       expect(runner).toHaveBeenCalledTimes(1);

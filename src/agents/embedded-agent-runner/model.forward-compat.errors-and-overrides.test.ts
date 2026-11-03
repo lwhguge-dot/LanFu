@@ -75,7 +75,7 @@ vi.mock("../model-suppression.js", async (importOriginal) => {
     ) {
       return undefined;
     }
-    return `Unknown model: ${provider}/gpt-5.3-codex-spark. gpt-5.3-codex-spark is available only through ChatGPT/Codex OAuth. Run \`openclaw models auth login --provider openai\` and use openai/gpt-5.3-codex-spark with that OAuth profile; OpenAI API-key auth cannot use this model.`;
+    return `Unknown model: ${provider}/gpt-5.3-codex-spark. gpt-5.3-codex-spark is available only through ChatGPT/Codex OAuth. Run \`lanfu models auth login --provider openai\` and use openai/gpt-5.3-codex-spark with that OAuth profile; OpenAI API-key auth cannot use this model.`;
   }
   return {
     ...actual,
@@ -333,7 +333,7 @@ describe("resolveModel forward-compat errors and overrides", () => {
 
     expect(result.model).toBeUndefined();
     expect(result.error).toBe(
-      "Unknown model: openai/gpt-5.3-codex-spark. gpt-5.3-codex-spark is available only through ChatGPT/Codex OAuth. Run `openclaw models auth login --provider openai` and use openai/gpt-5.3-codex-spark with that OAuth profile; OpenAI API-key auth cannot use this model.",
+      "Unknown model: openai/gpt-5.3-codex-spark. gpt-5.3-codex-spark is available only through ChatGPT/Codex OAuth. Run `lanfu models auth login --provider openai` and use openai/gpt-5.3-codex-spark with that OAuth profile; OpenAI API-key auth cannot use this model.",
     );
   });
 
@@ -354,7 +354,7 @@ describe("resolveModel forward-compat errors and overrides", () => {
 
     expect(result.model).toBeUndefined();
     expect(result.error).toBe(
-      "Unknown model: openai/gpt-5.3-codex-spark. gpt-5.3-codex-spark is available only through ChatGPT/Codex OAuth. Run `openclaw models auth login --provider openai` and use openai/gpt-5.3-codex-spark with that OAuth profile; OpenAI API-key auth cannot use this model.",
+      "Unknown model: openai/gpt-5.3-codex-spark. gpt-5.3-codex-spark is available only through ChatGPT/Codex OAuth. Run `lanfu models auth login --provider openai` and use openai/gpt-5.3-codex-spark with that OAuth profile; OpenAI API-key auth cannot use this model.",
     );
   });
 
@@ -614,7 +614,7 @@ describe("resolveModel forward-compat errors and overrides", () => {
 
     expect(result.model).toBeUndefined();
     expect(result.error).toBe(
-      "Unknown model: openai/gpt-5.3-codex-spark. gpt-5.3-codex-spark is available only through ChatGPT/Codex OAuth. Run `openclaw models auth login --provider openai` and use openai/gpt-5.3-codex-spark with that OAuth profile; OpenAI API-key auth cannot use this model.",
+      "Unknown model: openai/gpt-5.3-codex-spark. gpt-5.3-codex-spark is available only through ChatGPT/Codex OAuth. Run `lanfu models auth login --provider openai` and use openai/gpt-5.3-codex-spark with that OAuth profile; OpenAI API-key auth cannot use this model.",
     );
   });
 
@@ -640,7 +640,7 @@ describe("resolveModel forward-compat errors and overrides", () => {
 
     expect(result.model).toBeUndefined();
     expect(result.error).toBe(
-      "Unknown model: openai/gpt-5.3-codex-spark. gpt-5.3-codex-spark is available only through ChatGPT/Codex OAuth. Run `openclaw models auth login --provider openai` and use openai/gpt-5.3-codex-spark with that OAuth profile; OpenAI API-key auth cannot use this model.",
+      "Unknown model: openai/gpt-5.3-codex-spark. gpt-5.3-codex-spark is available only through ChatGPT/Codex OAuth. Run `lanfu models auth login --provider openai` and use openai/gpt-5.3-codex-spark with that OAuth profile; OpenAI API-key auth cannot use this model.",
     );
   });
 
@@ -666,7 +666,7 @@ describe("resolveModel forward-compat errors and overrides", () => {
 
     expect(result.model).toBeUndefined();
     expect(result.error).toBe(
-      "Unknown model: openai/gpt-5.3-codex-spark. gpt-5.3-codex-spark is available only through ChatGPT/Codex OAuth. Run `openclaw models auth login --provider openai` and use openai/gpt-5.3-codex-spark with that OAuth profile; OpenAI API-key auth cannot use this model.",
+      "Unknown model: openai/gpt-5.3-codex-spark. gpt-5.3-codex-spark is available only through ChatGPT/Codex OAuth. Run `lanfu models auth login --provider openai` and use openai/gpt-5.3-codex-spark with that OAuth profile; OpenAI API-key auth cannot use this model.",
     );
   });
 
@@ -749,7 +749,7 @@ describe("resolveModel forward-compat errors and overrides", () => {
 
     expect(result.model).toBeUndefined();
     expect(result.error).toBe(
-      "Unknown model: openai/gpt-5.3-codex-spark. gpt-5.3-codex-spark is available only through ChatGPT/Codex OAuth. Run `openclaw models auth login --provider openai` and use openai/gpt-5.3-codex-spark with that OAuth profile; OpenAI API-key auth cannot use this model.",
+      "Unknown model: openai/gpt-5.3-codex-spark. gpt-5.3-codex-spark is available only through ChatGPT/Codex OAuth. Run `lanfu models auth login --provider openai` and use openai/gpt-5.3-codex-spark with that OAuth profile; OpenAI API-key auth cannot use this model.",
     );
   });
 
@@ -873,7 +873,7 @@ describe("resolveModel forward-compat errors and overrides", () => {
 
     expect(result.model).toBeUndefined();
     expect(result.error).toBe(
-      "Unknown model: google-antigravity/some-model. Run `openclaw models list --refresh --provider google-antigravity` to inspect this provider's model choices, then retry with a model supported by your account.",
+      "Unknown model: google-antigravity/some-model. Run `lanfu models list --refresh --provider google-antigravity` to inspect this provider's model choices, then retry with a model supported by your account.",
     );
   });
 

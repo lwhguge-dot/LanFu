@@ -70,10 +70,10 @@ export function buildGatewayRuntimeHints(
     hints.push(
       `LaunchAgent label cached but plist missing. Clear with: launchctl bootout gui/$UID/${label}`,
     );
-    hints.push(`Then reinstall: ${formatCliCommand("openclaw gateway install", env)}`);
+    hints.push(`Then reinstall: ${formatCliCommand("lanfu gateway install", env)}`);
   }
   if (runtime.missingUnit) {
-    hints.push(`Service not installed. Run: ${formatCliCommand("openclaw gateway install", env)}`);
+    hints.push(`Service not installed. Run: ${formatCliCommand("lanfu gateway install", env)}`);
     if (fileLog) {
       hints.push(`File logs: ${fileLog}`);
     }
@@ -86,7 +86,7 @@ export function buildGatewayRuntimeHints(
       // a plain "exited immediately" hint would hide that recovery needs a restart.
       hints.push(
         "systemd stopped restarting the gateway after repeated crashes.",
-        `Recover with: ${formatCliCommand("openclaw gateway restart", env)}, then inspect logs if it keeps crashing.`,
+        `Recover with: ${formatCliCommand("lanfu gateway restart", env)}, then inspect logs if it keeps crashing.`,
       );
     } else if (!missingGuiSession) {
       hints.push("Service is loaded but not running (likely exited immediately).");
@@ -94,7 +94,7 @@ export function buildGatewayRuntimeHints(
     hints.push(
       ...buildGatewayRuntimeRecoveryHints({
         kind: missingGuiSession ? "gui-session" : "stopped",
-        restartCommand: formatCliCommand("openclaw gateway restart", env),
+        restartCommand: formatCliCommand("lanfu gateway restart", env),
         logFile: fileLog,
         platform,
         env,
@@ -117,7 +117,7 @@ export function buildGatewayRuntimeHints(
         "This usually means old helper or browser processes may still be attached to the gateway service.",
         `Run: systemctl ${system ? "--system" : "--user"} show ${unit} -p KillMode -p TasksCurrent -p MemoryCurrent -p MainPID`,
         `Run: systemd-cgls ${system ? "--unit" : "--user-unit"} ${unit}`,
-        `After reviewing service settings, run: ${formatCliCommand("openclaw gateway restart", env)}`,
+        `After reviewing service settings, run: ${formatCliCommand("lanfu gateway restart", env)}`,
       );
     }
   }

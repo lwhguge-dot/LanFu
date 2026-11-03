@@ -96,8 +96,8 @@ describe("webHandlers web.login.start", () => {
         channelId: "whatsapp",
         label: "WhatsApp",
         installSpec: "clawhub:@openclaw/whatsapp",
-        installCommand: "openclaw plugins install clawhub:@openclaw/whatsapp",
-        doctorFixCommand: "openclaw doctor --fix",
+        installCommand: "lanfu plugins install clawhub:@openclaw/whatsapp",
+        doctorFixCommand: "lanfu doctor --fix",
         repairHint:
           "Install the official external plugin with: openclaw plugins install clawhub:@openclaw/whatsapp, or run: openclaw doctor --fix.",
       },
@@ -144,7 +144,7 @@ describe("webHandlers web.login.start", () => {
                   label: "WhatsApp",
                   installSpec: "clawhub:@openclaw/whatsapp",
                   installCommand: "openclaw plugins install clawhub:@openclaw/whatsapp",
-                  doctorFixCommand: "openclaw doctor --fix",
+                  doctorFixCommand: "lanfu doctor --fix",
                   repairHint:
                     "Install the official external plugin with: openclaw plugins install clawhub:@openclaw/whatsapp, or run: openclaw doctor --fix.",
                 },
@@ -156,7 +156,7 @@ describe("webHandlers web.login.start", () => {
                     channelId: "signal",
                     label: "Signal",
                     installSpec: "clawhub:@openclaw/signal",
-                    installCommand: "openclaw plugins install clawhub:@openclaw/signal",
+                    installCommand: "lanfu plugins install clawhub:@openclaw/signal",
                     doctorFixCommand: "openclaw doctor --fix",
                     repairHint:
                       "Install the official external plugin with: openclaw plugins install clawhub:@openclaw/signal, or run: openclaw doctor --fix.",

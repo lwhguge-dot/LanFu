@@ -105,11 +105,11 @@ export function registerSetupCommand(program: Command): void {
       "after",
       () =>
         `\n${theme.heading("Examples:")}\n` +
-        `  ${theme.command("openclaw setup")}\n` +
+        `  ${theme.command("lanfu setup")}\n` +
         `    ${theme.muted("Chat with LanFu, or onboard when setup is incomplete.")}\n` +
-        `  ${theme.command('openclaw setup -m "status"')}\n` +
+        `  ${theme.command('lanfu setup -m "status"')}\n` +
         `    ${theme.muted("Run one system-agent request.")}\n` +
-        `  ${theme.command("openclaw setup --wizard")}\n` +
+        `  ${theme.command("lanfu setup --wizard")}\n` +
         `    ${theme.muted("Run full onboarding.")}\n\n` +
         `\n`,
     )
@@ -175,7 +175,7 @@ export function registerSetupCommand(program: Command): void {
   addSystemAgentOptions(
     program
       .command("crestodian", { hidden: true }) // hidden alias
-      .description("Deprecated: use openclaw setup"),
+      .description("Deprecated: use lanfu setup"),
   ).action(async (options) => {
     const { defaultRuntime } = await import("../../runtime.js");
     await runCommandWithRuntime(defaultRuntime, async () => {

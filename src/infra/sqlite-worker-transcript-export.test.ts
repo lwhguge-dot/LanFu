@@ -193,7 +193,7 @@ describe("transcript export digest worker", () => {
       try {
         const recovery = runTranscriptsCli(["path", session.sessionId, "--metadata"]);
         if (modified) {
-          await expect(recovery).rejects.toThrow("run openclaw doctor --fix");
+          await expect(recovery).rejects.toThrow("run lanfu doctor --fix");
         } else {
           expect((await recovery).trim()).toBe(artifacts.metadataPath);
         }
@@ -275,7 +275,7 @@ describe("transcript export digest worker", () => {
         }
         resume.resolve();
         if (change === "append-before-digest") {
-          await expect(recovery).rejects.toThrow("run openclaw doctor --fix");
+          await expect(recovery).rejects.toThrow("run lanfu doctor --fix");
         } else {
           expect((await recovery).trim()).toBe(artifacts.metadataPath);
         }

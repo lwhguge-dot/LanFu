@@ -273,7 +273,7 @@ describe("Gateway copied Codex session resume", () => {
           await expect(request).rejects.toThrow(
             `Agent harness runtime "codex" is unavailable. (reason=${unavailableReason}, ownerPluginId=codex)`,
           );
-          await expect(request).rejects.toThrow('Run "openclaw doctor --fix"');
+          await expect(request).rejects.toThrow('Run "lanfu doctor --fix"');
           return;
         }
         expect(await request).toMatchObject({

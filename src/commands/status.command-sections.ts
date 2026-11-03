@@ -267,11 +267,9 @@ export function buildStatusSecurityAuditLines(params: {
       lines.push(params.theme.muted(`… +${importantFindings.length - shown.length} more`));
     }
   }
+  lines.push(params.theme.muted(`Full report: ${params.formatCliCommand("lanfu security audit")}`));
   lines.push(
-    params.theme.muted(`Full report: ${params.formatCliCommand("openclaw security audit")}`),
-  );
-  lines.push(
-    params.theme.muted(`Deep probe: ${params.formatCliCommand("openclaw security audit --deep")}`),
+    params.theme.muted(`Deep probe: ${params.formatCliCommand("lanfu security audit --deep")}`),
   );
   return lines;
 }
@@ -438,15 +436,15 @@ export function buildStatusFooterLines(params: {
     "Troubleshooting: https://docs.openclaw.ai/troubleshooting",
     ...(params.updateHint ? ["", params.warn(params.updateHint)] : []),
     "Next steps:",
-    `  Need to share?      ${params.formatCliCommand("openclaw status --all")}`,
-    `  Need to debug live? ${params.formatCliCommand("openclaw logs --follow")}`,
+    `  Need to share?      ${params.formatCliCommand("lanfu status --all")}`,
+    `  Need to debug live? ${params.formatCliCommand("lanfu logs --follow")}`,
     params.nodeOnlyGateway
-      ? `  Need node service?  ${params.formatCliCommand("openclaw node status")}`
+      ? `  Need node service?  ${params.formatCliCommand("lanfu node status")}`
       : params.gatewayStartupPhase
-        ? `  Retry after startup: ${params.formatCliCommand("openclaw status --deep")}`
+        ? `  Retry after startup: ${params.formatCliCommand("lanfu status --deep")}`
         : params.gatewayReachable
-          ? `  Need to test channels? ${params.formatCliCommand("openclaw status --deep")}`
-          : `  Fix reachability first: ${params.formatCliCommand("openclaw gateway probe")}`,
+          ? `  Need to test channels? ${params.formatCliCommand("lanfu status --deep")}`
+          : `  Fix reachability first: ${params.formatCliCommand("lanfu gateway probe")}`,
   ];
 }
 
@@ -500,12 +498,12 @@ export function buildStatusPairingRecoveryLines(params: {
     ...(params.pairingRecovery.requestId
       ? [
           params.muted(
-            `Recovery: ${params.formatCliCommand(`openclaw devices approve ${params.pairingRecovery.requestId}`)}`,
+            `Recovery: ${params.formatCliCommand(`lanfu devices approve ${params.pairingRecovery.requestId}`)}`,
           ),
         ]
       : []),
-    params.muted(`Fallback: ${params.formatCliCommand("openclaw devices approve --latest")}`),
-    params.muted(`Inspect: ${params.formatCliCommand("openclaw devices list")}`),
+    params.muted(`Fallback: ${params.formatCliCommand("lanfu devices approve --latest")}`),
+    params.muted(`Inspect: ${params.formatCliCommand("lanfu devices list")}`),
   ];
 }
 

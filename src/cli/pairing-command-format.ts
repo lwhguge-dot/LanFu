@@ -9,7 +9,7 @@ export function formatPairingApproveCommand(
   requestId: string,
   opts: Pick<GatewayRpcOpts, "url" | "timeout" | "json"> = {},
 ): string {
-  const args = ["openclaw", group, "approve", requestId];
+  const args = ["lanfu", group, "approve", requestId];
   const url = normalizeOptionalString(opts.url);
   if (url) {
     args.push("--url", url);

@@ -153,7 +153,7 @@ export async function ensureLoaded(
       normalized = null;
       state.deps.log.warn(
         { storePath: state.deps.storePath, jobId: typeof raw.id === "string" ? raw.id : undefined },
-        "cron: job has invalid persisted sessionTarget; run openclaw doctor --fix to repair",
+        "cron: job has invalid persisted sessionTarget; run lanfu doctor --fix to repair",
       );
     }
     const hydratedRaw = normalized ?? raw;

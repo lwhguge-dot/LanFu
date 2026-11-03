@@ -114,7 +114,7 @@ describe("Doctor candidate discovery with unavailable configured load paths", ()
                 requirement: "configured-plugin-path-unavailable",
                 severity: "warning",
                 source: missingPath,
-                fixHint: "openclaw doctor --fix",
+                fixHint: "lanfu doctor --fix",
               }),
             );
             expect(report.warnings.map((warning) => warning.message).join("\n")).toContain(

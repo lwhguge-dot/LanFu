@@ -561,7 +561,7 @@ it.each(["canonical-wrapper", "legacy-wrapper", "malformed-args", "wrapper", "me
       expect(result.issues).toContainEqual(
         expect.objectContaining({
           code: "launchd-env-file-argument",
-          message: expect.stringContaining("openclaw gateway install --force"),
+          message: expect.stringContaining("lanfu gateway install --force"),
         }),
       );
       return;

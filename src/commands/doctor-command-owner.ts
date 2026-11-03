@@ -89,7 +89,7 @@ export function formatCommandOwnerHint(params: {
   const owners = JSON.stringify([
     ...new Set([...resolveConfiguredCommandOwners(params.cfg), owner]),
   ]).replaceAll("'", process.platform === "win32" ? "''" : "'\\''");
-  const command = formatCliCommand("openclaw config set commands.ownerAllowFrom");
+  const command = formatCliCommand("lanfu config set commands.ownerAllowFrom");
   return `Ask the operator to run \`${command} '${owners}'\` in a terminal to make this sender a command owner.`;
 }
 
@@ -102,9 +102,9 @@ export function noteCommandOwnerHealth(cfg: OpenClawConfig): void {
     [
       "No command owner is configured.",
       "A command owner is your trusted human operator account, allowed to update LanFu with /update, restart the Gateway, change configuration, and approve commands. Chat allowlists do not grant this authority.",
-      `Run ${formatCliCommand("openclaw channels add")} and complete a channel's setup to choose your operator account, including servers and groups without DM pairing.`,
+      `Run ${formatCliCommand("lanfu channels add")} and complete a channel's setup to choose your operator account, including servers and groups without DM pairing.`,
       "CLI pairing approval records the first command owner. Control UI pairing approval has a separate owner checkbox.",
-      `Fix: set commands.ownerAllowFrom to your channel user id, for example ${formatCliCommand("openclaw config set commands.ownerAllowFrom '[\"telegram:123456789\"]'")}`,
+      `Fix: set commands.ownerAllowFrom to your channel user id, for example ${formatCliCommand("lanfu config set commands.ownerAllowFrom '[\"telegram:123456789\"]'")}`,
       "Restart the gateway after changing this if it is already running.",
     ].join("\n"),
     "Command owner",

@@ -44,7 +44,7 @@ describe("runDoctorConfigPreflight state migration startup outcomes", () => {
 
     expect(readStartupMigrationWarning()).toContain("Left legacy config health state in place.");
     expect(readStartupMigrationWarning()).toContain(
-      'Run "openclaw doctor --fix" against the same state/config, then restart the gateway.',
+      'Run "lanfu doctor --fix" against the same state/config, then restart the gateway.',
     );
     expect(note.mock.calls.filter(([, title]) => title === "Doctor warnings")).toHaveLength(0);
     expect(recordSuccessfulStateMigrations).not.toHaveBeenCalled();
@@ -69,7 +69,7 @@ describe("runDoctorConfigPreflight state migration startup outcomes", () => {
     expect(warning?.length).toBeLessThan(2200);
     expect(warning).toContain("… (see startup log)");
     expect(warning).toContain(
-      'Run "openclaw doctor --fix" against the same state/config, then restart the gateway.',
+      'Run "lanfu doctor --fix" against the same state/config, then restart the gateway.',
     );
   });
 

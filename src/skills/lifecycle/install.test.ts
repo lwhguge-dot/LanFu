@@ -515,7 +515,7 @@ describe("installSkill before_install hooks", () => {
         });
         const message = (result.error as { message: string }).message;
         expect(message).toContain("Gateway host");
-        expect(message).toContain("openclaw skills check");
+        expect(message).toContain("lanfu skills check");
         expect(message).toContain("--agent <id>");
         expect(message).not.toContain("brew.sh");
         expect(message).not.toContain("vendor/tap/tool");

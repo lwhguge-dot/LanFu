@@ -299,7 +299,7 @@ describe("update.run foreground respawn admission", () => {
       expect(run).toMatchObject({
         phase: "finished",
         reason: "restart-unavailable",
-        origin: { nextAction: expect.stringContaining("openclaw update") },
+        origin: { nextAction: expect.stringContaining("lanfu update") },
       });
       expect(run?.steps.map(({ step, status }) => ({ step, status }))).toEqual([
         { step: "requested", status: "failed" },

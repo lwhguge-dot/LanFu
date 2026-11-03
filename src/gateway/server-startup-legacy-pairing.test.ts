@@ -198,7 +198,7 @@ describe("legacy pairing repair ownership", () => {
       expect(await fs.readFile(path.join(stateDir, relative), "utf8")).toBe(bytes);
     }
     expect(await getPairedDevice("synthetic", stateDir)).toBeNull();
-    expect(log.warn).toHaveBeenCalledWith(expect.stringContaining("openclaw doctor --fix"));
+    expect(log.warn).toHaveBeenCalledWith(expect.stringContaining("lanfu doctor --fix"));
   });
 
   it("imports device approvals before node capabilities only in Doctor repair", async () => {

@@ -19,7 +19,7 @@ describe("formatGatewayAuthFailureMessage", () => {
         reason,
       });
       expect(message).toContain("redaction sentinel");
-      expect(message).toContain("openclaw doctor --fix");
+      expect(message).toContain("lanfu doctor --fix");
       expect(truncateCloseReason(message)).toBe(message);
     },
   );
@@ -34,7 +34,7 @@ describe("formatGatewayAuthFailureMessage", () => {
       });
 
       expect(message).toBe(
-        "unauthorized: setup code invalid, expired, revoked, or already used (create a new code; review `openclaw devices list`)",
+        "unauthorized: setup code invalid, expired, revoked, or already used (create a new code; review `lanfu devices list`)",
       );
       expect(truncateCloseReason(message)).toBe(message);
     },
@@ -62,7 +62,7 @@ describe("formatGatewayAuthFailureMessage", () => {
     });
 
     expect(message).toBe(
-      "unauthorized: gateway token missing (paste in Control UI settings or openclaw doctor --generate-gateway-token; restart)",
+      "unauthorized: gateway token missing (paste in Control UI settings or lanfu doctor --generate-gateway-token; restart)",
     );
     expect(truncateCloseReason(message)).toBe(message);
   });
@@ -121,7 +121,7 @@ describe("formatGatewayAuthFailureMessage", () => {
         },
       }),
     ).toBe(
-      "gateway rejected this node: trusted-proxy identity-header authentication is required and no usable machine credential was accepted; run `openclaw doctor` on the Gateway",
+      "gateway rejected this node: trusted-proxy identity-header authentication is required and no usable machine credential was accepted; run `lanfu doctor` on the Gateway",
     );
   });
 

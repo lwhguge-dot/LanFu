@@ -404,16 +404,16 @@ describe("write-cli-startup-metadata", () => {
               timeoutMs: 5_000,
             });
           },
-          renderSourceSecretsHelpText: () => "Usage: openclaw secrets\n",
-          renderSourceNodesHelpText: () => "Usage: openclaw nodes\n",
+          renderSourceSecretsHelpText: () => "Usage: lanfu secrets\n",
+          renderSourceNodesHelpText: () => "Usage: lanfu nodes\n",
           renderSourceSubcommandHelpTextRecord: () => ({
-            config: "Usage: openclaw config\n",
-            doctor: "Usage: openclaw doctor\n",
-            gateway: "Usage: openclaw gateway\n",
-            models: "Usage: openclaw models\n",
-            plugins: "Usage: openclaw plugins\n",
-            sessions: "Usage: openclaw sessions\n",
-            tasks: "Usage: openclaw tasks\n",
+            config: "Usage: lanfu config\n",
+            doctor: "Usage: lanfu doctor\n",
+            gateway: "Usage: lanfu gateway\n",
+            models: "Usage: lanfu models\n",
+            plugins: "Usage: lanfu plugins\n",
+            sessions: "Usage: lanfu sessions\n",
+            tasks: "Usage: lanfu tasks\n",
           }),
         });
         await new Promise((resolve) => {
@@ -691,12 +691,12 @@ describe("write-cli-startup-metadata", () => {
           "  renderBundledRootHelpText: async () => 'Usage: openclaw\\n',",
           `  renderSourceBrowserHelpText: renderCommand(${JSON.stringify(fastCommandPath)}, 'fast render failed'),`,
           `  renderSourceSecretsHelpText: renderCommand(${JSON.stringify(commandPath)}, 'render failed'),`,
-          "  renderSourceNodesHelpText: () => 'Usage: openclaw nodes\\n',",
+          "  renderSourceNodesHelpText: () => 'Usage: lanfu nodes\\n',",
           "  renderSourceSubcommandHelpTextRecord: () => ({",
-          "    config: 'Usage: openclaw config\\n',",
-          "    doctor: 'Usage: openclaw doctor\\n', gateway: 'Usage: openclaw gateway\\n',",
-          "    models: 'Usage: openclaw models\\n', plugins: 'Usage: openclaw plugins\\n',",
-          "    sessions: 'Usage: openclaw sessions\\n', tasks: 'Usage: openclaw tasks\\n',",
+          "    config: 'Usage: lanfu config\\n',",
+          "    doctor: 'Usage: lanfu doctor\\n', gateway: 'Usage: lanfu gateway\\n',",
+          "    models: 'Usage: lanfu models\\n', plugins: 'Usage: lanfu plugins\\n',",
+          "    sessions: 'Usage: lanfu sessions\\n', tasks: 'Usage: lanfu tasks\\n',",
           "  }),",
           "});",
         ].join("\n"),
@@ -788,17 +788,17 @@ describe("write-cli-startup-metadata", () => {
         outputPath,
         extensionsDir,
         renderSourceRootHelpText: () => "Usage: openclaw\n",
-        renderSourceBrowserHelpText: () => "Usage: openclaw browser\n",
-        renderSourceSecretsHelpText: () => "Usage: openclaw secrets\n",
-        renderSourceNodesHelpText: () => "Usage: openclaw nodes\n",
+        renderSourceBrowserHelpText: () => "Usage: lanfu browser\n",
+        renderSourceSecretsHelpText: () => "Usage: lanfu secrets\n",
+        renderSourceNodesHelpText: () => "Usage: lanfu nodes\n",
         renderSourceSubcommandHelpTextRecord: () => ({
-          config: "Usage: openclaw config\n",
-          doctor: "Usage: openclaw doctor\n",
-          gateway: "Usage: openclaw gateway\n",
-          models: "Usage: openclaw models\n",
-          plugins: "Usage: openclaw plugins\n",
-          sessions: "Usage: openclaw sessions\n",
-          tasks: "Usage: openclaw tasks\n",
+          config: "Usage: lanfu config\n",
+          doctor: "Usage: lanfu doctor\n",
+          gateway: "Usage: lanfu gateway\n",
+          models: "Usage: lanfu models\n",
+          plugins: "Usage: lanfu plugins\n",
+          sessions: "Usage: lanfu sessions\n",
+          tasks: "Usage: lanfu tasks\n",
         }),
       });
 
@@ -822,20 +822,20 @@ describe("write-cli-startup-metadata", () => {
       expect(written.channelOptions).toContain("matrix");
       expect(written.generatorSignature).toMatch(/^[a-f0-9]{40}$/u);
       expect(written.browserHelpText).toContain("Usage:");
-      expect(written.browserHelpText).toContain("openclaw browser");
+      expect(written.browserHelpText).toContain("lanfu browser");
       expect(written.secretsHelpText).toContain("Usage:");
-      expect(written.secretsHelpText).toContain("openclaw secrets");
+      expect(written.secretsHelpText).toContain("lanfu secrets");
       expect(written.nodesHelpText).toContain("Usage:");
-      expect(written.nodesHelpText).toContain("openclaw nodes");
+      expect(written.nodesHelpText).toContain("lanfu nodes");
       expect(written.rootHelpText).toContain("Usage:");
       expect(written.rootHelpText).toContain("openclaw");
-      expect(written.subcommandHelpText.config).toContain("openclaw config");
-      expect(written.subcommandHelpText.doctor).toContain("openclaw doctor");
-      expect(written.subcommandHelpText.gateway).toContain("openclaw gateway");
-      expect(written.subcommandHelpText.models).toContain("openclaw models");
-      expect(written.subcommandHelpText.plugins).toContain("openclaw plugins");
-      expect(written.subcommandHelpText.sessions).toContain("openclaw sessions");
-      expect(written.subcommandHelpText.tasks).toContain("openclaw tasks");
+      expect(written.subcommandHelpText.config).toContain("lanfu config");
+      expect(written.subcommandHelpText.doctor).toContain("lanfu doctor");
+      expect(written.subcommandHelpText.gateway).toContain("lanfu gateway");
+      expect(written.subcommandHelpText.models).toContain("lanfu models");
+      expect(written.subcommandHelpText.plugins).toContain("lanfu plugins");
+      expect(written.subcommandHelpText.sessions).toContain("lanfu sessions");
+      expect(written.subcommandHelpText.tasks).toContain("lanfu tasks");
       expect(fs.readdirSync(distDir)).toEqual(["cli-startup-metadata.json"]);
       if (process.platform !== "win32") {
         expect(fs.statSync(distDir).mode & 0o777).toBe(0o750);
@@ -861,17 +861,17 @@ describe("write-cli-startup-metadata", () => {
         extensionsDir: path.join(tempRoot, "extensions"),
         sourceRootDir: tempRoot,
         renderSourceRootHelpText: () => `Usage: openclaw ${revision}\n`,
-        renderSourceBrowserHelpText: () => "Usage: openclaw browser\n",
-        renderSourceSecretsHelpText: () => "Usage: openclaw secrets\n",
-        renderSourceNodesHelpText: () => "Usage: openclaw nodes\n",
+        renderSourceBrowserHelpText: () => "Usage: lanfu browser\n",
+        renderSourceSecretsHelpText: () => "Usage: lanfu secrets\n",
+        renderSourceNodesHelpText: () => "Usage: lanfu nodes\n",
         renderSourceSubcommandHelpTextRecord: () => ({
-          config: "Usage: openclaw config\n",
-          doctor: "Usage: openclaw doctor\n",
-          gateway: "Usage: openclaw gateway\n",
-          models: "Usage: openclaw models\n",
-          plugins: "Usage: openclaw plugins\n",
-          sessions: "Usage: openclaw sessions\n",
-          tasks: "Usage: openclaw tasks\n",
+          config: "Usage: lanfu config\n",
+          doctor: "Usage: lanfu doctor\n",
+          gateway: "Usage: lanfu gateway\n",
+          models: "Usage: lanfu models\n",
+          plugins: "Usage: lanfu plugins\n",
+          sessions: "Usage: lanfu sessions\n",
+          tasks: "Usage: lanfu tasks\n",
         }),
       };
       await testing.writeCliStartupMetadata(options);
@@ -937,17 +937,17 @@ describe("write-cli-startup-metadata", () => {
           throw Object.assign(new Error("bundled root timed out"), { code: "ETIMEDOUT" });
         },
         renderSourceRootHelpText,
-        renderSourceBrowserHelpText: () => "Usage: openclaw browser\n",
-        renderSourceSecretsHelpText: () => "Usage: openclaw secrets\n",
-        renderSourceNodesHelpText: () => "Usage: openclaw nodes\n",
+        renderSourceBrowserHelpText: () => "Usage: lanfu browser\n",
+        renderSourceSecretsHelpText: () => "Usage: lanfu secrets\n",
+        renderSourceNodesHelpText: () => "Usage: lanfu nodes\n",
         renderSourceSubcommandHelpTextRecord: () => ({
-          config: "Usage: openclaw config\n",
-          doctor: "Usage: openclaw doctor\n",
-          gateway: "Usage: openclaw gateway\n",
-          models: "Usage: openclaw models\n",
-          plugins: "Usage: openclaw plugins\n",
-          sessions: "Usage: openclaw sessions\n",
-          tasks: "Usage: openclaw tasks\n",
+          config: "Usage: lanfu config\n",
+          doctor: "Usage: lanfu doctor\n",
+          gateway: "Usage: lanfu gateway\n",
+          models: "Usage: lanfu models\n",
+          plugins: "Usage: lanfu plugins\n",
+          sessions: "Usage: lanfu sessions\n",
+          tasks: "Usage: lanfu tasks\n",
         }),
       })
       .then(
@@ -992,17 +992,17 @@ describe("write-cli-startup-metadata", () => {
         extensionsDir,
         sourceRootDir: tempRoot,
         renderSourceRootHelpText,
-        renderSourceBrowserHelpText: () => "Usage: openclaw browser\n",
-        renderSourceSecretsHelpText: () => "Usage: openclaw secrets\n",
-        renderSourceNodesHelpText: () => "Usage: openclaw nodes\n",
+        renderSourceBrowserHelpText: () => "Usage: lanfu browser\n",
+        renderSourceSecretsHelpText: () => "Usage: lanfu secrets\n",
+        renderSourceNodesHelpText: () => "Usage: lanfu nodes\n",
         renderSourceSubcommandHelpTextRecord: () => ({
-          config: "Usage: openclaw config\n",
-          doctor: "Usage: openclaw doctor\n",
-          gateway: "Usage: openclaw gateway\n",
-          models: "Usage: openclaw models\n",
-          plugins: "Usage: openclaw plugins\n",
-          sessions: "Usage: openclaw sessions\n",
-          tasks: "Usage: openclaw tasks\n",
+          config: "Usage: lanfu config\n",
+          doctor: "Usage: lanfu doctor\n",
+          gateway: "Usage: lanfu gateway\n",
+          models: "Usage: lanfu models\n",
+          plugins: "Usage: lanfu plugins\n",
+          sessions: "Usage: lanfu sessions\n",
+          tasks: "Usage: lanfu tasks\n",
         }),
       });
 
@@ -1056,22 +1056,22 @@ describe("write-cli-startup-metadata", () => {
       extensionsDir,
       sourceRootDir: tempRoot,
       renderBundledRootHelpText: async () => "Usage: openclaw\n",
-      renderSourceBrowserHelpText: renderAfterUnblock("browser", "Usage: openclaw browser\n"),
-      renderSourceSecretsHelpText: renderAfterUnblock("secrets", "Usage: openclaw secrets\n"),
-      renderSourceNodesHelpText: renderAfterUnblock("nodes", "Usage: openclaw nodes\n"),
+      renderSourceBrowserHelpText: renderAfterUnblock("browser", "Usage: lanfu browser\n"),
+      renderSourceSecretsHelpText: renderAfterUnblock("secrets", "Usage: lanfu secrets\n"),
+      renderSourceNodesHelpText: renderAfterUnblock("nodes", "Usage: lanfu nodes\n"),
       renderSourceSubcommandHelpTextRecord: async () => {
         started.push("subcommands");
         await new Promise<void>((resolve) => {
           unblockers.set("subcommands", resolve);
         });
         return {
-          config: "Usage: openclaw config\n",
-          doctor: "Usage: openclaw doctor\n",
-          gateway: "Usage: openclaw gateway\n",
-          models: "Usage: openclaw models\n",
-          plugins: "Usage: openclaw plugins\n",
-          sessions: "Usage: openclaw sessions\n",
-          tasks: "Usage: openclaw tasks\n",
+          config: "Usage: lanfu config\n",
+          doctor: "Usage: lanfu doctor\n",
+          gateway: "Usage: lanfu gateway\n",
+          models: "Usage: lanfu models\n",
+          plugins: "Usage: lanfu plugins\n",
+          sessions: "Usage: lanfu sessions\n",
+          tasks: "Usage: lanfu tasks\n",
         };
       },
     });
@@ -1087,9 +1087,9 @@ describe("write-cli-startup-metadata", () => {
       nodesHelpText: string;
       secretsHelpText: string;
     };
-    expect(written.browserHelpText).toContain("openclaw browser");
-    expect(written.secretsHelpText).toContain("openclaw secrets");
-    expect(written.nodesHelpText).toContain("openclaw nodes");
+    expect(written.browserHelpText).toContain("lanfu browser");
+    expect(written.secretsHelpText).toContain("lanfu secrets");
+    expect(written.nodesHelpText).toContain("lanfu nodes");
   });
 
   it.each([
@@ -1126,24 +1126,24 @@ describe("write-cli-startup-metadata", () => {
         if (failRender) {
           throw new Error("browser help failed");
         }
-        return "Usage: openclaw browser\n";
+        return "Usage: lanfu browser\n";
       },
       renderSourceSecretsHelpText: async () => {
         await new Promise((resolve) => {
           setImmediate(resolve);
         });
         statePresentDuringSiblingRender = existsSync(stateDir);
-        return "Usage: openclaw secrets\n";
+        return "Usage: lanfu secrets\n";
       },
-      renderSourceNodesHelpText: () => "Usage: openclaw nodes\n",
+      renderSourceNodesHelpText: () => "Usage: lanfu nodes\n",
       renderSourceSubcommandHelpTextRecord: () => ({
-        config: "Usage: openclaw config\n",
-        doctor: "Usage: openclaw doctor\n",
-        gateway: "Usage: openclaw gateway\n",
-        models: "Usage: openclaw models\n",
-        plugins: "Usage: openclaw plugins\n",
-        sessions: "Usage: openclaw sessions\n",
-        tasks: "Usage: openclaw tasks\n",
+        config: "Usage: lanfu config\n",
+        doctor: "Usage: lanfu doctor\n",
+        gateway: "Usage: lanfu gateway\n",
+        models: "Usage: lanfu models\n",
+        plugins: "Usage: lanfu plugins\n",
+        sessions: "Usage: lanfu sessions\n",
+        tasks: "Usage: lanfu tasks\n",
       }),
     });
 
@@ -1194,16 +1194,16 @@ describe("write-cli-startup-metadata", () => {
             renderStateDir = renderContext.env?.OPENCLAW_STATE_DIR ?? "";
             throw new Error("primary browser failure");
           },
-          renderSourceSecretsHelpText: () => "Usage: openclaw secrets\n",
-          renderSourceNodesHelpText: () => "Usage: openclaw nodes\n",
+          renderSourceSecretsHelpText: () => "Usage: lanfu secrets\n",
+          renderSourceNodesHelpText: () => "Usage: lanfu nodes\n",
           renderSourceSubcommandHelpTextRecord: () => ({
-            config: "Usage: openclaw config\n",
-            doctor: "Usage: openclaw doctor\n",
-            gateway: "Usage: openclaw gateway\n",
-            models: "Usage: openclaw models\n",
-            plugins: "Usage: openclaw plugins\n",
-            sessions: "Usage: openclaw sessions\n",
-            tasks: "Usage: openclaw tasks\n",
+            config: "Usage: lanfu config\n",
+            doctor: "Usage: lanfu doctor\n",
+            gateway: "Usage: lanfu gateway\n",
+            models: "Usage: lanfu models\n",
+            plugins: "Usage: lanfu plugins\n",
+            sessions: "Usage: lanfu sessions\n",
+            tasks: "Usage: lanfu tasks\n",
           }),
         })
         .then(
@@ -1239,20 +1239,20 @@ describe("write-cli-startup-metadata", () => {
         extensionsDir,
         sourceRootDir: tempRoot,
         renderBundledRootHelpText: async () => "Usage: openclaw\n",
-        renderSourceBrowserHelpText: () => "Usage: openclaw browser\n",
-        renderSourceSecretsHelpText: () => "Usage: openclaw secrets\n",
+        renderSourceBrowserHelpText: () => "Usage: lanfu browser\n",
+        renderSourceSecretsHelpText: () => "Usage: lanfu secrets\n",
         renderSourceNodesHelpText: () => {
           nodesRenderCount += 1;
-          return `Usage: openclaw nodes ${nodesRenderCount}\n`;
+          return `Usage: lanfu nodes ${nodesRenderCount}\n`;
         },
         renderSourceSubcommandHelpTextRecord: () => ({
-          config: "Usage: openclaw config\n",
-          doctor: "Usage: openclaw doctor\n",
-          gateway: "Usage: openclaw gateway\n",
-          models: "Usage: openclaw models\n",
-          plugins: "Usage: openclaw plugins\n",
-          sessions: "Usage: openclaw sessions\n",
-          tasks: "Usage: openclaw tasks\n",
+          config: "Usage: lanfu config\n",
+          doctor: "Usage: lanfu doctor\n",
+          gateway: "Usage: lanfu gateway\n",
+          models: "Usage: lanfu models\n",
+          plugins: "Usage: lanfu plugins\n",
+          sessions: "Usage: lanfu sessions\n",
+          tasks: "Usage: lanfu tasks\n",
         }),
       });
     };
@@ -1283,7 +1283,7 @@ describe("write-cli-startup-metadata", () => {
       nodesHelpText: string;
     };
     expect(nodesRenderCount).toBe(3);
-    expect(written.nodesHelpText).toContain("openclaw nodes 3");
+    expect(written.nodesHelpText).toContain("lanfu nodes 3");
   });
 
   it("regenerates help when build version or commit changes", async () => {
@@ -1302,13 +1302,13 @@ describe("write-cli-startup-metadata", () => {
       };
       const banner = `OpenClaw ${buildInfo.version} (${buildInfo.commit.slice(0, 7)})`;
       return {
-        config: `${banner}\nUsage: openclaw config\n`,
-        doctor: `${banner}\nUsage: openclaw doctor\n`,
-        gateway: `${banner}\nUsage: openclaw gateway\n`,
-        models: `${banner}\nUsage: openclaw models\n`,
-        plugins: `${banner}\nUsage: openclaw plugins\n`,
-        sessions: `${banner}\nUsage: openclaw sessions\n`,
-        tasks: `${banner}\nUsage: openclaw tasks\n`,
+        config: `${banner}\nUsage: lanfu config\n`,
+        doctor: `${banner}\nUsage: lanfu doctor\n`,
+        gateway: `${banner}\nUsage: lanfu gateway\n`,
+        models: `${banner}\nUsage: lanfu models\n`,
+        plugins: `${banner}\nUsage: lanfu plugins\n`,
+        sessions: `${banner}\nUsage: lanfu sessions\n`,
+        tasks: `${banner}\nUsage: lanfu tasks\n`,
       };
     };
 
@@ -1327,15 +1327,15 @@ describe("write-cli-startup-metadata", () => {
         },
         renderSourceBrowserHelpText: () => {
           commandRenderCount += 1;
-          return "Usage: openclaw browser\n";
+          return "Usage: lanfu browser\n";
         },
         renderSourceSecretsHelpText: () => {
           commandRenderCount += 1;
-          return "Usage: openclaw secrets\n";
+          return "Usage: lanfu secrets\n";
         },
         renderSourceNodesHelpText: () => {
           commandRenderCount += 1;
-          return "Usage: openclaw nodes\n";
+          return "Usage: lanfu nodes\n";
         },
         renderSourceSubcommandHelpTextRecord: renderSubcommandHelp,
       });

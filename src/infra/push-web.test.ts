@@ -169,17 +169,17 @@ describe("resolveVapidKeys", () => {
     await fs.mkdir(pushDir, { recursive: true });
     await fs.writeFile(legacyPath, "{}", "utf8");
 
-    await expect(resolveVapidKeys(tmpDir)).rejects.toThrow("openclaw doctor --fix");
+    await expect(resolveVapidKeys(tmpDir)).rejects.toThrow("lanfu doctor --fix");
     expect(await readPersistedVapidKeyPair(tmpDir)).toBeNull();
     expect(vi.mocked(webPush.generateVAPIDKeys)).not.toHaveBeenCalled();
 
     await fs.rename(legacyPath, `${legacyPath}.doctor-importing`);
-    await expect(resolveVapidKeys(tmpDir)).rejects.toThrow("openclaw doctor --fix");
+    await expect(resolveVapidKeys(tmpDir)).rejects.toThrow("lanfu doctor --fix");
     expect(vi.mocked(webPush.generateVAPIDKeys)).not.toHaveBeenCalled();
 
     await fs.rm(`${legacyPath}.doctor-importing`);
     await fs.symlink(path.join(tmpDir, "missing-vapid-keys.json"), legacyPath);
-    await expect(resolveVapidKeys(tmpDir)).rejects.toThrow("openclaw doctor --fix");
+    await expect(resolveVapidKeys(tmpDir)).rejects.toThrow("lanfu doctor --fix");
     expect(vi.mocked(webPush.generateVAPIDKeys)).not.toHaveBeenCalled();
   });
 
@@ -564,7 +564,7 @@ describe("subscription CRUD", () => {
 
     expect(await listWebPushSubscriptions(tmpDir)).toEqual([]);
     await expect(broadcastWebPush({ title: "Blocked" }, tmpDir)).rejects.toThrow(
-      "openclaw doctor --fix",
+      "lanfu doctor --fix",
     );
     expect(vi.mocked(webPush.sendNotification)).not.toHaveBeenCalled();
   });
@@ -583,14 +583,14 @@ describe("subscription CRUD", () => {
         expectedUserProfileId: null,
         baseDir: tmpDir,
       }),
-    ).rejects.toThrow("openclaw doctor --fix");
+    ).rejects.toThrow("lanfu doctor --fix");
     await expect(
       registerWebPushSubscription({
         endpoint: "https://push.example.com/new",
         keys,
         baseDir: tmpDir,
       }),
-    ).rejects.toThrow("openclaw doctor --fix");
+    ).rejects.toThrow("lanfu doctor --fix");
     expect(await listWebPushSubscriptions(tmpDir)).toEqual([existing]);
   });
 });

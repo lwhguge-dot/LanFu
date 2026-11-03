@@ -343,9 +343,9 @@ describe("Doctor invoked by the published 2026.6.33 updater", () => {
             expect.objectContaining({ check: "gateway-stop", code: "stale-gateway-stop-failed" }),
           ]),
         });
-        await expect(run).rejects.toThrow(formatCliCommand("openclaw gateway restart", state.env));
+        await expect(run).rejects.toThrow(formatCliCommand("lanfu gateway restart", state.env));
         await expect(run).rejects.toThrow(
-          formatCliCommand("openclaw gateway status --deep", state.env),
+          formatCliCommand("lanfu gateway status --deep", state.env),
         );
         expect(service.stop).toHaveBeenCalledOnce();
         expect(mocks.config).not.toHaveBeenCalled();
@@ -459,7 +459,7 @@ describe("Doctor invoked by the published 2026.6.33 updater", () => {
           ]),
         });
         await expect(run).rejects.toThrow(
-          formatCliCommand("openclaw gateway status --deep", state.env),
+          formatCliCommand("lanfu gateway status --deep", state.env),
         );
 
         expect(service.stop).not.toHaveBeenCalled();

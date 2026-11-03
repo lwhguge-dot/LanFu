@@ -25,10 +25,10 @@ export class UpdateSchemaRefusalError extends Error {
   ) {
     const { targetVersion } = options;
     const commands = options.recovery?.commands ?? [
-      "openclaw gateway stop",
+      "lanfu gateway stop",
       `npm install -g openclaw@${targetVersion} --allow-scripts=openclaw`,
-      "openclaw doctor --fix",
-      "openclaw gateway start",
+      "lanfu doctor --fix",
+      "lanfu gateway start",
     ];
     const reason =
       options.cause === undefined

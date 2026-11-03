@@ -1344,7 +1344,7 @@ describe("gatherDaemonStatus", () => {
         expect(status.service.loaded).toBeNull();
         expect(status.service.runtime).toEqual({
           status: "unknown",
-          detail: "service runtime inspection failed; retry with openclaw gateway status --deep",
+          detail: "service runtime inspection failed; retry with lanfu gateway status --deep",
           inspectionFailure: {
             code: "service-runtime-inspection-failed",
             detail: "錯誤: 系統找不到指定的檔案。",
@@ -1368,8 +1368,7 @@ describe("gatherDaemonStatus", () => {
               },
               runtime: {
                 status: "unknown",
-                detail:
-                  "service runtime inspection failed; retry with openclaw gateway status --deep",
+                detail: "service runtime inspection failed; retry with lanfu gateway status --deep",
                 inspectionFailure: {
                   code: "service-runtime-inspection-failed",
                   detail: "錯誤: 系統找不到指定的檔案。",
@@ -1385,7 +1384,7 @@ describe("gatherDaemonStatus", () => {
         expect(output).toContain("Service: LaunchAgent (unknown)");
         expect(output).not.toContain("Service: LaunchAgent (not loaded)");
         expect(output).toContain(
-          "Runtime: unknown (service runtime inspection failed; retry with openclaw gateway status --deep)",
+          "Runtime: unknown (service runtime inspection failed; retry with lanfu gateway status --deep)",
         );
         expect(output).not.toContain("系統找不到指定的檔案");
       }),
@@ -1457,7 +1456,7 @@ describe("gatherDaemonStatus", () => {
             expect(output.includes("Recorded command:")).toBe(recorded);
             expect(output).toContain("Restart the Gateway you launched manually");
             expect(output).not.toContain("Service: LaunchAgent (unknown)");
-            expect(output).not.toContain("Retry: openclaw gateway status --deep");
+            expect(output).not.toContain("Retry: lanfu gateway status --deep");
           } else {
             expect(output).toContain("Service: LaunchAgent (unknown)");
             expect(output).not.toContain("no supported service manager detected");
@@ -1691,7 +1690,7 @@ describe("gatherDaemonStatus", () => {
         expect(output.match(/they will SIGTERM each other/g) ?? []).toHaveLength(diagnose ? 1 : 0);
         if (diagnose) {
           expect(output).toContain(status.gateway?.duelingScopesWarning);
-          expect(output).toContain("Run `openclaw doctor` interactively");
+          expect(output).toContain("Run `lanfu doctor` interactively");
         } else {
           expect(findSystemdGatewayInstallation).not.toHaveBeenCalled();
           expect(status.gateway?.duelingScopesWarning).toBeUndefined();
@@ -2221,7 +2220,7 @@ describe("gatherDaemonStatus", () => {
       }
       expect(status.rpc?.authWarning).toContain("env:default:DAEMON_GATEWAY_TOKEN");
       expect(status.rpc?.authWarning).toContain("redaction placeholder");
-      expect(status.rpc?.authWarning).toContain("openclaw doctor --fix");
+      expect(status.rpc?.authWarning).toContain("lanfu doctor --fix");
       expect(capturePrintedDaemonStatus(status, { json: false, deep: true }).errors).toContain(
         "redaction placeholder",
       );

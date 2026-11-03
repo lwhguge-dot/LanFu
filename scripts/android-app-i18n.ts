@@ -504,7 +504,7 @@ const ALLOWED_UI_LITERALS = new Map<string, ReadonlySet<string>>([
       "iMessage",
       "main, isolated, current, or session:<id>",
       "n/a",
-      "openclaw gateway",
+      "lanfu gateway",
       "openclaw qr",
       "PTT_BUSY: previous push-to-talk turn is still finishing",
       "WhatsApp",

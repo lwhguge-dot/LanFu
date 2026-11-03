@@ -104,7 +104,7 @@ export type ShellCompletionStatus = {
 
 /** Check the status of shell completion for the current shell. */
 export async function checkShellCompletionStatus(
-  binName = "openclaw",
+  binName = "lanfu",
   options: ShellCompletionStatusOptions = {},
 ): Promise<ShellCompletionStatus> {
   const shell = options.shell ?? resolveShellFromEnv();
@@ -135,7 +135,7 @@ export function shellCompletionStatusToHealthFindings(
         severity: "info",
         message: `Your ${status.shell} profile uses slow dynamic completion (source <(...)).`,
         path: pathLocal,
-        fixHint: "Run `openclaw doctor --fix` to upgrade to cached completion.",
+        fixHint: "Run `lanfu doctor --fix` to upgrade to cached completion.",
       },
     ];
   }
@@ -146,7 +146,7 @@ export function shellCompletionStatusToHealthFindings(
         severity: "info",
         message: `Shell completion is configured in your ${status.shell} profile but the cache is missing.`,
         path: pathLocal,
-        fixHint: `Run \`openclaw completion --write-state\` or \`openclaw doctor --fix\` to regenerate ${status.cachePath}.`,
+        fixHint: `Run \`lanfu completion --write-state\` or \`lanfu doctor --fix\` to regenerate ${status.cachePath}.`,
       },
     ];
   }

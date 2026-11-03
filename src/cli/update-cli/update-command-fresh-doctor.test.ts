@@ -751,7 +751,7 @@ describe("post-plugin update readiness", () => {
             source: "memory-core",
             message: "Managed local embeddings are unavailable.",
             fixHint:
-              "Run `openclaw models --agent main auth login --provider llama-cpp --method local`.",
+              "Run `lanfu models --agent main auth login --provider llama-cpp --method local`.",
           },
         ],
       })}\n`,
@@ -768,7 +768,7 @@ describe("post-plugin update readiness", () => {
           reason: "memory-core/managed-local-embedding-setup",
           message: "Managed local embeddings are unavailable.",
           guidance: [
-            "Run `openclaw models --agent main auth login --provider llama-cpp --method local`.",
+            "Run `lanfu models --agent main auth login --provider llama-cpp --method local`.",
           ],
         },
       ],

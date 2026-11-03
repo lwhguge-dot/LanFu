@@ -438,7 +438,7 @@ describe("device worker placement dispatch", () => {
             delete node.workerHost.capturedExecPolicy;
           }
         }),
-      ).rejects.toThrow("run openclaw update, then reconnect");
+      ).rejects.toThrow("run lanfu update, then reconnect");
 
       expect(harness.placements.current()).toMatchObject({ state: "failed" });
       expect(harness.log.filter((entry) => entry === "sync")).toHaveLength(
@@ -573,7 +573,7 @@ describe("device worker placement dispatch", () => {
     await expect(
       harness.service.dispatch(request, (placement) => states.push(placement.state)),
     ).rejects.toThrow(
-      "device worker node offline-device requires an update before it can host sessions; run openclaw update, then reconnect it (for a headless node, run openclaw node restart)",
+      "device worker node offline-device requires an update before it can host sessions; run lanfu update, then reconnect it (for a headless node, run lanfu node restart)",
     );
 
     expect(states).toEqual(["requested", "failed"]);
@@ -581,8 +581,8 @@ describe("device worker placement dispatch", () => {
     expect(createWorkerSessionPlacementStore({ database }).get(REQUEST.sessionId)).toMatchObject({
       state: "failed",
       environmentId: null,
-      recoveryError: expect.stringContaining("run openclaw update"),
-      terminalReason: expect.stringContaining("run openclaw node restart"),
+      recoveryError: expect.stringContaining("run lanfu update"),
+      terminalReason: expect.stringContaining("run lanfu node restart"),
       terminalAtMs: 1_000,
     });
   });

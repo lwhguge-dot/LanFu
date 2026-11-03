@@ -357,7 +357,7 @@ describe("buildExportTrajectoryCommandReply", () => {
         { channel: "telegram", to: "owner-dm", accountId: "account-1" },
       ]);
       expect(privateReplies[0]?.text).toContain("Trajectory exports can include prompts");
-      expect(privateReplies[0]?.text).toContain("openclaw sessions export-trajectory");
+      expect(privateReplies[0]?.text).toContain("lanfu sessions export-trajectory");
       expect(privateReplies[0]?.text).toContain("Session: agent:target:session");
       expect(execCalls).toHaveLength(1);
       const execCall = execCallRecord(execCalls);

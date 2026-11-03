@@ -122,7 +122,7 @@ function splitModelRef(ref: string | undefined): { provider?: string; model?: st
 }
 
 class SystemAgentTuiBackend implements TuiBackend {
-  readonly connection = { url: "openclaw local" };
+  readonly connection = { url: "lanfu local" };
 
   onEvent?: (evt: TuiEvent) => void;
   onConnected?: () => void;
@@ -247,7 +247,7 @@ class SystemAgentTuiBackend implements TuiBackend {
   async patchSession(opts: SessionsPatchParams): Promise<SessionsPatchResult> {
     if (opts.model !== undefined) {
       throw new Error(
-        "LanFu cannot change the model inside its active verified session. Exit and run `openclaw onboard`, then start LanFu again.",
+        "LanFu cannot change the model inside its active verified session. Exit and run `lanfu onboard`, then start LanFu again.",
       );
     }
     return {
@@ -405,7 +405,7 @@ async function runSetupHandoff(
     handoff.target !== "gateway"
   ) {
     runtime.error(
-      "Setup cannot replace the inference route powering LanFu. Exit and run `openclaw onboard`, then start LanFu again.",
+      "Setup cannot replace the inference route powering LanFu. Exit and run `lanfu onboard`, then start LanFu again.",
     );
     return;
   }
@@ -435,7 +435,7 @@ async function runSetupHandoff(
   if (handoff.target === "gateway") {
     if (opts.runGatewaySetupHandoff) {
       await opts.runGatewaySetupHandoff(runtime, beforePersistentEffect);
-      runtime.log("Done — gateway settings saved. Run `openclaw gateway restart` to apply them.");
+      runtime.log("Done — gateway settings saved. Run `lanfu gateway restart` to apply them.");
       return;
     }
     const { createClackPrompter, hostedSetup } = await loadHostedSetupForTui();
@@ -444,7 +444,7 @@ async function runSetupHandoff(
       async () => await beforePersistentEffect(),
       runtime,
     );
-    runtime.log("Done — gateway settings saved. Run `openclaw gateway restart` to apply them.");
+    runtime.log("Done — gateway settings saved. Run `lanfu gateway restart` to apply them.");
     return;
   }
   if (handoff.target === "search") {
@@ -514,7 +514,7 @@ export async function runSystemAgentTui(
         historyLimit: SYSTEM_AGENT_HISTORY_LIMIT,
         backend,
         config: {},
-        title: "openclaw setup",
+        title: "lanfu setup",
         ...(initialMessage ? { message: initialMessage } : {}),
       });
     } finally {
@@ -527,7 +527,7 @@ export async function runSystemAgentTui(
     }
     if (handoff.kind === "model-setup") {
       runtime.error(
-        "LanFu cannot replace its active inference route. Run `openclaw onboard` outside this session, then start LanFu again.",
+        "LanFu cannot replace its active inference route. Run `lanfu onboard` outside this session, then start LanFu again.",
       );
       return;
     }

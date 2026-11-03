@@ -155,15 +155,15 @@ function recoveryHintForGatewayHealthFailure(
   switch (classification) {
     case "auth-mismatch":
     case "module-missing":
-      return `Fix: run \`${formatCliCommand("openclaw doctor --fix")}\`.`;
+      return `Fix: run \`${formatCliCommand("lanfu doctor --fix")}\`.`;
     case "service-missing":
-      return `Fix: run \`${formatCliCommand("openclaw gateway install --force")}\`.`;
+      return `Fix: run \`${formatCliCommand("lanfu gateway install --force")}\`.`;
     case "service-stopped":
-      return `Fix: run \`${formatCliCommand("openclaw gateway restart")}\`.`;
+      return `Fix: run \`${formatCliCommand("lanfu gateway restart")}\`.`;
     case "startup-blocked":
-      return `Fix: run \`${formatCliCommand("openclaw gateway status --deep")}\`.`;
+      return `Fix: run \`${formatCliCommand("lanfu gateway status --deep")}\`.`;
     case "not-listening":
-      return `Fix: start \`${formatCliCommand("openclaw gateway run")}\`, or run \`${formatCliCommand("openclaw gateway restart")}\` for a managed gateway.`;
+      return `Fix: start \`${formatCliCommand("lanfu gateway run")}\`, or run \`${formatCliCommand("lanfu gateway restart")}\` for a managed gateway.`;
     default:
       return undefined;
   }

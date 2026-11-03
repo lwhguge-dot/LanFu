@@ -55,10 +55,7 @@ describe("resolvePluginSurface", () => {
           { name: "internal", kind: "activation-only" },
         ],
       }),
-    ).toEqual([
-      "CLI commands: `openclaw browser`, `openclaw voicecall`",
-      "Slash commands: `/voice`",
-    ]);
+    ).toEqual(["CLI commands: `lanfu browser`, `lanfu voicecall`", "Slash commands: `/voice`"]);
   });
 
   it("escapes dashboard plugin owner delimiters and literal escape markers", () => {

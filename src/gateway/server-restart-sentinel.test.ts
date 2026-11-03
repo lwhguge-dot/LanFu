@@ -1338,7 +1338,7 @@ describe("scheduleRestartSentinelWake", () => {
       kind: "update",
       status: "error",
       notice:
-        "⚠️ OpenClaw update failed: verification failed.\nRun openclaw triage to diagnose and repair the failed update.",
+        "⚠️ OpenClaw update failed: verification failed.\nRun lanfu triage to diagnose and repair the failed update.",
     },
     {
       kind: "restart",
@@ -3677,7 +3677,7 @@ describe("scheduleRestartSentinelWake", () => {
           status: "error",
           ts: 123,
           message: null,
-          doctorHint: "Run openclaw doctor --non-interactive",
+          doctorHint: "Run lanfu doctor --non-interactive",
           stats: { runId: run.runId },
         },
       });
@@ -3748,7 +3748,7 @@ describe("scheduleRestartSentinelWake", () => {
           deliveryContext: undefined,
           threadId: undefined,
           message: null,
-          doctorHint: "Run openclaw doctor --non-interactive",
+          doctorHint: "Run lanfu doctor --non-interactive",
           stats: {
             mode: kind === "config-patch" ? "config.patch" : "config.apply",
             root: "/tmp/openclaw.json",

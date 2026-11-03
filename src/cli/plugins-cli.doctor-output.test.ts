@@ -125,10 +125,10 @@ describe("plugins cli Doctor output", () => {
           },
           shadowedSource: `${displayedSourceDir}/plugins/shadowed/index.ts`,
           repair: [
-            "openclaw plugins inspect broken",
+            "lanfu plugins inspect broken",
             "edit or remove the config-selected plugin source",
-            "openclaw plugins registry --refresh",
-            "openclaw plugins reload broken",
+            "lanfu plugins registry --refresh",
+            "lanfu plugins reload broken",
           ],
         },
       ],

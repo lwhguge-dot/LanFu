@@ -193,7 +193,7 @@ export function defineStateStartupCorpusTests(fileUrl: string) {
                 fixHints: [],
               },
               shouldRepair: true,
-              doctorFixCommand: "openclaw doctor --fix",
+              doctorFixCommand: "lanfu doctor --fix",
             });
             const normalized = normalizeCompatibilityConfigValues(migrated.state.candidate, {
               sourceRaw: snapshot.parsed,

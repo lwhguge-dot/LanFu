@@ -12,20 +12,20 @@ describe("cli json stdout contract", () => {
       name: "add without an interactive terminal in human mode",
       args: ["agents", "add", "work"],
       message:
-        "Agent creation needs an interactive TTY. Use `openclaw agents add <id> --non-interactive --workspace <dir>` for automation.",
+        "Agent creation needs an interactive TTY. Use `lanfu agents add <id> --non-interactive --workspace <dir>` for automation.",
       human: true,
     },
     {
       name: "add without an interactive terminal in JSON wizard mode",
       args: ["agents", "add", "work", "--json"],
       message:
-        "Agent creation needs an interactive TTY. Use `openclaw agents add <id> --non-interactive --workspace <dir>` for automation.",
+        "Agent creation needs an interactive TTY. Use `lanfu agents add <id> --non-interactive --workspace <dir>` for automation.",
     },
     {
       name: "add without a workspace through dual-TTY finalization",
       args: ["agents", "add", "work", "--non-interactive", "--json"],
       message:
-        "Non-interactive agent creation requires --workspace. Re-run openclaw agents add <id> --workspace <path> or omit flags to use the wizard.",
+        "Non-interactive agent creation requires --workspace. Re-run lanfu agents add <id> --workspace <path> or omit flags to use the wizard.",
       tty: true,
     },
     {
@@ -42,12 +42,12 @@ describe("cli json stdout contract", () => {
     {
       name: "set-identity with an unknown agent in JSON mode",
       args: ["agents", "set-identity", "--agent", "ghost", "--name", "Ghost", "--json"],
-      message: 'Agent "ghost" not found. Create it with `openclaw agents add`.',
+      message: 'Agent "ghost" not found. Create it with `lanfu agents add`.',
     },
     {
       name: "set-identity with an unknown agent through dual-TTY finalization",
       args: ["agents", "set-identity", "--agent", "ghost", "--name", "Ghost", "--json"],
-      message: 'Agent "ghost" not found. Create it with `openclaw agents add`.',
+      message: 'Agent "ghost" not found. Create it with `lanfu agents add`.',
       tty: true,
     },
   ])("renders agent management $name through the canonical failure owner", async (testCase) => {
@@ -123,7 +123,7 @@ describe("cli json stdout contract", () => {
           ok: false,
           error: {
             type: "cli_error",
-            message: 'Agent "ghost" not found. Create it with `openclaw agents add`.',
+            message: 'Agent "ghost" not found. Create it with `lanfu agents add`.',
           },
         });
         await expect(fs.readFile(configPath, "utf8")).resolves.toBe(originalConfig);

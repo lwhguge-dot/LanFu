@@ -133,9 +133,9 @@ export async function buildStatusCommandReportData(params: {
       })
     : [
         theme.muted(
-          `Skipped in fast status. Full report: ${formatCliCommand("openclaw security audit")}`,
+          `Skipped in fast status. Full report: ${formatCliCommand("lanfu security audit")}`,
         ),
-        theme.muted(`Deep probe: ${formatCliCommand("openclaw status --deep")}`),
+        theme.muted(`Deep probe: ${formatCliCommand("lanfu status --deep")}`),
       ];
   const retainedLost = params.summary.taskAuditRetainedLost;
   // Lost task retention is operational noise unless the user requested deep/verbose status.
@@ -153,7 +153,7 @@ export async function buildStatusCommandReportData(params: {
     width: params.tableWidth,
     overviewRows,
     showTaskMaintenanceHint: params.summary.taskAudit.errors > 0,
-    taskMaintenanceHint: `Task maintenance: ${formatCliCommand("openclaw tasks maintenance --apply")}`,
+    taskMaintenanceHint: `Task maintenance: ${formatCliCommand("lanfu tasks maintenance --apply")}`,
     taskRegistryMigrationHint: params.summary.tasks.warning
       ? theme.warn(params.summary.tasks.warning)
       : null,

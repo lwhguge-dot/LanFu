@@ -624,7 +624,7 @@ describe("diagnostic memory", () => {
       ])} thresholdBytes=3000`,
     );
     expect(records[0]?.message).toContain(
-      "nextStep=run openclaw gateway diagnostics export, inspect an existing bundle with openclaw gateway stability --bundle latest, or on Node sample allocations with openclaw gateway call diagnostics.heapProfile --timeout 30000.",
+      "nextStep=run lanfu gateway diagnostics export, inspect an existing bundle with lanfu gateway stability --bundle latest, or on Node sample allocations with lanfu gateway call diagnostics.heapProfile --timeout 30000.",
     );
   });
 
@@ -667,7 +667,7 @@ describe("diagnostic memory", () => {
     expect(records.at(-1)?.message).toContain("rssBytes=2012905472");
     expect(records.at(-1)?.message).toContain("heapUsedBytes=1307038712");
     expect(records.at(-1)?.message).toContain(
-      "nextStep=run openclaw gateway status --deep and openclaw gateway diagnostics export; restart gateway if pressure persists",
+      "nextStep=run lanfu gateway status --deep and lanfu gateway diagnostics export; restart gateway if pressure persists",
     );
   });
 });

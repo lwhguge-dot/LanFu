@@ -159,7 +159,7 @@ vi.mock("../model-suppression.js", async (importOriginal) => {
         (provider === "openai" || provider === "azure-openai-responses" || provider === "openai") &&
         id?.trim().toLowerCase() === "gpt-5.3-codex-spark"
       ) {
-        return `Unknown model: ${provider}/gpt-5.3-codex-spark. gpt-5.3-codex-spark is available only through ChatGPT/Codex OAuth. Run \`openclaw models auth login --provider openai\` and use openai/gpt-5.3-codex-spark with that OAuth profile; OpenAI API-key auth cannot use this model.`;
+        return `Unknown model: ${provider}/gpt-5.3-codex-spark. gpt-5.3-codex-spark is available only through ChatGPT/Codex OAuth. Run \`lanfu models auth login --provider openai\` and use openai/gpt-5.3-codex-spark with that OAuth profile; OpenAI API-key auth cannot use this model.`;
       }
       if (isUnsupportedXaiMultiAgentModel(provider, id)) {
         return "Unknown model: xai/grok-4.20-multi-agent-0309. OpenClaw does not currently support xAI multi-agent models; choose another xAI model. See https://docs.openclaw.ai/providers/xai.";
@@ -3080,7 +3080,7 @@ describe("resolveModel", () => {
     const result = await resolveModelForTest("bytedance", "vision-model", state.agentDir(), cfg);
 
     expect(result.error).toBe(
-      "Unknown model: bytedance/vision-model. Run `openclaw models list --refresh --provider bytedance` to inspect this provider's model choices, then retry with a model supported by your account.",
+      "Unknown model: bytedance/vision-model. Run `lanfu models list --refresh --provider bytedance` to inspect this provider's model choices, then retry with a model supported by your account.",
     );
   });
 
@@ -3561,7 +3561,7 @@ describe("resolveModel", () => {
     );
 
     expect(result.error).toBe(
-      'Unknown model: openai-codex/gpt-5.4. "openai-codex" is a legacy provider ID. Run `openclaw doctor --fix` to migrate legacy model and provider config to the current OpenAI format. If the provider has no authenticated profile, run `openclaw models status` to check provider auth and re-authenticate if needed. See https://docs.openclaw.ai/concepts/model-providers.',
+      'Unknown model: openai-codex/gpt-5.4. "openai-codex" is a legacy provider ID. Run `openclaw doctor --fix` to migrate legacy model and provider config to the current OpenAI format. If the provider has no authenticated profile, run `lanfu models status` to check provider auth and re-authenticate if needed. See https://docs.openclaw.ai/concepts/model-providers.',
     );
   });
 
@@ -4319,7 +4319,7 @@ describe("resolveModel", () => {
 
     expect(result.model).toBeUndefined();
     expect(result.error).toBe(
-      "Unknown model: openai/gpt-5.3-codex-spark. gpt-5.3-codex-spark is available only through ChatGPT/Codex OAuth. Run `openclaw models auth login --provider openai` and use openai/gpt-5.3-codex-spark with that OAuth profile; OpenAI API-key auth cannot use this model.",
+      "Unknown model: openai/gpt-5.3-codex-spark. gpt-5.3-codex-spark is available only through ChatGPT/Codex OAuth. Run `lanfu models auth login --provider openai` and use openai/gpt-5.3-codex-spark with that OAuth profile; OpenAI API-key auth cannot use this model.",
     );
   });
 
@@ -4356,7 +4356,7 @@ describe("resolveModel", () => {
 
     expect(result.model).toBeUndefined();
     expect(result.error).toBe(
-      "Unknown model: openai/gpt-5.3-codex-spark. gpt-5.3-codex-spark is available only through ChatGPT/Codex OAuth. Run `openclaw models auth login --provider openai` and use openai/gpt-5.3-codex-spark with that OAuth profile; OpenAI API-key auth cannot use this model.",
+      "Unknown model: openai/gpt-5.3-codex-spark. gpt-5.3-codex-spark is available only through ChatGPT/Codex OAuth. Run `lanfu models auth login --provider openai` and use openai/gpt-5.3-codex-spark with that OAuth profile; OpenAI API-key auth cannot use this model.",
     );
   });
 
@@ -4716,7 +4716,7 @@ describe("resolveModel", () => {
 
     expect(result.model).toBeUndefined();
     expect(result.error).toBe(
-      "Unknown model: openai/gpt-5.3-codex-spark. gpt-5.3-codex-spark is available only through ChatGPT/Codex OAuth. Run `openclaw models auth login --provider openai` and use openai/gpt-5.3-codex-spark with that OAuth profile; OpenAI API-key auth cannot use this model.",
+      "Unknown model: openai/gpt-5.3-codex-spark. gpt-5.3-codex-spark is available only through ChatGPT/Codex OAuth. Run `lanfu models auth login --provider openai` and use openai/gpt-5.3-codex-spark with that OAuth profile; OpenAI API-key auth cannot use this model.",
     );
   });
 

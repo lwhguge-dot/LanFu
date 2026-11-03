@@ -294,13 +294,13 @@ export function registerConnectCli(program: Command): void {
       "after",
       () =>
         `\n${theme.heading("Examples:")}\n${formatHelpExamples([
-          ["openclaw connect oc-pair://<setup-code>", "Connect in the foreground."],
+          ["lanfu connect oc-pair://<setup-code>", "Connect in the foreground."],
           [
-            "openclaw connect https://gateway.example/j/<code> --service",
+            "lanfu connect https://gateway.example/j/<code> --service",
             "Install the node host service.",
           ],
           [
-            "openclaw connect https://gateway.example/j/<code> --service --session-host",
+            "lanfu connect https://gateway.example/j/<code> --service --session-host",
             "Install a worker-session host service.",
           ],
         ])}\n\n\n`,

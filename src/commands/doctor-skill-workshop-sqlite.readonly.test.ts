@@ -270,7 +270,7 @@ describe("read-only Skill Workshop migration inspection", () => {
           { checks: createCoreHealthChecks(), onlyIds: ["core/doctor/skill-workshop-relocation"] },
         );
       const beforeRepair = await inspect();
-      expect(beforeRepair.findings[0]?.fixHint).toContain("`openclaw doctor --fix`");
+      expect(beforeRepair.findings[0]?.fixHint).toContain("`lanfu doctor --fix`");
       for (let attempt = 0; attempt < 2; attempt += 1) {
         const migration = await migrateLegacySkillWorkshopProposals({ config, env: state.env });
         if (attempt === 0) {
@@ -287,7 +287,7 @@ describe("read-only Skill Workshop migration inspection", () => {
         expect(finding.message).toContain(blocked!.id);
         expect(finding.message).toContain(blocked!.target.skillDir);
         expect(finding.message).not.toContain(eligible!.id);
-        expect(finding.fixHint).not.toContain("Run `openclaw doctor --fix`");
+        expect(finding.fixHint).not.toContain("Run `lanfu doctor --fix`");
         expect(finding.fixHint).toContain("migration warnings");
       }
     });
@@ -369,7 +369,7 @@ describe("read-only Skill Workshop migration inspection", () => {
         if (result.findings.length > 0) {
           const finding = result.findings[0]!;
           expect(finding.severity).toBe("warning");
-          expect(finding.fixHint?.includes("Run `openclaw doctor --fix`")).toBe(automatic);
+          expect(finding.fixHint?.includes("Run `lanfu doctor --fix`")).toBe(automatic);
           expect(finding.fixHint).not.toContain("retire legacy backup roots");
           if (preserved > 0) {
             expect(finding.message).toContain(`${preserved} preserved`);

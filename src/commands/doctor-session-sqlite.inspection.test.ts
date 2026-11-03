@@ -442,7 +442,7 @@ describe("runDoctorSessionSqlite", () => {
     );
     const failureReport = fs.readFileSync(failureReportPath, "utf-8");
     expect(failureReport).toContain("sqlite_compact_failed");
-    expect(failureReport).toContain("openclaw doctor --session-sqlite recover --github-issue");
+    expect(failureReport).toContain("lanfu doctor --session-sqlite recover --github-issue");
     expect(failureReport).not.toContain("supersecret");
     const after = new sqlite.DatabaseSync(sqlitePath);
     try {

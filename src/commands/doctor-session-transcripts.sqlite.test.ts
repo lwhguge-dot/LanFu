@@ -289,7 +289,7 @@ describe("doctor session transcript repair", () => {
       mainKey: "main",
       ownerAgentId: "ops",
       outcomes: [{ kind: "divergent-canonical", canonicalKey: "agent:ops:main" }],
-      warnings: ["source changed; retry openclaw doctor --fix"],
+      warnings: ["source changed; retry lanfu doctor --fix"],
     });
     const cfg = { agents: { entries: { ops: {} } } };
     const env = { ...process.env, OPENCLAW_STATE_DIR: root };
@@ -382,7 +382,7 @@ describe("doctor session transcript repair", () => {
     );
     expect(note).toHaveBeenCalledWith(
       expect.stringContaining(
-        'shrinking the on-disk database requires "openclaw doctor --session-sqlite compact --session-sqlite-all-agents"',
+        'shrinking the on-disk database requires "lanfu doctor --session-sqlite compact --session-sqlite-all-agents"',
       ),
       "Session SQLite",
     );
@@ -472,7 +472,7 @@ describe("doctor session transcript repair", () => {
       });
       expect(note).toHaveBeenCalledWith(
         expect.stringContaining(
-          'Inspect with "openclaw doctor --session-sqlite dry-run --session-sqlite-all-agents".',
+          'Inspect with "lanfu doctor --session-sqlite dry-run --session-sqlite-all-agents".',
         ),
         "Session SQLite",
       );
@@ -491,7 +491,7 @@ describe("doctor session transcript repair", () => {
         );
         expect(note).toHaveBeenCalledWith(
           expect.stringContaining(
-            'Preserve the named files and migration manifests, resolve the reported conflicts, then rerun "openclaw doctor --fix"',
+            'Preserve the named files and migration manifests, resolve the reported conflicts, then rerun "lanfu doctor --fix"',
           ),
           "Session SQLite",
         );
@@ -516,7 +516,7 @@ describe("doctor session transcript repair", () => {
     });
     runPostSessionPluginDoctorStateRepairs.mockResolvedValueOnce({
       changes: ["Removed 2 orphaned plugin session bindings"],
-      warnings: ["Plugin lifecycle ownership unavailable; rerun openclaw doctor --fix"],
+      warnings: ["Plugin lifecycle ownership unavailable; rerun lanfu doctor --fix"],
     });
 
     const receipts: unknown[] = [];
@@ -540,7 +540,7 @@ describe("doctor session transcript repair", () => {
       "Plugin session repair",
     );
     expect(note).toHaveBeenCalledWith(
-      expect.stringContaining("rerun openclaw doctor --fix"),
+      expect.stringContaining("rerun lanfu doctor --fix"),
       "Plugin session repair",
     );
   });
@@ -702,7 +702,7 @@ describe("doctor session transcript repair", () => {
       "Session SQLite",
     );
     expect(note).toHaveBeenCalledWith(
-      expect.stringContaining('run "openclaw doctor --fix" for session-store maintenance'),
+      expect.stringContaining('run "lanfu doctor --fix" for session-store maintenance'),
       "Session SQLite",
     );
   });

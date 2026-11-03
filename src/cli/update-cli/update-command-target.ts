@@ -300,7 +300,7 @@ export async function resolveUpdateCommandTarget(
             ? "unsupported-package-target"
             : EXTENDED_STABLE_TAG_UNSUPPORTED_REASON,
           unsupportedMainTag
-            ? "`--tag main` cannot update a package install. Run `openclaw update --channel dev` to switch to the supported Git checkout and build flow."
+            ? "`--tag main` cannot update a package install. Run `lanfu update --channel dev` to switch to the supported Git checkout and build flow."
             : undefined,
         );
         return undefined;

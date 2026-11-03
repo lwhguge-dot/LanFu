@@ -404,7 +404,7 @@ describe("agents set-identity command", () => {
 
       await expectIdentityCommandFailure(
         { agent, name: "Ghost", json: true },
-        `Agent "${agent}" not found. Create it with \`openclaw agents add\`.`,
+        `Agent "${agent}" not found. Create it with \`lanfu agents add\`.`,
       );
     },
   );
@@ -418,7 +418,7 @@ describe("agents set-identity command", () => {
 
       await expectIdentityCommandFailure(
         { agent: agentId, name: "Hijack" },
-        `Agent "${agentId}" not found. Create it with \`openclaw agents add\`.`,
+        `Agent "${agentId}" not found. Create it with \`lanfu agents add\`.`,
       );
     },
   );
@@ -431,7 +431,7 @@ describe("agents set-identity command", () => {
 
     await expectIdentityCommandFailure(
       { agent: "ghost", identityFile: path.join(workspace, "missing.md"), json: true },
-      'Agent "ghost" not found. Create it with `openclaw agents add`.',
+      'Agent "ghost" not found. Create it with `lanfu agents add`.',
     );
   });
 
@@ -605,7 +605,7 @@ describe("agents set-identity command", () => {
     expect(logs).toContain(`Workspace locator: ${workspaceLocator}`);
     expect(logs).toContain(
       `Stored workspace unchanged. Relocate with ${formatCliCommand(
-        `openclaw config set agents.entries.worker.workspace ${quoteCliArg(workspaceLocator)}`,
+        `lanfu config set agents.entries.worker.workspace ${quoteCliArg(workspaceLocator)}`,
       )}.`,
     );
     expect(logs.join("\n")).not.toContain("Identity source:");

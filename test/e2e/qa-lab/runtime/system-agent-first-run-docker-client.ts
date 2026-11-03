@@ -334,7 +334,7 @@ async function main() {
   const blocked = await runPackagedCli(["setup", "--message", "overview"]);
   assert(blocked.code === 1, "OpenClaw did not fail closed without inference");
   assert(
-    `${blocked.stdout}\n${blocked.stderr}`.includes("openclaw onboard"),
+    `${blocked.stdout}\n${blocked.stderr}`.includes("lanfu onboard"),
     "blocked OpenClaw did not direct the user to inference onboarding",
   );
 

@@ -188,7 +188,7 @@ export function discoverAgentDatabaseMigrationTargets(params: {
       if (classifyDeletion(pathname)) {
         seenPhysicalFiles.add(physicalFile);
         warnings.push(
-          `Held agent ${sanitizeForLog(deletion === "unavailable" ? candidate.agentId : deletion.agentId)} database ${sanitizeForLog(pathname)} (${deletion === "unavailable" ? "deletion journal unavailable" : "retained-by-deletion"}); run ${formatCliCommand("openclaw doctor --fix", params.env)} to inspect restoration.`,
+          `Held agent ${sanitizeForLog(deletion === "unavailable" ? candidate.agentId : deletion.agentId)} database ${sanitizeForLog(pathname)} (${deletion === "unavailable" ? "deletion journal unavailable" : "retained-by-deletion"}); run ${formatCliCommand("lanfu doctor --fix", params.env)} to inspect restoration.`,
         );
       }
       continue;

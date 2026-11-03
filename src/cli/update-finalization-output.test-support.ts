@@ -93,7 +93,7 @@ export async function doctorCommand() {
   ${
     scenario === "doctor-warning"
       ? `await fs.writeFile(process.env.OPENCLAW_UPDATE_POST_INSTALL_DOCTOR_RESULT_PATH,
-        JSON.stringify({status:'ok', warnings:['Optional probe failed; run openclaw doctor after updating.']}));`
+        JSON.stringify({status:'ok', warnings:['Optional probe failed; run lanfu doctor after updating.']}));`
       : ""
   }
 }
@@ -113,7 +113,7 @@ async function triageCommand() {
   const promptPath = path.join(process.env.OPENCLAW_STATE_DIR, 'logs', 'support', 'triage-fixture-prompt.md');
   await fs.mkdir(path.dirname(promptPath), { recursive: true });
   await fs.writeFile(promptPath, 'Synthetic update failure debugging prompt.\\n');
-  const suggestedCommands = ['openclaw triage --run'];
+  const suggestedCommands = ['lanfu triage --run'];
   if (process.argv.includes('--json')) {
     console.log(JSON.stringify({ promptPath, bundlePath: null, bundleError: null, findings: { error: 0, warning: 0, info: 0 }, detectedAgents: [], suggestedCommands }));
   } else {

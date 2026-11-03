@@ -68,7 +68,7 @@ describe("managed Gateway external restart storm diagnostics", () => {
       expect.stringContaining("3 external CLI restarts in 10 minutes"),
     );
     expect(firstStartup.mock.calls[0]?.[0]).toContain("ai.openclaw.test.storm");
-    expect(firstStartup.mock.calls[0]?.[0]).toContain("openclaw doctor --fix");
+    expect(firstStartup.mock.calls[0]?.[0]).toContain("lanfu doctor --fix");
 
     const nextStartup = vi.fn();
     restart();

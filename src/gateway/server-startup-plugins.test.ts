@@ -727,7 +727,7 @@ describe("loadGatewayStartupPluginRuntime", () => {
               provider: "local",
               reason: "Local embeddings need a managed llama-server.",
               fixHint:
-                "Run `openclaw models --agent helper auth login --provider llama-cpp --method local`.",
+                "Run `lanfu models --agent helper auth login --provider llama-cpp --method local`.",
             };
       });
       const disabledPolicy = {

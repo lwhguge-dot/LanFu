@@ -131,7 +131,7 @@ it.each(["cold", "warm", "policy", "receipt"] as const)(
         });
         try {
           if (admission === "warm") {
-            await expect(read()).rejects.toThrow("openclaw doctor --fix");
+            await expect(read()).rejects.toThrow("lanfu doctor --fix");
           } else {
             const page = await read();
             expect(page.messages.map(readChatHistoryMessageId)).toEqual(["requested-message"]);
@@ -139,7 +139,7 @@ it.each(["cold", "warm", "policy", "receipt"] as const)(
           }
           expect(selectedInTransaction).toBe(admission !== "warm");
           expect(connection.isTransaction).toBe(false);
-          await expect(read()).rejects.toThrow("openclaw doctor --fix");
+          await expect(read()).rejects.toThrow("lanfu doctor --fix");
           expect(connection.isOpen).toBe(true);
         } finally {
           prepareSpy.mockRestore();
@@ -161,7 +161,7 @@ it("observes a row changed after preparation and before the first worker read", 
       .run("{", target.entryValidationKey!);
     await expect(
       reader.readRecentSessionMessagesWithStatsAsync(target.transcript, { maxMessages: 10 }),
-    ).rejects.toThrow("openclaw doctor --fix");
+    ).rejects.toThrow("lanfu doctor --fix");
   });
 });
 
@@ -185,13 +185,13 @@ it("revalidates the retained handle between paged and anchored reader invocation
             maxMessages: 10,
             expectedReadWindow: first.readWindow,
           }),
-        ).rejects.toThrow("openclaw doctor --fix");
+        ).rejects.toThrow("lanfu doctor --fix");
         await expect(
           reader.readSessionMessagesAroundIdWithStatsAsync(target.transcript, {
             messageId: "requested-message",
             maxMessages: 10,
           }),
-        ).rejects.toThrow("openclaw doctor --fix");
+        ).rejects.toThrow("lanfu doctor --fix");
       });
     } finally {
       scope.close();
@@ -264,7 +264,7 @@ it("keeps canonical key validation on each admitted reader handle", async () => 
       .run("Agent:main:readonly-history");
     await expect(
       reader.readRecentSessionMessagesWithStatsAsync(target.transcript, { maxMessages: 10 }),
-    ).rejects.toThrow("openclaw doctor --fix");
+    ).rejects.toThrow("lanfu doctor --fix");
   });
 });
 
@@ -281,7 +281,7 @@ it("observes a committed main-key policy change before a later read", async () =
     setCanonicalSqliteSessionMainKey(database, "work");
     await expect(
       reader.readRecentSessionMessagesWithStatsAsync(target.transcript, { maxMessages: 10 }),
-    ).rejects.toThrow("openclaw doctor --fix");
+    ).rejects.toThrow("lanfu doctor --fix");
   });
 });
 

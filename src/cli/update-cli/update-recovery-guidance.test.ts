@@ -20,7 +20,7 @@ vi.mock("../../infra/container-environment.js", () => ({ isContainerEnvironment:
 
 const dirs = useAutoCleanupTempDirTracker(afterEach);
 const hostGuidance =
-  "Run `openclaw triage` on this machine to open a coding agent that can diagnose and repair the installation.";
+  "Run `lanfu triage` on this machine to open a coding agent that can diagnose and repair the installation.";
 const redeploy = "recreate or redeploy the container";
 const permissionDetail =
   "Package update cannot write /usr/lib/node_modules (EACCES; owner UID 0 (root), GID 0). Run the package update as the directory's owning account, keeping the Gateway's existing state/configuration.";
@@ -225,10 +225,10 @@ describe("update recovery reporting", () => {
       reason: "update-activation-timeout",
     });
     const action = stored?.origin.nextAction;
-    expect(action).toContain("openclaw --profile work update status");
-    expect(action).toContain("openclaw --profile work doctor");
+    expect(action).toContain("lanfu --profile work update status");
+    expect(action).toContain("lanfu --profile work doctor");
     expect(action).toContain("Wait for the owning updater and its child processes to stop");
-    expect(action).toContain("openclaw --profile work update repair");
+    expect(action).toContain("lanfu --profile work update repair");
     expect(output.mock.calls[0]?.[0]).toMatchObject({ run: { origin: { nextAction: action } } });
     expect(stored && renderUpdateRunReport(stored).markdown).toContain(action);
   });

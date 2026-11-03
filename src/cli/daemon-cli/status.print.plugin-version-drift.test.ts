@@ -77,7 +77,7 @@ describe("printDaemonStatus plugin version drift", () => {
     );
 
     expectMockLineContains(runtime.log, "Plugin version drift: 1 active official plugin");
-    expectMockLineContains(runtime.log, "openclaw gateway status --deep");
+    expectMockLineContains(runtime.log, "lanfu gateway status --deep");
     expect(runtime.log.mock.calls.map(([line]) => line).join("\n")).not.toContain("whatsapp:");
   });
 
@@ -122,7 +122,7 @@ describe("printDaemonStatus plugin version drift", () => {
     expect(runtime.log.mock.calls.flat().join("\n")).not.toContain("expected 2026.9.4");
     expectMockLineContains(
       runtime.log,
-      `Fix: ${formatCliCommand("openclaw plugins update whatsapp")} && ${formatCliCommand("openclaw gateway restart")}.`,
+      `Fix: ${formatCliCommand("lanfu plugins update whatsapp")} && ${formatCliCommand("lanfu gateway restart")}.`,
     );
   });
 
@@ -165,7 +165,7 @@ describe("printDaemonStatus plugin version drift", () => {
       "registry version 2026.9.3 is already installed; no release reaches 2026.9.4 yet",
     );
     const logged = runtime.log.mock.calls.flat().join("\n");
-    expect(logged).not.toContain("openclaw plugins update");
+    expect(logged).not.toContain("lanfu plugins update");
     // Registry lag is not a resolution failure, so it must not reach the error surface.
     expect(runtime.error.mock.calls.flat().join("\n")).not.toContain(
       "Plugin repair target resolution failed",
@@ -210,9 +210,9 @@ describe("printDaemonStatus plugin version drift", () => {
     expectMockLineContains(runtime.log, "- brave: 2026.6.9 (npm)");
     expectMockLineContains(
       runtime.log,
-      "openclaw plugins update @openclaw/brave-plugin@2026.6.10-beta.1",
+      "lanfu plugins update @openclaw/brave-plugin@2026.6.10-beta.1",
     );
-    expectMockLineContains(runtime.log, "openclaw gateway restart");
+    expectMockLineContains(runtime.log, "lanfu gateway restart");
   });
 
   it("fails loudly without an install command when npm cannot resolve a pinned target", () => {
@@ -255,7 +255,7 @@ describe("printDaemonStatus plugin version drift", () => {
     const output = [runtime.log, runtime.error]
       .flatMap((mock) => mock.mock.calls.map(([line]) => line))
       .join("\n");
-    expect(output).not.toContain("openclaw plugins update");
-    expect(output).not.toContain("openclaw gateway restart");
+    expect(output).not.toContain("lanfu plugins update");
+    expect(output).not.toContain("lanfu gateway restart");
   });
 });

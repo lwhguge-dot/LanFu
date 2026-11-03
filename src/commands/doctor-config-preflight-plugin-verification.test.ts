@@ -71,7 +71,7 @@ describe("update canary plugin verification", () => {
             pluginId: "canary-fixture",
             reason:
               "Package convergence must wait until the updating parent releases its install records.",
-            command: "openclaw update repair",
+            command: "lanfu update repair",
           },
         ],
       });

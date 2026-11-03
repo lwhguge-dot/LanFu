@@ -59,7 +59,7 @@ it.each(["runtime", "missing updater"] as const)(
     const message =
       failure === "runtime"
         ? "Target package: openclaw@2026.9.4; Minimum Node engine: 24.16.0; Running Node: 22.23.2"
-        : "Cannot locate the installed updater; run `openclaw doctor` before retrying.";
+        : "Cannot locate the installed updater; run `lanfu doctor` before retrying.";
 
     await withTriageTerminal(true, async () => {
       await expect(

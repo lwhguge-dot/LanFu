@@ -412,7 +412,7 @@ async function updatePluginsAfterCoreUpdateWithLease(
       reason: unavailable ? "plugin-target-unavailable" : "retained-plugin-pin",
       message,
       guidance: unavailable
-        ? [formatCliCommand(`openclaw plugins update ${outcome.pluginId}`)]
+        ? [formatCliCommand(`lanfu plugins update ${outcome.pluginId}`)]
         : ["Keep the pin if intentional; replacing it is an explicit operator choice."],
     });
     if (unavailable) {

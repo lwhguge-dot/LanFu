@@ -76,7 +76,7 @@ describe("gatewayAuthTokenCommand", () => {
       resolvedConfig: { gateway: { auth: { mode: "token", token: "__OPENCLAW_REDACTED__" } } },
     });
     await expect(gatewayAuthTokenCommand(runtime, { env: {}, interactive: true })).rejects.toThrow(
-      "openclaw doctor --fix",
+      "lanfu doctor --fix",
     );
     expect(runtime.writeStdout).not.toHaveBeenCalled();
   });
@@ -105,7 +105,7 @@ describe("gatewayAuthTokenCommand", () => {
     });
 
     await expect(gatewayAuthTokenCommand(runtime, { env: {}, interactive: true })).rejects.toThrow(
-      "openclaw doctor --generate-gateway-token",
+      "lanfu doctor --generate-gateway-token",
     );
 
     expect(runtime.writeStdout).not.toHaveBeenCalled();

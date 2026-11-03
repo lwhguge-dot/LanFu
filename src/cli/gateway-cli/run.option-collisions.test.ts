@@ -117,7 +117,7 @@ const writeDiagnosticStabilityBundleForFailureSync = vi.fn((_reason: string, _er
   path: "/tmp/openclaw-stability.json",
 }));
 const bootLifecycle = vi.hoisted(() => ({
-  manualChannelStartHint: `Start a channel manually with: openclaw gateway call channels.start --params '{"channel":"<id>"}'`,
+  manualChannelStartHint: `Start a channel manually with: lanfu gateway call channels.start --params '{"channel":"<id>"}'`,
   decisions: [] as Array<{
     tripped: boolean;
     uncleanBoots: number;
@@ -374,7 +374,7 @@ vi.mock("../command-format.js", () => ({
 vi.mock("../terminal-interactivity.js", () => ({
   isTerminalInteractive: () => isTerminalInteractive(),
   NON_INTERACTIVE_GATEWAY_RUN_FORCE_MESSAGE:
-    "Refusing to kill the operator's running gateway service from a non-interactive shell. Use an isolated dev gateway (openclaw gateway run --dev, or --profile <name> with a free port) for testing.",
+    "Refusing to kill the operator's running gateway service from a non-interactive shell. Use an isolated dev gateway (lanfu gateway run --dev, or --profile <name> with a free port) for testing.",
 }));
 
 vi.mock("../invalid-config-recovery.js", () => ({
@@ -1159,7 +1159,7 @@ describe("gateway run option collisions", () => {
     expect(findVerifiedGatewayListenerPidsOnPortSync).toHaveBeenCalledWith(18789);
     expect(forceFreePortAndWait).toHaveBeenCalledTimes(1);
     expect(startGatewayServer).not.toHaveBeenCalled();
-    expect(runtimeErrors.join("\n")).toContain("openclaw gateway run --dev");
+    expect(runtimeErrors.join("\n")).toContain("lanfu gateway run --dev");
     expect(runtimeErrors.join("\n")).toContain("--profile <name> with a free port");
   });
 
@@ -1172,7 +1172,7 @@ describe("gateway run option collisions", () => {
 
     expect(startGatewayServer).not.toHaveBeenCalled();
     expect(runtimeErrors.join("\n")).toContain("Could not free port 18789: boom");
-    expect(runtimeErrors.join("\n")).toContain("openclaw gateway status --deep");
+    expect(runtimeErrors.join("\n")).toContain("lanfu gateway status --deep");
   });
 
   it("marks service-mode gateway descendants with the live gateway pid", async () => {
@@ -1197,7 +1197,7 @@ describe("gateway run option collisions", () => {
   ] as const)(
     "reports restart storms before server startup only for managed macOS Gateways ($platform, managed=$managed)",
     async ({ platform, managed, warns }) => {
-      const warning = "Gateway restart storm: inspect launchd jobs with openclaw gateway status.";
+      const warning = "Gateway restart storm: inspect launchd jobs with lanfu gateway status.";
       warnAboutGatewayRestartStorm.mockImplementation(async (_env, warn) => warn(warning));
       startGatewayServer.mockImplementationOnce(async () => {
         expect(gatewayLogMessages.includes(warning)).toBe(warns);
@@ -1998,7 +1998,7 @@ describe("gateway run option collisions", () => {
         expect(refusal).toBeInstanceOf(Error);
         const message = (refusal as Error).message;
         expect(message).toBe(
-          `Legacy session store requires migration: ${storePath}. Run "openclaw doctor --fix" against the same state/config before starting OpenClaw.`,
+          `Legacy session store requires migration: ${storePath}. Run "lanfu doctor --fix" against the same state/config before starting LanFu.`,
         );
         const failure =
           kind === "cause"
@@ -2201,7 +2201,7 @@ describe("gateway run option collisions", () => {
       expect(runtimeErrors.join("\n")).toContain("newer");
       expect(runtimeErrors.join("\n")).toContain("restore your pre-update backup");
       expect(runtimeErrors.join("\n")).toMatch(
-        /Stop the service.*then restore your pre-update backup created with openclaw backup create, then start it again/s,
+        /Stop the service.*then restore your pre-update backup created with lanfu backup create, then start it again/s,
       );
     }
     expect(triageAfterFailure).not.toHaveBeenCalled();
@@ -2268,7 +2268,7 @@ describe("gateway run option collisions", () => {
     await expect(runGatewayCli(["gateway", "run"])).rejects.toThrow("__exit__:78");
 
     expect(runtimeErrors).toContain(
-      "Gateway start blocked: existing config is missing gateway.mode. Treat this as suspicious or clobbered config. Re-run `openclaw onboard --mode local` or `openclaw setup`, set gateway.mode=local manually, or pass --allow-unconfigured.",
+      "Gateway start blocked: existing config is missing gateway.mode. Treat this as suspicious or clobbered config. Re-run `lanfu onboard --mode local` or `lanfu setup`, set gateway.mode=local manually, or pass --allow-unconfigured.",
     );
     expect(runtimeErrors).toContain(`Config write audit: ${CONFIG_AUDIT_STORE_LABEL}`);
     expect(startGatewayServer).not.toHaveBeenCalled();
@@ -2290,7 +2290,7 @@ describe("gateway run option collisions", () => {
     await expect(runGatewayCli(["gateway", "run"])).rejects.toThrow("__exit__:78");
 
     expect(runtimeErrors).toContain(
-      "Gateway start blocked: existing config is missing gateway.mode. Treat this as suspicious or clobbered config. Re-run `openclaw onboard --mode local` or `openclaw setup`, set gateway.mode=local manually, or pass --allow-unconfigured.",
+      "Gateway start blocked: existing config is missing gateway.mode. Treat this as suspicious or clobbered config. Re-run `lanfu onboard --mode local` or `lanfu setup`, set gateway.mode=local manually, or pass --allow-unconfigured.",
     );
     expect(runtimeErrors).toContain(`Config write audit: ${CONFIG_AUDIT_STORE_LABEL}`);
     expect(readConfigFileSnapshotWithPluginMetadata).toHaveBeenCalledOnce();

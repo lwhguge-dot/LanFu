@@ -63,9 +63,7 @@ export const mcpAuthLoginHandlers: GatewayRequestHandlers = {
       return;
     }
     if (!client.browserOrigin) {
-      reject(
-        "Open Settings on this Gateway to sign in, or use openclaw mcp login in its terminal.",
-      );
+      reject("Open Settings on this Gateway to sign in, or use lanfu mcp login in its terminal.");
       return;
     }
     const initialServer = structuredClone(server);
@@ -130,7 +128,7 @@ export const mcpAuthLoginHandlers: GatewayRequestHandlers = {
               new Error(
                 saved
                   ? "Authentication saved, but sign-in cleanup did not finish. Close this dialog and check the connector before trying again."
-                  : "Sign-in did not finish. Check the connector settings and try again, or run openclaw mcp login with this connector's name in this Gateway's terminal.",
+                  : "Sign-in did not finish. Check the connector settings and try again, or run lanfu mcp login with this connector's name in this Gateway's terminal.",
               );
             try {
               try {

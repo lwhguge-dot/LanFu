@@ -91,7 +91,7 @@ export async function maybeOfferUpdateBeforeDoctor(params: {
     if (handled) {
       params.outro(
         readinessReason
-          ? "LanFu installed; Gateway readiness remains unverified. Keep recovery backups and check `openclaw gateway status --deep`."
+          ? "LanFu installed; Gateway readiness remains unverified. Keep recovery backups and check `lanfu gateway status --deep`."
           : "Update completed (doctor already ran as part of the update).",
       );
     }
@@ -106,7 +106,7 @@ export async function maybeOfferUpdateBeforeDoctor(params: {
     note(
       [
         "This install is not a git checkout.",
-        `Run \`${formatCliCommand("openclaw update")}\` to update via your package manager (npm/pnpm), then rerun doctor.`,
+        `Run \`${formatCliCommand("lanfu update")}\` to update via your package manager (npm/pnpm), then rerun doctor.`,
       ].join("\n"),
       "Update",
     );

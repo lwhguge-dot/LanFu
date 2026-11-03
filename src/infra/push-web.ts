@@ -78,7 +78,7 @@ function assertLegacyWebPushMigrationComplete(baseDir?: string): void {
   });
   if (pendingLegacyPath) {
     throw new Error(
-      `legacy Web Push state requires migration; run \`openclaw doctor --fix\` before using Web Push`,
+      `legacy Web Push state requires migration; run \`lanfu doctor --fix\` before using Web Push`,
     );
   }
 }

@@ -66,8 +66,8 @@ const getMissingLocalMemoryEmbeddingProviderMessage = vi.hoisted(() =>
     () =>
       "Unknown memory embedding provider: local.\n" +
       "Local GGUF embeddings are provided by the official llama.cpp provider plugin.\n" +
-      "Install it with: openclaw plugins install @openclaw/llama-cpp-provider\n" +
-      "Then restart OpenClaw and retry: openclaw memory status --deep",
+      "Install it with: lanfu plugins install @openclaw/llama-cpp-provider\n" +
+      "Then restart OpenClaw and retry: lanfu memory status --deep",
   ),
 );
 
@@ -366,8 +366,8 @@ describe("noteMemorySearchHealth", () => {
     expect(note).toHaveBeenCalledTimes(1);
     expectFirstNoteContains(
       "Unknown memory embedding provider: local",
-      "openclaw plugins install @openclaw/llama-cpp-provider",
-      "openclaw memory status --deep",
+      "lanfu plugins install @openclaw/llama-cpp-provider",
+      "lanfu memory status --deep",
     );
     expect(getMissingLocalMemoryEmbeddingProviderMessage).toHaveBeenCalledOnce();
   });
@@ -386,9 +386,9 @@ describe("noteMemorySearchHealth", () => {
     expectFirstNoteContains(
       'Installed plugin "llama-cpp" does not provide current local-memory setup diagnostics',
       "legacy llama.cpp server is unavailable",
-      "openclaw plugins update llama-cpp",
+      "lanfu plugins update llama-cpp",
     );
-    expectFirstNoteExcludes("openclaw plugins install @openclaw/llama-cpp-provider");
+    expectFirstNoteExcludes("lanfu plugins install @openclaw/llama-cpp-provider");
   });
 
   it.each([
@@ -400,7 +400,7 @@ describe("noteMemorySearchHealth", () => {
     [
       "plugin-disabled",
       'Installed plugin "llama-cpp" is disabled for this config',
-      "openclaw plugins enable llama-cpp --accept-capabilities",
+      "lanfu plugins enable llama-cpp --accept-capabilities",
     ],
     [
       "not-in-allowlist",
@@ -414,8 +414,8 @@ describe("noteMemorySearchHealth", () => {
 
     expectFirstNoteContains(message, "local provider is blocked", fix);
     expectFirstNoteExcludes(
-      "openclaw plugins install @openclaw/llama-cpp-provider",
-      "openclaw plugins update llama-cpp",
+      "lanfu plugins install @openclaw/llama-cpp-provider",
+      "lanfu plugins update llama-cpp",
     );
     expect(loadProviderPolicyArtifacts).not.toHaveBeenCalled();
   });
@@ -432,7 +432,7 @@ describe("noteMemorySearchHealth", () => {
 
     expectFirstNoteContains(
       "Plugin loading is disabled for this config",
-      "openclaw config set plugins.enabled true --strict-json",
+      "lanfu config set plugins.enabled true --strict-json",
     );
     expectFirstNoteExcludes("No active memory plugin is registered");
     expect(resolveActiveMemoryBackendConfig).not.toHaveBeenCalled();
@@ -470,7 +470,7 @@ describe("noteMemorySearchHealth", () => {
     );
     expect(loadProviderPolicyArtifacts).toHaveBeenCalledWith([selectedOwner]);
     expectFirstNoteContains("Selected provider needs setup", "Configure the selected provider");
-    expectFirstNoteExcludes("openclaw plugins enable a-disabled");
+    expectFirstNoteExcludes("lanfu plugins enable a-disabled");
   });
 
   it.each([
@@ -491,7 +491,7 @@ describe("noteMemorySearchHealth", () => {
       reason: "Local embeddings need the managed llama.cpp server config.",
       requirement: "managed-llama-cpp-setup",
       fixHint:
-        "Run `openclaw models --agent agent-default auth login --provider llama-cpp --method local` in an interactive terminal, then rerun this check.",
+        "Run `lanfu models --agent agent-default auth login --provider llama-cpp --method local` in an interactive terminal, then rerun this check.",
     });
 
     await runMemorySearchHealth("local", options);
@@ -499,9 +499,9 @@ describe("noteMemorySearchHealth", () => {
     expect(loadProviderPolicyArtifacts).toHaveBeenCalledWith([owner]);
     expectFirstNoteContains(
       "Local embeddings need the managed llama.cpp server config",
-      "openclaw models --agent agent-default auth login --provider llama-cpp --method local",
+      "lanfu models --agent agent-default auth login --provider llama-cpp --method local",
     );
-    expectFirstNoteExcludes("openclaw plugins install @openclaw/llama-cpp-provider");
+    expectFirstNoteExcludes("lanfu plugins install @openclaw/llama-cpp-provider");
   });
 
   it("supports silent structured collection through an injected note sink", async () => {
@@ -528,7 +528,7 @@ describe("noteMemorySearchHealth", () => {
       "managed llama-server unavailable",
       "Repair the llama.cpp server problem reported by the Gateway",
     );
-    expectFirstNoteExcludes("openclaw plugins install @openclaw/llama-cpp-provider");
+    expectFirstNoteExcludes("lanfu plugins install @openclaw/llama-cpp-provider");
   });
 
   it("does not warn when local provider with default model and gateway probe is ready", async () => {
@@ -623,7 +623,7 @@ describe("noteMemorySearchHealth", () => {
     );
     expectFirstNoteExcludes(
       "Gateway probe: GGUF load failed",
-      "openclaw plugins install @openclaw/llama-cpp-provider",
+      "lanfu plugins install @openclaw/llama-cpp-provider",
     );
   });
 
@@ -635,7 +635,7 @@ describe("noteMemorySearchHealth", () => {
           checked: false,
           ready: false,
           error:
-            "memory embedding readiness not checked; run `openclaw memory status --deep` to probe",
+            "memory embedding readiness not checked; run `lanfu memory status --deep` to probe",
           skipped: true,
         },
       },
@@ -653,7 +653,7 @@ describe("noteMemorySearchHealth", () => {
           checked: false,
           ready: false,
           error:
-            "memory embedding readiness not checked; run `openclaw memory status --deep` to probe",
+            "memory embedding readiness not checked; run `lanfu memory status --deep` to probe",
           skipped: true,
         },
       },
@@ -1011,11 +1011,7 @@ describe("noteMemorySearchHealth", () => {
       "openai-compatible",
       skippedGatewayOptions,
       {
-        contains: [
-          'provider is set to "openai-compatible"',
-          "remote.baseUrl",
-          "openclaw config set",
-        ],
+        contains: ['provider is set to "openai-compatible"', "remote.baseUrl", "lanfu config set"],
         noApiKeyLookup: true,
       },
     ],
@@ -1028,7 +1024,7 @@ describe("noteMemorySearchHealth", () => {
         contains: [
           'provider is set to "openai-compatible"',
           "memory.search.model",
-          "openclaw config set",
+          "lanfu config set",
         ],
         noApiKeyLookup: true,
       },
@@ -1209,9 +1205,9 @@ describe("noteMemorySearchHealth", () => {
 
     expectFirstNoteContains(
       "Gateway memory probe for default agent is not ready",
-      "openclaw configure --section model",
+      "lanfu configure --section model",
     );
-    expectFirstNoteExcludes("openclaw auth add --provider");
+    expectFirstNoteExcludes("lanfu auth add --provider");
   });
 
   it("does not probe unrelated embedding providers for the resolved default", async () => {

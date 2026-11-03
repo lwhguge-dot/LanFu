@@ -659,7 +659,7 @@ export async function inspectWindowsGatewayFirewall(
       code: "windows_firewall_inspection_failed",
       message: "LanFu could not quickly inspect Windows Firewall LAN Gateway policy.",
       details: [
-        "Run `openclaw gateway status --deep` again, or verify the advertised LAN URL from another device.",
+        "Run `lanfu gateway status --deep` again, or verify the advertised LAN URL from another device.",
       ],
     };
   }
@@ -671,7 +671,7 @@ export async function inspectWindowsGatewayFirewall(
       code: "windows_firewall_inspection_failed",
       message: "LanFu could not parse Windows Firewall LAN Gateway policy.",
       details: [
-        "Run `openclaw gateway status --deep` again, or verify the advertised LAN URL from another device.",
+        "Run `lanfu gateway status --deep` again, or verify the advertised LAN URL from another device.",
       ],
     };
   }
@@ -692,7 +692,7 @@ export async function inspectWindowsGatewayFirewall(
       code: "windows_firewall_inspection_failed",
       message: "LanFu could not parse Windows Firewall LAN Gateway policy.",
       details: [
-        "Run `openclaw gateway status --deep` again, or verify the advertised LAN URL from another device.",
+        "Run `lanfu gateway status --deep` again, or verify the advertised LAN URL from another device.",
       ],
     };
   }
@@ -709,7 +709,7 @@ export async function inspectWindowsGatewayFirewall(
         code: "windows_firewall_inspection_failed",
         message: "LanFu could not parse Windows Firewall LAN Gateway policy.",
         details: [
-          "Run `openclaw gateway status --deep` again, or verify the advertised LAN URL from another device.",
+          "Run `lanfu gateway status --deep` again, or verify the advertised LAN URL from another device.",
         ],
       };
 }
@@ -723,6 +723,6 @@ export function formatWindowsGatewayFirewallGuidance(params: {
     return [];
   }
   return [
-    "Windows firewall: if another device cannot connect to the LAN URL, run `openclaw gateway status --deep` from this Windows host.",
+    "Windows firewall: if another device cannot connect to the LAN URL, run `lanfu gateway status --deep` from this Windows host.",
   ];
 }

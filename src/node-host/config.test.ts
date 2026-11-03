@@ -314,7 +314,7 @@ describe("node-host SQLite config", () => {
         await fs.symlink(path.join(stateDir, "missing-node.json"), sourcePath);
       }
 
-      await expect(loadNodeHostConfig(env)).rejects.toThrow("openclaw doctor --fix");
+      await expect(loadNodeHostConfig(env)).rejects.toThrow("lanfu doctor --fix");
       await expect(
         configureNodeHost({ fallbackDisplayName: "node", gateway: {}, env }),
       ).rejects.toThrow("openclaw doctor --fix");

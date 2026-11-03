@@ -75,8 +75,8 @@ export function seedDeferredPluginSessionSource(
         reason: "The configured plugin is not installed.",
         command:
           pluginId === "codex"
-            ? "openclaw plugins install @openclaw/codex"
-            : "openclaw plugins install @example/fixture-plugin",
+            ? "lanfu plugins install @openclaw/codex"
+            : "lanfu plugins install @example/fixture-plugin",
         ...(layout === "external" ? { configPaths: [["session", "store"]] } : {}),
       },
     ],

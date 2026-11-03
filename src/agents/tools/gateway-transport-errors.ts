@@ -45,7 +45,7 @@ export function staleGatewayAgentRuntimeIdentityError(cause: unknown): Error {
   return new Error(
     [
       "The running Gateway is from an older LanFu build and rejected current agent runtime connection metadata.",
-      "Restart the Gateway with `openclaw gateway restart`, then retry.",
+      "Restart the Gateway with `lanfu gateway restart`, then retry.",
     ].join(" "),
     { cause },
   );

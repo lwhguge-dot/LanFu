@@ -1021,7 +1021,7 @@ describe("sessions_send gating", () => {
 
     expect(requireDetails(result)).toMatchObject({
       status: "error",
-      error: 'Agent "агент✨" not found. Run openclaw agents list to see configured agents.',
+      error: 'Agent "агент✨" not found. Run lanfu agents list to see configured agents.',
     });
     expect(callGatewayMock).not.toHaveBeenCalled();
   });

@@ -206,7 +206,7 @@ export async function convergeUpdatePlugins(params: {
         return {
           resultWithPostUpdate: failedTargetRuntime(),
           detail:
-            "The installed target could not resume plugin convergence. Run openclaw update using the installed target executable.",
+            "The installed target could not resume plugin convergence. Run lanfu update using the installed target executable.",
         };
       }
 

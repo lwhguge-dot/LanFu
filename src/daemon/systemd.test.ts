@@ -968,7 +968,7 @@ describe("system-scope gateway unit detection (openclaw#87577)", () => {
     expect(warning).toContain("/etc/systemd/system/openclaw-gateway.service");
     expect(warning).toContain("18789");
     expect(warning).toContain(
-      "Run `openclaw doctor` interactively to inspect both scopes and review supported cleanup.",
+      "Run `lanfu doctor` interactively to inspect both scopes and review supported cleanup.",
     );
     // The unguarded startup path must not hand out a destructive command.
     expect(warning).not.toContain("rm ");

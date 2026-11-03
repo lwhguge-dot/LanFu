@@ -218,7 +218,7 @@ describe("onboarding authored config persistence", () => {
       expect.soft(await fs.stat(ownerDatabasePath).catch(() => null)).toBeNull();
       expect.soft(readEntry(legacyDatabasePath, "main", legacyKey)).toMatchObject(entry);
       expect(result.sessionMigrationWarnings).toEqual([
-        expect.stringContaining("openclaw doctor --fix"),
+        expect.stringContaining("lanfu doctor --fix"),
       ]);
       expect(
         withExistingOpenClawStateDatabaseReadOnly(
@@ -323,7 +323,7 @@ describe("onboarding authored config persistence", () => {
         expect(failure).toBeUndefined();
         expect(result?.agentId).toBe("robby");
         expect(result?.sessionMigrationWarnings).toEqual([
-          expect.stringContaining("openclaw doctor --fix"),
+          expect.stringContaining("lanfu doctor --fix"),
         ]);
         if (boundary === "closed after publication") {
           expect(readAgentDeletionJournal("robby")).toBeUndefined();
@@ -375,7 +375,7 @@ describe("onboarding authored config persistence", () => {
         expect(readEntry(legacyDatabasePath, "main", legacyKey)).toMatchObject(entry);
         expect(await fs.stat(ownerDatabasePath).catch(() => null)).toBeNull();
         expect(readLedgerStatus()).toBeUndefined();
-        expect(log.warn).toHaveBeenCalledWith(expect.stringContaining("openclaw doctor --fix"));
+        expect(log.warn).toHaveBeenCalledWith(expect.stringContaining("lanfu doctor --fix"));
         await migrateLegacyMainSessionKeys({
           cfg: published.config,
           env: process.env,

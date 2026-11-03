@@ -34,11 +34,11 @@ export async function handleGatewayStartupMaintenance(error: unknown): Promise<b
       // Diagnostic inspection must not prevent parking and exit for the original refusal.
     }
   }
-  const stop = `Stop the service with ${formatCliCommand("openclaw gateway stop")} (or its service owner), then`;
+  const stop = `Stop the service with ${formatCliCommand("lanfu gateway stop")} (or its service owner), then`;
   const guidance =
     reason === "a newer LanFu build"
-      ? `${stop} restore your pre-update backup created with ${formatCliCommand("openclaw backup create")}, then start it again with ${formatCliCommand("openclaw gateway start")}. See https://docs.openclaw.ai/install/updating#rollback.`
-      : `${stop} run ${formatCliCommand("openclaw doctor --fix")}, then start it again with ${formatCliCommand("openclaw gateway start")}.`;
+      ? `${stop} restore your pre-update backup created with ${formatCliCommand("lanfu backup create")}, then start it again with ${formatCliCommand("lanfu gateway start")}. See https://docs.openclaw.ai/install/updating#rollback.`
+      : `${stop} run ${formatCliCommand("lanfu doctor --fix")}, then start it again with ${formatCliCommand("lanfu gateway start")}.`;
   let parked = false;
   try {
     // launchd ignores exit 78 under KeepAlive. Park without opening the database,

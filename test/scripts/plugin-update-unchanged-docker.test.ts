@@ -433,8 +433,8 @@ describe("plugin update unchanged Docker E2E", () => {
                     {
                       pluginId: warnedPluginId,
                       reason: "package.json is missing",
-                      message: `Plugin "${warnedPluginId}" could not be loaded. Run \`openclaw doctor --fix\` to check and repair the load problem.`,
-                      guidance: outcome === "missing guidance" ? [] : ["openclaw doctor --fix"],
+                      message: `Plugin "${warnedPluginId}" could not be loaded. Run \`lanfu doctor --fix\` to check and repair the load problem.`,
+                      guidance: outcome === "missing guidance" ? [] : ["lanfu doctor --fix"],
                     },
                   ],
           },

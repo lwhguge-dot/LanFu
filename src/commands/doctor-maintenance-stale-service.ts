@@ -25,9 +25,9 @@ export function doctorGatewayMaintenanceError(params: {
   detail: string;
   cause?: unknown;
 }): UpdateDoctorError {
-  const restart = formatCliCommand("openclaw gateway restart", params.env);
-  const status = formatCliCommand("openclaw gateway status --deep", params.env);
-  const doctor = formatCliCommand("openclaw doctor --fix", params.env);
+  const restart = formatCliCommand("lanfu gateway restart", params.env);
+  const status = formatCliCommand("lanfu gateway status --deep", params.env);
+  const doctor = formatCliCommand("lanfu doctor --fix", params.env);
   const next = `Run ${status}; resolve the reported failure, then ${doctor} and ${restart}.`;
   return new UpdateDoctorError(
     `Doctor ${params.phase} failed. ${params.detail} ${next}`,

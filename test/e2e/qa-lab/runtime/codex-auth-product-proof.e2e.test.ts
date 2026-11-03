@@ -23,7 +23,7 @@ const MODEL = "openai/gpt-5.6-luna";
 const MISSING_PROFILE_ID = "openai:missing";
 const SELECTED_AUTH_PROFILE_UNAVAILABLE_USER_TEXT =
   "The selected auth profile is unavailable in this agent's OpenClaw credential store. " +
-  "Import or migrate that credential into the agent, select another configured profile, or run `openclaw configure`, then retry.";
+  "Import or migrate that credential into the agent, select another configured profile, or run `lanfu configure`, then retry.";
 const PRODUCT_OUTPUT = "QA_CODEX_AUTH_PRODUCT_PROOF_OK";
 const REQUEST_TIMEOUT_MS = 60_000;
 
@@ -53,7 +53,7 @@ function expectBoundedMissingProfileRecovery(
   if (options?.allowSessionTruncation) {
     expect(typeof value).toBe("string");
     expect(value).toContain("The selected auth profile is unavailable");
-    expect(value).toContain("`openclaw configure`");
+    expect(value).toContain("`lanfu configure`");
     expect(value).toMatch(/then retry\.$/u);
     expect(value).toHaveLength(160);
   } else {

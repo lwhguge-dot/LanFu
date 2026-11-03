@@ -133,7 +133,7 @@ describe("triage --run", () => {
     expect(runtime.log).toHaveBeenCalledWith(
       expect.stringMatching(/Embedded repair unrepaired: .*Cannot establish the update target\./),
     );
-    expect(runtime.log).toHaveBeenCalledWith(expect.stringContaining("openclaw update repair"));
+    expect(runtime.log).toHaveBeenCalledWith(expect.stringContaining("lanfu update repair"));
     expect(mocks.runUpdateRepairTurn).not.toHaveBeenCalled();
     expect(await readRestartSentinelReadOnly()).toEqual(saved);
   });
@@ -167,7 +167,7 @@ describe("triage --run", () => {
           {
             pluginId: "codex",
             reason: "The plugin has not reported completion of its retained state migration.",
-            command: "openclaw doctor --fix",
+            command: "lanfu doctor --fix",
             requiresStateMigration: true,
           },
         ],
@@ -200,7 +200,7 @@ describe("triage --run", () => {
     ).rejects.toMatchObject({ code: 1 });
     const output = runtime.log.mock.calls.flat().join("\n");
     expect(output).toContain("Embedded repair unrepaired:");
-    expect(output).toContain("openclaw update repair");
+    expect(output).toContain("lanfu update repair");
     expect(output).not.toContain("already resolved");
     if (pendingMigration) {
       expect(output).toContain('Plugin "codex" data/settings upgrade is unfinished');
@@ -226,7 +226,7 @@ describe("triage --run", () => {
     expect(runtime.log).toHaveBeenCalledWith(
       expect.stringMatching(/Embedded repair unrepaired: .*Update history is unavailable/),
     );
-    expect(runtime.log).toHaveBeenCalledWith(expect.stringContaining("openclaw update repair"));
+    expect(runtime.log).toHaveBeenCalledWith(expect.stringContaining("lanfu update repair"));
     expect(mocks.runUpdateRepairTurn).not.toHaveBeenCalled();
   });
 
@@ -592,7 +592,7 @@ describe("triage --run", () => {
 
     await withTriageTerminal(true, async () => {
       await expect(triageCommand(runtime, { noExport: true, run: true })).rejects.toThrow(
-        "Run `openclaw onboard` or use a suggested handoff command.",
+        "Run `lanfu onboard` or use a suggested handoff command.",
       );
     });
     expect(mocks.runUpdateRepairLoop).toHaveBeenCalledOnce();
@@ -702,7 +702,7 @@ describe("triage --run", () => {
         triageCommand(createTriageRuntime(), { noExport: true, run: true }),
       ),
     ).rejects.toThrow(
-      "The operator's policy denies unattended repair (exec-denied-by-policy). Use `openclaw triage` for an external handoff.",
+      "The operator's policy denies unattended repair (exec-denied-by-policy). Use `lanfu triage` for an external handoff.",
     );
   });
 

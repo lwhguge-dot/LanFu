@@ -76,7 +76,7 @@ export function createDoctorRehearsalSnapshotPreparation(
 
 function throwPluginRegistryPersistenceFailed(
   reason: string,
-  repair = 'Run "openclaw doctor --fix" and retry.',
+  repair = 'Run "lanfu doctor --fix" and retry.',
 ): never {
   throw new Error(
     `LanFu refreshed the plugin registry but could not verify the persisted replacement (${reason}); refusing to write the migration checkpoint. ${repair}`,
@@ -224,7 +224,7 @@ export async function persistRefreshedPluginIndex(params: {
       `reread source was ${persistedPluginMetadataSnapshot?.registrySource ?? "missing"}${
         differences ? `; differences: ${differences}` : ""
       }${diagnosticCodes?.length ? `; diagnostics: ${diagnosticCodes.join(", ")}` : ""}`,
-      'Stop plugin package changes, run "openclaw plugins registry --refresh", then retry.',
+      'Stop plugin package changes, run "lanfu plugins registry --refresh", then retry.',
     );
   }
   const persistedBaseConfig =
@@ -243,7 +243,7 @@ export async function persistRefreshedPluginIndex(params: {
       persistedIdentity.pluginDoctorConfigFingerprint
   ) {
     throw new Error(
-      'LanFu config identity changed while persisting the refreshed plugin registry; refusing to write the migration checkpoint. Run "openclaw doctor --fix" and retry.',
+      'LanFu config identity changed while persisting the refreshed plugin registry; refusing to write the migration checkpoint. Run "lanfu doctor --fix" and retry.',
     );
   }
   // The durable reread supplies both the accepted inventory and its checkpoint identity.

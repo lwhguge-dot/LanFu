@@ -78,7 +78,7 @@ export function createGatewayCloseTransportError(params: {
     message +=
       `\n\nPossible causes:\n${connectionHints}` +
       "\n- Gateway process stopped or became unreachable (confirm it is still running)" +
-      "\nRun `openclaw doctor` for diagnostics.";
+      "\nRun `lanfu doctor` for diagnostics.";
   }
   return new GatewayTransportError({
     kind: "closed",

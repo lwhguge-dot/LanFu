@@ -450,7 +450,7 @@ export async function detectLegacyStateMigrations(params: {
         ? lstatSync(source.legacyDir, { throwIfNoEntry: false })
           ? {
               status: "failed" as const,
-              warning: `Legacy agent source is outside the copied state snapshot: ${source.legacyDir}. Run openclaw doctor --fix on the original installation.`,
+              warning: `Legacy agent source is outside the copied state snapshot: ${source.legacyDir}. Run lanfu doctor --fix on the original installation.`,
             }
           : { status: "empty" as const }
         : inspectLegacyAgentDir(source.legacyDir);

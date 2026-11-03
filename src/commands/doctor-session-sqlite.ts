@@ -346,7 +346,7 @@ export async function runDoctorSessionSqlite(
             owner.retainedImportVerified ||= owner.verifiedSources !== undefined;
             owner.report.issues.push({
               code: "plugin_migration_source_retained",
-              message: `Plugin migration obligations changed before archival. Original session migration inputs remain pending for plugin(s): ${owner.deferredPluginIds.join(", ")}. Run openclaw doctor --fix after the plugin is available.`,
+              message: `Plugin migration obligations changed before archival. Original session migration inputs remain pending for plugin(s): ${owner.deferredPluginIds.join(", ")}. Run lanfu doctor --fix after the plugin is available.`,
             });
           }
         }
@@ -985,7 +985,7 @@ async function inspectOrMigrateTarget(params: {
             return report;
           }
           throw new Error(
-            `Deferred plugin session inputs have no verified source index: ${params.target.storePath}. Preserve the session files and migration archives; restore the matching sessions.json from a backup, then run openclaw doctor --fix.`,
+            `Deferred plugin session inputs have no verified source index: ${params.target.storePath}. Preserve the session files and migration archives; restore the matching sessions.json from a backup, then run lanfu doctor --fix.`,
           );
         }
         recordDeferredPluginSessionImport({

@@ -61,7 +61,7 @@ export async function reconcileGatewayServiceDefinition(params: {
     if (!command) {
       return deny("Gateway service definition could not be inspected; it was left unchanged.");
     }
-    const inspectHint = `Run ${formatCliCommand("openclaw gateway status --deep", params.env)} before retrying after the active maintenance or update finishes.`;
+    const inspectHint = `Run ${formatCliCommand("lanfu gateway status --deep", params.env)} before retrying after the active maintenance or update finishes.`;
     let keys: string[] = [];
     let preservePolicy: string[] = [];
     const transaction = await captureGatewayServiceDefinitionBackup({

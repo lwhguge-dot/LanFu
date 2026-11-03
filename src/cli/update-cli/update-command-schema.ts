@@ -193,7 +193,7 @@ export async function preflightUpdateCommandSchemas(params: {
           inspectedService.serviceUpdateVerdict.requiresInstallRootRefresh
         ) {
           preflightNotes.push(
-            `Gateway service targets ${inspectedService.serviceUpdateVerdict.root}; ${shouldRestart ? "would reconcile it with" : `restart is disabled; run ${formatCliCommand("openclaw doctor --fix", inspectedService.serviceEnv)} to reconcile it with`} the active installation ${root}.`,
+            `Gateway service targets ${inspectedService.serviceUpdateVerdict.root}; ${shouldRestart ? "would reconcile it with" : `restart is disabled; run ${formatCliCommand("lanfu doctor --fix", inspectedService.serviceEnv)} to reconcile it with`} the active installation ${root}.`,
           );
         }
       }

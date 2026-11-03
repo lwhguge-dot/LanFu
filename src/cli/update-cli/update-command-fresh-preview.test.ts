@@ -872,7 +872,7 @@ it.each([
               failureFacts: [
                 expect.objectContaining({
                   code,
-                  message: expect.stringContaining("openclaw update --tag"),
+                  message: expect.stringContaining("lanfu update --tag"),
                 }),
               ],
             }),

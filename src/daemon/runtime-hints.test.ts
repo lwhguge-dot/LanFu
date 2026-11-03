@@ -56,29 +56,29 @@ describe("buildPlatformServiceStartHints", () => {
     expect(
       buildPlatformServiceStartHints({
         platform: "darwin",
-        installHint: "openclaw gateway install",
-        startCommand: "openclaw gateway",
+        installHint: "lanfu gateway install",
+        startCommand: "lanfu gateway",
         launchAgentPlistPath: "~/Library/LaunchAgents/com.openclaw.gateway.plist",
         systemdServiceName: "openclaw-gateway",
         windowsTaskName: "OpenClaw Gateway",
       }),
     ).toEqual([
-      "openclaw gateway install",
-      "openclaw gateway",
+      "lanfu gateway install",
+      "lanfu gateway",
       "launchctl bootstrap gui/$UID ~/Library/LaunchAgents/com.openclaw.gateway.plist",
     ]);
     expect(
       buildPlatformServiceStartHints({
         platform: "linux",
-        installHint: "openclaw gateway install",
-        startCommand: "openclaw gateway",
+        installHint: "lanfu gateway install",
+        startCommand: "lanfu gateway",
         launchAgentPlistPath: "~/Library/LaunchAgents/com.openclaw.gateway.plist",
         systemdServiceName: "openclaw-gateway",
         windowsTaskName: "OpenClaw Gateway",
       }),
     ).toEqual([
-      "openclaw gateway install",
-      "openclaw gateway",
+      "lanfu gateway install",
+      "lanfu gateway",
       "systemctl --user start openclaw-gateway.service",
     ]);
   });

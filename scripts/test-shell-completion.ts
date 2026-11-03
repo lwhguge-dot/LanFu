@@ -95,7 +95,7 @@ function printHelp(): void {
 ${theme.heading("Shell Completion Test Script")}
 
 This script simulates the shell completion checks that run during
-\`openclaw update\`, \`openclaw doctor\`, and \`openclaw onboard\`.
+\`lanfu update\`, \`lanfu doctor\`, and \`lanfu onboard\`.
 
 ${theme.heading("Usage (run from repo root):")}
   node --import tsx scripts/test-shell-completion.ts [options]

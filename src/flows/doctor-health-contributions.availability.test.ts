@@ -16,7 +16,7 @@ afterEach(clearHealthChecksForTest);
 it("retains unavailable-plugin repair guidance in Doctor output and update warnings", async () => {
   const checkId = "core/doctor/codex-session-routes";
   const message =
-    'Plugin "codex" is unavailable: health API could not be verified. Run `openclaw doctor --fix`.';
+    'Plugin "codex" is unavailable: health API could not be verified. Run `lanfu doctor --fix`.';
   registerBundledHealthChecks.mockReturnValue([
     { checkId, source: "codex", severity: "warning", message },
   ]);

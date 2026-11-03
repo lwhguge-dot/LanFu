@@ -302,7 +302,7 @@ async function resumePostCoreUpdateInternal(params: ResumePostCoreUpdateParams):
             ...warnings.map((message) => ({
               reason: "doctor-advisory",
               message,
-              guidance: ["Run `openclaw doctor --fix` after repairing the plugin."],
+              guidance: ["Run `lanfu doctor --fix` after repairing the plugin."],
             })),
           );
           recordDoctorWarnings();

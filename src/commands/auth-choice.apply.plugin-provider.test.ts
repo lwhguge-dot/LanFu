@@ -420,7 +420,7 @@ describe("applyAuthChoiceLoadedPluginProvider", () => {
         ...buildParams({ config }),
         beforePersistentEffect,
       }),
-    ).rejects.toThrow("openclaw doctor --fix");
+    ).rejects.toThrow("lanfu doctor --fix");
     expect(run).not.toHaveBeenCalled();
     expect(persistAuthProfileBatch).not.toHaveBeenCalled();
     expect(ensureOnboardingPluginInstalled).not.toHaveBeenCalled();

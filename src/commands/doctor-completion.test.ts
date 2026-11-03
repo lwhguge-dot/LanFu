@@ -194,7 +194,7 @@ describe("shell completion health mapping", () => {
       expect.objectContaining({
         severity: "info",
         message: expect.stringContaining("cache is missing"),
-        fixHint: expect.stringContaining("openclaw doctor --fix"),
+        fixHint: expect.stringContaining("lanfu doctor --fix"),
       }),
     ]);
     expect(shellCompletionStatusToRepairEffects(current)).toEqual([
@@ -256,12 +256,12 @@ async function setupDoctorCompletionTest(usesSlowPattern: boolean) {
   if (usesSlowPattern) {
     await fs.writeFile(
       profilePath,
-      '# test bashrc\n[ -f "/tmp/nonexistent" ] && source <(openclaw completion bash)\n',
+      '# test bashrc\n[ -f "/tmp/nonexistent" ] && source <(lanfu completion bash)\n',
       "utf-8",
     );
     const cacheDir = path.join(stateDir, "completions");
     await fs.mkdir(cacheDir, { recursive: true });
-    await fs.writeFile(path.join(cacheDir, "openclaw.bash"), "# completion cache\n", "utf-8");
+    await fs.writeFile(path.join(cacheDir, "lanfu.bash"), "# completion cache\n", "utf-8");
   }
   return profilePath;
 }
@@ -287,7 +287,7 @@ describe("doctorShellCompletion", () => {
 
     await doctorShellCompletion(mockPrompter());
 
-    expect(installCompletionMock).toHaveBeenCalledWith("bash", true, "openclaw");
+    expect(installCompletionMock).toHaveBeenCalledWith("bash", true, "lanfu");
     expect(noteSpy).toHaveBeenCalledWith(
       expect.stringContaining("source ~/.bash_profile"),
       "Shell completion",
@@ -314,7 +314,7 @@ describe("doctorShellCompletion", () => {
 
     await doctorShellCompletion(mockPrompter());
 
-    expect(installCompletionMock).toHaveBeenCalledWith(testCase.shell, true, "openclaw");
+    expect(installCompletionMock).toHaveBeenCalledWith(testCase.shell, true, "lanfu");
     expect(noteSpy).toHaveBeenCalledWith(
       expect.stringContaining(`source '${path.join(configDir, testCase.profile)}'`),
       "Shell completion",
@@ -368,7 +368,7 @@ describe("doctorShellCompletion", () => {
 
     const command = formatCompletionReloadCommand(
       "bash",
-      resolveCompletionCachePath("bash", "openclaw"),
+      resolveCompletionCachePath("bash", "lanfu"),
     );
     expect(noteSpy).toHaveBeenCalledWith(expect.stringContaining(command), "Shell completion");
     expect(noteSpy).toHaveBeenCalledWith(

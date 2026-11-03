@@ -499,7 +499,7 @@ export async function resolveGlobalManager(params: {
       const reason = resolveUnmanagedUpdateInstallReason();
       throw new UpdatePreMutationError(
         reason,
-        "This LanFu installation is managed by Homebrew. To update LanFu, run:\n\n  brew upgrade openclaw-cli\n\nThen restart the gateway:\n\n  openclaw gateway restart",
+        "This LanFu installation is managed by Homebrew. To update LanFu, run:\n\n  brew upgrade openclaw-cli\n\nThen restart the gateway:\n\n  lanfu gateway restart",
         { failureFacts: [] },
       );
     }
@@ -532,7 +532,7 @@ export async function resolveGlobalManager(params: {
 
 const COMPLETION_CACHE_WRITE_TIMEOUT_MS = 30_000;
 const COMPLETION_CACHE_MANUAL_REFRESH_HINT =
-  "Shell tab-completion may be stale; refresh manually with: openclaw completion --write-state";
+  "Shell tab-completion may be stale; refresh manually with: lanfu completion --write-state";
 
 /** Best-effort refresh of shell completion state after a successful update. */
 export async function tryWriteCompletionCache(

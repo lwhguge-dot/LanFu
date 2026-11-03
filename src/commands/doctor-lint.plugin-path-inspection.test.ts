@@ -100,7 +100,7 @@ it.skipIf(process.platform === "win32").each([false, true])(
               severity: "warning",
               source: pluginPath,
               message: diagnostic.message,
-              fixHint: `Fix permissions on ${pluginPath}, then run \`openclaw doctor --fix\`.`,
+              fixHint: `Fix permissions on ${pluginPath}, then run \`lanfu doctor --fix\`.`,
             }),
           );
           vi.spyOn(exec, "runUtf8CommandWithTimeout").mockResolvedValue({
@@ -136,7 +136,7 @@ it.skipIf(process.platform === "win32").each([false, true])(
                 reason: diagnostic.code,
                 errorCode: "EACCES",
                 message: diagnostic.message,
-                guidance: [`Fix permissions on ${pluginPath}, then run \`openclaw doctor --fix\`.`],
+                guidance: [`Fix permissions on ${pluginPath}, then run \`lanfu doctor --fix\`.`],
               }),
             ],
           });

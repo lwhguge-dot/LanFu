@@ -112,9 +112,9 @@ describe("runDoctorConfigPreflight", () => {
         "Update history",
       );
       const output = noteMock.mock.calls.flat().join("\n");
-      expect(output).toContain("openclaw update status");
+      expect(output).toContain("lanfu update status");
       expect(output).toContain("Wait for the owning updater and its child processes to stop");
-      expect(output).toContain("openclaw update repair");
+      expect(output).toContain("lanfu update repair");
       expect(getUpdateRun(run.runId)).toEqual(finished);
     });
   });
@@ -124,7 +124,7 @@ describe("runDoctorConfigPreflight", () => {
       await writeOpenClawConfig(home, { gateway: { mode: "local" } });
       const run = createUpdateRun({ trigger: "cli" });
       const detail =
-        "Warning: Skipped derived cache cleanup: permission denied. Run openclaw doctor --fix.";
+        "Warning: Skipped derived cache cleanup: permission denied. Run lanfu doctor --fix.";
       recordUpdateRunStep(run.runId, {
         step: "warning:openclaw doctor",
         status: "completed",
@@ -146,7 +146,7 @@ describe("runDoctorConfigPreflight", () => {
       clock.mockReturnValue(now);
       await runDoctorConfigPreflight({ migrateState: false, migrateLegacyConfig: false });
       expect(noteMock).toHaveBeenCalledWith(
-        `Update ${run.runId}: no activity since ${new Date(inactiveAt).toISOString()}; if no update is running, run \`openclaw update repair\` or start a new \`openclaw update\``,
+        `Update ${run.runId}: no activity since ${new Date(inactiveAt).toISOString()}; if no update is running, run \`lanfu update repair\` or start a new \`lanfu update\``,
         "Update history",
       );
       expect(getUpdateRun(run.runId)).toEqual(run);
@@ -688,11 +688,11 @@ describe("runDoctorConfigPreflight", () => {
             "is not parseable and cannot be repaired automatically",
           );
           expect((failure as Error).message).toContain(
-            "openclaw --container repair-test config validate",
+            "lanfu --container repair-test config validate",
           );
           expect((failure as Error).message).toContain("hand-edit the file");
           expect((failure as Error).message).toContain("move it aside");
-          expect((failure as Error).message).toContain("openclaw --container repair-test onboard");
+          expect((failure as Error).message).toContain("lanfu --container repair-test onboard");
         }
       });
 

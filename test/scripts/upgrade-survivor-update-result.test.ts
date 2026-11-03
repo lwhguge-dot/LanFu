@@ -363,7 +363,7 @@ function deniedUpdate() {
         npm: { outcomes: [] as { status: string }[] },
         integrityDrifts: [] as string[],
         warnings: ["codex", "discord", "whatsapp"].map((id) => {
-          const message = `Plugin "${id}" requires capability consent. Use openclaw plugins install or openclaw plugins enable with --accept-capabilities, then retry.`;
+          const message = `Plugin "${id}" requires capability consent. Use lanfu plugins install or lanfu plugins enable with --accept-capabilities, then retry.`;
           return { reason: message, message };
         }),
       },
@@ -378,7 +378,7 @@ function deferredUpdate() {
     "Codex consent warning",
   );
   const reason = 'Plugin "codex" requires capability consent; rerun with --accept-capabilities.';
-  const message = `Plugin "codex" could not be processed after the core update: ${reason} Run openclaw update repair to retry post-update plugin repair. Run openclaw plugins inspect codex --runtime --json for details.`;
+  const message = `Plugin "codex" could not be processed after the core update: ${reason} Run lanfu update repair to retry post-update plugin repair. Run lanfu plugins inspect codex --runtime --json for details.`;
   const retained = `Kept installed plugin "codex"; replacement deferred. ${codexWarning.reason}`;
   return {
     ...update,
@@ -430,7 +430,7 @@ describe("published upgrade survivor consent recovery", () => {
     ),
   )("admits $pluginId fixture consent after a $status update", ({ pluginId, status }) => {
     const update = deniedUpdate();
-    const reason = `Plugin "${pluginId}" requires capability consent. Use openclaw plugins install or openclaw plugins enable with --accept-capabilities, then retry.`;
+    const reason = `Plugin "${pluginId}" requires capability consent. Use lanfu plugins install or lanfu plugins enable with --accept-capabilities, then retry.`;
     update.postUpdate.plugins.warnings.push({ reason, message: reason });
     const result = check({
       ...update,

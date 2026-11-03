@@ -178,7 +178,7 @@ describe("session sources needed by deferred plugin migrations", () => {
                   {
                     pluginId: "fixture-plugin",
                     reason: "Another Doctor found additional state migration work.",
-                    command: "openclaw doctor --fix",
+                    command: "lanfu doctor --fix",
                     requiresStateMigration: true,
                   },
                 ],
@@ -322,7 +322,7 @@ describe("session sources needed by deferred plugin migrations", () => {
               {
                 pluginId: "waiting-plugin",
                 reason: "Another plugin still needs the original session sources.",
-                command: "openclaw doctor --fix",
+                command: "lanfu doctor --fix",
               },
             ],
           });
@@ -403,7 +403,7 @@ describe("session sources needed by deferred plugin migrations", () => {
               {
                 pluginId: pendingChange === "plugin" ? "fixture-plugin" : "new-plugin",
                 reason: "A concurrent Doctor found additional migration work.",
-                command: "openclaw doctor --fix",
+                command: "lanfu doctor --fix",
                 requiresStateMigration: true,
               },
             ],
@@ -675,7 +675,7 @@ describe("session sources needed by deferred plugin migrations", () => {
           {
             pluginId: "fixture-plugin",
             reason: "Plugin is unavailable.",
-            command: "openclaw doctor --fix",
+            command: "lanfu doctor --fix",
           },
         ],
       });
@@ -716,7 +716,7 @@ describe("session sources needed by deferred plugin migrations", () => {
             {
               pluginId: "fixture-plugin",
               reason: "Plugin is unavailable.",
-              command: "openclaw doctor --fix",
+              command: "lanfu doctor --fix",
             },
           ],
         });

@@ -160,7 +160,7 @@ describe("current session ID entry reads", () => {
       .prepare("UPDATE session_nodes SET entry_json = ? WHERE session_key = ?")
       .run(JSON.stringify({ sessionId: "different", updatedAt: 1 }), scope.sessionKey);
     expect(() => loadSessionEntryByIdReadOnly({ ...scope, sessionId: "selected" })).toThrow(
-      "openclaw doctor --fix",
+      "lanfu doctor --fix",
     );
   });
 

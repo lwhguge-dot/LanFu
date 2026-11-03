@@ -127,7 +127,7 @@ function createPostPluginDoctorExecutionFailure(
       {
         reason,
         message: `Post-update plugin Doctor did not complete: ${reason}`,
-        guidance: ["Run `openclaw update repair` to retry post-update plugin repair."],
+        guidance: ["Run `lanfu update repair` to retry post-update plugin repair."],
       },
     ],
   };
@@ -363,7 +363,7 @@ export async function runUpdateFinalizationDoctorInFreshProcess(params: {
       return {
         reason: "doctor-advisory",
         message: `Post-update plugin Doctor did not complete${exitCode == null ? "" : ` (exit ${exitCode})`}: ${message}`,
-        guidance: ["Run `openclaw update repair` to retry post-update plugin repair."],
+        guidance: ["Run `lanfu update repair` to retry post-update plugin repair."],
       };
     }
     throw new UpdateDoctorError(message, failureFacts, { cause: error, exitCode });

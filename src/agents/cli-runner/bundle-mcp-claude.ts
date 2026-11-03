@@ -141,7 +141,7 @@ export async function writeClaudeMcpCaptureConfig(params: {
       withOpenClawMcpCaptureHeader(
         raw,
         params.captureKey,
-        "Claude MCP capture requires an openclaw server config",
+        "Claude MCP capture requires a lanfu server config",
       ),
       null,
       2,

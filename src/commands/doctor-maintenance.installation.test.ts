@@ -545,7 +545,7 @@ async function runInstallationCase(params: {
             expect.objectContaining({ check: "gateway-restoration", code }),
           ]);
           expect(maintenance?.warnings).toEqual([
-            expect.stringContaining("openclaw gateway install --force --port 19989"),
+            expect.stringContaining("lanfu gateway install --force --port 19989"),
           ]);
           expect(runtime.error).toHaveBeenCalledWith(expect.stringContaining(outcome));
           expect(mocks.health).not.toHaveBeenCalled();
@@ -585,7 +585,7 @@ async function runInstallationCase(params: {
           expect(command.programArguments[1]).toBe(path.join(oldRoot, "dist/index.js"));
           expect(maintenance?.warnings).toEqual([
             expect.stringContaining(
-              "Stopped service definitions are preserved; run `openclaw gateway install --force --port 19989` from the active CLI.",
+              "Stopped service definitions are preserved; run `lanfu gateway install --force --port 19989` from the active CLI.",
             ),
           ]);
           expect(maintenance?.warnings?.[0]).not.toContain("doctor --fix");

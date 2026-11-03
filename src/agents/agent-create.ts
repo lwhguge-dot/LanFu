@@ -202,7 +202,7 @@ async function evaluateMainCreationGate(
     const details = migration.outcomes.map(describeLegacySessionOutcome).join("; ");
     return createError(
       "legacy-session-migration-required",
-      `Cannot create agent "main": ${details}. Run openclaw doctor --fix, then retry.`,
+      `Cannot create agent "main": ${details}. Run lanfu doctor --fix, then retry.`,
       agentId,
     );
   }
@@ -210,7 +210,7 @@ async function evaluateMainCreationGate(
   if (resolveSharedAuthStoreOwnership().location !== "state-db") {
     return createError(
       "shared-auth-store-owned-by-main",
-      'Cannot create agent "main" while agents/main/agent owns the shared auth store. Run openclaw doctor --fix to relocate shared auth, then retry.',
+      'Cannot create agent "main" while agents/main/agent owns the shared auth store. Run lanfu doctor --fix to relocate shared auth, then retry.',
       agentId,
     );
   }

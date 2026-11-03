@@ -41,7 +41,7 @@ describe("gateway suspend CLI", () => {
       expect(runtime.log).toHaveBeenCalledWith(
         `Expires: 2026-08-11T12:00:00.000Z (${readyResult.expiresAtMs} ms)`,
       );
-      expect(runtime.log).toHaveBeenCalledWith("Resume with: openclaw gateway resume suspension-1");
+      expect(runtime.log).toHaveBeenCalledWith("Resume with: lanfu gateway resume suspension-1");
     },
   );
 
@@ -66,35 +66,35 @@ describe("gateway suspend CLI", () => {
       rpcOpts: {},
       profile: "",
       container: "",
-      command: "openclaw gateway resume suspension-1",
+      command: "lanfu gateway resume suspension-1",
     },
     {
       name: "custom local port",
       rpcOpts: { localPortOverride: 18999 },
       profile: "",
       container: "",
-      command: "openclaw gateway resume suspension-1 --port 18999",
+      command: "lanfu gateway resume suspension-1 --port 18999",
     },
     {
       name: "named profile and custom local port",
       rpcOpts: { localPortOverride: 18999 },
       profile: "work",
       container: "",
-      command: "openclaw --profile work gateway resume suspension-1 --port 18999",
+      command: "lanfu --profile work gateway resume suspension-1 --port 18999",
     },
     {
       name: "container takes precedence over profile",
       rpcOpts: { localPortOverride: 18999 },
       profile: "work",
       container: "demo",
-      command: "openclaw --container demo gateway resume suspension-1 --port 18999",
+      command: "lanfu --container demo gateway resume suspension-1 --port 18999",
     },
     {
       name: "explicit URL and credentials remain private",
       rpcOpts: { url: "wss://gateway.example:19444", token: "opaque-credential" },
       profile: "",
       container: "",
-      command: "openclaw gateway resume suspension-1",
+      command: "lanfu gateway resume suspension-1",
     },
   ])(
     "prints a correctly scoped resume hint for $name",

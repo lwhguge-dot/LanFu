@@ -223,7 +223,7 @@ it.each([
         publish,
       ),
     ).rejects.toThrow(
-      /affected Gateway.*openclaw gateway status --deep.*openclaw gateway stop.*retry the update/,
+      /affected Gateway.*lanfu gateway status --deep.*lanfu gateway stop.*retry the update/,
     );
     expect(publish).not.toHaveBeenCalled();
   }),

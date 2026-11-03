@@ -308,7 +308,7 @@ describe("plugin state open errors", () => {
           code: "PLUGIN_STATE_OPEN_FAILED",
           path: databasePath,
           message:
-            "Failed to open the plugin state database.\nDatabase integrity verification failed. Restore or repair the state database, then run openclaw doctor --fix.",
+            "Failed to open the plugin state database.\nDatabase integrity verification failed. Restore or repair the state database, then run lanfu doctor --fix.",
         });
       }
     } finally {

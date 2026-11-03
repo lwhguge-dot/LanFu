@@ -142,7 +142,7 @@ export function relaunchGatewayScheduledTask(env: NodeJS.ProcessEnv = process.en
           taskScriptPath,
           port,
           entryPath,
-          recoveryCommand: formatCliCommand("openclaw gateway restart --force", env),
+          recoveryCommand: formatCliCommand("lanfu gateway restart --force", env),
         })}\r\n`,
       }),
     );

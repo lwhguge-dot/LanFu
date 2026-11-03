@@ -164,9 +164,9 @@ const RECOVERABLE_UPDATE = {
       warnings: [
         {
           reason:
-            'Plugin "discord" requires capability consent. Use openclaw plugins install or openclaw plugins enable with --accept-capabilities, then retry.',
+            'Plugin "discord" requires capability consent. Use lanfu plugins install or lanfu plugins enable with --accept-capabilities, then retry.',
           message:
-            'Plugin "discord" requires capability consent. Use openclaw plugins install or openclaw plugins enable with --accept-capabilities, then retry.',
+            'Plugin "discord" requires capability consent. Use lanfu plugins install or lanfu plugins enable with --accept-capabilities, then retry.',
         },
         {
           reason: "Config remained invalid after updated plugin migrations.",
@@ -268,8 +268,8 @@ function missingCodexUpdateResult(source: "npm" | "clawhub" | "fallback") {
           pluginId: "codex",
           reason: message,
           message:
-            'Plugin "codex" could not be updated. Run `openclaw plugins update codex` to retry.',
-          guidance: ["openclaw plugins update codex"],
+            'Plugin "codex" could not be updated. Run `lanfu plugins update codex` to retry.',
+          guidance: ["lanfu plugins update codex"],
         })),
         sync: { errors },
         npm: { outcomes },
@@ -755,7 +755,7 @@ describe("upgrade recovery result assertions", () => {
         .status,
     ).toBe(0);
     const consentError =
-      'Plugin "discord" requires capability consent. Use openclaw plugins install or openclaw plugins enable with --accept-capabilities, then retry.';
+      'Plugin "discord" requires capability consent. Use lanfu plugins install or lanfu plugins enable with --accept-capabilities, then retry.';
     const consentOutcome = {
       pluginId: "discord",
       status: "error",
@@ -1303,8 +1303,8 @@ function assertCompanionPluginRecords(
           plugins: {
             ...RECOVERABLE_UPDATE.postUpdate.plugins,
             warnings: recoveryPluginIds.map((pluginId) => ({
-              reason: `Plugin "${pluginId}" requires capability consent. Use openclaw plugins install or openclaw plugins enable with --accept-capabilities, then retry.`,
-              message: `Plugin "${pluginId}" requires capability consent. Use openclaw plugins install or openclaw plugins enable with --accept-capabilities, then retry.`,
+              reason: `Plugin "${pluginId}" requires capability consent. Use lanfu plugins install or lanfu plugins enable with --accept-capabilities, then retry.`,
+              message: `Plugin "${pluginId}" requires capability consent. Use lanfu plugins install or lanfu plugins enable with --accept-capabilities, then retry.`,
             })),
           },
         },

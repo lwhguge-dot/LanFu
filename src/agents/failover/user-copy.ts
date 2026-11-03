@@ -43,7 +43,7 @@ export const AUTH_INVALID_TOKEN_USER_TEXT =
   "If the failure persists, re-authenticate this provider.";
 const SELECTED_AUTH_PROFILE_UNAVAILABLE_USER_TEXT =
   "The selected auth profile is unavailable in this agent's LanFu credential store. " +
-  "Import or migrate that credential into the agent, select another configured profile, or run `openclaw configure`, then retry.";
+  "Import or migrate that credential into the agent, select another configured profile, or run `lanfu configure`, then retry.";
 export const renderFailoverCodeUserCopy = (code: unknown): string | undefined =>
   code === "selected_auth_profile_unavailable"
     ? SELECTED_AUTH_PROFILE_UNAVAILABLE_USER_TEXT
@@ -505,7 +505,7 @@ export function renderMissingApiKeyReplyCopy(params?: {
     return "⚠️ Missing API key for OpenAI on the gateway. Use `openai/gpt-6-astra` with the OpenAI OAuth profile, or set `OPENAI_API_KEY` for direct OpenAI API-key runs.";
   }
   if (provider === "openai") {
-    return '⚠️ Missing API key for provider "openai". Run `openclaw doctor --fix` to repair stale OpenAI model/session routes, restart the gateway if doctor asks, then try again. If doctor has nothing to repair or the error persists, re-auth with `openclaw models auth login --provider openai` or run `openclaw configure`.';
+    return '⚠️ Missing API key for provider "openai". Run `lanfu doctor --fix` to repair stale OpenAI model/session routes, restart the gateway if doctor asks, then try again. If doctor has nothing to repair or the error persists, re-auth with `lanfu models auth login --provider openai` or run `lanfu configure`.';
   }
   return SAFE_MISSING_API_KEY_PROVIDERS.has(provider)
     ? `⚠️ Missing API key for provider "${provider}". Configure the gateway auth for that provider, then try again.`
@@ -637,7 +637,7 @@ export function renderAuthProfileFailoverCopy(params: AuthProfileFailureCopyPara
   return `${[description, hint].filter(Boolean).join(" ")}${suffix}`;
 }
 
-const CONTROL_UI_LOG_HINT = "To view logs, run `openclaw logs --follow` in a terminal.";
+const CONTROL_UI_LOG_HINT = "To view logs, run `lanfu logs --follow` in a terminal.";
 
 export function renderControlUiAgentFailureCopy(errorText: string): string {
   return `⚠️ Agent failed before reply: ${errorText.trim().replace(/\.\s*$/, "")}.\n${CONTROL_UI_LOG_HINT}`;

@@ -45,7 +45,7 @@ async function assertArtifactConfigPublicationSupported(): Promise<void> {
     (Object.hasOwn(parsed, "$include") || containsConfigIncludeDirective(parsed.plugins))
   ) {
     throw new Error(
-      `${GUARDED_CONFIG_INCLUDE_WRITE_ERROR} Install the reviewed archive with openclaw plugins install.`,
+      `${GUARDED_CONFIG_INCLUDE_WRITE_ERROR} Install the reviewed archive with lanfu plugins install.`,
     );
   }
 }
@@ -116,7 +116,7 @@ async function prunePendingArtifacts(
 async function readVerifiedArtifact(filePath: string, sha256: string): Promise<Buffer> {
   if (!path.isAbsolute(filePath) || !/\.(?:tgz|tar\.gz)$/u.test(filePath)) {
     throw new Error(
-      "Plugin artifact path must be an absolute .tgz or .tar.gz file from openclaw plugins pack.",
+      "Plugin artifact path must be an absolute .tgz or .tar.gz file from lanfu plugins pack.",
     );
   }
   const source = await root(path.dirname(filePath), {
@@ -143,7 +143,7 @@ async function inspectArtifact(rootDir: string): Promise<ArtifactReview> {
     const value = packageJson[field];
     if (value !== undefined && (!isRecord(value) || Object.keys(value).length > 0)) {
       throw new Error(
-        `Plugin artifacts cannot contain ${field}. Use openclaw plugins pack to bundle the plugin first.`,
+        `Plugin artifacts cannot contain ${field}. Use lanfu plugins pack to bundle the plugin first.`,
       );
     }
   }

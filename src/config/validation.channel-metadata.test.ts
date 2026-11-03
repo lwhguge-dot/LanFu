@@ -921,7 +921,7 @@ describe("validateConfigObjectRawWithPlugins channel metadata", () => {
         }),
       );
       expect(result.issues[0]?.message).not.toContain("Telegram groups");
-      expect(result.issues[0]?.message).not.toContain("openclaw doctor --fix");
+      expect(result.issues[0]?.message).not.toContain("lanfu doctor --fix");
     }
   });
 });

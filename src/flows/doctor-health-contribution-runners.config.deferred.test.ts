@@ -62,7 +62,7 @@ describe("Doctor config persistence after deferred migrations", () => {
                 {
                   pluginId: "codex",
                   reason: "The configured plugin is not available.",
-                  command: "openclaw doctor --fix",
+                  command: "lanfu doctor --fix",
                   configPaths: [["plugins", "entries", "codex", "config"]],
                 },
               ],

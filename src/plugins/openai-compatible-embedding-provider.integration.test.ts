@@ -299,7 +299,7 @@ describe("OpenAI-compatible embedding destination credential ownership", () => {
             } else {
               await expect.soft(embed()).rejects.toMatchObject({
                 code: "AUTH_PROFILE_MIGRATION_REQUIRED",
-                action: "openclaw doctor --fix",
+                action: "lanfu doctor --fix",
               });
               expect(requests).toEqual([]);
             }

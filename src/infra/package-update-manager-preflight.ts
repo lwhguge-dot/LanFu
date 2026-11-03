@@ -214,8 +214,8 @@ async function permissionFailure(
       : `owner UID ${stat.uid}${stat.uid === 0 ? " (root)" : ""}, GID ${stat.gid}`;
   const repair =
     process.platform !== "win32" && stat && stat.uid === process.getuid?.()
-      ? `Run \`chmod u+rwx ${quoteCliArg(directory)}\`, then rerun \`openclaw update\`.`
-      : "Run the package update as the directory's owning account, keeping the Gateway's existing state/configuration; or ask that account to grant you write access, then rerun `openclaw update`.";
+      ? `Run \`chmod u+rwx ${quoteCliArg(directory)}\`, then rerun \`lanfu update\`.`
+      : "Run the package update as the directory's owning account, keeping the Gateway's existing state/configuration; or ask that account to grant you write access, then rerun `lanfu update`.";
   const message = `Package update cannot write ${directory} (${code}; ${owner}). ${repair}`;
   return {
     ...step,

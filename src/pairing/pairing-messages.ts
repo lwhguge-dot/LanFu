@@ -10,7 +10,7 @@ export function buildPairingReply(params: {
   code: string;
 }): string {
   const { channel, idLine, code } = params;
-  const approveCommand = formatCliCommand(`openclaw pairing approve ${channel} ${code}`);
+  const approveCommand = formatCliCommand(`lanfu pairing approve ${channel} ${code}`);
   return [
     "LanFu: access not configured.",
     "",

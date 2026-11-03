@@ -35,7 +35,7 @@ describe.each([
 
   async function runFailure(unavailable: boolean) {
     const original = new Error(
-      "OpenClaw agent database /state/agents/main/agent.sqlite uses schema version 19; stop active agents and run openclaw doctor --fix to migrate session identities before using it.",
+      "LanFu agent database /state/agents/main/agent.sqlite uses schema version 19; stop active agents and run lanfu doctor --fix to migrate session identities before using it.",
     );
     mocks.scan.mockRejectedValue(original);
     mocks.overview.mockRejectedValue(original);

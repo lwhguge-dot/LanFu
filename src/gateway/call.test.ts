@@ -1891,7 +1891,7 @@ describe("buildGatewayConnectionDetails", () => {
     expect((thrown as Error).message).toContain("plaintext ws://");
     expect((thrown as Error).message).toContain("wss://");
     expect((thrown as Error).message).toContain("Tailscale Serve/Funnel");
-    expect((thrown as Error).message).toContain("openclaw doctor --fix");
+    expect((thrown as Error).message).toContain("lanfu doctor --fix");
   });
 
   it("redacts credential-bearing target URLs from insecure ws:// errors", () => {
@@ -2155,7 +2155,7 @@ describe("callGateway error details", () => {
       const message = (error as Error).message;
       expect(message).toContain(`Gateway not reachable at ws://127.0.0.1:18789 (${code}).`);
       expect(message).toContain(
-        "Start it with `openclaw gateway run` or check `openclaw gateway status`.",
+        "Start it with `lanfu gateway run` or check `lanfu gateway status`.",
       );
       expect(message).not.toContain(`connect ${code}`);
     },
@@ -2309,7 +2309,7 @@ describe("callGateway error details", () => {
       "Connection dropped without a close frame (retry; check network and gateway load)",
     );
     expect(message).not.toContain("crashed or was terminated unexpectedly");
-    expect(message).toContain("Run `openclaw doctor`");
+    expect(message).toContain("Run `lanfu doctor`");
   });
 
   it("formats typed request errors for CLI JSON output", () => {

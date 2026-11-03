@@ -147,7 +147,7 @@ export function recordServiceReconciliationWarnings(
   assertCurrent();
   const step = {
     name: "managed-service-reconciliation",
-    command: "openclaw gateway install --force",
+    command: "lanfu gateway install --force",
     cwd: result.root ?? "",
     durationMs: 0,
     exitCode: 0,
@@ -177,7 +177,7 @@ export function prepareUpdateServiceResult(
   if (verdict?.kind === "unavailable") {
     params.result.steps.push({
       name: "managed-service",
-      command: formatCliCommand("openclaw gateway status --deep", serviceEnv),
+      command: formatCliCommand("lanfu gateway status --deep", serviceEnv),
       cwd: params.root,
       durationMs: 0,
       exitCode: 0,
@@ -255,7 +255,7 @@ export function createUpdateCommandFailureResult(
   const failedStep: UpdateStepResult = {
     name:
       preMutationFailure || pkgOwnershipFailure || admissionFailure ? reason : (phase ?? "update"),
-    command: "openclaw update",
+    command: "lanfu update",
     cwd: result.root ?? process.cwd(),
     durationMs: result.durationMs,
     exitCode: 1,
@@ -356,7 +356,7 @@ export async function withUpdateAdmissionReporting<T>(
     const message =
       error instanceof FreeBsdPkgOwnershipError
         ? error.message
-        : `${error.message} Run \`openclaw gateway status --deep\` from the service's owning account before retrying.`;
+        : `${error.message} Run \`lanfu gateway status --deep\` from the service's owning account before retrying.`;
     if (opts.json) {
       defaultRuntime.error(message);
     }

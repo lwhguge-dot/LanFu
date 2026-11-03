@@ -197,7 +197,7 @@ it("refuses retired node-host files before admitting a read", async () => {
   fs.writeFileSync(path.join(root, "node.json"), "{}\n");
   const execute = vi.spyOn(stateReads, "executeExistingOpenClawStateRead");
   for (const read of readers) {
-    await expect(read(env)).rejects.toThrow("openclaw doctor --fix");
+    await expect(read(env)).rejects.toThrow("lanfu doctor --fix");
   }
   expect(execute).not.toHaveBeenCalled();
 });
