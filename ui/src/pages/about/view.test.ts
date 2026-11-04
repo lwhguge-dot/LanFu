@@ -49,7 +49,9 @@ describe("renderAbout", () => {
     expect(hero?.querySelector(".about-hero__name")?.textContent).toBe("LanFu");
     expect(hero?.querySelector(".about-hero__version")?.textContent).toBe("v0.4.34");
     // The upstream line must come from build identity, not a hardcoded version string.
-    expect(hero?.querySelector(".about-hero__upstream")?.textContent).toBe(
+    // Trim: the rendered text may carry surrounding template whitespace depending on the
+    // lit-html version's text-node handling; the visible line itself is what matters.
+    expect(hero?.querySelector(".about-hero__upstream")?.textContent?.trim()).toBe(
       "Built on core 2026.7.10",
     );
     expect(hero?.querySelector(".about-hero__clawd lanfu-mark")).not.toBeNull();
