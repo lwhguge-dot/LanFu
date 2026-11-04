@@ -105,8 +105,8 @@ describe("skills-cli", () => {
       for (const output of outputs) {
         expect(() => JSON.parse(output)).not.toThrow();
         expect(output).not.toContain("Tip:");
-        expect(output).not.toContain("openclaw --profile");
-        expect(output).not.toContain("openclaw --container");
+        expect(output).not.toContain("lanfu --profile");
+        expect(output).not.toContain("lanfu --container");
       }
     });
   });

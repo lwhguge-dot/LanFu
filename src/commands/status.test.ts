@@ -1187,7 +1187,7 @@ describe("statusCommand", () => {
     ]);
     const logs = await runStatusAndGetLogs({ verbose: true });
     for (const token of [
-      "OpenClaw status",
+      "LanFu status",
       "Overview",
       "Security audit",
       "Skipped in fast status",
@@ -1211,7 +1211,7 @@ describe("statusCommand", () => {
       expectLogsInclude(logs, token);
     }
     expectLogsInclude(logs, "legacy-plugin is hook-only");
-    expectLogsMatch(logs, /openclaw (?:--profile isolated )?status --all/);
+    expectLogsMatch(logs, /lanfu (?:--profile isolated )?status --all/);
     expectLogsInclude(logs, "Cache");
     expectLogsInclude(logs, "40% hit");
     expectLogsInclude(logs, "read 2.0k");

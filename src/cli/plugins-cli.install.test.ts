@@ -2944,10 +2944,10 @@ describe("plugins cli install", () => {
   });
 
   it.each([
-    ["default", undefined, undefined, "openclaw"],
-    ["profile", "work", undefined, "openclaw --profile work"],
-    ["container", undefined, "demo", "openclaw --container demo"],
-    ["container before profile", "work", "demo", "openclaw --container demo"],
+    ["default", undefined, undefined, "lanfu"],
+    ["profile", "work", undefined, "lanfu --profile work"],
+    ["container", undefined, "demo", "lanfu --container demo"],
+    ["container before profile", "work", "demo", "lanfu --container demo"],
   ] as const)(
     "preserves %s context in duplicate-install recovery guidance",
     async (_name, profile, container, prefix) => {

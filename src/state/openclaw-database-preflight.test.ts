@@ -400,7 +400,7 @@ describe("LanFu database schema preflight", () => {
             failures: [],
             warnings: [
               expect.stringContaining(
-                `Held agent main database ${agent.path} (deletion journal unavailable); run openclaw doctor --fix`,
+                `Held agent main database ${agent.path} (deletion journal unavailable); run lanfu doctor --fix`,
               ),
             ],
           }),
